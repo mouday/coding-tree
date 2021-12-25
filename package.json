@@ -1,0 +1,21 @@
+{
+  "name": "spring-boot-demo",
+  "version": "1.0.0",
+  "description": "项目地址：",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "dev": "docsify serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mouday/Spring-Boot-Demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mouday/Spring-Boot-Demo/issues"
+  },
+  "homepage": "https://github.com/mouday/Spring-Boot-Demo#readme"
+}

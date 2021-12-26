@@ -25,3 +25,21 @@
 [peewee](http://docs.peewee-orm.com/en/latest/index.html)
 
 [PyMongo](https://docs.mongodb.com/drivers/pymongo/)
+
+[authlib](https://docs.authlib.org/en/latest/)
+
+[pyjwt](https://pyjwt.readthedocs.io/en/latest/)
+
+[jieba](https://github.com/fxsjy/jieba)
+
+- [简明 jieba 中文分词教程](https://www.jianshu.com/p/883c2171cdb5)
+- [NLP 第 2 课：中文分词利器 jieba 和 HanLP](https://www.jianshu.com/p/009671e56027)
+
+[pyhanlp](https://github.com/hankcs/pyhanlp)
+
+- [hanlp 的基本使用--python(自然语言处理)](https://www.cnblogs.com/ybf-yyj/p/7801429.html)
+- [自然语言处理之 hanlp，Python 调用与构建，分词、关键词提取、命名主体识别](https://blog.csdn.net/HHTNAN/article/details/81908451)
+
+Celery
+
+- [异步任务（Celery）详解 ](https://www.cnblogs.com/skyflask/p/9865378.html)

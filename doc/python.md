@@ -43,3 +43,13 @@
 Celery
 
 - [异步任务（Celery）详解 ](https://www.cnblogs.com/skyflask/p/9865378.html)
+
+[scrapyd](https://scrapyd.readthedocs.io/en/stable/index.html)
+
+[apscheduler](https://apscheduler.readthedocs.io/en/latest/index.html)
+
+[six](https://six.readthedocs.io/)
+
+[virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/)
+
+[supervisord](http://www.supervisord.org/index.html)

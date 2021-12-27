@@ -6,6 +6,15 @@
 
 2021-12-23 [PubSubJS：用 JavaScript 编写的基于主题的发布/订阅库](https://pengshiyu.blog.csdn.net/article/details/122100104)
 
+[BootCDN 稳定、快速、免费的前端开源项目 CDN 加速服务](https://www.bootcdn.cn/)
+
+## 第三方库
+
+[vue.js](https://cn.vuejs.org/v2/guide/)
+
+[element-ui](https://element.eleme.cn/#/zh-CN/component/installation)
+
+[alasql](http://alasql.org/)
 
 ## Node.js
 

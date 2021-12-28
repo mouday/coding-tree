@@ -2,8 +2,9 @@
 
 ![](img/logo.png)
 
-国际地址：https://mouday.github.io/coding-tree/
-国内镜像：https://mouday.gitee.io/coding-tree/
+- 国际地址：https://mouday.github.io/coding-tree/
+
+- 国内镜像：https://mouday.gitee.io/coding-tree/
 
 学习的过程，就像是心中有一颗好奇的种子
 

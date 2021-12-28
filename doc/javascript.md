@@ -8,6 +8,10 @@
 
 [BootCDN 稳定、快速、免费的前端开源项目 CDN 加速服务](https://www.bootcdn.cn/)
 
+[http://www.json.org/](http://www.json.org/)
+
+[https://jekyllthemes.io/](https://jekyllthemes.io/)
+
 ## 第三方库
 
 [vue.js](https://cn.vuejs.org/v2/guide/)

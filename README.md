@@ -6,7 +6,7 @@
 
 - 国内镜像：https://mouday.gitee.io/coding-tree/
 
-学习的过程，就像是心中有一颗好奇的种子
+学习的过程，就像是培育一个树苗
 
 小种子生根发芽，茁壮成长
 
@@ -16,20 +16,19 @@
 
 涓涓细流，终汇大海
 
-编程学习工作中学习到的知识整理，好文收录
+本站点是个人用于编程学习工作中学习到的知识整理，好文收录
 
-阅读地址：[https://mouday.github.io/coding-tree/](https://mouday.github.io/coding-tree/)
+## 个人站点
 
-[程序员导航](https://mouday.github.io/hao123/)
+整理学习资源及笔记
 
-[个人博客：www.pengshiyu.com](https://www.pengshiyu.com/)
+- [程序员导航](https://mouday.github.io/hao123/)
+
+- 个人博客：[www.pengshiyu.com](https://www.pengshiyu.com/)
 
 本地预览
 
 ```bash
-docsify serve
-
-# 或者
 npm run dev
 ```
 

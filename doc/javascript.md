@@ -16,9 +16,16 @@
 
 [vue.js](https://cn.vuejs.org/v2/guide/)
 
-[element-ui](https://element.eleme.cn/#/zh-CN/component/installation)
+- [element-ui](https://element.eleme.cn/#/zh-CN/component/installation): 一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库
+- [vColorPicker](http://vue-color-picker.rxshc.com/): 基于 Vue 的颜色选择器插件
+
+[React.js](https://reactjs.org/): A JavaScript library for building user interfaces
+
+- [Ant Design](https://ant.design/index-cn): 一套企业级 UI 设计语言和 React 组件库
 
 [alasql](http://alasql.org/)
+
+[xijs](http://h5.dooring.cn/xijs/): 一款面向复杂业务场景的 javascript 工具库
 
 ## Node.js
 

@@ -18,12 +18,17 @@
 </head>
 
 <body>
-    <div id="app"></div>
+    <div id="app">Please wait...</div>
+
     <script>
         window.$docsify = {
             name: 'Coding Tree',
             loadSidebar: true,
+            // loadNavbar: true,
             repo: 'mouday/coding-tree',
+            alias: {
+                '/.*/_sidebar.md': '/_sidebar.md'
+            },
             //搜索插件
             search: {
                 placeholder: '搜索',

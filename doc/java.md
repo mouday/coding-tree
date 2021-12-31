@@ -15,3 +15,5 @@
 [JavaFX的几个新特性，让Swing彻底过时](https://zhuanlan.zhihu.com/p/28540820)
 
 [JavaFX Material Design Library](https://github.com/sshahine/JFoenix)
+
+[maven+IDEA+JavaFX+JFoenix](https://www.jianshu.com/p/a01a0e027f09)

@@ -16,10 +16,7 @@
 
 [ECMAScript 6 入门 Promise 对象](https://es6.ruanyifeng.com/#docs/promise)
 
-
-
 [https://www.ecma-international.org/](https://www.ecma-international.org/)
-
 
 ## 第三方库
 
@@ -37,15 +34,22 @@
 [xijs](http://h5.dooring.cn/xijs/): 一款面向复杂业务场景的 javascript 工具库
 
 [jQuery](https://jquery.com/)
+
 - [jQuery 教程](https://www.w3school.com.cn/jquery/index.asp): 极大地简化了 JavaScript 编程
-- [Jquery EasyUI](https://www.jeasyui.net/): 帮助web开发者更轻松的打造出功能丰富并且美观的UI界面
-- [bxslider](https://bxslider.com/): Add a slider to any webpage.
--[jQuery插件库](https://www.jq22.com/): 收集最全最新最好的jQuery插件
-- [jQuery jsonp跨域请求](https://www.cnblogs.com/chiangchou/p/jsonp.html)
-[jquery和vue对比](https://www.cnblogs.com/MR-YY/p/6898464.html)
+- [Jquery EasyUI](https://www.jeasyui.net/): 帮助 web 开发者更轻松的打造出功能丰富并且美观的 UI 界面
+- [bxslider](https://bxslider.com/): Add a slider to any webpage. -[jQuery 插件库](https://www.jq22.com/): 收集最全最新最好的 jQuery 插件
+- [jQuery jsonp 跨域请求](https://www.cnblogs.com/chiangchou/p/jsonp.html)
+- [jquery 和 vue 对比](https://www.cnblogs.com/MR-YY/p/6898464.html)
+- [jQuery 之家 ](http://www.htmleaf.com/): 免费提供各种前端开发所需要的 JQUERY、HTML5、CSS3 等优质插件素材
 
 [Apache ECharts](https://echarts.apache.org/zh/index.html): 一个基于 JavaScript 的开源可视化图表库
+
+- [ECharts 示例](https://echarts.apache.org/examples/zh/index.html)
+
+[UIkit](https://getuikit.com/): A lightweight and modular front-end framework for developing fast and powerful web interfaces.
 
 ## Node.js
 
 https://npm.devtool.tech/
+
+[ionic 教程](https://www.runoob.com/ionic/ionic-tutorial.html): 一个强大的 HTML5 应用程序开发框架(HTML5 Hybrid Mobile App Framework )

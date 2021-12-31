@@ -19,6 +19,7 @@
 [用 Python 做自然语言处理必知的八个工具](https://mp.weixin.qq.com/s/UUgXV20ojMnd77aMQgiFPw)
 
 [推荐系统 RecommenderSystems](https://github.com/apachecn/RecommenderSystems): 推荐系统基本知识，相关算法以及实现
+
 ## 第三方库
 
 [NumPy 中文](https://www.numpy.org.cn/) | [NumPys](http://www.numpy.org/)
@@ -54,3 +55,11 @@ Celery
 [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/)
 
 [supervisord](http://www.supervisord.org/index.html)
+
+## 爬虫
+
+[云立方](https://www.yunlifang.cn/): 动态 VPS
+
+[快代理](https://www.kuaidaili.com/free/intr/)
+
+[六六代理](http://www.66ip.cn/)

@@ -31,3 +31,7 @@
 [https://github.com/johnpolacek/Responsivator](https://github.com/johnpolacek/Responsivator)
 
 [MkDocs](https://www.mkdocs.org/) | [github/mkdocs](https://github.com/mkdocs/mkdocs/): 基于 Python，Project documentation with Markdown.
+
+Logo：https://www.logoly.pro/
+
+docsify：https://docsify.js.org/

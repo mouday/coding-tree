@@ -6,6 +6,8 @@
 
 - 国内镜像：https://mouday.gitee.io/coding-tree/
 
+## 前言
+
 学习的过程，就像是培育一个树苗
 
 小种子生根发芽，茁壮成长
@@ -22,13 +24,17 @@
 
 整理学习资源及笔记
 
+- [www.pengshiyu.com](https://www.pengshiyu.com/): 个人博客,基本没啥文章
+
+- [CSDN](https://blog.csdn.net/mouday)
+
 - [程序员导航](https://mouday.github.io/hao123/)
 
-- 个人博客：[www.pengshiyu.com](https://www.pengshiyu.com/)
-
-- [前端的一些在线 Demo](https://mouday.github.io/front-end-demo/)
+- [前端演示的一些在线 Demo](https://mouday.github.io/front-end-demo/)
 
 - [学习笔记](https://mouday.github.io/LearningNote/)
+
+- [SpringBoot Demo](https://mouday.github.io/Spring-Boot-Demo/#/)
 
 本地预览
 
@@ -37,8 +43,3 @@ npm run dev
 ```
 
 ![](https://api.isoyu.com/bing_images.php)
-
-## 鸣谢
-
-- Logo：https://www.logoly.pro/
-- docsify：https://docsify.js.org/

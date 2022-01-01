@@ -28,6 +28,8 @@
 
 - [前端的一些在线 Demo](https://mouday.github.io/front-end-demo/)
 
+- [学习笔记](https://mouday.github.io/LearningNote/)
+
 本地预览
 
 ```bash

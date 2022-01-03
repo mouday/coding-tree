@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        button {
+            width: 60px;
+            height: 30px;
+            cursor: pointer;
+        }
+    </style>
+
+    <div id="app">
+        <p>{{count}}</p>
+        <button @click="handleClick(1)"> +1 </button>
+        <button @click="handleClick(-1)"> -1 </button>
+    </div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+    <script>
+        console.log("[Docsify Example] : This is a script in a gist");
+    </script>
+
+    <script>
+        console.log('hi')
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    count: 0
+                }
+            },
+            methods: {
+                handleClick(val) {
+                    this.count += val;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 {
-  "name": "spring-boot-demo",
+  "name": "coding-tree",
   "version": "1.0.0",
-  "description": "项目地址：",
+  "description": "",
   "main": "index.js",
   "private": true,
   "scripts": {
@@ -9,13 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mouday/Spring-Boot-Demo.git"
+    "url": "git+https://github.com/mouday/coding-tree.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mouday/Spring-Boot-Demo/issues"
+    "url": "https://github.com/mouday/coding-tree/issues"
   },
-  "homepage": "https://github.com/mouday/Spring-Boot-Demo#readme"
+  "homepage": "https://github.com/mouday/coding-tree#readme"
 }

@@ -4,6 +4,8 @@
   - [Javascript](doc/javascript.md)
   - [Css](doc/css.md)
   - [Canvas](doc/canvas.md)
+  - [微信小程序](doc/miniprogram.md)
+  - [Vue.js](doc/vue.md)
 
 - 后端
 

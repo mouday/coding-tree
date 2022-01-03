@@ -48,6 +48,8 @@
 
 [UIkit](https://getuikit.com/): A lightweight and modular front-end framework for developing fast and powerful web interfaces.
 
+[html2canvas](http://html2canvas.hertzen.com/): Screenshots with JavaScript
+
 ## Node.js
 
 https://npm.devtool.tech/

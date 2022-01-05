@@ -56,6 +56,14 @@ Celery
 
 [supervisord](http://www.supervisord.org/index.html)
 
+[flask](https://flask.palletsprojects.com/): 使用 Python 编写的轻量级 Web 应用框架
+- [Flask 快速入门](http://docs.jinkan.org/docs/flask/quickstart.html)
+- [欢迎进入Flask大型教程项目！](http://www.pythondoc.com/flask-mega-tutorial/)
+- [吐血推荐珍藏的Flask资源](https://blog.csdn.net/zV3e189oS5c0tSknrBCL/article/details/82112854)
+- [Flask补充系列–将应用部署在Heroku上](http://www.bjhee.com/flask-heroku.html)
+
+[jinja](https://jinja.palletsprojects.com/): a fast, expressive, extensible templating engine
+
 ## 爬虫
 
 [云立方](https://www.yunlifang.cn/): 动态 VPS

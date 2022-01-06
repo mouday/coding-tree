@@ -4,3 +4,5 @@
 <!-- Production -->
 <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
 ```
+
+[vue.md](blog/vue.md)

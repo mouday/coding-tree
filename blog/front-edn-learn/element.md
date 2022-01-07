@@ -314,3 +314,232 @@ table 属性：
 [](demo/table-3.html ':include :type=code')
 
 [](demo/table-3.html ':include height=170')
+
+## 12、表单
+
+输入框 input
+
+| type 属性 | 输入框类型 |
+| --------- | ---------- |
+| text      | 文本框     |
+| password  | 密码框     |
+| radio     | 单选框     |
+| checkbox  | 多选框     |
+| file      | 文件选择   |
+| submit    | 提交按钮   |
+| reset     | 重置按钮   |
+| button    | 普通按钮   |
+
+（1）text 文本框
+
+placeholder 占位符
+
+```html
+<input type="text" placeholder="文本框占位符" />
+```
+
+<output>
+<input type="text" placeholder="文本框占位符">
+</output>
+
+（2）password 密码框
+
+placeholder 占位符
+
+```html
+<input type="password" placeholder="密码框占位符" />
+```
+
+<output>
+<input type="password" placeholder="密码框占位符">
+</output>
+
+（3）radio 单选框
+
+name 属性分组，一个分组只能有一个值被选中
+
+checked 默认选中
+
+```html
+<input type="radio" name="sex" value="1" />男
+<input type="radio" name="sex" value="2" checked />女
+```
+
+<output>
+<input type="radio" name="sex" value="1">男
+<input type="radio" name="sex" value="2" checked>女
+</output>
+
+（4）checkbox 多选框
+
+checked 默认选中
+
+```html
+<input type="checkbox" name="city" value="beijing" />北京
+<input type="checkbox" name="city" value="shanghai" checked />上海
+```
+
+<output>
+<input type="checkbox" name="city" value="beijing">北京
+<input type="checkbox" name="city" value="shanghai" checked>上海
+</output>
+
+（5）file 文件选择
+
+multiple 多选(按住 ctrl 多选)
+
+```html
+<input type="file" /> <input type="file" multiple />
+```
+
+<output>
+<input type="file" >
+<input type="file" multiple>
+</output>
+
+（6）按钮
+
+- submit 提交按钮
+- reset 重置按钮
+- button 普通按钮
+
+需要配合 form 表单域使用
+
+属性 value 修改按钮显示的值
+
+```html
+<input type="submit" />
+<input type="reset" />
+<input type="button" value="普通按钮" />
+```
+
+<output>
+<input type="submit" >
+<input type="reset">
+<input type="button" value="普通按钮">
+</output>
+
+## button 按钮标签
+
+type 取值
+
+- submit 提交按钮
+- reset 重置按钮
+- button 普通按钮(默认)
+
+```html
+<button type="submit">提交按钮</button>
+<button type="reset">重置按钮</button>
+<button type="button">普通按钮</button>
+<button>普通按钮</button>
+```
+
+<output>
+<button type="submit">提交按钮</button>
+<button type="reset">重置按钮</button>
+<button type="button">普通按钮</button>
+<button>普通按钮</button>
+</output>
+
+## select 下拉菜单
+
+```html
+<select>
+  <option>北京</option>
+  <option>上海</option>
+  <option selected>广州</option>
+  <select></select>
+</select>
+```
+
+<output>
+<select>
+  <option>北京</option>
+  <option>上海</option>
+  <option selected>广州</option>
+<select>
+</output>
+
+option 选项
+
+默认选中第一项，可以指定默认选中 selected
+
+## textarea 多行文本域
+
+属性
+
+- cols 宽度 列数
+- rows 高度 行数
+
+```html
+<textarea></textarea>
+```
+
+<output>
+<textarea></textarea>
+</output>
+
+## label 标签
+
+点击文字也可选中选项
+
+两种使用方式等效
+
+```html
+<input type="radio" name="sex" id="man" />
+<label for="man">男</label>
+
+<label><input type="radio" name="sex" />女</label>
+```
+
+<output>
+<input type="radio" name="sex" id="man">
+<label for="man">男</label>
+
+<label><input type="radio" name="sex">女</label>
+</output>
+
+## 无语义标签
+
+- div 块级标签，独占一行
+- span 行内标签
+
+## 语义化标签
+
+手机端常用
+
+- header 网页头部
+- nav 网页导航
+- footer 网页底部
+- aside 网页侧边栏
+- section 网页区块
+- article 网页文章
+
+以上标签和 div 等效，多了语义化
+
+## 字符实体
+
+在网页中显示特殊字符
+
+- 空格 `&nbsp;`
+- 版权符 `&copy;`
+
+```html
+<!-- 单词之间有5个空格，最后只显示一个空格 -->
+hello      world
+
+<!-- 实现单词之间有5个空格 -->
+hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;world
+
+<!-- 版权符号 -->
+&copy;
+```
+
+<output>
+
+hello world
+
+hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;world
+
+&copy;
+</output>

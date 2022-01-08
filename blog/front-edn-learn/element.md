@@ -495,7 +495,6 @@ option 选项
 <output>
 <input type="radio" name="sex" id="man">
 <label for="man">男</label>
-
 <label><input type="radio" name="sex">女</label>
 </output>
 
@@ -526,7 +525,7 @@ option 选项
 
 ```html
 <!-- 单词之间有5个空格，最后只显示一个空格 -->
-hello      world
+hello world
 
 <!-- 实现单词之间有5个空格 -->
 hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;world
@@ -543,3 +542,9 @@ hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;world
 
 &copy;
 </output>
+
+## 综合案例
+
+[](demo/form-1.html ':include :type=code')
+
+[](demo/form-1.html ':include height=470')

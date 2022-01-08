@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Form Demo</title>
+</head>
+
+<body>
+    <h2>个人信息</h2>
+    <form action="">
+        <p>姓名:
+            <input type="text"
+                   placeholder="姓名">
+        </p>
+        <p>性别:
+            <label><input type="radio"
+                       name="sex"
+                       checked>男</label>
+            <label><input type="radio"
+                       name="sex">女</label>
+        </p>
+        <p>爱好:
+            <label><input type="checkbox"
+                       checked>足球</label>
+            <label><input type="checkbox">篮球</label>
+            <label><input type="checkbox">羽毛球</label>
+        </p>
+
+        <p>现居：<select>
+                <option value="">北京</option>
+                <option value="">上海</option>
+                <option value="">广州</option>
+                <option value="">深圳</option>
+            </select>
+        </p>
+
+        <p>个人简介：
+            <br />
+            <textarea cols="60"
+                      rows="10"></textarea>
+        </p>
+
+        <input type="submit"
+               value="提交">
+        <button type="reset">重置</button>
+    </form>
+</body>
+
+</html>

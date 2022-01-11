@@ -20,4 +20,6 @@
 
 3. [CSS 层叠样式表](blog/front-edn-learn/css.md)
 
-4. [CSS字体和文本样式](blog/front-edn-learn/css-font.md)
+4. [CSS 字体和文本样式](blog/front-edn-learn/css-font.md)
+
+5. [CSS 选择器](blog/front-edn-learn/css-selector.md)

@@ -14,12 +14,12 @@
 
 ## 内容
 
-1. [HTML 基本认知](blog/front-edn-learn/basic.md)
+1. [HTML 基本认知](blog/front-end-learn/basic.md)
 
-2. [标签元素](blog/front-edn-learn/element.md)
+2. [标签元素](blog/front-end-learn/element.md)
 
-3. [CSS 层叠样式表](blog/front-edn-learn/css.md)
+3. [CSS 层叠样式表](blog/front-end-learn/css.md)
 
-4. [CSS 字体和文本样式](blog/front-edn-learn/css-font.md)
+4. [CSS 字体和文本样式](blog/front-end-learn/css-font.md)
 
-5. [CSS 选择器](blog/front-edn-learn/css-selector.md)
+5. [CSS 选择器](blog/front-end-learn/css-selector.md)

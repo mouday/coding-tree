@@ -1,6 +1,6 @@
 # html
 
-[笔记：web前端开发入门](blog/front-edn-learn/index.md)
+[笔记：web前端开发入门](blog/front-end-learn/index.md)
 
 [HTML 快速参考](https://www.w3school.com.cn/html/html_quick.asp)
 

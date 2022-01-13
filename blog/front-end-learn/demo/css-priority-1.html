@@ -1,0 +1,33 @@
+<style>
+    /* (行内，id, 类，标签) */
+    /* (0, 2, 0, 0) */
+    #father #son {
+        color: blue;
+    }
+
+    /* (0, 1, 1, 1) */
+    #father p.c2 {
+        color: black;
+    }
+
+    /* (0, 0, 2, 2) */
+    div.c1 p.c2 {
+        color: red;
+    }
+
+    /* 继承 */
+    #father {
+        color: green !important;
+    }
+
+    /* 继承 */
+    div#father.c1 {
+        color: yellow;
+    }
+</style>
+
+<div id="father"
+     class="c1">
+    <p id="son"
+       class="c2">白日依山尽，黄河入海流。</p>
+</div>

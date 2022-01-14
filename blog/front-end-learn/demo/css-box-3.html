@@ -1,0 +1,32 @@
+<style>
+    .box-father {
+        width: 200px;
+        height: 200px;
+        background-color: #b2b6b6;
+    }
+
+    .box-child {
+        width: 100px;
+        height: 100px;
+        background-color: #7f9faf;
+        margin-top: 100px;
+    }
+
+    .resolve {
+        overflow: hidden;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="box-wrap">
+    <!-- 元素的margin-top 作用在了父元素上 -->
+    <div class="box-father">
+        <div class="box-child"></div>
+    </div>
+
+    <!-- [完美解决方案]给父元素设置 overflow:hidden; -->
+    <div class="box-father resolve">
+        <div class="box-child"></div>
+    </div>
+
+</div>

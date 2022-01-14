@@ -1,0 +1,36 @@
+<style>
+    .box {
+        border-top: 3px solid #ff8500;
+        border-bottom: #edeef0;
+    }
+
+    .box a {
+        /* 先写盒子大小 */
+        display: inline-block;
+        width: 80px;
+        height: 40px;
+
+        /* 推荐先写上背景，便于查看盒子大小 */
+        /* background-color: #edeef0; */
+
+        /* 再写文字样式 */
+        line-height: 40px;
+        text-align: center;
+        color: #4c4c4c;
+        font-size: 12px;
+        text-decoration: none;
+    }
+
+    /* 鼠标悬停效果 */
+    .box a:hover {
+        background-color: #edeef0;
+        color: #ff8044;
+    }
+</style>
+
+<div class="box">
+    <a href="#">首页</a>
+    <a href="#">文章</a>
+    <a href="#">分类</a>
+    <a href="#">标签</a>
+</div>

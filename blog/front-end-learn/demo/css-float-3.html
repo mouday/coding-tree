@@ -1,0 +1,66 @@
+<style>
+    /* 初始化样式 */
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* 清除list圆点样式 */
+    ul li {
+        list-style: none;
+    }
+
+    /* 外层容器 */
+    .box {
+        width: 1200px;
+        height: 620px;
+        background-color: #ccc;
+        margin: 0 auto;
+    }
+
+    /* 左边 */
+    .left {
+        float: left;
+        width: 400px;
+        height: 620px;
+        background-color: pink;
+    }
+
+    /* 右边 */
+    .right {
+        float: right;
+        /* background-color: green; */
+        height: 620px;
+        width: 780px;
+    }
+
+    ul li {
+        float: left;
+        height: 300px;
+        width: 180px;
+        background-color: skyblue;
+        margin-bottom: 20px;
+        margin-left: 20px;
+    }
+
+    /* 第1个子元素和第5个子元素 */
+    ul li:nth-child(4n + 1) {
+        margin-left: 0;
+    }
+</style>
+
+<div class="box">
+    <div class="left"></div>
+    <div class="right">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>

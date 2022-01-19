@@ -100,3 +100,84 @@ CSS 书写顺序
 
 - 内减模式：box-sizing: border-box;
 - 版心居中： margin: 0 auto;
+
+## 清除浮动
+
+清除浮动带来的影响
+
+影响：如果子元素浮动了，此时子元素不能撑开标准流的块级父元素
+
+[](demo/css-float-4.html ':include :type=code')
+
+[](demo/css-float-4.html ':include height=220')
+
+清除浮动的方法
+
+1. 直接设置父元素高度
+
+2. 额外标签
+
+- 在父元素内容的最后添加一个块级元素
+
+- 给添加的块级元素设置 clear:both;
+
+```css
+.clearfix {
+  clear: both;
+}
+```
+
+3. 单伪元素清除法
+
+用伪元素替代了额外标签
+
+优点：直接给标签加类即可清除浮动
+
+（1）基本写法
+
+```css
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+```
+
+（2）补充写法
+
+```css
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+
+  /* 兼容低版本IE */
+  height: 0;
+  visibility: hidden;
+}
+```
+
+4. 双伪元素清除法
+
+```css
+/* 解决外边距塌陷问题 */
+.clearfix::before,
+.clearfix::after {
+  content: '';
+  display: table;
+}
+
+.clearfix::after {
+  clear: both;
+}
+```
+
+5. 给父元素设置 overflow:hidden
+
+```css
+overflow: hidden;
+```
+
+[](demo/css-float-5.html ':include :type=code')
+
+[](demo/css-float-5.html ':include height=240')

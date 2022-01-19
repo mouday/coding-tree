@@ -1,0 +1,53 @@
+<style>
+    /* 初始化样式 */
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* 外层容器 */
+    .box {
+        background-color: #ccc;
+        /* margin: 0 auto; */
+    }
+
+    /* 左边 */
+    .left {
+        float: left;
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+    }
+
+    /* 右边 */
+    .right {
+        float: right;
+        background-color: green;
+        width: 200px;
+        height: 200px;
+    }
+
+    .footer {
+        height: 20px;
+        background-color: saddlebrown;
+    }
+
+    .clearfix::before,
+    .clearfix::after {
+        content: '';
+        display: table;
+    }
+
+    .clearfix::after {
+        clear: both;
+    }
+</style>
+
+<!-- 清除浮动 -->
+<div class="box clearfix">
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+
+<!-- 期望footer元素紧跟box下面排列 -->
+<div class="footer"></div>

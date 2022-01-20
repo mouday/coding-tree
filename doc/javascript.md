@@ -1,4 +1,4 @@
-# javascript
+# JavaScript
 
 [W3School - JavaScript 教程](https://www.w3school.com.cn/js/index.asp)
 
@@ -37,8 +37,7 @@
 
 - [jQuery 教程](https://www.w3school.com.cn/jquery/index.asp): 极大地简化了 JavaScript 编程
 - [Jquery EasyUI](https://www.jeasyui.net/): 帮助 web 开发者更轻松的打造出功能丰富并且美观的 UI 界面
-- [bxslider](https://bxslider.com/): Add a slider to any webpage. 
--[jQuery 插件库](https://www.jq22.com/): 收集最全最新最好的 jQuery 插件
+- [bxslider](https://bxslider.com/): Add a slider to any webpage. -[jQuery 插件库](https://www.jq22.com/): 收集最全最新最好的 jQuery 插件
 - [jQuery jsonp 跨域请求](https://www.cnblogs.com/chiangchou/p/jsonp.html)
 - [jquery 和 vue 对比](https://www.cnblogs.com/MR-YY/p/6898464.html)
 - [jQuery 之家 ](http://www.htmleaf.com/): 免费提供各种前端开发所需要的 JQUERY、HTML5、CSS3 等优质插件素材

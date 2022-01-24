@@ -35,3 +35,5 @@
 10. [CSS 实战](blog/front-end-learn/css-product.md)
 
 11. [CSS 定位](blog/front-end-learn/css-position.md)
+
+12. [CSS 装饰](blog/front-end-learn/css-decorate.md)

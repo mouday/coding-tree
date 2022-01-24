@@ -1,0 +1,25 @@
+<style>
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color: skyblue;
+        position: relative;
+    }
+
+    .box:hover .box-qrcode {
+        display: block;
+    }
+
+    .box-qrcode {
+        position: absolute;
+        top: 100px;
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+        display: none;
+    }
+</style>
+
+<div class="box">
+    <div class="box-qrcode"></div>
+</div>

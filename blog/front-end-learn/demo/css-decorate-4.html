@@ -1,0 +1,31 @@
+<style>
+    .box {
+        width: 400px;
+        height: 400px;
+        background-color: skyblue;
+
+        /* 水平居中 */
+        text-align: center;
+    }
+
+    .box::after {
+        height: 100%;
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    img {
+        height: 200px;
+        width: 200px;
+        /* 垂直居中 */
+        /*方式一*/
+        vertical-align: middle;
+        /*方式二*/
+        /* display: block; */
+    }
+</style>
+
+<div class="box">
+    <img src="https://api.isoyu.com/bing_images.php" />
+</div>

@@ -159,4 +159,82 @@ background-color: rgba(0, 0, 0, 0.5);
 
 [](demo/css-decorate-12.html ':include height=120')
 
-https://www.bilibili.com/video/BV1Kg411T7t9?p=166&spm_id_from=pageDriver
+## 精灵图（雪碧图, sprite）
+
+将多张小图合并成一张大图
+
+- 优点：减少服务器发送次数，减轻服务器压力，提高页面加载速度
+- 缺点：修改起来比较麻烦
+
+精灵图使用步骤
+
+1. 设置盒子尺寸和小图尺寸相同
+
+2. 将精灵图设置为盒子的背景图片
+
+3. 修改背景图位置
+
+[](demo/css-decorate-13.html ':include :type=code')
+
+[](demo/css-decorate-13.html ':include height=70')
+
+## 背景图片大小 background-size
+
+```css
+background-size: 宽度 高度;
+```
+
+| 取值    | 场景                                                                 |
+| ------- | -------------------------------------------------------------------- |
+| 数字+px | 简单方便                                                             |
+| 百分比  | 相对于当前盒子自身的宽高百分比                                       |
+| contain | 包含，背景图等比缩放，直到不会超出盒子的最大，可能有留白             |
+| cover   | 覆盖，背景图等比缩放，直到刚好填满整个盒子没有空白，图片可能显示不全 |
+
+background 连写
+
+```css
+background： color image repeat position/size;
+```
+
+## 盒子阴影 box-shadow
+
+| 参数     | 作用                       |
+| -------- | -------------------------- |
+| h-shadow | 必须，水平偏移量，允许负值 |
+| v-shadow | 必须，垂直偏移量，允许负值 |
+| blur     | 可选，模糊度               |
+| spread   | 可选，阴影扩大             |
+| color    | 可选，阴影颜色             |
+| inset    | 可选，将阴影改为内部阴影   |
+
+[](demo/css-decorate-14.html ':include :type=code')
+
+[](demo/css-decorate-14.html ':include height=120')
+
+## 过渡 transition
+
+- 让元素样式慢慢变化
+
+- 常配合 hover 使用
+
+```css
+transition 属性 时长, 属性 时长;
+```
+
+| 参数     | 取值                         |
+| -------- | ---------------------------- |
+| 过渡属性 | 所有属性 all；具体属性 width |
+| 过渡时长 | 数字 + s(秒)                 |
+
+注意：
+
+- 过渡需要默认状态和 hover 样式不同，才能有过渡效果
+- transition 属性给需要过渡的元素本身加
+- transition 属性设置在不同状态中，效果不同
+  - 给默认状态设置，鼠标移入移出都有过渡效果
+  - 给 hover 状态设置，鼠标移入有过渡效果，移出没有过渡效果
+
+[](demo/css-decorate-15.html ':include :type=code')
+
+[](demo/css-decorate-15.html ':include height=120')

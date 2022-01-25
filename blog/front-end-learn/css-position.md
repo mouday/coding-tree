@@ -100,3 +100,17 @@ positions: fixed;
 /* 默认值0；数值越大，显示越靠前 */
 z-index: 数值;
 ```
+
+## 案例：子盒子在父盒子中水平居中
+
+方式一：margin
+
+[](demo/css-position-1.html ':include :type=code')
+
+[](demo/css-position-1.html ':include height=520')
+
+方式二：transform
+
+[](demo/css-position-2.html ':include :type=code')
+
+[](demo/css-position-2.html ':include height=520')

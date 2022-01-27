@@ -188,4 +188,10 @@ font-size: 0;
 2. 行高
 3. 定位
 
-https://www.bilibili.com/video/BV1Kg411T7t9?p=187&spm_id_from=pageDriver
+常用类名
+
+```css
+prev
+next
+current/active
+```

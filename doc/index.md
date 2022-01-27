@@ -35,3 +35,11 @@
 Logo：https://www.logoly.pro/
 
 docsify：https://docsify.js.org/
+
+学习资料：
+
+2022 黑马程序员 Java 学习路线图
+https://www.bilibili.com/read/cv9965357
+
+黑马程序员 MySQL 数据库入门到精通，从 mysql 安装到 mysql 高级
+https://www.bilibili.com/video/BV1Kr4y1i7ru

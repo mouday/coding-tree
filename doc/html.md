@@ -1,6 +1,20 @@
 # html
 
-[笔记：web前端开发入门](blog/front-end-learn/index.md)
+[笔记：web 前端开发入门](blog/front-end-learn/index.md)
+
+[笔记：web 前端开发进阶 HTML5+CSS3+移动端](blog/front-end-combat/index.md)
+
+## 工具
+
+[Emmet](https://emmet.io/): the essential toolkit for web-developers
+
+- [前端开发必备！Emmet 使用手册](https://www.w3cplus.com/tools/emmet-cheat-sheet.html)
+
+## 博客站点
+
+- [峰华前端工程师(张旭乾)](https://zxuqian.cn/)
+
+- [Web 前端导航](http://www.alloyteam.com/nav/)
 
 [HTML 快速参考](https://www.w3school.com.cn/html/html_quick.asp)
 
@@ -8,13 +22,4 @@
 
 [w3school](https://www.w3school.com.cn/)
 
-[我要自学网-WEB前端开发视频教程](http://www.51zxw.net/list.aspx?cid=393)
-
-## 工具
-
-[Emmet](https://emmet.io/): the essential toolkit for web-developers
-- [前端开发必备！Emmet使用手册](https://www.w3cplus.com/tools/emmet-cheat-sheet.html)
-
-## 博客站点
-
-- [峰华前端工程师(张旭乾)](https://zxuqian.cn/)
+[我要自学网-WEB 前端开发视频教程](http://www.51zxw.net/list.aspx?cid=393)

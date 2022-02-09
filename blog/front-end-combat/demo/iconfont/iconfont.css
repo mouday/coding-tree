@@ -1,0 +1,19 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3174722 */
+  src: url('iconfont.woff2?t=1644417431377') format('woff2'),
+       url('iconfont.woff?t=1644417431377') format('woff'),
+       url('iconfont.ttf?t=1644417431377') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-star:before {
+  content: "\e693";
+}
+

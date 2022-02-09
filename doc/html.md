@@ -1,6 +1,6 @@
 # html
 
-[笔记：web 前端开发入门](blog/front-end-learn/index.md)
+[笔记：web 前端开发入门 HTML5+CSS3+前端项目](blog/front-end-learn/index.md)
 
 [笔记：web 前端开发进阶 HTML5+CSS3+移动端](blog/front-end-combat/index.md)
 

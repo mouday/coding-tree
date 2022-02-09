@@ -5,7 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "docsify serve"
+    "dev": "live-server"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/mouday/coding-tree/issues"
   },
-  "homepage": "https://github.com/mouday/coding-tree#readme"
+  "homepage": "https://github.com/mouday/coding-tree#readme",
+  "devDependencies": {
+    "docsify": "^4.12.2"
+  }
 }

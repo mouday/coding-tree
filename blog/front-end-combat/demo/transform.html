@@ -1,0 +1,34 @@
+<style>
+    .wrap {
+        width: 500px;
+        height: 200px;
+        border: 1px solid #333;
+        position: relative;
+    }
+
+    .box {
+        left: 0;
+        top: 0;
+
+        width: 100px;
+        height: 100px;
+        background-color: skyblue;
+        position: absolute;
+        /* 过渡 */
+        transition: all 0.5s;
+
+    }
+
+    /* 鼠标移入后居中 */
+    .wrap:hover .box {
+        top: 50%;
+        left: 50%;
+
+        /* 替换：margin-left: -1/2x; margin-top: -1/2y */
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+<div class="wrap">
+    <div class="box"></div>
+</div>

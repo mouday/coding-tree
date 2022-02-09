@@ -39,6 +39,8 @@
 本地预览
 
 ```bash
+npm i docsify -g
+
 npm run dev
 ```
 

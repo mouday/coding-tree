@@ -1,0 +1,43 @@
+<style>
+    .box {
+        width: 600px;
+        height: 200px;
+        border: 1px solid #333;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .box::before,
+    .box::after {
+        /* 必须有contetn属性 */
+        content: '';
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        /* 过渡 */
+        transition: all 0.5s;
+    }
+
+    .box::before {
+        left: 0;
+        top: 0;
+        background-color: skyblue;
+    }
+
+    .box::after {
+        right: 0;
+        top: 0;
+        background-color: yellow;
+    }
+
+    /* 鼠标移入 */
+    .box:hover::before {
+        transform: translateX(-100%);
+    }
+
+    .box:hover::after {
+        transform: translateX(100%);
+    }
+</style>
+
+<div class="box"></div>

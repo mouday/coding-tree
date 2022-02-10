@@ -1,4 +1,4 @@
-# 平面转换
+# 平面转换 transform
 
 使用 transform 实现位移、旋转、缩放等效果
 
@@ -9,6 +9,8 @@
 -x  0  +x
    +y
 ```
+
+## 位移 translate
 
 语法
 
@@ -35,14 +37,71 @@ transition: all 0.5s;
 [](demo/transform.html ':include height=220')
 
 技巧
-- translate 只给一个值，表示x轴方向移动距离
+
+- translate 只给一个值，表示 x 轴方向移动距离
 - 单独设置某个方向的移动：translateX(), translateY()
-
-
 
 ```css
 /* 背景图从右显示 */
 background-position: right 0;
 ```
 
-https://www.bilibili.com/video/BV1xq4y1q7jZ?p=12&spm_id_from=pageDriver
+示例：双开门
+
+[](demo/transform-2.html ':include :type=code')
+
+[](demo/transform-2.html ':include height=220')
+
+## 旋转 rotate
+
+语法
+
+```css
+transform: rotate(角度);
+```
+
+角度单位`deg`, 正负数均可
+
+- 正数：顺时针
+- 负数：逆时针
+
+示例：
+
+[](demo/transform-rotate.html ':include :type=code')
+
+[](demo/transform-rotate.html ':include height=70')
+
+## 改变转换原点 transform-origin
+
+默认的旋转原点是盒子中心点
+
+语法
+
+```
+transform-origin 原点水平位置, 原点垂直位置;
+```
+
+取值
+
+- 方位名词 top left right bottom center
+- 像素单位数值
+- 百分比（参照盒子自身尺寸）
+
+示例：
+
+[](demo/transform-rotate-2.html ':include :type=code')
+
+[](demo/transform-rotate-2.html ':include height=120')
+
+## 多重转换
+
+```css
+/* 复合属性 先后顺序不一样，效果也不一样 */
+transform: translate() rotate();
+```
+
+示例：边走边转
+
+[](demo/transform-translate-rotate.html ':include :type=code')
+
+[](demo/transform-translate-rotate.html ':include height=240')

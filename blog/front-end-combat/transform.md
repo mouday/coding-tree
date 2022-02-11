@@ -105,3 +105,30 @@ transform: translate() rotate();
 [](demo/transform-translate-rotate.html ':include :type=code')
 
 [](demo/transform-translate-rotate.html ':include height=240')
+
+## 缩放 scale
+
+实现元素从中心点缩放效果
+
+语法
+
+```css
+transform: scale(x轴缩放倍数, y轴缩放倍数);
+
+/* x、y等比例缩放 */
+transform: scale(缩放倍数);
+```
+
+| 效果 | 取值   | 示例       |
+| ---- | ------ | ---------- |
+| 放大 | 数值>1 | scale(1.2) |
+| 不变 | 数值=1 | scale(1)   |
+| 缩小 | 数值<1 | scale(0.8) |
+
+示例：
+
+[](demo/transform-scale.html ':include :type=code')
+
+[](demo/transform-scale.html ':include height=270')
+
+https://www.bilibili.com/video/BV1xq4y1q7jZ?p=19&spm_id_from=pageDriver

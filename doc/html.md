@@ -23,3 +23,11 @@
 [w3school](https://www.w3school.com.cn/)
 
 [我要自学网-WEB 前端开发视频教程](http://www.51zxw.net/list.aspx?cid=393)
+
+## 资源
+
+[2022 年前端学习路线图](https://www.bilibili.com/read/cv10431130)
+
+[菜鸟教程-HTML 教程- (HTML5 标准)](https://www.runoob.com/html/html-tutorial.html)
+
+[https://developer.mozilla.org/zh-CN/](https://developer.mozilla.org/zh-CN/)

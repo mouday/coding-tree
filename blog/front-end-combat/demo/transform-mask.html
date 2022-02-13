@@ -1,0 +1,69 @@
+<style>
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .box {
+        display: block;
+        width: 200px;
+        height: 150px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .box .cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.5s;
+    }
+
+    .box .title {
+        position: absolute;
+        width: 100%;
+        height: 50px;
+        padding: 10px;
+        bottom: 0;
+        left: 0;
+        color: white;
+        box-sizing: border-box;
+        z-index: 2;
+    }
+
+
+    /* 渐变背景 */
+    .box .mask {
+        position: absolute;
+        opacity: 0;
+        transition: all 0.5s;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-image: linear-gradient(transparent,
+                rgba(0, 0, 0, .6));
+    }
+
+    .box:hover .mask {
+        opacity: 1;
+    }
+
+    .box:hover .cover {
+        transform: scale(1.2);
+    }
+</style>
+
+<a class="box"
+   href="#">
+    <img class="cover"
+         src="https://api.isoyu.com/bing_images.php"
+         alt="">
+
+    <div class="title">
+        <p>百日依山尽</p>
+    </div>
+
+    <div class="mask"></div>
+</a>

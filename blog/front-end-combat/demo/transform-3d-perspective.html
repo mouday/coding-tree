@@ -1,0 +1,21 @@
+<style>
+    .box-wrap {
+        perspective: 1000px;
+    }
+
+    .box {
+        margin: 0 auto;
+        width: 200px;
+        height: 200px;
+        background-color: skyblue;
+        transition: all .5s;
+    }
+
+    .box:hover {
+        transform: translateZ(100px);
+    }
+</style>
+
+<div class="box-wrap">
+    <div class="box"></div>
+</div>

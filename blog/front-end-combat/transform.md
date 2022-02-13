@@ -132,3 +132,19 @@ transform: scale(缩放倍数);
 [](demo/transform-scale.html ':include height=270')
 
 https://www.bilibili.com/video/BV1xq4y1q7jZ?p=19&spm_id_from=pageDriver
+
+## 渐变背景 background-image
+
+示例 1：
+
+[](demo/background-image.html ':include :type=code')
+
+[](demo/background-image.html ':include height=220')
+
+示例 2：
+
+[](demo/transform-mask.html ':include :type=code')
+
+[](demo/transform-mask.html ':include height=170')
+
+

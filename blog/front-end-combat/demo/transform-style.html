@@ -1,0 +1,37 @@
+<style>
+    .box-wrap {
+        margin: 0 auto;
+        width: 200px;
+        height: 200px;
+        position: relative;
+        background-color: pink;
+        transform-style: preserve-3d;
+        transition: all 2s;
+    }
+
+    .box {
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 200px;
+        position: absolute;
+    }
+
+    .box-front {
+        background-color: green;
+        transform: translateZ(200px);
+    }
+
+    .box-back {
+        background-color: yellow;
+    }
+
+    .box-wrap:hover {
+        transform: rotateY(180deg);
+    }
+</style>
+
+<div class="box-wrap">
+    <div class="box box-front"></div>
+    <div class="box box-back"></div>
+</div>

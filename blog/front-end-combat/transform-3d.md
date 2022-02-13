@@ -69,4 +69,45 @@ rotate3d(x, y, z, 角度);
 
 x, y, z 取 0-1 之间的数字
 
-https://www.bilibili.com/video/BV1xq4y1q7jZ?p=34&spm_id_from=pageDriver
+## 呈现立体图形
+
+让子级元素处于 3d 空间中
+
+```css
+transform-style: preserve-3d;
+```
+
+示例:
+
+[](demo/transform-style.html ':include :type=code')
+
+[](demo/transform-style.html ':include height=220')
+
+示例: 3D 导航
+
+[](demo/transform-3d-nav.html ':include :type=code')
+
+[](demo/transform-3d-nav.html ':include height=70')
+
+## 总结
+
+```css
+/* 位移 */
+transform: translate3d(x, y, z);
+
+transform: translateX(x);
+transform: translateY(y);
+transform: translateZ(z);
+
+/* 旋转，效果相同*/
+transform: rotate(角度);
+transform: rotateZ(角度);
+
+/* 透视距离 */
+perspective: 像素值; /* (800-1200) */
+
+/* 实现3d */
+transform-style: preserve-3d;
+```
+
+https://www.bilibili.com/video/BV1xq4y1q7jZ?p=39&spm_id_from=pageDriver

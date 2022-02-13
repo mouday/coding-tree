@@ -1,0 +1,77 @@
+<style>
+    /* 清除样式 */
+    ul {
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+
+    /* 导航开始 */
+    .nav {
+        display: flex;
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .nav-item {
+        position: relative;
+
+        display: block;
+        width: 100px;
+        line-height: 50px;
+        text-align: center;
+        transform-style: preserve-3d;
+        transition: all .5s;
+
+        /* 开发时看到立体盒子 */
+        /* transform: rotateX(-20deg) rotateY(30deg); */
+    }
+
+    /* 中文 */
+    .nav-item__zh {
+        background-color: green;
+        transform: translateZ(25px);
+    }
+
+    /* 英文 */
+    .nav-item__en {
+        position: absolute;
+        top: -50%;
+        width: 100%;
+        background-color: orange;
+        transform: rotateX(90deg);
+    }
+
+    /* 旋转立方体 */
+    .nav-item:hover {
+        transform: rotateX(-90deg);
+    }
+</style>
+
+<div class="nav-wrap">
+    <ul class="nav">
+        <li><a href="#"
+               class="nav-item">
+                <div class="nav-item__zh">首页</div>
+                <div class="nav-item__en">Index</div>
+            </a>
+        </li>
+
+        <li><a href="#"
+               class="nav-item">
+                <div class="nav-item__zh">登录</div>
+                <div class="nav-item__en">Login</div>
+            </a>
+        </li>
+
+        <li><a href="#"
+               class="nav-item">
+                <div class="nav-item__zh">注册</div>
+                <div class="nav-item__en">Register</div>
+            </a>
+        </li>
+    </ul>
+</div>

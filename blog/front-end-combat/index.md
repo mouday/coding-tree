@@ -6,7 +6,9 @@
 
 2. [平面转换 transform](blog/front-end-combat/transform.md)
 
-3. [空间转换 transform](blog/front-end-combat/transform-3d.md)
+3. [空间转换 transform 3d](blog/front-end-combat/transform-3d.md)
+
+4. [动画 animation](blog/front-end-combat/animation.md)
 
 - css3 平面、渐变、动画属性
 - Flex 布局

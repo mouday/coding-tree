@@ -1,0 +1,71 @@
+<style>
+    .box {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        background-color: skyblue;
+    }
+
+    /* 基本动画 */
+    .box-basic {
+        animation: change-width 2s;
+    }
+
+    /* 匀速动画 */
+    .box-linear {
+        animation: change-width 2s linear;
+    }
+
+    /* 分步动画 */
+    .box-steps {
+        animation: change-width 2s steps(3);
+    }
+
+    /* 延迟动画 */
+    .box-delay {
+        animation: change-width 2s 2s;
+    }
+
+    /* 重复3次 */
+    .box-repeat {
+        animation: change-width 2s 3;
+    }
+
+    /* 无限循环 */
+    .box-infinite {
+        animation: change-width 2s infinite;
+    }
+
+    /* 反向动画 */
+    .box-alternate {
+        animation: change-width 2s infinite alternate;
+    }
+
+    /* 动画停留在最初状态 backwards */
+    /* 动画停留在最后状态 forwards */
+    .box-forwards {
+        animation: change-width 2s forwards;
+    }
+
+    /* 定义动画 */
+    @keyframes change-width {
+        from {
+            width: 50px;
+        }
+
+        to {
+            width: 200px;
+        }
+    }
+</style>
+
+
+<div class="box box-basic">basic</div>
+<div class="box box-linear">linear</div>
+<div class="box box-steps">steps</div>
+<div class="box box-delay">delay</div>
+<div class="box box-repeat">repeat</div>
+<div class="box box-infinite">infinite</div>
+<div class="box box-alternate">alternate</div>
+<div class="box box-forwards">forwards</div>

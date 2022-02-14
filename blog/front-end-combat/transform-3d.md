@@ -110,4 +110,11 @@ perspective: 像素值; /* (800-1200) */
 transform-style: preserve-3d;
 ```
 
-https://www.bilibili.com/video/BV1xq4y1q7jZ?p=39&spm_id_from=pageDriver
+# 空间缩放 scale
+
+```css
+transform: scaleX(x);
+transform: scaleY(y);
+transform: scaleZ(z);
+transform: scale3d(x, y, z);
+```

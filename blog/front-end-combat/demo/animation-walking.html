@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            margin: 0 auto;
+            width: 600px;
+            height: 100px;
+            background-color: skyblue;
+            overflow: hidden;
+        }
+
+        .box ul {
+            list-style: none;
+            display: flex;
+            width: 2600px;
+            animation: move 5s infinite linear;
+        }
+
+        /* 鼠标经过，暂停动画 */
+        .box:hover ul {
+            animation-play-state: paused;
+        }
+
+        .box ul li {
+            height: 100px;
+            line-height: 100px;
+            width: 200px;
+            text-align: center;
+            font-size: 30px;
+            color: white;
+            font-weight: 500;
+        }
+
+        /* 动画位移，向左移动10个元素 */
+        @keyframes move {
+            from {
+                transform: translate(0);
+            }
+
+            to {
+                transform: translate(-2000px);
+            }
+        }
+    </style>
+
+    <div class="box">
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+
+            <!-- 复制出来，实现无缝衔接 -->
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+    </div>
+</body>
+
+</html>

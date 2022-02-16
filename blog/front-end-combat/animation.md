@@ -67,4 +67,61 @@ animation: 动画名称 动画时长 速度曲线 延迟时间 重复次数 动�
 
 [](demo/animation-2.html ':include height=420')
 
-https://www.bilibili.com/video/BV1xq4y1q7jZ?p=45&spm_id_from=pageDriver
+
+
+background复合属性
+
+```css
+background: color image repeat attachment position;
+```
+- background-color
+- background-image
+- background-repeat
+- background-attachment
+- background-position
+
+-  background-size: cover/contian
+  - cover: 图片完全覆盖盒子，可能会导致图片显示不全
+  - contian：最大边和盒子尺寸相等，就不进行缩放
+
+
+animation复合属性（了解）
+
+属性 | 作用 | 取值
+- | - | -
+animation-name | 动画名称
+animation-duration | 动画时长
+animation-delay | 延迟时间
+animation-fill-mode | 动画执行完毕时状态 | forwards 最后一帧状态/ backwards第一帧状态
+animation-timing-function | 速度曲线 | steps(数字) 逐帧动画
+animation-iteration-count | 重复次数 | infinite 无限循环
+animation-direction | 动画执行方向 | alternate 反方向
+animation-play-state | 暂停动画 | paused 暂停，通常配合hover使用
+
+
+- 补间动画：两个动画之间平滑动画
+- 逐帧动画：两个动画之间状态不补全
+
+多组动画
+
+```css
+animation: 动画1, 动画2, ...动画N;
+```
+
+走马灯，无缝动画
+
+
+```css
+hmtl, body {
+    height: 100%
+}
+```
+
+示例: 无缝动画
+
+[](demo/animation-walking.html ':include :type=code')
+
+[](demo/animation-walking.html ':include height=120')
+
+
+https://www.bilibili.com/video/BV1xq4y1q7jZ?p=55&spm_id_from=pageDriver

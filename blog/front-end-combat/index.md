@@ -10,7 +10,8 @@
 
 4. [动画 animation](blog/front-end-combat/animation.md)
 
-- css3 平面、渐变、动画属性
-- Flex 布局
-- 移动适配
+5. [移动端网页适配](blog/front-end-combat/mobile.md)
+
+6. [Flex 布局](blog/front-end-combat/flex.md)
+
 - 响应式 BootStrap 框架

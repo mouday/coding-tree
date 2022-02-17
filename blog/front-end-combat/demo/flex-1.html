@@ -1,0 +1,82 @@
+<style>
+    h3 {
+        text-align: center;
+    }
+
+    .box-wrap {
+        display: flex;
+        margin: 0 auto;
+        width: 500px;
+        border: 1px solid #eee;
+    }
+
+    .box-wrap+.box-wrap {
+        margin-top: 20px;
+    }
+
+    .box {
+        width: 100px;
+        height: 100px;
+        font-size: 20px;
+        line-height: 100px;
+        text-align: center;
+        background-color: skyblue;
+    }
+
+    /* 居中 */
+    .box-center {
+        justify-content: center;
+    }
+
+    /* 间距在盒子之间 */
+    .box-between {
+        justify-content: space-between;
+    }
+
+    /* 间距在子两侧，视觉效果：子级之间的距离是两头距离的 2 倍 */
+    .box-around {
+        justify-content: space-around;
+    }
+
+    /* 盒子和容器所有间距相等 */
+    .box-evenly {
+        justify-content: space-evenly;
+    }
+</style>
+
+<h3>默认</h3>
+<div class="box-wrap">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+</div>
+
+<h3>justify-content: center;</h3>
+<div class="box-wrap box-center">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+</div>
+
+<h3>justify-content: space-between;</h3>
+<div class="box-wrap box-between">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+</div>
+
+<h3>justify-content: space-around;</h3>
+<div class="box-wrap box-around">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+</div>
+
+
+<h3>justify-content: space-evenly;</h3>
+
+<div class="box-wrap box-evenly">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+</div>

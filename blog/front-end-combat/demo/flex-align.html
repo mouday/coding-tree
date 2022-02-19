@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <style>
+
+        h3{
+            text-align: center;
+        }
+        .box-wrap {
+            width: 500px;
+            margin: 0 auto;
+            display: flex;
+            height: 200px;
+            border: 1px solid #666;
+        }
+
+        .box {
+            width: 100px;
+            background-color: skyblue;
+        }
+
+        .box-wrap-height .box {
+            height: 100px;
+        }
+
+        /* 拉伸 */
+        .stretch {
+            align-items: stretch;
+        }
+
+        /* 顶对齐 */
+        .flex-start {
+            align-items: flex-start;
+        }
+
+        /* 底对齐 */
+        .flex-end {
+            align-items: flex-end;
+        }
+
+        /* 上下居中 */
+        .center {
+            align-items: center;
+        }
+
+        .child-center .box:nth-child(2){
+            align-self: center;
+        }
+    </style>
+
+    <h3>子元素没有设置高度，默认撑开和父级一样高</h3>
+    <div class="box-wrap">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+    
+    <h3>子元素没有设置高度，默认：align-items: stretch;</h3>
+    <div class="box-wrap stretch">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+
+    <h3>子元素设置高度，默认</h3>
+    <div class="box-wrap box-wrap-height">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+
+    <h3>子元素设置高度，默认：align-items: flex-start;</h3>
+    <div class="box-wrap box-wrap-height flex-start">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+
+    <h3>align-items: flex-end;</h3>
+    <div class="box-wrap box-wrap-height flex-end">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+
+    <h3>align-items: center;</h3>
+    <div class="box-wrap box-wrap-height center">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+
+    <h3>设置单独子元素 align-self: center</h3>
+    <div class="box-wrap box-wrap-height child-center">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+</body>
+
+</html>

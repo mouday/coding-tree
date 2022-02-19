@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <style>
+        .box-wrap {
+            margin: 0 auto;
+            display: flex;
+
+            /* 修改主轴方向为垂直方向 */
+            /* 先确定主轴方向，再设置主轴或侧轴对齐 */
+            flex-direction: column;
+            
+            /* 视觉效果：垂直居中 */
+            justify-content: center;
+
+            /* 视觉效果：水平居中 */
+            align-items: center;
+
+            width: 500px;
+            height: 200px;
+            border: 1px solid #666;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: skyblue;
+        }
+    </style>
+
+
+    <div class="box-wrap">
+        <div class="box"></div>
+    </div>
+
+</body>
+
+</html>

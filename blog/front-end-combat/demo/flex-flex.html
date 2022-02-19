@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <style>
+        .box-wrap {
+            width: 500px;
+            margin: 0 auto;
+            display: flex;
+            height: 200px;
+            border: 1px solid #666;
+        }
+
+        /* 固定尺寸 */
+        .box-1 {
+            width: 100px;
+            background-color: skyblue;
+        }
+        
+        /* 占 3/4 */
+        .box-2 {
+            flex: 3;
+            background-color: yellow;
+        }
+
+        /* 占 1/4 */
+        .box-3 {
+            flex: 1;
+            background-color: green;
+        }
+    </style>
+
+
+    <div class="box-wrap">
+        <div class="box box-1"></div>
+        <div class="box box-2"></div>
+        <div class="box box-3"></div>
+    </div>
+
+</body>
+
+</html>

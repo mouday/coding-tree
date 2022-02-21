@@ -64,6 +64,12 @@ Celery
 
 [jinja](https://jinja.palletsprojects.com/): a fast, expressive, extensible templating engine
 
+[JPype](https://jpype.readthedocs.io/en/latest/index.html):  a Python module to provide full access to Java from within Python.
+
+[Django REST framework](https://www.django-rest-framework.org/):  a powerful and flexible toolkit for building Web APIs.
+
+[SQLAlchemy](https://www.sqlalchemy.org/):the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL.
+
 ## 爬虫
 
 [云立方](https://www.yunlifang.cn/): 动态 VPS

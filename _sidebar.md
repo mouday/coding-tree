@@ -16,6 +16,7 @@
   - [Visual Basic](doc/visual-basic.md)
   - [C 语言](doc/c.md)
   - [Ruby](doc/ruby.md)
+  - [Linux](doc/linux.md)
 
 - 数据库
 

@@ -36,10 +36,22 @@ Logo：https://www.logoly.pro/
 
 docsify：https://docsify.js.org/
 
-学习资料：
+[QRcode.show](https://qrcode.show/) : Generate QR code easily for free - QR Code Generation as a Service
+
+[姬长信API](https://api.isoyu.com/) 一个基于多种编程语言开源免费不限制提供生活常用,出行服务,开发工具,金融服务,通讯服务和公益大数据的平台.
+
+[starchart.cc](https://starchart.cc/) Plot your repository stars over time.
+
+[Cmder](https://cmder.net/): Windows下的终端工具 Portable console emulator for Windows
+
+## 学习资料：
 
 2022 黑马程序员 Java 学习路线图
 https://www.bilibili.com/read/cv9965357
 
 黑马程序员 MySQL 数据库入门到精通，从 mysql 安装到 mysql 高级
 https://www.bilibili.com/video/BV1Kr4y1i7ru
+
+## 网站
+
+[电脑爱好者](https://www.cfan.com.cn/)

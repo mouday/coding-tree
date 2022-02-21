@@ -67,19 +67,17 @@ Flex 布局模型中，可以调节主轴或侧轴的对齐方式来设置盒子
 
 [](demo/flex-1.html ':include')
 
-
-
 ## 侧轴对齐方式 align-items
 
 容器属性 align-items
 元素属性 align-self
 
-属性值 | 作用
-- | -
-flex-start | 默认值，起点开始依次排列
-flex-end | 重点开始依次排列
-center | 沿侧轴居中排列
-stretch | 默认值，弹性盒子沿着主轴线被拉伸至铺满容器
+| 属性值     | 作用                                       |
+| ---------- | ------------------------------------------ |
+| flex-start | 默认值，起点开始依次排列                   |
+| flex-end   | 重点开始依次排列                           |
+| center     | 沿侧轴居中排列                             |
+| stretch    | 默认值，弹性盒子沿着主轴线被拉伸至铺满容器 |
 
 示例:
 
@@ -87,10 +85,10 @@ stretch | 默认值，弹性盒子沿着主轴线被拉伸至铺满容器
 
 [](demo/flex-align.html ':include height=900')
 
-
-## 伸缩比flex
+## 伸缩比 flex
 
 语法
+
 ```css
 flex: 数值;
 ```
@@ -103,7 +101,6 @@ flex: 数值;
 
 [](demo/flex-flex.html ':include height=220')
 
-
 移动端触发区域默认大小 44x44
 
 ## 主轴方向 flex-direction
@@ -112,12 +109,12 @@ flex: 数值;
 
 主轴默认是水平方向，侧轴默认是垂直方向
 
-属性值  | 作用
-- | - 
-row | 默认值，行，水平
-column | 列，垂直
-row-reverse | 行，从右往左
-column-reverse | 列，从下到上
+| 属性值         | 作用             |
+| -------------- | ---------------- |
+| row            | 默认值，行，水平 |
+| column         | 列，垂直         |
+| row-reverse    | 行，从右往左     |
+| column-reverse | 列，从下到上     |
 
 示例:
 
@@ -130,19 +127,19 @@ column-reverse | 列，从下到上
 实现多行排列效果
 
 语法
+
 ```css
-felx-wrap: nowrap/wrap
+felx-wrap: nowrap/wrap;
 ```
 
-属性值 | 作用
-- | - 
-nowrap | 默认值，不换行
-wrap | 换行
+| 属性值 | 作用           |
+| ------ | -------------- |
+| nowrap | 默认值，不换行 |
+| wrap   | 换行           |
 
+## 行对齐方式 align-content
 
-## 行对齐方式 align-content 
-
-取值和justify-content基本相同
+取值和 justify-content 基本相同
 
 示例:
 
@@ -150,5 +147,10 @@ wrap | 换行
 
 [](demo/felx-wrap.html ':include height=620')
 
+## Flex 溢出隐藏
 
-https://www.bilibili.com/video/BV1xq4y1q7jZ?p=89&spm_id_from=pageDriver
+示例:
+
+[](demo/flex-overflow.html ':include :type=code')
+
+[](demo/flex-overflow.html ':include height=120')

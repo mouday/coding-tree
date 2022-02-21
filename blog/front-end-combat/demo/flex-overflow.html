@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <style>
+        .box-wrap {
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            width: 500px;
+        }
+
+        .box-left {
+            width: 200px;
+            height: 100px;
+            background-color: skyblue;
+        }
+
+        /* 注意父级需要增加的属性 */
+        /* 溢出显示省略号 */
+        /* 弹性盒子的尺寸可以被内容撑开*/
+        .box-right {
+            flex: 1;
+            width: 0;
+            border: 1px solid #666;
+        }
+
+        .box-right__content {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    </style>
+
+    <div class="box-wrap">
+        <div class="box-left"></div>
+        <div class="box-right">
+            <div class="box-right__title">长恨歌 白居易 〔唐代〕</div>
+            <div class="box-right__content">天生丽质难自弃，一朝选在君王侧。回眸一笑百媚生，六宫粉黛无颜色。</div>
+        </div>
+    </div>
+</body>
+
+</html>

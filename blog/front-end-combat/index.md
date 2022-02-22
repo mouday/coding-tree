@@ -1,7 +1,6 @@
 # 笔记：web 前端开发进阶 HTML5+CSS3+移动端
 
-视频：[黑马程序员web前端进阶教程，前端html5+css3+移动端项目实战](https://www.bilibili.com/video/BV1xq4y1q7jZ)
-
+视频：[黑马程序员 web 前端进阶教程，前端 html5+css3+移动端项目实战](https://www.bilibili.com/video/BV1xq4y1q7jZ)
 
 ## 学习笔记
 
@@ -21,4 +20,6 @@
 
 8. [实战演练](blog/front-end-combat/practice.md)
 
-- 响应式 BootStrap 框架
+9. [响应式](blog/front-end-combat/responsive.md): 媒体查询
+
+10. [BootStrap 框架](blog/front-end-combat/bootstrap.md)

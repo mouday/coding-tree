@@ -34,15 +34,35 @@
 
 Logo：https://www.logoly.pro/
 
-docsify：https://docsify.js.org/
+[docsify](https://docsify.js.org/)：快速帮你生成文档网站
+
+[Prism](https://prismjs.com/) Prism is a lightweight, extensible syntax highlighter, built with modern web standards in mind.
 
 [QRcode.show](https://qrcode.show/) : Generate QR code easily for free - QR Code Generation as a Service
 
-[姬长信API](https://api.isoyu.com/) 一个基于多种编程语言开源免费不限制提供生活常用,出行服务,开发工具,金融服务,通讯服务和公益大数据的平台.
+[姬长信 API](https://api.isoyu.com/) 一个基于多种编程语言开源免费不限制提供生活常用,出行服务,开发工具,金融服务,通讯服务和公益大数据的平台.
 
 [starchart.cc](https://starchart.cc/) Plot your repository stars over time.
 
-[Cmder](https://cmder.net/): Windows下的终端工具 Portable console emulator for Windows
+[Cmder](https://cmder.net/): Windows 下的终端工具 Portable console emulator for Windows
+
+[在线工具 tool.lu ](https://tool.lu/)
+
+- [favicon 在线制作](https://tool.lu/favicon/)
+
+[multiavatar 虚拟头像生成](https://multiavatar.com/)
+
+[Faker API](https://fakerapi.it/it): a collection of completely free APIs that helps web developers and web designers generate fake data in a fast and easy way. No registration is required. No tokens, no authentication.
+
+[DownGit](https://zhoudaxiaa.gitee.io/downgit/): 创建 GitHub 资源下载链接
+
+[Nestopia](http://nestopia.sourceforge.net/): Nintendo NES Emulator
+
+[玩的嗨-vip视频在线解析](https://tv.wandhi.com/go.html)
+
+[Hoppscotch](https://hoppscotch.io/): Postwoman
+- github: [https://github.com/hoppscotch/hoppscotch](https://github.com/hoppscotch/hoppscotch)
+
 
 ## 学习资料：
 

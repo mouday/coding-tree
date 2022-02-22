@@ -6,6 +6,8 @@
 
 [Spring Boot 指南](https://snailclimb.gitee.io/springboot-guide/)
 
+[Java 教程 | 菜鸟教程](https://www.runoob.com/java/java-tutorial.html)
+
 ## JavaFX
 
 [JavaFX 快速入门](https://www.yiibai.com/javafx/javafx-tutorial-for-beginners.html)

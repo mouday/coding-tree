@@ -8,8 +8,6 @@
 
 2021-12-23 [PubSubJS：用 JavaScript 编写的基于主题的发布/订阅库](https://pengshiyu.blog.csdn.net/article/details/122100104)
 
-[BootCDN](https://www.bootcdn.cn/): 稳定、快速、免费的前端开源项目 CDN 加速服务
-
 [http://www.json.org/](http://www.json.org/)
 
 [https://jekyllthemes.io/](https://jekyllthemes.io/)
@@ -17,6 +15,8 @@
 [ECMAScript 6 入门 Promise 对象](https://es6.ruanyifeng.com/#docs/promise)
 
 [https://www.ecma-international.org/](https://www.ecma-international.org/)
+
+[vue-element-admin](https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/) 是一个后台前端解决方案，它基于 vue 和 element-ui 实现。
 
 ## 第三方库
 
@@ -50,8 +50,28 @@
 
 [html2canvas](http://html2canvas.hertzen.com/): Screenshots with JavaScript
 
+[Uni API](https://universal-api.js.org/): 小程序容器和 Web 容器的跨端 API 解决方案
+
+[Pinia](https://pinia.vuejs.org/): The Vue Store that you will enjoy using
+
+[Animate.css](https://animate.style/): Just-add-water CSS animations
+
+## CDN
+
+[BootCDN](https://www.bootcdn.cn/): 稳定、快速、免费的前端开源项目 CDN 加速服务
+
+[jsDelivr](https://www.jsdelivr.com/): A free CDN for Open Source
+fast, reliable, and automated
+
+[UNPKG](https://unpkg.com/): a fast, global content delivery network for everything on npm.
+
+[cdnjs](https://cdnjs.com/):Simple. Fast. Reliable.
+Content delivery at its finest.
+
 ## Node.js
 
 https://npm.devtool.tech/
 
 [ionic 教程](https://www.runoob.com/ionic/ionic-tutorial.html): 一个强大的 HTML5 应用程序开发框架(HTML5 Hybrid Mobile App Framework )
+
+[Express 中文网](https://www.expressjs.com.cn/): 基于 Node.js 平台，快速、开放、极简的 Web 开发框架

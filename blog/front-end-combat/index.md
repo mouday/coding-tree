@@ -13,7 +13,7 @@
 
 4. [动画 animation](blog/front-end-combat/animation.md)
 
-5. [移动端网页适配](blog/front-end-combat/mobile.md)
+5. [移动端网页适配](blog/front-end-combat/mobile.md): rem、vw/wh、媒体查询
 
 6. [Flex 布局](blog/front-end-combat/flex.md)
 

@@ -128,3 +128,41 @@ github: [https://github.com/amfe/lib-flexible](https://github.com/amfe/lib-flexi
 [](demo/flexible.js.html ':include :type=code')
 
 [](demo/flexible.js.html ':include height=120')
+
+## 长度单位：vw/vh
+
+- 相对单位
+- 相对视口的尺寸计算结果
+
+含义
+
+- vw: viewport width
+- vh: viewport height
+
+换算方式
+
+```
+1vw = 1/100视口宽度
+1vh = 1/100视口高度
+
+vw单位的尺寸 = px单位数值 / ( 1 / 100 * 视口宽度)
+```
+
+例如：
+
+```
+357px宽的设备
+
+1vw = 357px / 100 = 3.57px
+```
+
+```css
+// index.less
+// 375的设计稿：68 * 29
+.box {
+  width: (68 / 3.75vw);
+  height: (29 / 3.75vw);
+}
+```
+
+统一使用 vw 或者 vh 作为单位

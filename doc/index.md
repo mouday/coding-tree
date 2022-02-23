@@ -63,6 +63,20 @@ Logo：https://www.logoly.pro/
 [Hoppscotch](https://hoppscotch.io/): Postwoman
 - github: [https://github.com/hoppscotch/hoppscotch](https://github.com/hoppscotch/hoppscotch)
 
+[xclient](https://xclient.info/): 精品MAC应用分享
+
+[JWT.IO](https://jwt.io/): JWT.IO allows you to decode, verify and generate JWT.
+
+[MacZip](https://ezip.awehunt.com/) 专为 macOS 而设计的压缩软件！
+
+[Homebrew](https://brew.sh/index_zh-cn): macOS（或 Linux）缺失的软件包的管理器
+
+
+[效率工具](http://blog.luckly-mjw.cn/tool-show/index.html)
+
+[JSON:API](https://jsonapi.org/): A SPECIFICATION FOR BUILDING APIS IN JSON
+
+[OneinStack](https://oneinstack.com/)一键PHP/JAVA安装工具
 
 ## 学习资料：
 

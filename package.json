@@ -5,7 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "live-server"
+    "dev": "live-server",
+    "start": "http-server"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/mouday/coding-tree#readme",
   "devDependencies": {
-    "docsify": "^4.12.2"
+    "docsify": "^4.12.2",
+    "http-server": "^14.1.0"
   }
 }

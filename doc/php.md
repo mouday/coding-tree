@@ -1,5 +1,7 @@
 # PHP
 
+[笔记：黑马程序员PHP零基础入门到精通教程（P1基础6天）](blog/php-basic/index.md)
+
 ## 文章
 
 [PHP 手册](https://www.php.net/manual/zh/index.php)

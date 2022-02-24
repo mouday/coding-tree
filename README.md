@@ -39,7 +39,7 @@
 本地预览
 
 ```bash
-npm i
+npm i docsify-cli -g
 
 npm run dev
 ```

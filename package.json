@@ -5,7 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "live-server",
+    "dev": "docsify serve ./",
+    "live": "live-server",
     "start": "http-server"
   },
   "repository": {
@@ -22,5 +23,6 @@
   "devDependencies": {
     "docsify": "^4.12.2",
     "http-server": "^14.1.0"
-  }
+  },
+  "dependencies": {}
 }

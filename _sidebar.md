@@ -17,6 +17,7 @@
   - [C 语言](doc/c.md)
   - [Ruby](doc/ruby.md)
   - [Linux](doc/linux.md)
+  - [Go 语言](doc/go.md)
 
 - 数据库
 

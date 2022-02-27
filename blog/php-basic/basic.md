@@ -35,14 +35,14 @@
 
 4. 域名：Domain Name
 
-    - 特殊：127.0.0.1 localhost 代表本机
+   - 特殊：127.0.0.1 localhost 代表本机
 
 5. DNS Domain Name System 域名系统，域名和 IP 地址相互映射关系数据库
 
 6. 端口 Port
 
-    - 虚拟端口：计算机内容或交换机路由器内的端口，不可见端口
-    - 物理端口：又称接口，可见端口
+   - 虚拟端口：计算机内容或交换机路由器内的端口，不可见端口
+   - 物理端口：又称接口，可见端口
 
 7. URL: Uniformed Resource Location 统一资源定位
 8. URI: Uniformed Resource Identifier 统一资源标识符，目标机器上相对某个文件夹的相对路径
@@ -75,4 +75,11 @@
 
 ![](./img/动态网站访问流程.png)
 
-https://www.bilibili.com/video/BV18x411H7qD?p=5&spm_id_from=pageDriver
+## 虚拟主机 Virtual Machine
+
+实现同一台服务器部署多个网站
+
+虚拟主机分类
+
+1. 基于 IP 的虚拟主机，配置多个网卡绑定多个 IP
+2. 基于域名的虚拟主机

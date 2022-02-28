@@ -9,3 +9,5 @@
 [PHP 变量和常量](blog/php-basic/variable.md)
 
 [PHP数据类型](blog/php-basic/type.md)
+
+[PHP运算符 operator](blog/php-basic/operator.md)

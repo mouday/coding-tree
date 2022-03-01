@@ -78,6 +78,9 @@ Logo：https://www.logoly.pro/
 
 [OneinStack](https://oneinstack.com/)一键PHP/JAVA安装工具
 
+[PxCook](https://www.fancynode.com.cn/pxcook): 高效易用的自动标注工具, 生成前端代码, 设计研发协作利器
+
+
 ## 学习资料：
 
 2022 黑马程序员 Java 学习路线图

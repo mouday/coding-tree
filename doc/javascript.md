@@ -24,6 +24,8 @@
 
 - [element-ui](https://element.eleme.cn/#/zh-CN/component/installation): 一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库
 - [vColorPicker](http://vue-color-picker.rxshc.com/): 基于 Vue 的颜色选择器插件
+- [vuedraggable](https://www.npmjs.com/package/vuedraggable)
+- [Vuetify](https://vuetifyjs.com/zh-Hans/) 是一个纯手工精心打造的 Material 样式的 Vue UI 组件库。
 
 [React.js](https://reactjs.org/): A JavaScript library for building user interfaces
 
@@ -56,6 +58,22 @@
 
 [Animate.css](https://animate.style/): Just-add-water CSS animations
 
+[Sails.js](https://sailsjs.com/)The MVC framework for Node.js
+
+[iView UI](https://iviewui.com/docs/guide/install): 一套基于 Vue.js 的高质量UI 组件库
+
+[Vant 2](https://vant-contrib.gitee.io/vant/v2/#/zh-CN/) 轻量、可靠的移动端 Vue 组件库
+
+[Swiper](https://www.swiper.com.cn/)(Swiper master)是目前应用较广泛的移动端网页触摸内容滑动js插件
+
+[Moment.js](http://momentjs.cn/) JavaScript 日期处理类库
+
+[Lodash](https://www.lodashjs.com/)一个一致性、模块化、高性能的 JavaScript 实用工具库。
+
+[rollup.js 中文文档](https://www.rollupjs.com/) 一个 JavaScript 模块打包器
+
+[CKEditor](https://ckeditor.com/docs/index.html) Smart rich text editor components with collaborative editing.
+
 ## CDN
 
 [BootCDN](https://www.bootcdn.cn/): 稳定、快速、免费的前端开源项目 CDN 加速服务
@@ -75,3 +93,5 @@ https://npm.devtool.tech/
 [ionic 教程](https://www.runoob.com/ionic/ionic-tutorial.html): 一个强大的 HTML5 应用程序开发框架(HTML5 Hybrid Mobile App Framework )
 
 [Express 中文网](https://www.expressjs.com.cn/): 基于 Node.js 平台，快速、开放、极简的 Web 开发框架
+
+[Yarn 中文文档](https://yarn.bootcss.com/)快速、可靠、安全的依赖管理工具

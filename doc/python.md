@@ -61,6 +61,7 @@ Celery
 - [欢迎进入Flask大型教程项目！](http://www.pythondoc.com/flask-mega-tutorial/)
 - [吐血推荐珍藏的Flask资源](https://blog.csdn.net/zV3e189oS5c0tSknrBCL/article/details/82112854)
 - [Flask补充系列–将应用部署在Heroku上](http://www.bjhee.com/flask-heroku.html)
+- [flask-paginate](https://pythonhosted.org/Flask-paginate/)  is a simple paginate extension for flask which is reference to will_paginate, and use bootstrap as css framework.
 
 [jinja](https://jinja.palletsprojects.com/): a fast, expressive, extensible templating engine
 
@@ -69,6 +70,24 @@ Celery
 [Django REST framework](https://www.django-rest-framework.org/):  a powerful and flexible toolkit for building Web APIs.
 
 [SQLAlchemy](https://www.sqlalchemy.org/):the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL.
+
+[pip](https://pypi.python.org/pypi/pip/) is the package installer for Python. You can use pip to install packages from the Python Package Index and other indexes.
+
+[Gunicorn](https://gunicorn.org/) 'Green Unicorn' is a Python WSGI HTTP Server for UNIX.
+
+[IPython](http://ipython.org/)Jupyter and the future of IPython
+
+[Working with Excel Files in Python](http://www.python-excel.org/): This site contains pointers to the best information available about working with Excel files in the Python programming language.
+
+[web.py](https://webpy.org/) is a web framework for Python that is as simple as it is powerful. 
+
+[OpenCV](https://opencv.org/) (Open Source Computer Vision Library) is an open source computer vision and machine learning software library. 
+
+[PyYAML](http://pyyaml.org/) is a full-featured YAML framework for the Python programming language.
+
+[xlwt](https://pypi.org/project/xlwt/): This is a library for developers to use to generate spreadsheet files compatible with Microsoft Excel versions 95 to 2003.
+
+[Unofficial Windows Binaries for Python Extension Packages](https://www.lfd.uci.edu/~gohlke/pythonlibs/): This page provides 32 and 64-bit Windows binaries of many scientific open-source extension packages for the official CPython distribution of the Python programming language. A few binaries are available for the PyPy distribution.
 
 ## 爬虫
 

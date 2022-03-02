@@ -80,6 +80,7 @@ Logo：https://www.logoly.pro/
 
 [PxCook](https://www.fancynode.com.cn/pxcook): 高效易用的自动标注工具, 生成前端代码, 设计研发协作利器
 
+[FeHelper ( 浏览器插件 )](https://www.baidufe.com/fehelper/index/index.html) Web开发者助手 FeHelper
 
 ## 学习资料：
 

@@ -8,8 +8,12 @@
 
 [PHP 变量和常量](blog/php-basic/variable.md)
 
-[PHP数据类型](blog/php-basic/type.md)
+[PHP 数据类型](blog/php-basic/type.md)
 
-[PHP运算符 operator](blog/php-basic/operator.md)
+[PHP 运算符 operator](blog/php-basic/operator.md)
 
 [PHP 流程控制](blog/php-basic/process.md)
+
+[PHP 常用的系统函数](blog/php-basic/system.md)
+
+[PHP 文件包含](blog/php-basic/include.md)

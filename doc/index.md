@@ -16,8 +16,6 @@
 
 ## 工具
 
-[百度 AI 网络图片文字识别](https://ai.baidu.com/tech/ocr_others/webimage)
-
 [ZY Player](http://zyplayer.fun/): 跨平台视频资源播放器, 简洁免费无广告.
 
 [Md2All](http://md.aclickall.com/): Markdown 排版利器
@@ -46,19 +44,8 @@ Logo：https://www.logoly.pro/
 
 [Cmder](https://cmder.net/): Windows 下的终端工具 Portable console emulator for Windows
 
-[在线工具 tool.lu ](https://tool.lu/)
-
-- [favicon 在线制作](https://tool.lu/favicon/)
-
-[multiavatar 虚拟头像生成](https://multiavatar.com/)
-
-[Faker API](https://fakerapi.it/it): a collection of completely free APIs that helps web developers and web designers generate fake data in a fast and easy way. No registration is required. No tokens, no authentication.
-
-[DownGit](https://zhoudaxiaa.gitee.io/downgit/): 创建 GitHub 资源下载链接
-
 [Nestopia](http://nestopia.sourceforge.net/): Nintendo NES Emulator
 
-[玩的嗨-vip视频在线解析](https://tv.wandhi.com/go.html)
 
 [Hoppscotch](https://hoppscotch.io/): Postwoman
 - github: [https://github.com/hoppscotch/hoppscotch](https://github.com/hoppscotch/hoppscotch)
@@ -82,6 +69,12 @@ Logo：https://www.logoly.pro/
 
 [FeHelper ( 浏览器插件 )](https://www.baidufe.com/fehelper/index/index.html) Web开发者助手 FeHelper
 
+[JetBrains](https://www.jetbrains.com/)Essential tools for software developers and teams
+
+[uTools官网 ](http://www.u.tools/)新一代效率工具平台
+
+[Snipaste](https://zh.snipaste.com/index.html) 截图 + 贴图，提高您的工作效率
+
 ## 学习资料：
 
 2022 黑马程序员 Java 学习路线图
@@ -93,3 +86,5 @@ https://www.bilibili.com/video/BV1Kr4y1i7ru
 ## 网站
 
 [电脑爱好者](https://www.cfan.com.cn/)
+
+[Road To Coding](https://www.r2coding.com/#/)意为编程自学之路，是自学编程以来所用资源和分享内容的大聚合。

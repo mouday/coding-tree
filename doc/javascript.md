@@ -37,7 +37,7 @@
 
 [jQuery](https://jquery.com/)
 
-- [jQuery API 3.5.1 速查表](https://jquery.cuishifeng.cn/) 
+- [jQuery API 3.5.1 速查表](https://jquery.cuishifeng.cn/)
 
 - [jQuery 教程](https://www.w3school.com.cn/jquery/index.asp): 极大地简化了 JavaScript 编程
 
@@ -67,11 +67,11 @@
 
 [Sails.js](https://sailsjs.com/)The MVC framework for Node.js
 
-[iView UI](https://iviewui.com/docs/guide/install): 一套基于 Vue.js 的高质量UI 组件库
+[iView UI](https://iviewui.com/docs/guide/install): 一套基于 Vue.js 的高质量 UI 组件库
 
 [Vant 2](https://vant-contrib.gitee.io/vant/v2/#/zh-CN/) 轻量、可靠的移动端 Vue 组件库
 
-[Swiper](https://www.swiper.com.cn/)(Swiper master)是目前应用较广泛的移动端网页触摸内容滑动js插件
+[Swiper](https://www.swiper.com.cn/)(Swiper master)是目前应用较广泛的移动端网页触摸内容滑动 js 插件
 
 [Moment.js](http://momentjs.cn/) JavaScript 日期处理类库
 
@@ -104,3 +104,7 @@ https://npm.devtool.tech/
 [Express 中文网](https://www.expressjs.com.cn/): 基于 Node.js 平台，快速、开放、极简的 Web 开发框架
 
 [Yarn 中文文档](https://yarn.bootcss.com/)快速、可靠、安全的依赖管理工具
+
+## 文章
+
+[能解决 90% 需求的 js 库](https://juejin.cn/post/7024011415144890405)

@@ -70,6 +70,7 @@ Celery
 [Django REST framework](https://www.django-rest-framework.org/):  a powerful and flexible toolkit for building Web APIs.
 
 [SQLAlchemy](https://www.sqlalchemy.org/):the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL.
+- [SQLAlchemy 1.4 Documentation](https://docs.sqlalchemy.org/en/14/)
 
 [pip](https://pypi.python.org/pypi/pip/) is the package installer for Python. You can use pip to install packages from the Python Package Index and other indexes.
 

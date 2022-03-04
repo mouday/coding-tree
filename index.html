@@ -17,6 +17,18 @@
     <link rel="stylesheet"
           href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
 
+    <style>
+        .last-update-time-wrap {
+            padding: 20px 0;
+        }
+
+        .last-update-time {
+            border-left: 4px solid var(--theme-color, #42b983);
+            color: #858585;
+            margin: 2em 0;
+            padding-left: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -37,11 +49,23 @@
                 placeholder: '搜索',
                 noData: '没有结果！',
             },
+            // 显示更新时间
+            timeUpdater: {
+                // text: ">最后更新时间: {docsify-updated}",
+                text: "<div class='last-update-time-wrap'><div class='last-update-time'>最后更新时间: {docsify-updated}</div></div>",
+                formatUpdated: "{YYYY}-{MM}-{DD} {HH}:{mm}",
+            },
 
+            // 目录
+            toc: {
+                scope: '.markdown-section',
+                headings: 'h1, h2, h3, h4, h5, h6',
+                title: '目录',
+            },
         }
     </script>
     <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-    
+
     <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-java.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
@@ -49,6 +73,11 @@
 
     <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-updated@1/src/time-updater.min.js"></script>
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/docsify-toc@1.0.0/dist/toc.css">
+    <script src="https://unpkg.com/docsify-toc@1.0.0/dist/toc.js"></script>
 </body>
 
 </html>

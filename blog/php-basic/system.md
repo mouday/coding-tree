@@ -74,3 +74,93 @@ strtotime(string $datetime, int $now = time()): int
 echo strtotime('2022-03-03 22:13:20');
 // 1646316800
 ```
+
+## 数学函数
+
+```
+max() 较大值
+min() 较小值
+rand() 随机整数
+mt_rand() 效率比rand()高，建议使用
+round() 四舍五入
+ceil() 向上取整
+floor() 向下取整
+pow() 指数
+abs() 绝对值
+sqrt() 平方根
+```
+
+示例
+
+```php
+<?php
+
+echo max(1, 10);
+// 10
+
+echo min(1, 10);
+// 1
+
+echo rand(1, 10);
+// 9
+
+echo mt_rand(1, 10);
+// 1
+
+echo round(3.14);
+// 3
+
+echo ceil(3.14);
+// 4
+
+echo floor(3.14);
+// 3
+
+echo pow(3, 2);
+// 9
+
+echo abs(-10);
+// 10
+
+echo sqrt(4);
+// 2
+```
+
+## 函数有关
+
+```
+function_exists() 判断函数是否存在
+func_get_arg() 获取指定数值对应的参数
+func_get_args() 获取所有参数（数组）
+func_num_args() 获取实参数量
+```
+
+```php
+<?php
+
+function foo($a, $b)
+{
+    // 获取参数数量
+    echo func_num_args();
+    // 2
+
+    // 获取指定参数
+    echo func_get_arg(0);
+    // 2
+
+    // 获取所有参数
+    var_dump(func_get_args());
+    // array(2) {
+    //   [0]=> int(1)
+    //   [1]=> int(2)
+    // }
+
+}
+
+// 判断函数是否存在
+var_dump(function_exists('foo'));
+// bool(true)
+
+foo(1, 2);
+
+```

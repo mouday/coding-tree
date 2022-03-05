@@ -19,3 +19,5 @@
 [PHP 文件包含](blog/php-basic/include.md)
 
 [PHP 函数 function](blog/php-basic/function.md)
+
+[PHP 错误处理 error](blog/php-basic/error.md)

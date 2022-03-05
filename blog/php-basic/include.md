@@ -111,4 +111,47 @@ include 'demo.php';
 
 ## include 和 require 区别
 
-https://www.bilibili.com/video/BV18x411H7qD?p=56&spm_id_from=pageDriver
+include 和 include_once 区别
+
+- include：系统碰到一次，执行一次，如果多次加载，会执行多次
+- include_once：系统碰到多次，也只会执行一次
+
+include 和 require 区别
+
+- 相同点：都是包含文件
+- 不同点：包含不到文件时，报错的形式不一样
+  - include 如果包含出错代码，会继续执行 Warning
+  - require 如果包含出错代码，不在继续执行 Fatal
+
+文件加载路径
+
+1、绝对路径：(`/`)
+
+- 从磁盘的根目录开始（本地绝对路径）
+- 从网站根目录开始（网络绝对路径）
+
+2、相对路径：从当前文件所在目录开始的路径
+- `.` 表示当前文件夹
+- `./` 表示当前路径
+- `../` 表示上级目录
+
+绝对路径和相对路径的加载区别
+
+- 绝对路径效率偏低，路径不会出错
+- 相对路径效率高，容错出错
+
+```php
+// 相对路径
+include_once 'demo.php'; // 默认当前文件本身
+include_once './demo.php';
+include_once '../demo.php';
+
+// 绝对路径
+include_once '/lib/demo.php';
+```
+
+文件嵌套包含
+
+一个文件包含另个文件，另个文件又包含其他文件
+
+嵌套包含相对路径容易出错

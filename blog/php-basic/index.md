@@ -17,3 +17,5 @@
 [PHP 常用的系统函数](blog/php-basic/system.md)
 
 [PHP 文件包含](blog/php-basic/include.md)
+
+[PHP 函数 function](blog/php-basic/function.md)

@@ -400,5 +400,3 @@ PHP 中实际上不存在的类型
 
 - Mixed： 混合型，可以是多种 PHP 的数据类型
 - Number: 数值型，可以是任意数值类型（整型和浮点型）
-
-https://www.bilibili.com/video/BV18x411H7qD?p=70&spm_id_from=pageDriver

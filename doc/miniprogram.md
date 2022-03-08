@@ -17,3 +17,7 @@
 [mpvue](https://mpvue.com/): 一个使用 Vue.js 开发小程序的前端框架。
 
 [Vue Mini](https://vuemini.org/guide/) 是一个基于 Vue 3 的小程序开发库，它能让你用 Composition API 写小程序。
+
+[weapp-qrcode](https://github.com/tomfriwel/weapp-qrcode) 微信小程序生成二维码工具
+
+[echarts-map](https://github.com/mouday/echarts-map) 包含 echarts 用到的 map 地图文件

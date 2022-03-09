@@ -375,6 +375,3 @@ str_shuffle(string $str): string
 echo str_shuffle('ABCDEFG');
 // GBEACDF
 ```
-
-
-https://www.bilibili.com/video/BV18x411H7qD?p=81&spm_id_from=pageDriver

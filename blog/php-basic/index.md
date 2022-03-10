@@ -27,3 +27,5 @@
 [PHP  数组 array](blog/php-basic/array.md)
 
 [PHP  数组相关函数](blog/php-basic/array-function.md)
+
+[编程思想](blog/php-basic/thinking.md)

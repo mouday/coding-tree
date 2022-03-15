@@ -5,7 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "docsify serve ./",
+    "dev": "~/.nvm/versions/node/v12.22.6/bin/docsify serve ./",
     "live": "live-server",
     "start": "http-server"
   },

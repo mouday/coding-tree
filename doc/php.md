@@ -2,13 +2,12 @@
 
 [笔记：黑马程序员PHP零基础入门到精通教程（P1基础6天）](blog/php-basic/index.md)
 
+[笔记：PHP 零基础入门到精通教程（P2 mysql 数据库 5 天）](blog/php-mysql/index.md)
+
 ## 文章
 
 [PHP 手册](https://www.php.net/manual/zh/index.php)
 
-[黑马程序员 PHP 零基础入门到精通教程（P1 基础 6 天）](https://www.bilibili.com/video/BV18x411H7qD)
-
-[PHP 零基础入门到精通教程（P2 mysql 数据库 5 天）](https://www.bilibili.com/video/BV1Vx411g7uJ)
 
 [PHP 零基础入门到精通教程（P3 核心编程技术）](https://www.bilibili.com/video/BV1jx411M7B7)
 

@@ -7,3 +7,5 @@
 [MySQL简介](blog/php-mysql/mysql-basic.md)
 
 [数据库基本操作](blog/php-mysql/sql-database.md)
+
+[数据表基本操作](blog/php-mysql/sql-table.md)

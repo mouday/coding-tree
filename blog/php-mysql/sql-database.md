@@ -46,5 +46,36 @@ show create database 数据库名;
 -- eg:
 show create database data;
 ```
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=7&spm_id_from=pageDriver
 
+## 选择数据库
+
+```sql
+use 数据库;
+
+-- eg
+use mydatabase;
+```
+
+## 修改数据库
+
+```sql
+-- 修改数据库字符集 和校对集
+alter database 数据库名字 charset 字符集;
+
+-- eg:
+alter database mydatabase charset gbk;
+```
+
+修改数据库名字
+
+- version < 5.5 rename
+- version > 5.5 不可以修改
+
+## 删除数据库
+
+```sql
+drop database 数据库名字;
+
+-- eg:
+drop database mydatabase;
+```

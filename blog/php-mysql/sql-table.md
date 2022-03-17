@@ -305,6 +305,3 @@ mysql> show tables;
 | t_author             |
 +----------------------+
 ```
-
-
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=11&spm_id_from=pageDriver

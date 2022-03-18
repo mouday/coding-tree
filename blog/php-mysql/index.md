@@ -13,3 +13,7 @@
 [数据data 基本操作](blog/php-mysql/sql-data.md)
 
 [字符集character](blog/php-mysql/character.md)
+
+[数据类型-整数](blog/php-mysql/sql-int.md)
+
+[数据类型-小数](blog/php-mysql/sql-float.md)

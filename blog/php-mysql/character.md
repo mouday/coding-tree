@@ -64,6 +64,3 @@ set character_set_client = gbk; // 让服务器识别客户端传过去的数据
 set character_set_connection = gbk; // 更好的帮助客户端与服务器端之间惊醒字符集转换
 set character_set_results = gbk; // 告诉客户端服务器返回的数据
 ```
-
-
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=15&spm_id_from=pageDriver

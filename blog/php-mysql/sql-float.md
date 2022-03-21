@@ -89,9 +89,57 @@ select * from my_float;
 +---------+--------------+
 ```
 
-- double 双精度，8字节存储，15位精度
+## double 双精度 
+
+8个字节存储，表示范围更大，精度有15位左右
+
+## 定点数decimal
+
+能够保证数据精确的小数（小数部分可能不精确，超出长度会四舍五入），整数部分一定精确
+
+decimal(M, D), M表示总长度，最大值不能超过65，D代表小数部分长度，最长不能超过30
+
+```sql
+create table my_decimal(
+    float_data float(10, 2),
+    decimal_data decimal(10, 2)
+);
+
+mysql> desc my_decimal;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| float_data   | float(10,2)   | YES  |     | NULL    |       |
+| decimal_data | decimal(10,2) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+
+insert into 
+my_decimal(float_data, decimal_data)
+values(12345678.90, 12345678.90);
+
+mysql> select * from my_decimal;
++-------------+--------------+
+| float_data  | decimal_data |
++-------------+--------------+
+| 12345679.00 |  12345678.90 |
++-------------+--------------+
+
+insert into 
+my_decimal(float_data, decimal_data)
+values(99999999.99, 99999999.99);
 
 
-定点型
+mysql> select * from my_decimal;
++--------------+--------------+
+| float_data   | decimal_data |
++--------------+--------------+
+|  12345679.00 |  12345678.90 |
+| 100000000.00 |  99999999.99 |
++--------------+--------------+
 
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=17&spm_id_from=pageDriver
+-- 定点数，整数部分被进位，会抛出异常
+insert into 
+my_decimal(float_data, decimal_data)
+values(99999999.99, 99999999.999);
+ERROR 1264 (22003): Out of range value for column 'decimal_data' at row 1
+```

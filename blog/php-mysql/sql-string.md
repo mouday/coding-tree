@@ -51,78 +51,28 @@ char 和 varchar 选择
 
 2、如果数据超过 255 个字符，一定选择 text
 
-## enum 枚举类型
+## MySQL记录长度
 
-例如：
+MySQL规定：记录长度(record == 行row), 总长度不能超过65535个字节
+
+varchar 能够存储的理论值65535个字符，字符在不同的字符集下可能占用多个字节
+
+varchar处理存储数据本身要占用空间，还需要额外的空间来保存记录长度
+
+证明：varchar在MySQL中能够达到的理论值
 ```
-性别 gender 男 女 保密
+utf8 65535 / 3 = 21845，需要2个字节保存长度
+gbk 65535 / 2 = 32767...1，需要2个字节保存长度
 ```
-基本语法
-```
-enum(数据值 1，数据值 2...);
-```
-- 数据值列表在 255 个以内，使用 1 个字节来存储
-- 数据值列表超过 255，但是小于 65535，使用 2 个字节来存储
 
 ```sql
--- Enum(0=>'男', 1=>'女', 2=>'保密')
-create table my_enum(
-    gender enum('男', '女', '保密')
-)
+create table my_utf8(
+  name varchar(21844)
+) charset utf8;
 
-mysql> desc my_enum;
-+--------+----------------------------+------+-----+---------+-------+
-| Field  | Type                       | Null | Key | Default | Extra |
-+--------+----------------------------+------+-----+---------+-------+
-| gender | enum('男','女','保密')     | YES  |     | NULL    |       |
-+--------+----------------------------+------+-----+---------+-------+
-
--- 插入规范数据
-insert into my_enum (gender) values ('男');
-insert into my_enum (gender) values ('女');
-
-mysql> select * from my_enum;
-+--------+
-| gender |
-+--------+
-| 男     |
-| 女     |
-+--------+
-
+create table my_gbk(
+  name varchar(32766)
+) charset gbk;
 ```
 
-枚举可以规范数据
-
-枚举类型存储的不是真正的字符串，而是存储了下标
-```sql
--- MySQL 会自动类型转换，+、-、\*、/ 会将数据转换成数值，普通字符串转换为数值 0
-select gender + 0 from my_enum;
-
-mysql> select gender + 0 from my_enum;
-+------------+
-| gender + 0 |
-+------------+
-|          1 |
-|          2 |
-+------------+
-
--- 可以直接插入数值数据
-insert into my_enum (gender) values (1);
-
-mysql> select * from my_enum;
-+--------+
-| gender |
-+--------+
-| 男     |
-| 女     |
-| 男     |
-+--------+
-
-```
-
-枚举的意义
-
-- 规范数据本身，限定只能插入规定的数据项
-- 节省存储空间
-
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=22&spm_id_from=pageDriver
+https://www.bilibili.com/video/BV1Vx411g7uJ?p=24&spm_id_from=pageDriver

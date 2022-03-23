@@ -74,5 +74,3 @@ create table my_gbk(
   name varchar(32766)
 ) charset gbk;
 ```
-
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=24&spm_id_from=pageDriver

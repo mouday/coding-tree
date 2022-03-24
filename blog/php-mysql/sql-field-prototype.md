@@ -113,7 +113,7 @@ create table my_primary_key_3(
 alter table my_primary_key_3 add primary key(username);
 ```
 
-### 2、查看主键
+### 4.2、查看主键
 
 ```sql
 -- 方案一：查看表结构
@@ -133,7 +133,7 @@ CREATE TABLE `my_primary_key_2` (
 
 ```
 
-### 3、删除主键
+### 4.3、删除主键
 
 ```sql
 alter table 表名 drop primary key;
@@ -152,7 +152,7 @@ mysql> desc my_primary_key_1;
 +----------+-------------+------+-----+---------+-------+
 ```
 
-### 4、复合主键
+### 4.4、复合主键
 
 案例：一张学生选修课表
 - 一个学生可以选修多个选修课
@@ -179,7 +179,7 @@ desc my_score;
 ```
 
 
-### 5、主键约束
+### 4.5、主键约束
 
 1. 当前字段对应的数据不能为空
 2. 当前字段对应的数据不能有任何重复
@@ -201,10 +201,129 @@ mysql> select * from my_primary_key_2;
 +----------+
 ```
 
-### 6、主键分类
+### 4.6、主键分类
 
 - 业务主键: 学生ID，课程ID
 - 逻辑主键: 自然增长的整型（应用广泛）
 
+## 5、自动增长
 
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=26&spm_id_from=pageDriver
+auto_increment 如果没有提供该字段的值，系统会根据之前存在的数据进行自动增长
+
+通常用于逻辑主键
+
+### 5.1、自动增长的原理
+
+1. 系统保存当前自动增长字段，记录当前对应的数据值，在给定一个指定的步长
+2. 当用户进行数据插入时，如果没有给值，系统在原始值上加上步长变成新的数据
+3. 自动增长的触发，给定属性的字段没有提供值
+4. 自动增长只适用于数值
+
+### 5.2、使用自动增长
+
+基本语法
+
+```sql
+字段 auto_increment
+```
+```sql
+create table my_auto(
+  id int primary key auto_increment,
+  name varchar(10) not null comment '用户名',
+  password varchar(50) not null comment '密码'
+);
+
+mysql> desc my_auto;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(10) | NO   |     | NULL    |                |
+| password | varchar(50) | NO   |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+
+insert into my_auto(name, password) values('Tom', '123456');
+
+mysql> select * from my_auto;
++----+------+----------+
+| id | name | password |
++----+------+----------+
+|  1 | Tom  | 123456   |
++----+------+----------+
+```
+
+### 5.3、修改自动增长
+
+```sql
+show create table my_auto;
+
+CREATE TABLE `my_auto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名',
+  `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+
+-- 修改auto_increment
+alter table my_auto auto_increment=10;
+
+show create table my_auto;
+
+CREATE TABLE `my_auto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名',
+  `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+```
+
+### 5.4、删除自动增长
+
+通过修改字段属性，去掉auto_increment
+
+```sql
+alter table my_auto modify id int;
+
+show create table my_auto;
+
+CREATE TABLE `my_auto` (
+    `id` int(11) NOT NULL,
+    `name` varchar(10) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名',
+    `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+```
+
+### 5.5、初始设置
+```sql
+show variables like 'auto_increment%';
++--------------------------+-------+
+| Variable_name            | Value |
++--------------------------+-------+
+| auto_increment_increment | 1     |
+| auto_increment_offset    | 1     |
++--------------------------+-------+
+```
+
+- auto_increment_increment 步长
+- auto_increment_offset 初始值
+
+### 5.6、细节问题
+
+1. 一张表只有一个自增长，自增长属于表选项
+2. 手动修改表的的自增长值，要比原有数据大
+
+```sql
+-- 指定id值, auto_increment会自动增长
+insert into my_auto(id, name, password) values(10, 'Tom', '123456');
+
+mysql> select * from my_auto;
++----+------+----------+
+| id | name | password |
++----+------+----------+
+|  1 | Tom  | 123456   |
+| 10 | Tom  | 123456   |
++----+------+----------+
+```
+
+https://www.bilibili.com/video/BV1Vx411g7uJ?p=28&spm_id_from=pageDriver

@@ -326,4 +326,92 @@ mysql> select * from my_auto;
 +----+------+----------+
 ```
 
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=28&spm_id_from=pageDriver
+## 6、唯一键
+
+unique key 
+可以有多个，
+允许数据为null, 可以有多个null，null不参与比较
+
+### 6.1、创建唯一键
+
+和主键类似
+
+- 直接在表字段后增加唯一键标识 `unique [key]`
+- 所有字段之后使用 `unique key(字段列表)`
+- 创建完表之后也可以增加唯一键
+
+```sql
+alter table 表名 add unique key(字段)
+
+-- 方式一：
+create table my_unique1(
+    id int primary key auto_increment,
+    username varchar(10) unique
+);
+
+-- 方式二：
+create table my_unique2(
+    id int primary key auto_increment,
+    username varchar(10),
+    unique key(username)
+);
+
+-- 方式三：
+create table my_unique3(
+    id int primary key auto_increment,
+    username varchar(10)
+);
+
+alter table my_unique3 add unique key(username);
+```
+
+### 6.2、查看唯一键
+
+```sql
+mysql> desc my_unique1;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| username | varchar(10) | YES  | UNI | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+```
+
+不为空null的时候，不允许重复
+
+```sql
+-- 可以插入多个null
+insert into my_unique1 (username) values(null);
+insert into my_unique1 (username) values(null);
+
+-- 不为null时，不允许重复
+insert into my_unique1 (username) values('Tom');
+insert into my_unique1 (username) values('Tom');
+ERROR 1062 (23000): Duplicate entry 'Tom' for key 'username'
+```
+
+### 6.3、删除唯一键
+
+一个表中允许存在多个唯一键
+
+
+```sql
+alter table 表名 drop index 唯一键名字;
+
+
+alter table my_unique2 drop index username;
+
+mysql> desc my_unique2;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| username | varchar(10) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+```
+
+修改唯一键：先删除后增加
+
+### 6.4、复合唯一键
+
+可以使用多个字段来共同保证唯一性

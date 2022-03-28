@@ -147,8 +147,86 @@ mysql> select * from (select * from my_student) as t1;
 +----+--------+
 ```
 
+## 4、Where条件
 
-group
+通过运算符进行结果比较，来判断符合条件的数据
+
+## 5、Group by分组
+
+根据指定的字段，将数据进行分组，分组的目的是为了统计
+
+## 5.1、分组统计
+
+```sql
+group by 字段名
+```
+
+分组后，只保留每组的第一条数据
+
+```sql
+mysql> select * from my_student;
++----+--------+----------+
+| id | name   | class_id |
++----+--------+----------+
+|  1 | 刘备   |        1 |
+|  2 | 李四   |        1 |
+|  3 | 王五   |        2 |
++----+--------+----------+
+
+mysql> select  class_id  from my_student group by class_id;
++----------+
+| class_id |
++----------+
+|        1 |
+|        2 |
++----------+
+```
+
+## 5.2、统计函数（聚合函数）
+
+- count() 统计数量。如果是字段，不统计null字段
+- avg 平均值
+- sum 求和
+- max 最大值
+- min 最小值
+- group_concat 分组中指定字段拼接
+
+按照班级统计每班人数，最大年龄，最小年龄，平均年龄
+
+```sql
+mysql> select * from my_student;
++----+--------+----------+------+
+| id | name   | class_id | age  |
++----+--------+----------+------+
+|  1 | 刘备   |        1 |   18 |
+|  2 | 李四   |        1 |   19 |
+|  3 | 王五   |        2 |   20 |
++----+--------+----------+------+
+
+mysql> select class_id, count(*), max(age), min(age), avg(age) from my_student group by class_id;
++----------+----------+----------+----------+----------+
+| class_id | count(*) | max(age) | min(age) | avg(age) |
++----------+----------+----------+----------+----------+
+|        1 |        2 |       19 |       18 |  18.5000 |
+|        2 |        1 |       20 |       20 |  20.0000 |
++----------+----------+----------+----------+----------+
+
+
+mysql> select class_id, group_concat(name), count(*), max(age), min(age), avg(age) from my_student group by class_id;
++----------+--------------------+----------+----------+----------+----------+
+| class_id | group_concat(name) | count(*) | max(age) | min(age) | avg(age) |
++----------+--------------------+----------+----------+----------+----------+
+|        1 | 刘备,李四          |        2 |       19 |       18 |  18.5000 |
+|        2 | 王五               |        1 |       20 |       20 |  20.0000 |
++----------+--------------------+----------+----------+----------+----------+
+```
+
+
+多分组
+分组排序
+回溯统计
+
+
 
 having
 
@@ -159,4 +237,4 @@ limit
 聚合函数
 
 
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=36&spm_id_from=pageDriver
+https://www.bilibili.com/video/BV1Vx411g7uJ?p=37&spm_id_from=pageDriver

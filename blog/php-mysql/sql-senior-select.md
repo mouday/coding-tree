@@ -505,5 +505,3 @@ mysql> select * from my_student limit 4, 2;
 |  8 | 关羽   |        1 |   22 |      2 |
 +----+--------+----------+------+--------+
 ```
-
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=39&spm_id_from=pageDriver

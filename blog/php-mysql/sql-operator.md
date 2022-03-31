@@ -192,8 +192,3 @@ mysql> select * from my_student where name like '曹%';
 |  9 | 曹操   |        1 |   20 |   NULL |
 +----+--------+----------+------+--------+
 ```
-
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=40&spm_id_from=pageDriver
-
-
-

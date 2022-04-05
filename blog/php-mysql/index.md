@@ -43,3 +43,5 @@
 [联合查询 union](blog/php-mysql/sql-union.md)
 
 [连接查询 join](blog/php-mysql/sql-join.md)
+
+[子查询 sub query](blog/php-mysql/sql-subquery.md)

@@ -348,27 +348,3 @@ select * from my_student left join my_class on my_student.class_id = my_class.cl
 ```
 
 通常不使用
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=46&spm_id_from=pageDriver
-
-

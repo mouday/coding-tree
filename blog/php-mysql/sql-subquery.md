@@ -217,28 +217,174 @@ select * from (
 
 ```
 
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=51&spm_id_from=pageDriver
+## 6、exists子查询
 
+返回结果只有0或者1，1代表成立，0代表不成立
 
+### 6.1、基本语法
 
+```sql
+where exists (查询语句)
 
+-- 永远为真
+where 1;
+```
 
+### 6.2、示例
 
+```sql
+-- 查询有学生的所有班级
+select * from my_class as c where exists (
+    select id from my_student as s where s.class_id = c.id
+);
++----+--------+
+| id | name   |
++----+--------+
+|  1 | 一班   |
+|  2 | 二班   |
++----+--------+
+```
 
+## 7、子查询中的特定关键字
 
+```sql
+mysql> select * from my_student;
++----+--------+----------+------+--------+
+| id | name   | class_id | age  | gender |
++----+--------+----------+------+--------+
+|  1 | 刘备   |        1 |   18 |      2 |
+|  2 | 李四   |        1 |   19 |      1 |
+|  3 | 王五   |        2 |   20 |      2 |
+|  4 | 张飞   |        2 |   21 |      1 |
+|  5 | 关羽   |        1 |   22 |      2 |
+|  6 | 曹操   |        1 |   20 |   NULL |
++----+--------+----------+------+--------+
 
+mysql> select id from my_class;
++----+
+| id |
++----+
+|  1 |
+|  3 |
+|  2 |
++----+
+```
 
+### 7.1、in
 
+```sql
+主查询 where 条件 in (列子查询)
 
+select * from my_student where class_id in (select id from my_class);
++----+--------+----------+------+--------+
+| id | name   | class_id | age  | gender |
++----+--------+----------+------+--------+
+|  1 | 刘备   |        1 |   18 |      2 |
+|  2 | 李四   |        1 |   19 |      1 |
+|  3 | 王五   |        2 |   20 |      2 |
+|  4 | 张飞   |        2 |   21 |      1 |
+|  5 | 关羽   |        1 |   22 |      2 |
+|  6 | 曹操   |        1 |   20 |   NULL |
++----+--------+----------+------+--------+
+```
 
+### 7.2、any
 
+```sql
+-- 查询结果中有任意一个匹配即可，等价于in
+主查询 where 条件 any (列子查询)
 
+select * from my_student where class_id = any (select id from my_class);
++----+--------+----------+------+--------+
+| id | name   | class_id | age  | gender |
++----+--------+----------+------+--------+
+|  1 | 刘备   |        1 |   18 |      2 |
+|  2 | 李四   |        1 |   19 |      1 |
+|  3 | 王五   |        2 |   20 |      2 |
+|  4 | 张飞   |        2 |   21 |      1 |
+|  5 | 关羽   |        1 |   22 |      2 |
+|  6 | 曹操   |        1 |   20 |   NULL |
++----+--------+----------+------+--------+
 
+-- 不等于任意一个
+主查询 where 条件 any <> (列子查询)
+select * from my_student where class_id <> any (select id from my_class);
++----+--------+----------+------+--------+
+| id | name   | class_id | age  | gender |
++----+--------+----------+------+--------+
+|  1 | 刘备   |        1 |   18 |      2 |
+|  2 | 李四   |        1 |   19 |      1 |
+|  3 | 王五   |        2 |   20 |      2 |
+|  4 | 张飞   |        2 |   21 |      1 |
+|  5 | 关羽   |        1 |   22 |      2 |
+|  6 | 曹操   |        1 |   20 |   NULL |
++----+--------+----------+------+--------+
+```
 
+### 7.3、some
 
+与any完全一样
 
+### 7.4、all
 
+```sql
+-- 等于其中所有
+=all(列子查询)
 
+select * from my_student where class_id = all (select id from my_class);
+Empty set (0.00 sec)
 
+select * from my_class where id = all (select class_id from my_student);
+Empty set (0.00 sec)
 
+-- 不等于其中所有
+<>all(列子查询)
+select * from my_student where class_id <> all (select id from my_class);
+Empty set (0.00 sec)
 
+select * from my_class where id <> all (select class_id from my_student);
++----+--------+
+| id | name   |
++----+--------+
+|  3 | 三班   |
++----+--------+
+```
+
+### 7.5、值为null
+
+如果值为null,不参与匹配
+```sql
+mysql> select * from my_student;
++----+--------+----------+------+--------+
+| id | name   | class_id | age  | gender |
++----+--------+----------+------+--------+
+|  1 | 刘备   |        1 |   18 |      2 |
+|  2 | 李四   |        1 |   19 |      1 |
+|  3 | 王五   |        2 |   20 |      2 |
+|  4 | 张飞   |        2 |   21 |      1 |
+|  5 | 关羽   |     NULL |   22 |      2 |
+|  6 | 曹操   |        1 |   20 |   NULL |
++----+--------+----------+------+--------+
+
+mysql> select * from my_student where class_id = any (select id from my_class);
++----+--------+----------+------+--------+
+| id | name   | class_id | age  | gender |
++----+--------+----------+------+--------+
+|  1 | 刘备   |        1 |   18 |      2 |
+|  2 | 李四   |        1 |   19 |      1 |
+|  3 | 王五   |        2 |   20 |      2 |
+|  4 | 张飞   |        2 |   21 |      1 |
+|  6 | 曹操   |        1 |   20 |   NULL |
++----+--------+----------+------+--------+
+
+mysql> select * from my_student where class_id <> any (select id from my_class);
++----+--------+----------+------+--------+
+| id | name   | class_id | age  | gender |
++----+--------+----------+------+--------+
+|  1 | 刘备   |        1 |   18 |      2 |
+|  2 | 李四   |        1 |   19 |      1 |
+|  3 | 王五   |        2 |   20 |      2 |
+|  4 | 张飞   |        2 |   21 |      1 |
+|  6 | 曹操   |        1 |   20 |   NULL |
++----+--------+----------+------+--------+
+```

@@ -47,3 +47,5 @@
 [子查询 sub query](blog/php-mysql/sql-subquery.md)
 
 [数据库备份与还原](blog/php-mysql/sql-bak.md)
+
+[用户权限管理](blog/php-mysql/sql-power.md)

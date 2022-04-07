@@ -88,6 +88,3 @@ source mydatabase.bak.sql;
 方式三：手动复制粘贴（不推荐）
 
 打开备份文件，复制所有SQL指令，粘贴到mysql命令行中执行
-
-
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=54&spm_id_from=pageDriver

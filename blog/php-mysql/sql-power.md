@@ -155,10 +155,82 @@ update mysql.user set authentication_string = password('123456') where user = 'u
 ```
 
 
+
 ## 2、权限管理
+
+分为三类：
+
+- 数据权限：增删改查 select update delete insert
+- 结构权限：结构操作（表操作） create drop
+- 管理权限：权限管理 create user、grant、revoke， 管理员
+
 ### 2.1、授予权限 grant
+
+将权限分配给指定用户
+
+基本语法
+```sql
+grant 权限列表 on 数据库/*.表名/* to 用户
+```
+
+- 权限列表 使用逗号间隔，all privileges 代表全部权限
+- 所有数据库 `*.*`
+- 某个数据库：`数据库.*`
+- 单表：`数据库.表名`
+
+```sql
+-- 分配权限 不需要刷新，马上生效
+grant select on mydatabase.my_student to 'user1'@'%';
+```
+
 ### 2.2、取消权限 revoke
+
+基本语法
+
+```sql
+revoke 权限列表 /all privileges on 数据库/*.表/* from 用户
+```
+
+```sql
+-- 回收权限，不需要刷新，马上生效
+revoke all privileges on mydatabase.my_student from 'user1'@'%';
+```
+
 ### 2.3、刷新权限 flush
+将操作的具体内容同步到对应的表中
+
+基本语法
+```sql
+flush privileges;
+```
+
 ## 3、密码丢失的解决方案
 
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=55&spm_id_from=pageDriver
+如果忘记root用户的密码
+
+```bash
+# 停止服务
+mysql.server stop;
+
+# 停止不了可以直接杀死进程
+ps aux|grep mysql
+kill <pid>
+
+# 重新启动服务,跳过权限
+mysqld --skip-grant-tables
+
+# 直接无用户名登录
+mysql
+```
+
+非常危险，任何客户端不需要任何用户信息都可以直接登录，而且是root权限
+
+修改root密码
+```sql
+alter user 'root'@'localhost' identified by '123456'; 
+```
+
+修改完后，关闭mysql服务器，重启
+
+
+https://www.bilibili.com/video/BV1Vx411g7uJ?p=57&spm_id_from=pageDriver

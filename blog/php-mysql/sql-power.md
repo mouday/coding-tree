@@ -231,6 +231,3 @@ alter user 'root'@'localhost' identified by '123456';
 ```
 
 修改完后，关闭mysql服务器，重启
-
-
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=57&spm_id_from=pageDriver

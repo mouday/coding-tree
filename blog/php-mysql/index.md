@@ -49,3 +49,7 @@
 [数据库备份与还原](blog/php-mysql/sql-bak.md)
 
 [用户权限管理](blog/php-mysql/sql-power.md)
+
+[外键 foreing key](blog/php-mysql/sql-foreing-key.md)
+
+[视图 view](blog/php-mysql/sql-view.md)

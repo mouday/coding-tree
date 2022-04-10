@@ -36,3 +36,76 @@
 [CSS Tools: Reset CSS](https://meyerweb.com/eric/tools/css/reset/)
 
 [normalize.css](https://github.com/necolas/normalize.css/)
+
+游戏地址：
+
+1. Flexbox froggy
+
+https://flexboxfroggy.com/
+
+2. Flexbox defense
+
+http://www.flexboxdefense.com/
+
+3. Knights of the Flexbox Table
+
+地址：https://knightsoftheflexboxtable.com/
+
+4. Flex Box adventure
+
+地址：https://codingfantasy.com/games/flexboxadventure/play
+
+5. Flexbox zombies
+
+地址：https://mastery.games/flexboxzombies/
+
+6. Grid garden
+
+地址：https://cssgridgarden.com/
+
+7. Grid attack
+
+地址：https://codingfantasy.com/games/css-grid-attack/play
+
+8. CSS Diner
+
+地址：https://flukeout.github.io/
+
+9. Guess CSS
+
+地址：https://www.guess-css.app/
+
+10. CSS Speedrun
+
+地址：https://css-speedrun.netlify.app/
+
+
+CSS 参考书https://cssreference.io/animations/
+
+CSS 灵感https://chokcoco.github.io/CSS-Inspiration/#/
+
+UI 设计师的灵感源泉https://www.awwwards.com/sites/zero-impact
+
+学习 CSS 布局https://zh.learnlayout.com/box-sizing.html
+
+CSS 小花招UI 设计师的灵感源泉https://www.awwwards.com/sites/zero-impact
+
+https://css-tricks.com/
+
+不过脑子的动效，不过看起来很“猛”https://tholman.com/obnoxious/
+
+CSS 三维变换动画https://animista.net/
+
+CSS 鼠标悬浮动画https://ianlunn.github.io/Hover/
+
+通过给萝卜浇水，学习 CSS 网格布局https://cssgridgarden.com/
+
+通过做饭，练习 CSS 选择器https://flexboxfroggy.com/
+
+配色https://mycolor.space/
+
+还是配色https://clrs.cc/
+
+CSS 渐变色https://cssgradient.io/
+
+https://vue3js.cn/interview/

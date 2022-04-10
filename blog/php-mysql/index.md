@@ -59,3 +59,5 @@
 [变量 variables](blog/php-mysql/sql-variables.md)
 
 [流程结构 if while](blog/php-mysql/sql-if-while.md)
+
+[函数 function](blog/php-mysql/sql-function.md)

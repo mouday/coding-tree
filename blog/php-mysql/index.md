@@ -53,3 +53,9 @@
 [外键 foreing key](blog/php-mysql/sql-foreing-key.md)
 
 [视图 view](blog/php-mysql/sql-view.md)
+
+[事务安全 transaction](blog/php-mysql/sql-transaction.md)
+
+[变量 variables](blog/php-mysql/sql-variables.md)
+
+[流程结构 if while](blog/php-mysql/sql-if-while.md)

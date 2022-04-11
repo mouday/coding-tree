@@ -284,4 +284,69 @@ drop function my_func1;
 select 字段 into @变量;
 ```
 
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=70&spm_id_from=pageDriver
+## 3、函数流程结构案例
+
+需求：
+
+从1开始，直到用户传入的对应的值位置，自动求和，凡是5的倍数都不要
+
+
+设计：
+
+1. 创建函数
+2. 需要一个形参，确定要累加到什么位置
+3. 需要定义一个变量来保存对应的结果
+4. 内容部需要一个循环来实现迭代累加
+5. 循环内部需要进行条件判断控制，5的倍数
+
+
+定义函数
+
+```sql
+-- 创建一个自动求和的函数
+
+-- 修改语句结束符
+delimiter $$
+
+-- 创建函数
+create function my_sum(end_value int) returns int
+begin
+    -- 声明局部变量
+    declare res int default 0;
+    declare i int default 0;
+
+    -- 循环处理
+    mywhile: while i <= end_value do
+        -- mysql中没有++
+        set i = i + 1; 
+
+        --  判断当前数据是否合理
+        if i % 5 = 0 then
+            iterate mywhile;
+        end if;
+
+        -- 修改变量，累加
+        set res = res + i;
+    end while;
+
+    -- 返回值
+    return res;
+end
+
+-- 结束
+$$
+
+-- 修改语句结束符
+delimiter ;
+
+```
+
+调用函数
+
+```sql
+-- 实参个数必须等于形参个数
+select my_sum(10);
+```
+
+
+https://www.bilibili.com/video/BV1Vx411g7uJ?p=72&spm_id_from=pageDriver

@@ -347,6 +347,3 @@ delimiter ;
 -- 实参个数必须等于形参个数
 select my_sum(10);
 ```
-
-
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=72&spm_id_from=pageDriver

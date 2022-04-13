@@ -63,6 +63,11 @@
                 headings: 'h1, h2, h3, h4, h5, h6',
                 title: '目录',
             },
+
+            // 解决本地缓存不更新问题
+            requestHeaders: {
+                'cache-control': 'no-cache',
+            },
         }
     </script>
     <script src="static/js/docsify@4.12.2.min.js"></script>

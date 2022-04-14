@@ -1,4 +1,4 @@
-# PHP数据类型
+# PHP 数据类型
 
 ## 数据类型 data type
 
@@ -111,21 +111,21 @@ echo $d . PHP_EOL;
 
 ```
 
-PHP输出默认都是十进制
+PHP 输出默认都是十进制
 
 2、进制
 
-- 十进制：逢10进1，[0-9]
-- 二进制：逢2进1，[0-1]
-- 八进制：逢8进1，[0-7]
-- 十六进制：逢16进1，[0-9, A-F]
-
+- 十进制：逢 10 进 1，[0-9]
+- 二进制：逢 2 进 1，[0-1]
+- 八进制：逢 8 进 1，[0-7]
+- 十六进制：逢 16 进 1，[0-9, A-F]
 
 3、进制转换
 
 十进制 转 二进制
 
-方式一：除2取余
+方式一：除 2 取余
+
 ```
 10 -> 1010
 
@@ -135,9 +135,10 @@ PHP输出默认都是十进制
 1 / 2 = 0...1
 ```
 
-方式二：取出最大的2的N次方，直到结果为0
+方式二：取出最大的 2 的 N 次方，直到结果为 0
+
 ```
-10 
+10
 = 8 + 2
 = 2^3 + 2^1
 = 1 x 2^3 + 0 x 2^2 + 1 x 2^1 + 0 x 2^0
@@ -146,16 +147,16 @@ PHP输出默认都是十进制
 
 二进制转十进制
 
-方式：右侧开始，对应位数乘以2的N次幂，相加求和
+方式：右侧开始，对应位数乘以 2 的 N 次幂，相加求和
 
 ```
 110
 => 1 x 2^2  + 1 x 2^1 + 0 x 2^0
 = 4 + 2 + 0
 = 6
-``` 
+```
 
-4、PHP提供的进制转换方法
+4、PHP 提供的进制转换方法
 
 ```php
 // 十进制 转 二进制
@@ -180,7 +181,7 @@ var_dump($f1);
 // float(1.23)
 
 // 科学计数法 e表示10为底
-$f2 = 1.23e10; 
+$f2 = 1.23e10;
 var_dump($f2);
 // float(12300000000)
 
@@ -216,34 +217,32 @@ var_dump(FALSE);
 
 类型比较需要注意：
 
-- empty() 判断数据的值是否为空，不是null, 如果为空返回true，不为空返回false
-- isset() 判断数据存储的变量本身是否存在，存在返回true,不存在返回false
-
+- empty() 判断数据的值是否为空，不是 null, 如果为空返回 true，不为空返回 false
+- isset() 判断数据存储的变量本身是否存在，存在返回 true,不存在返回 false
 
 ## PHP 类型比较表:
 
 https://www.php.net/manual/zh/types.comparisons.php
 
-
 使用 PHP 函数对变量 $x 进行比较
 
-表达式 | gettype()|empty() | is_null()|isset() | boolean : if($x)
-- | - | - | - | -| -
-$x = "";| string |  `true` | false|`true`| false
-$x = null;  | NULL| `true`| `true`| false|false
-var $x; | NULL| `true`| `true`| false|false
-$x is undefined | NULL| `true`| `true`| false|false
-$x = [];| array|`true`| false|`true`| false
-$x = ['a', 'b'];| array|false|false|`true`| `true`
-$x = false; | boolean | `true`| false|`true`| false
-$x = true; |  boolean | false|false|`true`| `true`
-$x = 1; | integer | false|false|`true`| `true`
-$x = 42;| integer | false|false|`true`| `true`
-$x = 0; | integer|  `true`| false|`true`| false
-$x = -1;| integer|  false|false|`true`| `true`
-$x = "1";|string |  false|false|`true`| `true`
-$x = "0";|string |  `true`| false|`true`| false
-$x = "-1"; |  string |  false|false|`true`| `true`
-$x = "php"; | string |  false|false|`true`| `true`
-$x = "true";| string |  false|false|`true`| `true`
-$x = "false";|string |  false|false|`true`| `true`
+| 表达式           | gettype() | empty() | is_null() | isset() | boolean : if($x) |
+| ---------------- | --------- | ------- | --------- | ------- | ---------------- |
+| $x = "";         | string    | `true`  | false     | `true`  | false            |
+| $x = null;       | NULL      | `true`  | `true`    | false   | false            |
+| var $x;          | NULL      | `true`  | `true`    | false   | false            |
+| $x is undefined  | NULL      | `true`  | `true`    | false   | false            |
+| $x = [];         | array     | `true`  | false     | `true`  | false            |
+| $x = ['a', 'b']; | array     | false   | false     | `true`  | `true`           |
+| $x = false;      | boolean   | `true`  | false     | `true`  | false            |
+| $x = true;       | boolean   | false   | false     | `true`  | `true`           |
+| $x = 1;          | integer   | false   | false     | `true`  | `true`           |
+| $x = 42;         | integer   | false   | false     | `true`  | `true`           |
+| $x = 0;          | integer   | `true`  | false     | `true`  | false            |
+| $x = -1;         | integer   | false   | false     | `true`  | `true`           |
+| $x = "1";        | string    | false   | false     | `true`  | `true`           |
+| $x = "0";        | string    | `true`  | false     | `true`  | false            |
+| $x = "-1";       | string    | false   | false     | `true`  | `true`           |
+| $x = "php";      | string    | false   | false     | `true`  | `true`           |
+| $x = "true";     | string    | false   | false     | `true`  | `true`           |
+| $x = "false";    | string    | false   | false     | `true`  | `true`           |

@@ -83,6 +83,8 @@
 
 [ScrollReveal](https://scrollrevealjs.org/)
 
+[preactjs](https://preactjs.com/)Fast 3kB alternative to React with the same modern API.
+
 ## CDN
 
 [BootCDN](https://www.bootcdn.cn/): 稳定、快速、免费的前端开源项目 CDN 加速服务

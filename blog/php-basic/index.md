@@ -2,15 +2,15 @@
 
 视频地址：[https://www.bilibili.com/video/BV18x411H7qD](https://www.bilibili.com/video/BV18x411H7qD)
 
-[PHP 基础](blog/php-basic/basic.md)
+1. [PHP 基础](blog/php-basic/basic.md)
 
-[PHP 环境配置](blog/php-basic/environment.md)
+2. [PHP 环境配置](blog/php-basic/environment.md)
 
-[PHP 变量和常量](blog/php-basic/variable.md)
+3. [PHP 变量和常量](blog/php-basic/variable.md)
 
-[PHP 数据类型](blog/php-basic/type.md)
+4. [PHP 数据类型](blog/php-basic/type.md)
 
-[PHP 运算符 operator](blog/php-basic/operator.md)
+5. [PHP 运算符 operator](blog/php-basic/operator.md)
 
 [PHP 流程控制](blog/php-basic/process.md)
 

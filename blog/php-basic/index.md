@@ -1,4 +1,4 @@
-# 笔记：黑马程序员 PHP 零基础入门到精通教程（P1 基础 6 天）
+笔记：黑马程序员 PHP 零基础入门到精通教程（P1 基础 6 天）
 
 视频地址：[https://www.bilibili.com/video/BV18x411H7qD](https://www.bilibili.com/video/BV18x411H7qD)
 
@@ -12,9 +12,9 @@
 
 5. [PHP 运算符 operator](blog/php-basic/operator.md)
 
-[PHP 流程控制](blog/php-basic/process.md)
+6. [PHP 流程控制](blog/php-basic/process.md)
 
-[PHP 常用的系统函数](blog/php-basic/system.md)
+7. [PHP 常用的系统函数](blog/php-basic/system.md)
 
 [PHP 文件包含](blog/php-basic/include.md)
 

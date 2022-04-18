@@ -47,3 +47,5 @@ npm run dev
 ```
 
 ![](https://api.isoyu.com/bing_images.php)
+
+![](img/python-select-qrcode.jpeg ':size=40%')

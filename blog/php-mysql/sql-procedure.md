@@ -206,6 +206,3 @@ mysql> select @var1, @var2, @var3;
 1、实参传入过程之后，实际上没有改变外部变量的值，而是把值给了形参，out类型不能接收外部变量的值，默认为null
 
 2、当过程执行到end 的时候，如果是out或inout变量，会将形参的值重新赋值给实参变量
-
-
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=75&spm_id_from=pageDriver

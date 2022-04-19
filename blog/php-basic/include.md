@@ -1,4 +1,4 @@
-# PHP 文件包含
+# PHP 文件包含include/require
 
 在一个 PHP 脚本中，去将另一个文件包含进来
 
@@ -19,7 +19,7 @@
 
 语法
 
-```
+```php
 include '文件路径';
 include('文件路径');
 ```

@@ -1,0 +1,39 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Demo</title>
+</head>
+
+<body>
+    <input type="text">
+    <button>发送</button>
+    <div id="content"></div>
+    
+    <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/4.4.1/socket.io.min.js"></script>
+
+    <script>
+        var socket = io('http://localhost:8080');
+        var content = document.getElementById('content');
+        var input = document.querySelector('input');
+        var button = document.querySelector('button');
+        
+        // 发送消息
+        button.addEventListener('click', function () {
+            socket.emit('message', input.value);
+        });
+        
+        // 接收服务器消息
+        socket.on('message', function (data) {
+            content.innerHTML += data + '<br>';
+        });
+    </script>
+</body>
+
+</html>

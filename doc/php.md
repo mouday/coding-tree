@@ -20,7 +20,12 @@
 [ThinkPHP](https://www.thinkphp.cn/): MVC 结构的开源 PHP 框架
 
 - [ThinkPHP3.2 完全开发手册](http://document.thinkphp.cn/manual_3_2.html#preface)
+
 - [ThinkPHP3.2 完全开发手册-kancloud](https://www.kancloud.cn/manual/thinkphp/content)
+
+- [ThinkPHP5.1完全开发手册](https://www.kancloud.cn/manual/thinkphp5_1/353946)
+
+- [ThinkPHP6.0完全开发手册](https://www.kancloud.cn/manual/thinkphp6_0/1037479)
 
 [Laravel](http://laravel.com/): The PHP Framework for Web Artisans
 
@@ -34,7 +39,7 @@
 
 [Lumen](https://lumen.laravel.com/): The stunningly fast micro-framework by Laravel.
 
-[oneinstack](https://oneinstack.com/)
+[oneinstack](https://oneinstack.com/) 一键PHP/JAVA安装工具
 
 - [oneinstack 镜像说明](https://oneinstack.com/docs/lnmpstack-image-guide/)
 

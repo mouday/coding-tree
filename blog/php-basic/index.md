@@ -22,7 +22,7 @@
 
 10. [PHP 错误处理 error](blog/php-basic/error.md)
 
-[PHP 字符串 String](blog/php-basic/string.md)
+11. [PHP 字符串 String](blog/php-basic/string.md)
 
 [PHP  数组 array](blog/php-basic/array.md)
 

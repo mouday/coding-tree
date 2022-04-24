@@ -24,10 +24,10 @@
 
 11. [PHP 字符串 String](blog/php-basic/string.md)
 
-[PHP  数组 array](blog/php-basic/array.md)
+12. [PHP 数组 array](blog/php-basic/array.md)
 
-[PHP  数组相关函数](blog/php-basic/array-function.md)
+13. [PHP 数组相关函数](blog/php-basic/array-function.md)
 
-[编程思想](blog/php-basic/thinking.md)
+14. [编程思想](blog/php-basic/thinking.md)
 
 [算法 algorithm](blog/php-basic/algorithm.md)

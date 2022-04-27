@@ -30,4 +30,4 @@
 
 14. [编程思想](blog/php-basic/thinking.md)
 
-[算法 algorithm](blog/php-basic/algorithm.md)
+15. [算法 algorithm](blog/php-basic/algorithm.md)

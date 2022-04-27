@@ -2,8 +2,8 @@
 
 结构性查询语言 Structured Query Language
 
-分类 | 英文 | 作用 | 代表指令
-- | - | - | -
+|分类 | 英文 | 作用 | 代表指令
+|- | - | - | -
 数据查询语言 | DQL Data Query Language | 查数据 | select
 数据操作语言 | DML Data Manipulation Language | 写数据 | insert、update、delete
 事务处理语言 | TPL Transaction Process Language | 事务安全处理 | trasaction、commit、rollback

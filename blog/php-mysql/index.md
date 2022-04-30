@@ -8,9 +8,9 @@
 
 3. [数据库database 基本操作](blog/php-mysql/sql-database.md)
 
-[数据表table 基本操作](blog/php-mysql/sql-table.md)
+4. [数据表table 基本操作](blog/php-mysql/sql-table.md)
 
-[数据data 基本操作](blog/php-mysql/sql-data.md)
+5. [数据data 基本操作](blog/php-mysql/sql-data.md)
 
 [字符集character](blog/php-mysql/character.md)
 

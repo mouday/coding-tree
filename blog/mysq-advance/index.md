@@ -9,6 +9,7 @@
 - 事务
 
 ### MySQL 进阶篇
+[在Linux上安装MySQL](blog/mysq-advance/install.md)
 
 [1. 存储引擎](blog/mysq-advance/engine.md)
 
@@ -20,9 +21,7 @@
 7. MySQL 管理
 
 
-https://www.bilibili.com/video/BV1Kr4y1i7ru?p=65&spm_id_from=pageDriver
-
-3. 存储引擎特点
-4. 存储引擎选择
-
 MySQL 运维篇
+
+
+https://www.bilibili.com/video/BV1Kr4y1i7ru?p=66

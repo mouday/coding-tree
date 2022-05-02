@@ -13,7 +13,8 @@
 
 [1. 存储引擎](blog/mysq-advance/engine.md)
 
-2. 索引
+[2. 索引](blog/mysq-advance/mysql-index.md)
+
 3. SQL 优化
 4. 视图/存储过程/触发器
 5. 锁
@@ -24,4 +25,16 @@
 MySQL 运维篇
 
 
-https://www.bilibili.com/video/BV1Kr4y1i7ru?p=66
+## 其他网友的笔记
+
+- [https://dhc.pythonanywhere.com/entry/share/?key=3ad29aad765a2b98b2b2a745d71bef715507ee9db8adbec98257bac0ad84cbe4](https://dhc.pythonanywhere.com/entry/share/?key=3ad29aad765a2b98b2b2a745d71bef715507ee9db8adbec98257bac0ad84cbe4)
+
+- [https://aismy.github.io/2021/08/17/MYSQL/](https://aismy.github.io/2021/08/17/MYSQL/)
+
+- [https://www.yuque.com/heychu/akbndd/zhuxqd](https://www.yuque.com/heychu/akbndd/zhuxqd)
+
+
+
+
+
+https://www.bilibili.com/video/BV1Kr4y1i7ru?p=71&spm_id_from=pageDriver

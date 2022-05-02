@@ -109,6 +109,8 @@ grep 'temporary password' /var/log/mysqld.log
 
 登录MySQL客户端
 
+Windows终端连接工具：Finalshell
+
 ```bash
 mysql -u root -p
 ```

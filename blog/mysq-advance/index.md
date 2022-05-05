@@ -34,7 +34,4 @@ MySQL 运维篇
 - [https://www.yuque.com/heychu/akbndd/zhuxqd](https://www.yuque.com/heychu/akbndd/zhuxqd)
 
 
-
-
-
-https://www.bilibili.com/video/BV1Kr4y1i7ru?p=71&spm_id_from=pageDriver
+https://www.bilibili.com/video/BV1Kr4y1i7ru?p=75&spm_id_from=pageDriver

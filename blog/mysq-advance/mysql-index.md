@@ -110,6 +110,249 @@ Hash索引的特点:
 InnoDB中具有自适应hash功能
 
 
+### 2.7、思考
+
+为什么InnoDB存储引擎选择使用B+Tree索引结构？
+
+1. 相对于二叉树，层级更少，搜索效率高
+
+2. 相对于B-Tree，无论是叶子节点还是非叶子节点，都会保存数据，这样导致一页中存储的键值减少，指针减少，要保存同样的数据量，只能增加树的高度，导致性能降低
+
+3. 相对于Hash索引，B+Tree支持范围匹配及排序操作
+
+## 3、索引分类
+
+|分类 | 含义 | 特点 | 关键字|
+|-|-|-|-|
+|主键索引 | 针对于表中主键创建的索引|默认自动创建，只能有一个 | primary |
+|唯一索引 | 避免同一个表中某列数据中的值重复 | 可以有多个 | unique |
+|常规索引|快读定位特定数据 | 可以有多个| index |
+|全文索引 |全文索引查找的是文本中的关键词，而不是比较索引中的值 | 可以有多个| fulltext |
+
+根据索引存储形式，又可以分为
+
+|分类 | 含义 | 特点|
+|-|-|-|
+| 聚集索引 clustered index | 将数据存储与索引放到了一块，索引结构的叶子节点保存了行数据 | 必须有，而且只有一个 |
+| 二级索引 secondary index | 将数据与索引分开存储，索引结构的叶子节点关联的是对应的主键 | 可以存在多个 | 
+
+聚集索引选取规则：
+
+1. 如果存在主键，主键索引就是聚集索引
+2. 如果不存在主键，将使用第一个唯一索引（unique）作为聚集索引
+3. 如果表没有主键，或没有合适的唯一索引，则InnoDB会自动生成一个rowid作为隐藏的聚集索引
+
+索引示例
+
+![](img/cluster-index.png)
+
+查询示例
+
+![](img/index-return.png)
 
 
 
+
+
+### 3.1、思考1
+
+以下SQL语句，哪个执行效率高？为什么？
+
+```sql
+select * from user where id = 10;
+
+select * from user where name = 'Arm';
+```
+
+备注：id为主键，name字段有索引
+
+直接用id查询效率较高
+
+1. id查询可以使用聚集索引
+
+2. name查询需要使用回表查询，先查询二级索引，查询到id，再查询聚集索引
+
+### 3.2、思考2
+
+InnoDB主键索引的B+Tree高度为多高？
+
+假设：
+
+一页中可以存储16k数据，一行数据大小为1k，可以存储16行。InnoDB的指针占用6个字节，主键即使为bigint，占用字节数为8。
+
+树的高度为2：
+
+```js
+// n为key的数量 (n+1)表示指针数量
+n * 8 + ( n + 1) * 6 = 16 * 1024 // 算出n约等于1170
+
+1171 * 16 = 18736
+```
+
+如果高度为3
+
+```js
+1171 * 1171 * 16 = 21939856
+```
+
+## 4、索引的语法
+
+创建索引
+
+```sql
+create [unique|fulltext] index index_name on table_name (index_column_name,...);
+```
+
+查看索引
+
+```sql
+show index form table_name;
+```
+
+
+删除索引
+
+```sql
+drop index index_name on table_name;
+```
+
+### 4.1、案例
+
+需求：
+
+1. name姓名字段，该字段的值可能会重复，该字段创建索引
+2. phone手机号字段，是非空，且唯一的，创建唯一索引
+3. 为profession、age、status创建联合索引
+4. 为email建立合适的索引来提升查询效率
+
+
+准备测试数据
+
+```sql
+create table tb_user(
+    id int primary key auto_increment comment '主键',
+    name varchar(20) comment '姓名',
+    phone varchar(11) comment '手机号',
+    profession varchar(10) comment '专业',
+    age int comment '年龄',
+    status int comment '状态',
+    email varchar(50) comment '邮箱'
+);
+
+-- 插入测试数据
+insert into tb_user (name, phone, profession, age, status, email)
+values ('张飞', '15210231227', '美术', 23, 1, '123@qq.com');
+insert into tb_user (name, phone, profession, age, status, email)
+values ('关羽', '15210231297', '物理', 24, 1, '3339@qq.com');
+insert into tb_user (name, phone, profession, age, status, email)
+values ('刘备', '15214231297', '数学', 25, 0, '666@qq.com');
+insert into tb_user (name, phone, profession, age, status, email)
+values ('孙权', '15215231297', '语文', 20, 1, '111@qq.com');
+
+-- 查看数据
+mysql> select * from tb_user;
++----+--------+-------------+------------+------+--------+-------------+
+| id | name   | phone       | profession | age  | status | email       |
++----+--------+-------------+------------+------+--------+-------------+
+|  1 | 张飞   | 15210231227 | 美术       |   23 |      1 | 123@qq.com  |
+|  2 | 关羽   | 15210231297 | 物理       |   24 |      1 | 3339@qq.com |
+|  3 | 刘备   | 15214231297 | 数学       |   25 |      0 | 666@qq.com  |
+|  4 | 孙权   | 15215231297 | 语文       |   20 |      1 | 111@qq.com  |
++----+--------+-------------+------------+------+--------+-------------+
+4 rows in set (0.00 sec)
+
+-- 查看已有索引
+mysql> show index from tb_user;
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY  |            1 | id          | A         |           4 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+1 row in set (0.01 sec)
+
+-- 或者
+mysql> show index from tb_user\G
+*************************** 1. row ***************************
+        Table: tb_user
+   Non_unique: 0
+     Key_name: PRIMARY
+ Seq_in_index: 1
+  Column_name: id
+    Collation: A
+  Cardinality: 4
+     Sub_part: NULL
+       Packed: NULL
+         Null:
+   Index_type: BTREE
+      Comment:
+Index_comment:
+      Visible: YES
+   Expression: NULL
+1 row in set (0.00 sec)
+```
+
+完成需求
+
+```sql
+-- 创建普通索引
+create index idx_user_name on tb_user (name);
+
+-- 默认创建B+Tree的索引结构
+show index from tb_user;
++---------+------------+---------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name      | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+---------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY       |            1 | id          | A         |           4 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_name |            1 | name        | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+---------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+2 rows in set (0.00 sec)
+
+
+-- 创建唯一索引
+create unique index idx_user_phone on tb_user (phone);
+
+mysql> show index from tb_user;
++---------+------------+----------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+----------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY        |            1 | id          | A         |           4 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| tb_user |          0 | idx_user_phone |            1 | phone       | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_name  |            1 | name        | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+----------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+3 rows in set (0.01 sec)
+
+
+-- 创建联合索引
+create index idx_user_profession_age_status on tb_user (profession, age, status);
+
+mysql> show index from tb_user;
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name                       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY                        |            1 | id          | A         |           4 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| tb_user |          0 | idx_user_phone                 |            1 | phone       | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_name                  |            1 | name        | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            1 | profession  | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            2 | age         | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            3 | status      | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+6 rows in set (0.00 sec)
+
+
+-- 创建普通索引
+create index idx_user_email on tb_user (email);
+
+mysql> show index from tb_user;
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name                       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY                        |            1 | id          | A         |           4 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| tb_user |          0 | idx_user_phone                 |            1 | phone       | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_name                  |            1 | name        | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            1 | profession  | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            2 | age         | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            3 | status      | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_email                 |            1 | email       | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+7 rows in set (0.00 sec)
+```

@@ -25,13 +25,13 @@
 MySQL 运维篇
 
 
-## 其他网友的笔记
+## 网友笔记
 
-- [https://dhc.pythonanywhere.com/entry/share/?key=3ad29aad765a2b98b2b2a745d71bef715507ee9db8adbec98257bac0ad84cbe4](https://dhc.pythonanywhere.com/entry/share/?key=3ad29aad765a2b98b2b2a745d71bef715507ee9db8adbec98257bac0ad84cbe4)
+- 1. [https://dhc.pythonanywhere.com/entry/share/?key=3ad29aad765a2b98b2b2a745d71bef715507ee9db8adbec98257bac0ad84cbe4](https://dhc.pythonanywhere.com/entry/share/?key=3ad29aad765a2b98b2b2a745d71bef715507ee9db8adbec98257bac0ad84cbe4)
 
-- [https://aismy.github.io/2021/08/17/MYSQL/](https://aismy.github.io/2021/08/17/MYSQL/)
+- 2. [https://aismy.github.io/2021/08/17/MYSQL/](https://aismy.github.io/2021/08/17/MYSQL/)
 
-- [https://www.yuque.com/heychu/akbndd/zhuxqd](https://www.yuque.com/heychu/akbndd/zhuxqd)
+- 3. [https://www.yuque.com/heychu/akbndd/zhuxqd](https://www.yuque.com/heychu/akbndd/zhuxqd)
 
 
-https://www.bilibili.com/video/BV1Kr4y1i7ru?p=75&spm_id_from=pageDriver
+https://www.bilibili.com/video/BV1Kr4y1i7ru?p=79&spm_id_from=pageDriver

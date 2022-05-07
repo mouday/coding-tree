@@ -356,3 +356,514 @@ mysql> show index from tb_user;
 +---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
 7 rows in set (0.00 sec)
 ```
+
+
+## 5、SQL性能分析
+
+### 5.1、SQL执行频次
+
+```sql
+-- 查看服务器状态信息
+show [session|global] status
+
+-- 查看当前数据库的CURD（insert、update、delete、select）访问频次
+-- 7个下划线
+show global status like 'Com_______';
++---------------+-------+
+| Variable_name | Value |
++---------------+-------+
+| Com_binlog    | 0     |
+| Com_commit    | 62    |
+| Com_delete    | 4     |
+| Com_import    | 0     |
+| Com_insert    | 32    |
+| Com_repair    | 0     |
+| Com_revoke    | 0     |
+| Com_select    | 1967  |
+| Com_signal    | 0     |
+| Com_update    | 52    |
+| Com_xa_end    | 0     |
++---------------+-------+
+11 rows in set (0.01 sec)
+```
+
+重点关注以下4个指标：
+
+- Com_delete
+- Com_insert
+- Com_select
+- Com_update
+
+### 5.2、慢查询日志
+
+慢查询日志记录了所有执行时间超过指定参数(long_query_time，单位：秒，默认10秒)的所有SQL语句的日志
+
+MySQL的慢查询日志默认没有开启
+
+```sql
+show variables like 'slow_query_log';
++----------------+-------+
+| Variable_name  | Value |
++----------------+-------+
+| slow_query_log | OFF   |
++----------------+-------+
+1 row in set (0.01 sec)
+```
+
+查找`my.cnf`文件路径
+
+```bash
+$ mysql --help|grep 'my.cnf'
+```
+
+开启MySQL的慢查询日志，需要在MySQL的配置文件(/etc/my.cnf)中配置如下信息
+
+
+```bash
+# vim /etc/my.cnf
+# 开启慢查询日志开关
+slow_query_log=1
+
+# 设置慢查询时间为2秒，SQL语句执行时间超过2秒，就会视为慢查询，记录慢查询日志
+long_query_time=2
+```
+
+修改参数后，重启MySQL服务
+
+```bash
+systemctl restart mysqld
+```
+
+mac环境下：
+
+配置文件路径：`/usr/local/etc/my.cnf`
+
+重启服务
+```bash
+mysql.server restart
+```
+
+
+```sql
+show variables like 'slow_query_log';
++----------------+-------+
+| Variable_name  | Value |
++----------------+-------+
+| slow_query_log | ON    |
++----------------+-------+
+1 row in set (0.01 sec)
+```
+
+查看慢查询日志信息
+```sql
+mysql> show variables like 'slow_query_log_file';
++---------------------+-------------------------------------------------+
+| Variable_name       | Value                                           |
++---------------------+-------------------------------------------------+
+| slow_query_log_file | /usr/local/var/mysql/localhost-slow.log |
++---------------------+-------------------------------------------------+
+1 row in set (0.00 sec)
+```
+
+查看慢日志
+
+```bash
+tail -f /usr/local/var/mysql/localhost-slow.log
+
+# Time: 2022-05-06T14:41:31.330012Z
+# User@Host: root[root] @ localhost []  Id:     8
+# Query_time: 0.000408  Lock_time: 0.000184 Rows_sent: 5  Rows_examined: 5
+SET timestamp=1651848091;
+select * from tb_student;
+```
+
+如果看不到效果，可以设置一个较小的慢查询时间
+```bash
+long_query_time=0.0001
+```
+
+### 5.3、profile详情
+
+了解时间都耗费在哪里
+
+通过`have_profiling`参数，可以查看当前MySQL是否支持profile操作
+
+```sql
+mysql> select @@have_profiling;
++------------------+
+| @@have_profiling |
++------------------+
+| YES              |
++------------------+
+1 row in set, 1 warning (0.00 sec)
+```
+
+默认profiling是关闭的， 通过set语句在session/global级别开启profiling
+
+```sql
+select @@profiling;
++-------------+
+| @@profiling |
++-------------+
+|           0 |
++-------------+
+1 row in set, 1 warning (0.00 sec)
+
+-- 开启profiling
+set profiling = 1;
+```
+
+查看执行耗时
+
+```sql
+-- 查看每一条SQL的耗时基本操作
+show profiles;
+
+-- 查看指定query_id的SQL语句各个阶段的耗时情况
+show profile for query <query_id>;
+
+-- 查看指定query_id 的SQL语句CPU的使用情况
+show profile cpu for query <query_id>;
+```
+
+示例
+
+```sql
+mysql> show profiles;
++----------+------------+--------------------------+
+| Query_ID | Duration   | Query                    |
++----------+------------+--------------------------+
+|        1 | 0.00282500 | select * from tb_student |
++----------+------------+--------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> show profile for query 1;
++--------------------------------+----------+
+| Status                         | Duration |
++--------------------------------+----------+
+| starting                       | 0.000109 |
+| Executing hook on transaction  | 0.000028 |
+| starting                       | 0.000016 |
+| checking permissions           | 0.000012 |
+| Opening tables                 | 0.000069 |
+| init                           | 0.000036 |
+| System lock                    | 0.000027 |
+| optimizing                     | 0.000012 |
+| statistics                     | 0.000048 |
+| preparing                      | 0.000021 |
+| executing                      | 0.000006 |
+| Sending data                   | 0.000060 |
+| end                            | 0.000012 |
+| query end                      | 0.000008 |
+| waiting for handler commit     | 0.000015 |
+| closing tables                 | 0.000017 |
+| freeing items                  | 0.000031 |
+| logging slow query             | 0.002269 |
+| cleaning up                    | 0.000029 |
++--------------------------------+----------+
+19 rows in set, 1 warning (0.01 sec)
+
+mysql> show profile cpu for query 1;
++--------------------------------+----------+----------+------------+
+| Status                         | Duration | CPU_user | CPU_system |
++--------------------------------+----------+----------+------------+
+| starting                       | 0.000109 | 0.000071 |   0.000012 |
+| Executing hook on transaction  | 0.000028 | 0.000012 |   0.000010 |
+| starting                       | 0.000016 | 0.000012 |   0.000004 |
+| checking permissions           | 0.000012 | 0.000009 |   0.000003 |
+| Opening tables                 | 0.000069 | 0.000052 |   0.000016 |
+| init                           | 0.000036 | 0.000019 |   0.000011 |
+| System lock                    | 0.000027 | 0.000020 |   0.000007 |
+| optimizing                     | 0.000012 | 0.000009 |   0.000004 |
+| statistics                     | 0.000048 | 0.000022 |   0.000024 |
+| preparing                      | 0.000021 | 0.000019 |   0.000003 |
+| executing                      | 0.000006 | 0.000004 |   0.000002 |
+| Sending data                   | 0.000060 | 0.000058 |   0.000002 |
+| end                            | 0.000012 | 0.000007 |   0.000004 |
+| query end                      | 0.000008 | 0.000006 |   0.000003 |
+| waiting for handler commit     | 0.000015 | 0.000012 |   0.000003 |
+| closing tables                 | 0.000017 | 0.000015 |   0.000002 |
+| freeing items                  | 0.000031 | 0.000015 |   0.000017 |
+| logging slow query             | 0.002269 | 0.000042 |   0.001699 |
+| cleaning up                    | 0.000029 | 0.000014 |   0.000015 |
++--------------------------------+----------+----------+------------+
+19 rows in set, 1 warning (0.00 sec)
+```
+
+### 5.4、explain 执行计划
+
+获取MySQL如何执行select语句信息，包括在select语句执行过程中表如何连接和连接的顺序
+
+```sql
+explain/desc select 字段列表 from 表名 where 条件;
+
+-- eg
+explain select * from tb_user where id = 1;
++----+-------------+---------+------------+-------+---------------+---------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type  | possible_keys | key     | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+-------+---------------+---------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | const | PRIMARY       | PRIMARY | 4       | const |    1 |   100.00 | NULL  |
++----+-------------+---------+------------+-------+---------------+---------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+```
+
+字段含义
+
+id:  select 查询的序列号，表示查询中执行select子句或者是操作表的顺序
+- id相同，执行顺序从上到下；
+- id不同，值越大，越先执行。
+
+select_type 表示SElect 类型，常见取值
+- simple 简单表，即不使用表连接或者子查询
+- primary 主查询，即外层的查询
+- union union中的第二个或者后面的查询语句
+- subquery select/where之后包含了子查询等
+
+type 表示连接类型
+
+- 性能由好到差：null, system,const(主键、唯一索引),eq_ref,ref(非唯一索引),range,index,all
+
+possible_key 可能用到的索引，一个或多个
+
+key 实际使用的索引，如果为null，则没有使用索引
+
+key_len 表示索引中使用的字节数，该值为索引字段最大可能长度，并非实际使用长度，在不损失精确性的前提下，长度越短越好
+
+rows MySQL认为必须要执行查询的行数，在innoDB引擎的表中，是一个估计值，可能并不总是准确的
+
+
+filtered 表示返回结果的行数，占需读取行数的百分比，值越大越好
+
+extra 额外信息
+
+
+初始化测试数据
+
+```sql
+-- 学生表和课程表行成多对多的关系
+
+create table tb_student(
+    id int primary key auto_increment,
+    name varchar(20)
+) comment '学生表';
+
+create table tb_course(
+    id int primary key auto_increment,
+    name varchar(20)
+) comment '课程表';
+
+create table tb_student_course(
+    id int primary key auto_increment,
+    student_id int,
+    course_id int
+) comment '学生课程关联表';
+
+
+insert into tb_student (name) values ('张飞'), ('关羽'), ('刘备'), ('曹操'), ('孙权');
+insert into tb_course (name) values ('语文'), ('数学'), ('英语'), ('历史'), ('化学');
+insert into tb_student_course (student_id, course_id) values (1, 1), (1, 2), (2, 1), (2, 4), (3, 4), (4, 2);
+
+mysql> select * from tb_student;
++----+--------+
+| id | name   |
++----+--------+
+|  1 | 张飞   |
+|  2 | 关羽   |
+|  3 | 刘备   |
+|  4 | 曹操   |
+|  5 | 孙权   |
++----+--------+
+5 rows in set (0.01 sec)
+
+
+mysql> select * from tb_course;
++----+--------+
+| id | name   |
++----+--------+
+|  1 | 语文   |
+|  2 | 数学   |
+|  3 | 英语   |
+|  4 | 历史   |
+|  5 | 化学   |
++----+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from tb_student_course;
++----+------------+-----------+
+| id | student_id | course_id |
++----+------------+-----------+
+|  1 |          1 |         1 |
+|  2 |          1 |         2 |
+|  3 |          2 |         1 |
+|  4 |          2 |         4 |
+|  5 |          3 |         4 |
+|  6 |          4 |         2 |
++----+------------+-----------+
+6 rows in set (0.00 sec)
+
+```
+
+查看执行计划
+
+```sql
+select s.*, c.* from tb_student s, tb_course c, tb_student_course sc
+where s.id = sc.student_id and c.id = sc.course_id;
++----+--------+----+--------+
+| id | name   | id | name   |
++----+--------+----+--------+
+|  1 | 张飞   |  1 | 语文   |
+|  1 | 张飞   |  2 | 数学   |
+|  2 | 关羽   |  1 | 语文   |
+|  2 | 关羽   |  4 | 历史   |
+|  3 | 刘备   |  4 | 历史   |
+|  4 | 曹操   |  2 | 数学   |
++----+--------+----+--------+
+6 rows in set (0.00 sec)
+
+-- 查看执行计划
+mysql> explain select s.*, c.* from tb_student s, tb_course c, tb_student_course sc
+    -> where s.id = sc.student_id and c.id = sc.course_id;
++----+-------------+-------+------------+--------+---------------+---------+---------+-------------------+------+----------+----------------------------------------------------+
+| id | select_type | table | partitions | type   | possible_keys | key     | key_len | ref               | rows | filtered | Extra                                              |
++----+-------------+-------+------------+--------+---------------+---------+---------+-------------------+------+----------+----------------------------------------------------+
+|  1 | SIMPLE      | s     | NULL       | ALL    | PRIMARY       | NULL    | NULL    | NULL              |    5 |   100.00 | NULL                                               |
+|  1 | SIMPLE      | sc    | NULL       | ALL    | NULL          | NULL    | NULL    | NULL              |    6 |    16.67 | Using where; Using join buffer (Block Nested Loop) |
+|  1 | SIMPLE      | c     | NULL       | eq_ref | PRIMARY       | PRIMARY | 4       | data.sc.course_id |    1 |   100.00 | NULL                                               |
++----+-------------+-------+------------+--------+---------------+---------+---------+-------------------+------+----------+----------------------------------------------------+
+3 rows in set, 1 warning (0.00 sec)
+
+```
+
+查询选修了`语文`课程的学生，通过子查询实现
+
+```sql
+select id from tb_course where name = '语文';
++----+
+| id |
++----+
+|  1 |
++----+
+1 row in set (0.00 sec)
+
+select student_id from tb_student_course where course_id = 1;
++------------+
+| student_id |
++------------+
+|          1 |
+|          2 |
++------------+
+2 rows in set (0.00 sec)
+
+select * from tb_student where id in (1, 2);
++----+--------+
+| id | name   |
++----+--------+
+|  1 | 张飞   |
+|  2 | 关羽   |
++----+--------+
+2 rows in set (0.00 sec)
+
+-- 组合成子查询语句
+select * from tb_student where id in (
+    select student_id from tb_student_course where course_id = (
+        select id from tb_course where name = '语文'
+    )
+);
++----+--------+
+| id | name   |
++----+--------+
+|  1 | 张飞   |
+|  2 | 关羽   |
++----+--------+
+2 rows in set (0.00 sec)
+
+-- 查看执行计划
+explain select * from tb_student where id in (
+    select student_id from tb_student_course where course_id = (
+        select id from tb_course where name = '语文'
+    )
+);
+
++----+-------------+-------------------+------------+------+---------------+------+---------+------+------+----------+----------------------------------------------------------------------------+
+| id | select_type | table             | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra                                                                      |
++----+-------------+-------------------+------------+------+---------------+------+---------+------+------+----------+----------------------------------------------------------------------------+
+|  1 | PRIMARY     | tb_student        | NULL       | ALL  | PRIMARY       | NULL | NULL    | NULL |    5 |   100.00 | NULL                                                                       |
+|  1 | PRIMARY     | tb_student_course | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    6 |    16.67 | Using where; FirstMatch(tb_student); Using join buffer (Block Nested Loop) |
+|  3 | SUBQUERY    | tb_course         | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    5 |    20.00 | Using where                                                                |
++----+-------------+-------------------+------------+------+---------------+------+---------+------+------+----------+----------------------------------------------------------------------------+
+3 rows in set, 1 warning (0.00 sec)
+```
+
+更多示例
+
+```sql
+mysql> select 'A';
++---+
+| A |
++---+
+| A |
++---+
+1 row in set (0.00 sec)
+
+mysql> explain select 'A';
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra          |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+
+|  1 | SIMPLE      | NULL  | NULL       | NULL | NULL          | NULL | NULL    | NULL | NULL |     NULL | No tables used |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+
+1 row in set, 1 warning (0.01 sec)
+```
+
+
+```sql
+mysql> select * from tb_user;
++----+--------+-------------+------------+------+--------+-------------+
+| id | name   | phone       | profession | age  | status | email       |
++----+--------+-------------+------------+------+--------+-------------+
+|  1 | 张飞   | 15210231227 | 美术       |   23 |      1 | 123@qq.com  |
+|  2 | 关羽   | 15210231297 | 物理       |   24 |      1 | 3339@qq.com |
+|  3 | 刘备   | 15214231297 | 数学       |   25 |      0 | 666@qq.com  |
+|  4 | 孙权   | 15215231297 | 语文       |   20 |      1 | 111@qq.com  |
++----+--------+-------------+------------+------+--------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> show index from tb_user;
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name                       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY                        |            1 | id          | A         |           4 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| tb_user |          0 | idx_user_phone                 |            1 | phone       | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_name                  |            1 | name        | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            1 | profession  | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            2 | age         | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            3 | status      | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_email                 |            1 | email       | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+7 rows in set (0.05 sec)
+
+
+mysql> explain select * from tb_user where phone = '15210231227';
++----+-------------+---------+------------+-------+----------------+----------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type  | possible_keys  | key            | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+-------+----------------+----------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | const | idx_user_phone | idx_user_phone | 47      | const |    1 |   100.00 | NULL  |
++----+-------------+---------+------------+-------+----------------+----------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.01 sec)
+
+mysql> explain select * from tb_user where name = '张飞';
++----+-------------+---------+------------+------+---------------+---------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys | key           | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+------+---------------+---------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_name | idx_user_name | 83      | const |    1 |   100.00 | NULL  |
++----+-------------+---------+------------+------+---------------+---------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.01 sec)
+
+mysql> explain select count(*) from tb_user;
++----+-------------+---------+------------+-------+---------------+----------------+---------+------+------+----------+-------------+
+| id | select_type | table   | partitions | type  | possible_keys | key            | key_len | ref  | rows | filtered | Extra       |
++----+-------------+---------+------------+-------+---------------+----------------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | tb_user | NULL       | index | NULL          | idx_user_phone | 47      | NULL |    4 |   100.00 | Using index |
++----+-------------+---------+------------+-------+---------------+----------------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+```
+

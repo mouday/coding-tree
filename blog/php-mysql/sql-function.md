@@ -1,4 +1,4 @@
-# 函数 function
+# 内置函数和自定义函数 function
 
 函数分为两类：系统函数和自定义函数
 
@@ -19,9 +19,12 @@ length  | 判断字符串的字节数,与字符集有关
 concat | 连接字符串
 insrt  |  检查字符是否在目标字符串中，存在返回其位置，不存在返回 0
 lcase | 全部小写
-left   | 左侧开始截取字符串，直到指定位置
 ltrim |  消除左边的空格
+left(str, length)  | 左侧开始截取字符串，直到指定位置
+right(str, length) |  右侧开始截取字符串，直到指定位置
 mid  |  从中间指定位置开始截取，如果不指定截取长度，直接到最后
+`substring(str, index, [length]`) | 从指定位置开始，指定截取长度
+substring_index(str, delim, count) | 按照关键字截取
 
 示例
 
@@ -39,9 +42,15 @@ select instr('你好中国', '我'); // 0
 
 select lcase('aBcd'); // abcd
 select left('aBcd', 2); // aB
+select right('abcdef', 2); // ef
+select substring('abcdef', 2, 3); // bcd
+select substring('abcdef', -2, 3); // ef
 
 select ltrim(' abc d '); // abc d
 select mid('你好中国', 3); // 中国
+
+select substring_index('www.baidu.com', '.', 2); // www.baidu
+select substring_index('www.baidu.com', '.', -2); // baidu.com
 ```
 
 ### 1.2、时间函数

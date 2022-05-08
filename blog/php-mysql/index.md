@@ -60,7 +60,7 @@
 
 [流程结构 if while](blog/php-mysql/sql-if-while.md)
 
-[函数 function](blog/php-mysql/sql-function.md)
+[内置函数和自定义函数 function](blog/php-mysql/sql-function.md)
 
 [存储过程 procedure](blog/php-mysql/sql-procedure.md)
 

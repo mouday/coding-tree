@@ -1124,37 +1124,486 @@ explain select * from tb_user where age = 23 and status = 1 and profession = '�
 1 row in set, 1 warning (0.00 sec)
 ```
 
-### 6.3、范围查询
+### 6.3、SQL提示
 
-联合索引中，出现范围查询（>、<），范围查询右侧的列索引失效
+SQL提示是优化数据库的一个重要手段
+
+简单来说，就是在SQL语句中加入一些认为的提示来达到优化操作的目的
 
 ```sql
-select * from tb_user where profession = '美术' and age > 22 and status = 1;
-+----+--------+-------------+------------+------+--------+------------+
-| id | name   | phone       | profession | age  | status | email      |
-+----+--------+-------------+------------+------+--------+------------+
-|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com |
-+----+--------+-------------+------------+------+--------+------------+
-1 row in set (0.00 sec)
+-- 1、use index 推荐使用索引
 
--- age使用了大于号>，只有profession和age用到了索引
-explain select * from tb_user where profession = '美术' and age > 22 and status = 1;
-+----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
-| id | select_type | table   | partitions | type  | possible_keys                  | key                            | key_len | ref  | rows | filtered | Extra                 |
-+----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
-|  1 | SIMPLE      | tb_user | NULL       | range | idx_user_profession_age_status | idx_user_profession_age_status | 48      | NULL |    1 |    25.00 | Using index condition |
-+----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
+explain select * from tb_user use index (idx_user_profession) where profession = '法务经理';
+
+-- 2、ignore index  忽略使用索引
+
+explain select * from tb_user ignore index (idx_user_profession) where profession = '法务经理';
+
+-- 3、force index 强制使用索引
+
+explain select * from tb_user force index (idx_user_profession) where profession = '法务经理';
+```
+
+测试数据准备
+```sql
+drop table if exists tb_user;
+
+create table tb_user(
+    id int primary key auto_increment comment '主键',
+    name varchar(20) comment '姓名',
+    phone varchar(11) comment '手机号',
+    profession varchar(50) comment '专业',
+    age int comment '年龄',
+    status int comment '状态',
+    email varchar(50) comment '邮箱'
+);
+```
+
+利用Python脚本生成10万条测试数据
+
+```python
+# 安装依赖 pip install faker records mysqlclient
+from faker import Faker
+import records
+
+# 简体中文：zh_CN
+faker = Faker(locale="zh_CN")
+# 指定随机种子，确保每次生成的数据都是一致的
+faker.seed(1)
+
+# 生成数据插入 insert sql
+def get_insert_sql(table_name, fields):
+    keys = ', '.join([f'`{key}`'.format(key) for key in fields])
+    values = ', '.join([f':{key}'.format(key) for key in fields])
+    return f'INSERT INTO `{table_name}` ({keys}) VALUES ({values})'
+
+# 获取数据
+def get_row():
+    return {
+        'name': faker.name(),
+        'phone': faker.phone_number(),
+        'email': faker.email(),
+        'age': faker.random_int(20, 30),
+        'status': faker.random_int(0, 1),
+        'profession': faker.job(),
+    }
+
+
+def main():
+    db = records.Database('mysql://root:123456@localhost/data?charset=utf8')
+
+    # 10 * 1000 = 1万条数据
+    for i in range(10):
+        data = [get_row() for _ in range(1000)]
+        sql = get_insert_sql('tb_user', data[0].keys())
+        db.bulk_query(sql, data)
+
+if __name__ == '__main__':
+    main()
+```
+
+查看生成的测试数据
+
+```sql
+mysql> select count(*) from tb_user;
++----------+
+| count(*) |
++----------+
+|    10000 |
++----------+
+
+select * from tb_user limit 10;
++----+-----------+-------------+---------------------------------+------+--------+---------------------+
+| id | name      | phone       | profession                      | age  | status | email               |
++----+-----------+-------------+---------------------------------+------+--------+---------------------+
+|  1 | 费阳      | 13777763170 | 法务经理                        |   27 |      1 | wyao@gmail.com      |
+|  2 | 祁海燕    | 13400806360 | 日式厨师                        |   23 |      0 | jwan@jin.cn         |
+|  3 | 姬秀英    | 18281241586 | 食品/饮料研发                   |   29 |      0 | li97@wang.cn        |
+|  4 | 官桂芳    | 15625851781 | 前台接待/总机/接待生            |   20 |      1 | fpeng@chang.cn      |
+|  5 | 应秀珍    | 13030388368 | 酒店前台                        |   20 |      1 | qiang48@hotmail.com |
+|  6 | 亢婷      | 18207598386 | 药品市场推广主管/专员           |   28 |      1 | ping50@hotmail.com  |
+|  7 | 仰俊      | 13192184011 | 机场代表                        |   24 |      0 | wcai@liang.net      |
+|  8 | 匡洁      | 13622482447 | 汽车电工                        |   24 |      1 | htang@gmail.com     |
+|  9 | 程建华    | 13748396030 | 市场通路经理/主管               |   28 |      1 | fangguo@yahoo.com   |
+| 10 | 岳荣      | 15080695604 | 培训督导                        |   24 |      1 | fanglong@ding.com   |
++----+-----------+-------------+---------------------------------+------+--------+---------------------+
+10 rows in set (0.00 sec)
+```
+
+创建索引
+
+```sql
+-- 创建普通索引
+create index idx_user_name on tb_user (name);
+
+-- 创建唯一索引
+create unique index idx_user_phone on tb_user (phone);
+
+-- 创建联合索引
+create index idx_user_profession_age_status on tb_user (profession, age, status);
+
+-- 创建普通索引
+create index idx_user_email on tb_user (email);
+
+-- 创建索引
+create index idx_user_age on tb_user ( age );
+
+-- 查看索引
+show index from tb_user;
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name                       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY                        |            1 | id          | A         |        9804 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| tb_user |          0 | idx_user_phone                 |            1 | phone       | A         |        9804 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_name                  |            1 | name        | A         |        9130 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            1 | profession  | A         |         948 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            2 | age         | A         |        6232 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            3 | status      | A         |        7596 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_email                 |            1 | email       | A         |        9569 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_age                   |            1 | age         | A         |          11 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+8 rows in set (0.03 sec)
+
+```
+
+查看执行计划
+
+```sql
+mysql> explain select * from tb_user where profession = '法务经理';
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys                  | key                            | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status | idx_user_profession_age_status | 203     | const |   12 |   100.00 | NULL  |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+-- 创建一个单列索引
+create index idx_user_profession on tb_user (profession);
+
+-- 性能分析
+explain select * from tb_user where profession = '法务经理';
++----+-------------+---------+------------+------+----------------------------------------------------+--------------------------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys                                      | key                            | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+------+----------------------------------------------------+--------------------------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status,idx_user_profession | idx_user_profession_age_status | 203     | const |   12 |   100.00 | NULL  |
++----+-------------+---------+------------+------+----------------------------------------------------+--------------------------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+
+-- 查看执行计划（use index）使用单列索引idx_user_profession
+explain select * from tb_user use index (idx_user_profession) where profession = '法务经理';
++----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys       | key                 | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession | idx_user_profession | 203     | const |   12 |   100.00 | NULL  |
++----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
 1 row in set, 1 warning (0.01 sec)
 
--- 三个字段都用到了索引
-explain select * from tb_user where profession = '美术' and age >= 22 and status = 1;
-+----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
-| id | select_type | table   | partitions | type  | possible_keys                  | key                            | key_len | ref  | rows | filtered | Extra                 |
-+----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
-|  1 | SIMPLE      | tb_user | NULL       | range | idx_user_profession_age_status | idx_user_profession_age_status | 53      | NULL |    1 |    25.00 | Using index condition |
-+----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
+-- 查看执行计划（ignore index）,忽略单列索引idx_user_profession
+explain select * from tb_user ignore index (idx_user_profession) where profession = '法务经理';
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys                  | key                            | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status | idx_user_profession_age_status | 203     | const |   12 |   100.00 | NULL  |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.01 sec)
+
+-- 查看执行计划（force index）强制使用单列索引idx_user_profession
+explain select * from tb_user force index (idx_user_profession) where profession = '法务经理';
++----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys       | key                 | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession | idx_user_profession | 203     | const |   12 |   100.00 | NULL  |
++----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
 1 row in set, 1 warning (0.00 sec)
 ```
+
+
+
+### 6.4、覆盖索引
+
+查询使用了索引，并且需要返回的列，在该索引中已经全部能够找到
+
+尽量使用覆盖索引，减少`select * `
+
+extra额外信息：
+
+- using index condition ： 查找使用了索引，但是需要回表查询数据（二级索引->聚集索引）
+- using where; using index: 查找使用了索引，但是需要的数据都在索引列中能找到，所以不需要回表查询数据
+
+![](img/cover-index.png)
+
+示例
+
+```sql
+explain select id, profession from tb_user where profession = '法务经理' and age = 27 and status = 1;
+
+explain select id, profession, age, status from tb_user where profession = '法务经理' and age = 27 and status = 1;
+
+explain select id, profession, age, status, name from tb_user where profession = '法务经理' and age = 27 and status = 1;
+
+explain select * from tb_user where profession = '法务经理' and age = 27 and status = 1;
+```
+
+测试
+
+```sql
+-- 查看索引
+show index from tb_user;
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name                       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY                        |            1 | id          | A         |        9804 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| tb_user |          0 | idx_user_phone                 |            1 | phone       | A         |        9804 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_name                  |            1 | name        | A         |        9130 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            1 | profession  | A         |         948 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            2 | age         | A         |        6232 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            3 | status      | A         |        7596 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_email                 |            1 | email       | A         |        9569 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_age                   |            1 | age         | A         |          11 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession            |            1 | profession  | A         |         948 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+9 rows in set (0.06 sec)
+
+-- 删除多余的索引
+drop index idx_user_age on tb_user;
+drop index idx_user_profession on tb_user;
+drop index idx_user_email on tb_user;
+
+
+show index from tb_user;
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name                       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY                        |            1 | id          | A         |        9804 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| tb_user |          0 | idx_user_phone                 |            1 | phone       | A         |        9804 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_name                  |            1 | name        | A         |        9130 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            1 | profession  | A         |         948 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            2 | age         | A         |        6232 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            3 | status      | A         |        7596 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+6 rows in set (0.00 sec)
+
+-- 查看数据
+select * from tb_user limit 10;
++----+-----------+-------------+---------------------------------+------+--------+---------------------+
+| id | name      | phone       | profession                      | age  | status | email               |
++----+-----------+-------------+---------------------------------+------+--------+---------------------+
+|  1 | 费阳      | 13777763170 | 法务经理                        |   27 |      1 | wyao@gmail.com      |
+|  2 | 祁海燕    | 13400806360 | 日式厨师                        |   23 |      0 | jwan@jin.cn         |
+|  3 | 姬秀英    | 18281241586 | 食品/饮料研发                   |   29 |      0 | li97@wang.cn        |
+|  4 | 官桂芳    | 15625851781 | 前台接待/总机/接待生            |   20 |      1 | fpeng@chang.cn      |
+|  5 | 应秀珍    | 13030388368 | 酒店前台                        |   20 |      1 | qiang48@hotmail.com |
+|  6 | 亢婷      | 18207598386 | 药品市场推广主管/专员           |   28 |      1 | ping50@hotmail.com  |
+|  7 | 仰俊      | 13192184011 | 机场代表                        |   24 |      0 | wcai@liang.net      |
+|  8 | 匡洁      | 13622482447 | 汽车电工                        |   24 |      1 | htang@gmail.com     |
+|  9 | 程建华    | 13748396030 | 市场通路经理/主管               |   28 |      1 | fangguo@yahoo.com   |
+| 10 | 岳荣      | 15080695604 | 培训督导                        |   24 |      1 | fanglong@ding.com   |
++----+-----------+-------------+---------------------------------+------+--------+---------------------+
+10 rows in set (0.00 sec)
+
+-- 查询数据
+select * from tb_user where profession = '法务经理' and age = 27 and status = 1;
++----+--------+-------------+--------------+------+--------+----------------+
+| id | name   | phone       | profession   | age  | status | email          |
++----+--------+-------------+--------------+------+--------+----------------+
+|  1 | 费阳   | 13777763170 | 法务经理     |   27 |      1 | wyao@gmail.com |
++----+--------+-------------+--------------+------+--------+----------------+
+1 row in set (0.01 sec)
+
+explain select * from tb_user where profession = '法务经理' and age = 27 and status = 1;
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------------------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys                  | key                            | key_len | ref               | rows | filtered | Extra |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------------------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status | idx_user_profession_age_status | 213     | const,const,const |    1 |   100.00 | NULL  |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------------------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+-- 使用了索引字段 Using index
+explain select id, profession from tb_user where profession = '法务经理' and age = 27 and status = 1;
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------------------+------+----------+-------------+
+| id | select_type | table   | partitions | type | possible_keys                  | key                            | key_len | ref               | rows | filtered | Extra       |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------------------+------+----------+-------------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status | idx_user_profession_age_status | 213     | const,const,const |    1 |   100.00 | Using index |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------------------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+
+-- 使用了索引字段 Using index
+explain select id, profession, age, status from tb_user where profession = '法务经理' and age = 27 and status = 1;
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------------------+------+----------+-------------+
+| id | select_type | table   | partitions | type | possible_keys                  | key                            | key_len | ref               | rows | filtered | Extra       |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------------------+------+----------+-------------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status | idx_user_profession_age_status | 213     | const,const,const |    1 |   100.00 | Using index |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------------------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+
+explain select id, profession, age, status, name from tb_user where profession = '法务经理' and age = 27 and status = 1;
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------------------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys                  | key                            | key_len | ref               | rows | filtered | Extra |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------------------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status | idx_user_profession_age_status | 213     | const,const,const |    1 |   100.00 | NULL  |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------------------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+```
+
+### 6.5、思考
+
+问题：
+
+一张表，有四个字段: 
+
+```
+id, username, password, status
+```
+
+由于数据量较大，需要对以下SQL语句进行优化，该如何进行才是最优方案
+
+```sql
+select id, username, password from tb_user where username = 'Tom';
+```
+
+解答：
+
+需要对`username, password`创建联合索引
+
+联合索引的叶子节点存储了`id`字段，可以`避免回表查询`，从而提高查询效率
+
+```sql
+create index idx_user_username_password on tb_user (username, password);
+```
+
+### 6.6、前缀索引
+
+当字段类型为字符串（varchar, text等）时，有时候需要索引很长的字符串，
+
+这会让索引变得很大，查询时，浪费大量的磁盘IO，影响查询效率。
+
+此时可以只将字符串的一部分前缀，建立索引，这样可以打打节约空间，从而提高索引效率。
+
+1、语法
+
+```sql
+create index index_name on table_name (column(n));
+```
+
+2、前缀长度
+
+可以根据索引的选择性来决定，而选择性是指不重复的索引值（基数）和数据表的记录总数的比值
+
+索引选择性越高则查询效率越高
+
+唯一索引的选择性是1，这是最好的索引选择性，性能也是最好的
+
+```sql
+-- 求取数据总条数
+select count(*) from tb_user;
++----------+
+| count(*) |
++----------+
+|    10000 |
++----------+
+1 row in set (0.07 sec)
+
+-- 求取email不为空的数据条数
+select count(email) from tb_user;
++--------------+
+| count(email) |
++--------------+
+|        10000 |
++--------------+
+1 row in set (0.03 sec)
+
+-- 求取email不重复的数据条数
+select count(distinct email) from tb_user;
++-----------------------+
+| count(distinct email) |
++-----------------------+
+|                  9569 |
++-----------------------+
+1 row in set (0.02 sec)
+
+-- 计算选择性
+select count(distinct email) / count(*) from tb_user;
++----------------------------------+
+| count(distinct email) / count(*) |
++----------------------------------+
+|                           0.9569 |
++----------------------------------+
+1 row in set (0.01 sec)
+
+-- 截取前缀计算选择性
+select count(distinct substring(email, 1, 9)) / count(*) from tb_user;
++---------------------------------------------------+
+| count(distinct substring(email, 1, 9)) / count(*) |
++---------------------------------------------------+
+|                                            0.8633 |
++---------------------------------------------------+
+1 row in set (0.02 sec)
+```
+
+建立前缀索引
+
+```sql
+-- 查看当前表中存在的索引
+show index from tb_user;
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name                       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY                        |            1 | id          | A         |        9804 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| tb_user |          0 | idx_user_phone                 |            1 | phone       | A         |        9804 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_name                  |            1 | name        | A         |        9130 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            1 | profession  | A         |         948 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            2 | age         | A         |        6232 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            3 | status      | A         |        7596 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+6 rows in set (0.05 sec)
+
+
+-- 创建前缀索引
+create index idx_email_5 on tb_user(email(5));
+
+-- 再次查看索引（注意字段：Sub_part）
+show index from tb_user;
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name                       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY                        |            1 | id          | A         |        9804 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| tb_user |          0 | idx_user_phone                 |            1 | phone       | A         |        9804 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_name                  |            1 | name        | A         |        9130 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            1 | profession  | A         |         948 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            2 | age         | A         |        6232 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            3 | status      | A         |        7596 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_email_5                    |            1 | email       | A         |        3955 |        5 |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+7 rows in set (0.01 sec)
+```
+
+使用索引
+
+```sql
+-- 查询数据
+select * from tb_user where email = 'wyao@gmail.com';
++----+--------+-------------+--------------+------+--------+----------------+
+| id | name   | phone       | profession   | age  | status | email          |
++----+--------+-------------+--------------+------+--------+----------------+
+|  1 | 费阳   | 13777763170 | 法务经理     |   27 |      1 | wyao@gmail.com |
++----+--------+-------------+--------------+------+--------+----------------+
+1 row in set (0.01 sec)
+
+-- 查看执行计划
+explain select * from tb_user where email = 'wyao@gmail.com';
++----+-------------+---------+------------+------+---------------+-------------+---------+-------+------+----------+-------------+
+| id | select_type | table   | partitions | type | possible_keys | key         | key_len | ref   | rows | filtered | Extra       |
++----+-------------+---------+------------+------+---------------+-------------+---------+-------+------+----------+-------------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_email_5   | idx_email_5 | 23      | const |    1 |   100.00 | Using where |
++----+-------------+---------+------------+------+---------------+-------------+---------+-------+------+----------+-------------+
+1 row in set, 1 warning (0.01 sec)
+```
+
+查询流程
+
+![](img/pre-index.png)
 
 ## 7、索引失效的场景
 
@@ -1455,199 +1904,34 @@ explain select * from tb_user where profession is null;
 
 ```
 
+### 7.6、范围查询
 
-### 7.6、SQL提示
-
-SQL提示是优化数据库的一个重要手段
-
-简单来说，就是在SQL语句中加入一些认为的提示来达到优化操作的目的
+联合索引中，出现范围查询（>、<），范围查询右侧的列索引失效
 
 ```sql
--- 1、use index 推荐使用索引
+select * from tb_user where profession = '美术' and age > 22 and status = 1;
++----+--------+-------------+------------+------+--------+------------+
+| id | name   | phone       | profession | age  | status | email      |
++----+--------+-------------+------------+------+--------+------------+
+|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com |
++----+--------+-------------+------------+------+--------+------------+
+1 row in set (0.00 sec)
 
-explain select * from tb_user use index (idx_user_profession) where profession = '法务经理';
-
--- 2、ignore index  忽略使用索引
-
-explain select * from tb_user ignore index (idx_user_profession) where profession = '法务经理';
-
--- 3、force index 强制使用索引
-
-explain select * from tb_user force index (idx_user_profession) where profession = '法务经理';
-```
-
-测试数据准备
-```sql
-drop table if exists tb_user;
-
-create table tb_user(
-    id int primary key auto_increment comment '主键',
-    name varchar(20) comment '姓名',
-    phone varchar(11) comment '手机号',
-    profession varchar(50) comment '专业',
-    age int comment '年龄',
-    status int comment '状态',
-    email varchar(50) comment '邮箱'
-);
-```
-
-利用Python脚本生成10万条测试数据
-
-```python
-# 安装依赖 pip install faker records mysqlclient
-from faker import Faker
-import records
-
-# 简体中文：zh_CN
-faker = Faker(locale="zh_CN")
-# 指定随机种子，确保每次生成的数据都是一致的
-faker.seed(1)
-
-# 生成数据插入 insert sql
-def get_insert_sql(table_name, fields):
-    keys = ', '.join([f'`{key}`'.format(key) for key in fields])
-    values = ', '.join([f':{key}'.format(key) for key in fields])
-    return f'INSERT INTO `{table_name}` ({keys}) VALUES ({values})'
-
-# 获取数据
-def get_row():
-    return {
-        'name': faker.name(),
-        'phone': faker.phone_number(),
-        'email': faker.email(),
-        'age': faker.random_int(20, 30),
-        'status': faker.random_int(0, 1),
-        'profession': faker.job(),
-    }
-
-
-def main():
-    db = records.Database('mysql://root:123456@localhost/data?charset=utf8')
-
-    # 10 * 1000 = 1万条数据
-    for i in range(10):
-        data = [get_row() for _ in range(1000)]
-        sql = get_insert_sql('tb_user', data[0].keys())
-        db.bulk_query(sql, data)
-
-if __name__ == '__main__':
-    main()
-```
-
-查看生成的测试数据
-
-```sql
-mysql> select count(*) from tb_user;
-+----------+
-| count(*) |
-+----------+
-|    10000 |
-+----------+
-
-select * from tb_user limit 10;
-+----+-----------+-------------+---------------------------------+------+--------+---------------------+
-| id | name      | phone       | profession                      | age  | status | email               |
-+----+-----------+-------------+---------------------------------+------+--------+---------------------+
-|  1 | 费阳      | 13777763170 | 法务经理                        |   27 |      1 | wyao@gmail.com      |
-|  2 | 祁海燕    | 13400806360 | 日式厨师                        |   23 |      0 | jwan@jin.cn         |
-|  3 | 姬秀英    | 18281241586 | 食品/饮料研发                   |   29 |      0 | li97@wang.cn        |
-|  4 | 官桂芳    | 15625851781 | 前台接待/总机/接待生            |   20 |      1 | fpeng@chang.cn      |
-|  5 | 应秀珍    | 13030388368 | 酒店前台                        |   20 |      1 | qiang48@hotmail.com |
-|  6 | 亢婷      | 18207598386 | 药品市场推广主管/专员           |   28 |      1 | ping50@hotmail.com  |
-|  7 | 仰俊      | 13192184011 | 机场代表                        |   24 |      0 | wcai@liang.net      |
-|  8 | 匡洁      | 13622482447 | 汽车电工                        |   24 |      1 | htang@gmail.com     |
-|  9 | 程建华    | 13748396030 | 市场通路经理/主管               |   28 |      1 | fangguo@yahoo.com   |
-| 10 | 岳荣      | 15080695604 | 培训督导                        |   24 |      1 | fanglong@ding.com   |
-+----+-----------+-------------+---------------------------------+------+--------+---------------------+
-10 rows in set (0.00 sec)
-```
-
-创建索引
-
-```sql
--- 创建普通索引
-create index idx_user_name on tb_user (name);
-
--- 创建唯一索引
-create unique index idx_user_phone on tb_user (phone);
-
--- 创建联合索引
-create index idx_user_profession_age_status on tb_user (profession, age, status);
-
--- 创建普通索引
-create index idx_user_email on tb_user (email);
-
--- 创建索引
-create index idx_user_age on tb_user ( age );
-
--- 查看索引
-show index from tb_user;
-+---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
-| Table   | Non_unique | Key_name                       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
-+---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
-| tb_user |          0 | PRIMARY                        |            1 | id          | A         |        9804 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
-| tb_user |          0 | idx_user_phone                 |            1 | phone       | A         |        9804 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
-| tb_user |          1 | idx_user_name                  |            1 | name        | A         |        9130 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
-| tb_user |          1 | idx_user_profession_age_status |            1 | profession  | A         |         948 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
-| tb_user |          1 | idx_user_profession_age_status |            2 | age         | A         |        6232 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
-| tb_user |          1 | idx_user_profession_age_status |            3 | status      | A         |        7596 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
-| tb_user |          1 | idx_user_email                 |            1 | email       | A         |        9569 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
-| tb_user |          1 | idx_user_age                   |            1 | age         | A         |          11 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
-+---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
-8 rows in set (0.03 sec)
-
-```
-
-查看执行计划
-
-```sql
-mysql> explain select * from tb_user where profession = '法务经理';
-+----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
-| id | select_type | table   | partitions | type | possible_keys                  | key                            | key_len | ref   | rows | filtered | Extra |
-+----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
-|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status | idx_user_profession_age_status | 203     | const |   12 |   100.00 | NULL  |
-+----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
-1 row in set, 1 warning (0.00 sec)
-
--- 创建一个单列索引
-create index idx_user_profession on tb_user (profession);
-
--- 性能分析
-explain select * from tb_user where profession = '法务经理';
-+----+-------------+---------+------------+------+----------------------------------------------------+--------------------------------+---------+-------+------+----------+-------+
-| id | select_type | table   | partitions | type | possible_keys                                      | key                            | key_len | ref   | rows | filtered | Extra |
-+----+-------------+---------+------------+------+----------------------------------------------------+--------------------------------+---------+-------+------+----------+-------+
-|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status,idx_user_profession | idx_user_profession_age_status | 203     | const |   12 |   100.00 | NULL  |
-+----+-------------+---------+------------+------+----------------------------------------------------+--------------------------------+---------+-------+------+----------+-------+
-1 row in set, 1 warning (0.00 sec)
-
-
--- 查看执行计划（use index）使用单列索引idx_user_profession
-explain select * from tb_user use index (idx_user_profession) where profession = '法务经理';
-+----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
-| id | select_type | table   | partitions | type | possible_keys       | key                 | key_len | ref   | rows | filtered | Extra |
-+----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
-|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession | idx_user_profession | 203     | const |   12 |   100.00 | NULL  |
-+----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
+-- age使用了大于号>，只有profession和age用到了索引
+explain select * from tb_user where profession = '美术' and age > 22 and status = 1;
++----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
+| id | select_type | table   | partitions | type  | possible_keys                  | key                            | key_len | ref  | rows | filtered | Extra                 |
++----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
+|  1 | SIMPLE      | tb_user | NULL       | range | idx_user_profession_age_status | idx_user_profession_age_status | 48      | NULL |    1 |    25.00 | Using index condition |
++----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
 1 row in set, 1 warning (0.01 sec)
 
--- 查看执行计划（ignore index）,忽略单列索引idx_user_profession
-explain select * from tb_user ignore index (idx_user_profession) where profession = '法务经理';
-+----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
-| id | select_type | table   | partitions | type | possible_keys                  | key                            | key_len | ref   | rows | filtered | Extra |
-+----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
-|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status | idx_user_profession_age_status | 203     | const |   12 |   100.00 | NULL  |
-+----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
-1 row in set, 1 warning (0.01 sec)
-
--- 查看执行计划（force index）强制使用单列索引idx_user_profession
-explain select * from tb_user force index (idx_user_profession) where profession = '法务经理';
-+----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
-| id | select_type | table   | partitions | type | possible_keys       | key                 | key_len | ref   | rows | filtered | Extra |
-+----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
-|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession | idx_user_profession | 203     | const |   12 |   100.00 | NULL  |
-+----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
+-- 三个字段都用到了索引
+explain select * from tb_user where profession = '美术' and age >= 22 and status = 1;
++----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
+| id | select_type | table   | partitions | type  | possible_keys                  | key                            | key_len | ref  | rows | filtered | Extra                 |
++----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
+|  1 | SIMPLE      | tb_user | NULL       | range | idx_user_profession_age_status | idx_user_profession_age_status | 53      | NULL |    1 |    25.00 | Using index condition |
++----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
 1 row in set, 1 warning (0.00 sec)
 ```
-
-

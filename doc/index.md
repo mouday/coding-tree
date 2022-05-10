@@ -32,7 +32,7 @@
 
 Logo：https://www.logoly.pro/
 
-[docsify](https://docsify.js.org/)：快速帮你生成文档网站
+[docsify](https://docsify.js.org/#/zh-cn/)：快速帮你生成文档网站
 
 [Prism](https://prismjs.com/) Prism is a lightweight, extensible syntax highlighter, built with modern web standards in mind.
 

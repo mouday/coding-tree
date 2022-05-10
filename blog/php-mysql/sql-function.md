@@ -23,7 +23,7 @@ ltrim |  消除左边的空格
 left(str, length)  | 左侧开始截取字符串，直到指定位置
 right(str, length) |  右侧开始截取字符串，直到指定位置
 mid  |  从中间指定位置开始截取，如果不指定截取长度，直接到最后
-`substring(str, index, [length]`) | 从指定位置开始，指定截取长度
+`substring(str, index, [length])` | 从指定位置开始，指定截取长度
 substring_index(str, delim, count) | 按照关键字截取
 
 示例

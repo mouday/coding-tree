@@ -6,7 +6,8 @@
 4. 索引语法
 5. SQL 性能分析
 6. 索引使用
-7. 索引设计原则
+7. 索引失效的场景
+8. 索引设计原则
 
 ## 1. 索引概述
 
@@ -241,23 +242,23 @@ create table tb_user(
 
 -- 插入测试数据
 insert into tb_user (name, phone, profession, age, status, email)
-values ('张飞', '15210231227', '美术', 23, 1, '123@qq.com');
+values ('张飞', '17712345678', '美术', 23, 1, '123@qq.com');
 insert into tb_user (name, phone, profession, age, status, email)
-values ('关羽', '15210231297', '物理', 24, 1, '3339@qq.com');
+values ('关羽', '17722345678', '物理', 24, 1, '3339@qq.com');
 insert into tb_user (name, phone, profession, age, status, email)
-values ('刘备', '15214231297', '数学', 25, 0, '666@qq.com');
+values ('刘备', '17732345678', '数学', 25, 0, '666@qq.com');
 insert into tb_user (name, phone, profession, age, status, email)
-values ('孙权', '15215231297', '语文', 20, 1, '111@qq.com');
+values ('孙权', '17742345678', '语文', 20, 1, '111@qq.com');
 
 -- 查看数据
 mysql> select * from tb_user;
 +----+--------+-------------+------------+------+--------+-------------+
 | id | name   | phone       | profession | age  | status | email       |
 +----+--------+-------------+------------+------+--------+-------------+
-|  1 | 张飞   | 15210231227 | 美术       |   23 |      1 | 123@qq.com  |
-|  2 | 关羽   | 15210231297 | 物理       |   24 |      1 | 3339@qq.com |
-|  3 | 刘备   | 15214231297 | 数学       |   25 |      0 | 666@qq.com  |
-|  4 | 孙权   | 15215231297 | 语文       |   20 |      1 | 111@qq.com  |
+|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com  |
+|  2 | 关羽   | 17722345678 | 物理       |   24 |      1 | 3339@qq.com |
+|  3 | 刘备   | 17732345678 | 数学       |   25 |      0 | 666@qq.com  |
+|  4 | 孙权   | 17742345678 | 语文       |   20 |      1 | 111@qq.com  |
 +----+--------+-------------+------------+------+--------+-------------+
 4 rows in set (0.00 sec)
 
@@ -820,10 +821,10 @@ mysql> select * from tb_user;
 +----+--------+-------------+------------+------+--------+-------------+
 | id | name   | phone       | profession | age  | status | email       |
 +----+--------+-------------+------------+------+--------+-------------+
-|  1 | 张飞   | 15210231227 | 美术       |   23 |      1 | 123@qq.com  |
-|  2 | 关羽   | 15210231297 | 物理       |   24 |      1 | 3339@qq.com |
-|  3 | 刘备   | 15214231297 | 数学       |   25 |      0 | 666@qq.com  |
-|  4 | 孙权   | 15215231297 | 语文       |   20 |      1 | 111@qq.com  |
+|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com  |
+|  2 | 关羽   | 17722345678 | 物理       |   24 |      1 | 3339@qq.com |
+|  3 | 刘备   | 17732345678 | 数学       |   25 |      0 | 666@qq.com  |
+|  4 | 孙权   | 17742345678 | 语文       |   20 |      1 | 111@qq.com  |
 +----+--------+-------------+------------+------+--------+-------------+
 4 rows in set (0.00 sec)
 
@@ -842,7 +843,7 @@ mysql> show index from tb_user;
 7 rows in set (0.05 sec)
 
 
-mysql> explain select * from tb_user where phone = '15210231227';
+mysql> explain select * from tb_user where phone = '17712345678';
 +----+-------------+---------+------------+-------+----------------+----------------+---------+-------+------+----------+-------+
 | id | select_type | table   | partitions | type  | possible_keys  | key            | key_len | ref   | rows | filtered | Extra |
 +----+-------------+---------+------------+-------+----------------+----------------+---------+-------+------+----------+-------+
@@ -1028,10 +1029,10 @@ select * from tb_user;
 +----+--------+-------------+------------+------+--------+-------------+
 | id | name   | phone       | profession | age  | status | email       |
 +----+--------+-------------+------------+------+--------+-------------+
-|  1 | 张飞   | 15210231227 | 美术       |   23 |      1 | 123@qq.com  |
-|  2 | 关羽   | 15210231297 | 物理       |   24 |      1 | 3339@qq.com |
-|  3 | 刘备   | 15214231297 | 数学       |   25 |      0 | 666@qq.com  |
-|  4 | 孙权   | 15215231297 | 语文       |   20 |      1 | 111@qq.com  |
+|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com  |
+|  2 | 关羽   | 17722345678 | 物理       |   24 |      1 | 3339@qq.com |
+|  3 | 刘备   | 17732345678 | 数学       |   25 |      0 | 666@qq.com  |
+|  4 | 孙权   | 17742345678 | 语文       |   20 |      1 | 111@qq.com  |
 +----+--------+-------------+------------+------+--------+-------------+
 4 rows in set (0.01 sec)
 
@@ -1055,7 +1056,7 @@ select * from tb_user where profession = '美术' and age = 23 and status = 1;
 +----+--------+-------------+------------+------+--------+------------+
 | id | name   | phone       | profession | age  | status | email      |
 +----+--------+-------------+------------+------+--------+------------+
-|  1 | 张飞   | 15210231227 | 美术       |   23 |      1 | 123@qq.com |
+|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com |
 +----+--------+-------------+------------+------+--------+------------+
 1 row in set (0.00 sec)
 
@@ -1132,7 +1133,7 @@ select * from tb_user where profession = '美术' and age > 22 and status = 1;
 +----+--------+-------------+------------+------+--------+------------+
 | id | name   | phone       | profession | age  | status | email      |
 +----+--------+-------------+------------+------+--------+------------+
-|  1 | 张飞   | 15210231227 | 美术       |   23 |      1 | 123@qq.com |
+|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com |
 +----+--------+-------------+------------+------+--------+------------+
 1 row in set (0.00 sec)
 
@@ -1167,10 +1168,10 @@ mysql> select * from tb_user;
 +----+--------+-------------+------------+------+--------+-------------+
 | id | name   | phone       | profession | age  | status | email       |
 +----+--------+-------------+------------+------+--------+-------------+
-|  1 | 张飞   | 15210231227 | 美术       |   23 |      1 | 123@qq.com  |
-|  2 | 关羽   | 15210231297 | 物理       |   24 |      1 | 3339@qq.com |
-|  3 | 刘备   | 15214231297 | 数学       |   25 |      0 | 666@qq.com  |
-|  4 | 孙权   | 15215231297 | 语文       |   20 |      1 | 111@qq.com  |
+|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com  |
+|  2 | 关羽   | 17722345678 | 物理       |   24 |      1 | 3339@qq.com |
+|  3 | 刘备   | 17732345678 | 数学       |   25 |      0 | 666@qq.com  |
+|  4 | 孙权   | 17742345678 | 语文       |   20 |      1 | 111@qq.com  |
 +----+--------+-------------+------------+------+--------+-------------+
 4 rows in set (0.00 sec)
 
@@ -1190,16 +1191,16 @@ mysql> show index from tb_user;
 7 rows in set (0.01 sec)
 
 -- 按照手机号查询数据
-mysql> select * from tb_user where phone = '15210231227';
+mysql> select * from tb_user where phone = '17712345678';
 +----+--------+-------------+------------+------+--------+------------+
 | id | name   | phone       | profession | age  | status | email      |
 +----+--------+-------------+------------+------+--------+------------+
-|  1 | 张飞   | 15210231227 | 美术       |   23 |      1 | 123@qq.com |
+|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com |
 +----+--------+-------------+------------+------+--------+------------+
 1 row in set (0.00 sec)
 
 -- 分析索引使用情况
-explain select * from tb_user where phone = '15210231227';
+explain select * from tb_user where phone = '17712345678';
 +----+-------------+---------+------------+-------+----------------+----------------+---------+-------+------+----------+-------+
 | id | select_type | table   | partitions | type  | possible_keys  | key            | key_len | ref   | rows | filtered | Extra |
 +----+-------------+---------+------------+-------+----------------+----------------+---------+-------+------+----------+-------+
@@ -1212,7 +1213,7 @@ select * from tb_user where substring(phone, 10, 2)  = '27';
 +----+--------+-------------+------------+------+--------+------------+
 | id | name   | phone       | profession | age  | status | email      |
 +----+--------+-------------+------------+------+--------+------------+
-|  1 | 张飞   | 15210231227 | 美术       |   23 |      1 | 123@qq.com |
+|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com |
 +----+--------+-------------+------------+------+--------+------------+
 1 row in set (0.00 sec)
 
@@ -1232,16 +1233,16 @@ explain select * from tb_user where substring(phone, 10, 2)  = '27';
 
 ```sql
 -- 字符串查询可以不加引号
-select * from tb_user where phone = 15210231227;
+select * from tb_user where phone = 17712345678;
 +----+--------+-------------+------------+------+--------+------------+
 | id | name   | phone       | profession | age  | status | email      |
 +----+--------+-------------+------------+------+--------+------------+
-|  1 | 张飞   | 15210231227 | 美术       |   23 |      1 | 123@qq.com |
+|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com |
 +----+--------+-------------+------------+------+--------+------------+
 1 row in set (0.00 sec)
 
 -- 不加引号的字符串查询没有走索引
-explain select * from tb_user where phone = 15210231227;
+explain select * from tb_user where phone = 17712345678;
 +----+-------------+---------+------------+------+----------------+------+---------+------+------+----------+-------------+
 | id | select_type | table   | partitions | type | possible_keys  | key  | key_len | ref  | rows | filtered | Extra       |
 +----+-------------+---------+------------+------+----------------+------+---------+------+------+----------+-------------+
@@ -1261,7 +1262,7 @@ select * from tb_user where profession like '美%';
 +----+--------+-------------+------------+------+--------+------------+
 | id | name   | phone       | profession | age  | status | email      |
 +----+--------+-------------+------------+------+--------+------------+
-|  1 | 张飞   | 15210231227 | 美术       |   23 |      1 | 123@qq.com |
+|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com |
 +----+--------+-------------+------------+------+--------+------------+
 1 row in set (0.00 sec)
 
@@ -1284,6 +1285,369 @@ explain select * from tb_user where profession like '%术';
 |  1 | SIMPLE      | tb_user | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    4 |    25.00 | Using where |
 +----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------------+
 1 row in set, 1 warning (0.01 sec)
+```
+
+### 7.4、or连接的条件
+
+用or分割开的条件，如果or前的条件中有的列有索引，而后面的列中没有索引，那么涉及的索引都不会被用到
+
+```sql
+select * from tb_user where id = 1 or age = 23;
+
+select * from tb_user where phone = '17742345678' or age = 23;
+```
+
+由于age没有索引，所以即使id，phone有索引，索引也会失效。age也需要建立索引
+
+示例
+
+```sql
+-- 查看表数据
+select * from tb_user;
++----+--------+-------------+------------+------+--------+-------------+
+| id | name   | phone       | profession | age  | status | email       |
++----+--------+-------------+------------+------+--------+-------------+
+|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com  |
+|  2 | 关羽   | 17722345678 | 物理       |   24 |      1 | 3339@qq.com |
+|  3 | 刘备   | 17732345678 | 数学       |   25 |      0 | 666@qq.com  |
+|  4 | 孙权   | 17742345678 | 语文       |   20 |      1 | 111@qq.com  |
++----+--------+-------------+------------+------+--------+-------------+
+4 rows in set (0.01 sec)
+
+-- 查看索引
+show index from tb_user;
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name                       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY                        |            1 | id          | A         |           4 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| tb_user |          0 | idx_user_phone                 |            1 | phone       | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_name                  |            1 | name        | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            1 | profession  | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            2 | age         | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            3 | status      | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_email                 |            1 | email       | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+7 rows in set (0.05 sec)
+
+
+-- 查询数据
+select * from tb_user where id = 1 or age = 23;
++----+--------+-------------+------------+------+--------+------------+
+| id | name   | phone       | profession | age  | status | email      |
++----+--------+-------------+------------+------+--------+------------+
+|  1 | 张飞   | 17712345678 | 美术       |   23 |      1 | 123@qq.com |
++----+--------+-------------+------------+------+--------+------------+
+1 row in set (0.00 sec)
+
+-- 分析
+explain select * from tb_user where id = 1 or age = 23;
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table   | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | tb_user | NULL       | ALL  | PRIMARY       | NULL | NULL    | NULL |    4 |    43.75 | Using where |
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+
+-- 分析
+explain select * from tb_user where phone = '17742345678' or age = 23;
++----+-------------+---------+------------+------+----------------+------+---------+------+------+----------+-------------+
+| id | select_type | table   | partitions | type | possible_keys  | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+---------+------------+------+----------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | tb_user | NULL       | ALL  | idx_user_phone | NULL | NULL    | NULL |    4 |    43.75 | Using where |
++----+-------------+---------+------------+------+----------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.15 sec)
+
+-- 创建索引
+create index idx_user_age on tb_user ( age );
+
+
+-- 再次分析性能
+explain select * from tb_user where id = 1 or age = 23;
++----+-------------+---------+------------+-------------+----------------------+----------------------+---------+------+------+----------+------------------------------------------------+
+| id | select_type | table   | partitions | type        | possible_keys        | key                  | key_len | ref  | rows | filtered | Extra                                          |
++----+-------------+---------+------------+-------------+----------------------+----------------------+---------+------+------+----------+------------------------------------------------+
+|  1 | SIMPLE      | tb_user | NULL       | index_merge | PRIMARY,idx_user_age | PRIMARY,idx_user_age | 4,5     | NULL |    2 |   100.00 | Using union(PRIMARY,idx_user_age); Using where |
++----+-------------+---------+------------+-------------+----------------------+----------------------+---------+------+------+----------+------------------------------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+
+explain select * from tb_user where phone = '17742345678' or age = 23;
++----+-------------+---------+------------+-------------+-----------------------------+-----------------------------+---------+------+------+----------+-------------------------------------------------------+
+| id | select_type | table   | partitions | type        | possible_keys               | key                         | key_len | ref  | rows | filtered | Extra                                                 |
++----+-------------+---------+------------+-------------+-----------------------------+-----------------------------+---------+------+------+----------+-------------------------------------------------------+
+|  1 | SIMPLE      | tb_user | NULL       | index_merge | idx_user_phone,idx_user_age | idx_user_phone,idx_user_age | 47,5    | NULL |    2 |   100.00 | Using union(idx_user_phone,idx_user_age); Using where |
++----+-------------+---------+------------+-------------+-----------------------------+-----------------------------+---------+------+------+----------+-------------------------------------------------------+
+1 row in set, 1 warning (0.00 sec)
+```
+
+### 7.5、数据分布影响
+
+如果MySQL性能评估使用索引比全表更慢，则不使用索引。
+
+```sql
+select * from tb_user where phone >= '17742345678';
++----+--------+-------------+------------+------+--------+------------+
+| id | name   | phone       | profession | age  | status | email      |
++----+--------+-------------+------------+------+--------+------------+
+|  4 | 孙权   | 17742345678 | 语文       |   20 |      1 | 111@qq.com |
++----+--------+-------------+------------+------+--------+------------+
+1 row in set (0.00 sec)
+
+explain select * from tb_user where phone >= '17742345678';
++----+-------------+---------+------------+-------+----------------+----------------+---------+------+------+----------+-----------------------+
+| id | select_type | table   | partitions | type  | possible_keys  | key            | key_len | ref  | rows | filtered | Extra                 |
++----+-------------+---------+------------+-------+----------------+----------------+---------+------+------+----------+-----------------------+
+|  1 | SIMPLE      | tb_user | NULL       | range | idx_user_phone | idx_user_phone | 47      | NULL |    1 |   100.00 | Using index condition |
++----+-------------+---------+------------+-------+----------------+----------------+---------+------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)
+
+explain select * from tb_user where phone >= '17712345670';
++----+-------------+---------+------------+-------+----------------+----------------+---------+------+------+----------+-----------------------+
+| id | select_type | table   | partitions | type  | possible_keys  | key            | key_len | ref  | rows | filtered | Extra                 |
++----+-------------+---------+------------+-------+----------------+----------------+---------+------+------+----------+-----------------------+
+|  1 | SIMPLE      | tb_user | NULL       | range | idx_user_phone | idx_user_phone | 47      | NULL |    4 |   100.00 | Using index condition |
++----+-------------+---------+------------+-------+----------------+----------------+---------+------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)
+
+```
+
+`is null` 和 `is not null` 走不走索引，主要看表中的数据。
+
+```sql
+-- is null
+explain select * from tb_user where profession is null;
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-----------------------+
+| id | select_type | table   | partitions | type | possible_keys                  | key                            | key_len | ref   | rows | filtered | Extra                 |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-----------------------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status | idx_user_profession_age_status | 43      | const |    1 |   100.00 | Using index condition |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-----------------------+
+1 row in set, 1 warning (0.01 sec)
+
+-- is not null
+explain select * from tb_user where profession is not null;
++----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
+| id | select_type | table   | partitions | type  | possible_keys                  | key                            | key_len | ref  | rows | filtered | Extra                 |
++----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
+|  1 | SIMPLE      | tb_user | NULL       | range | idx_user_profession_age_status | idx_user_profession_age_status | 43      | NULL |    4 |   100.00 | Using index condition |
++----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)
+
+-- 将数据更新为null
+update tb_user set profession = null;
+
+-- 再次查看性能
+explain select * from tb_user where profession is null;
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-----------------------+
+| id | select_type | table   | partitions | type | possible_keys                  | key                            | key_len | ref   | rows | filtered | Extra                 |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-----------------------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status | idx_user_profession_age_status | 43      | const |    4 |   100.00 | Using index condition |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)
+
+-- is not null
+ explain select * from tb_user where profession is not null;
++----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
+| id | select_type | table   | partitions | type  | possible_keys                  | key                            | key_len | ref  | rows | filtered | Extra                 |
++----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
+|  1 | SIMPLE      | tb_user | NULL       | range | idx_user_profession_age_status | idx_user_profession_age_status | 43      | NULL |    1 |   100.00 | Using index condition |
++----+-------------+---------+------------+-------+--------------------------------+--------------------------------+---------+------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)
+
+```
+
+
+### 7.6、SQL提示
+
+SQL提示是优化数据库的一个重要手段
+
+简单来说，就是在SQL语句中加入一些认为的提示来达到优化操作的目的
+
+```sql
+-- 1、use index 推荐使用索引
+
+explain select * from tb_user use index (idx_user_profession) where profession = '法务经理';
+
+-- 2、ignore index  忽略使用索引
+
+explain select * from tb_user ignore index (idx_user_profession) where profession = '法务经理';
+
+-- 3、force index 强制使用索引
+
+explain select * from tb_user force index (idx_user_profession) where profession = '法务经理';
+```
+
+测试数据准备
+```sql
+drop table if exists tb_user;
+
+create table tb_user(
+    id int primary key auto_increment comment '主键',
+    name varchar(20) comment '姓名',
+    phone varchar(11) comment '手机号',
+    profession varchar(50) comment '专业',
+    age int comment '年龄',
+    status int comment '状态',
+    email varchar(50) comment '邮箱'
+);
+```
+
+利用Python脚本生成10万条测试数据
+
+```python
+# 安装依赖 pip install faker records mysqlclient
+from faker import Faker
+import records
+
+# 简体中文：zh_CN
+faker = Faker(locale="zh_CN")
+# 指定随机种子，确保每次生成的数据都是一致的
+faker.seed(1)
+
+# 生成数据插入 insert sql
+def get_insert_sql(table_name, fields):
+    keys = ', '.join([f'`{key}`'.format(key) for key in fields])
+    values = ', '.join([f':{key}'.format(key) for key in fields])
+    return f'INSERT INTO `{table_name}` ({keys}) VALUES ({values})'
+
+# 获取数据
+def get_row():
+    return {
+        'name': faker.name(),
+        'phone': faker.phone_number(),
+        'email': faker.email(),
+        'age': faker.random_int(20, 30),
+        'status': faker.random_int(0, 1),
+        'profession': faker.job(),
+    }
+
+
+def main():
+    db = records.Database('mysql://root:123456@localhost/data?charset=utf8')
+
+    # 10 * 1000 = 1万条数据
+    for i in range(10):
+        data = [get_row() for _ in range(1000)]
+        sql = get_insert_sql('tb_user', data[0].keys())
+        db.bulk_query(sql, data)
+
+if __name__ == '__main__':
+    main()
+```
+
+查看生成的测试数据
+
+```sql
+mysql> select count(*) from tb_user;
++----------+
+| count(*) |
++----------+
+|    10000 |
++----------+
+
+select * from tb_user limit 10;
++----+-----------+-------------+---------------------------------+------+--------+---------------------+
+| id | name      | phone       | profession                      | age  | status | email               |
++----+-----------+-------------+---------------------------------+------+--------+---------------------+
+|  1 | 费阳      | 13777763170 | 法务经理                        |   27 |      1 | wyao@gmail.com      |
+|  2 | 祁海燕    | 13400806360 | 日式厨师                        |   23 |      0 | jwan@jin.cn         |
+|  3 | 姬秀英    | 18281241586 | 食品/饮料研发                   |   29 |      0 | li97@wang.cn        |
+|  4 | 官桂芳    | 15625851781 | 前台接待/总机/接待生            |   20 |      1 | fpeng@chang.cn      |
+|  5 | 应秀珍    | 13030388368 | 酒店前台                        |   20 |      1 | qiang48@hotmail.com |
+|  6 | 亢婷      | 18207598386 | 药品市场推广主管/专员           |   28 |      1 | ping50@hotmail.com  |
+|  7 | 仰俊      | 13192184011 | 机场代表                        |   24 |      0 | wcai@liang.net      |
+|  8 | 匡洁      | 13622482447 | 汽车电工                        |   24 |      1 | htang@gmail.com     |
+|  9 | 程建华    | 13748396030 | 市场通路经理/主管               |   28 |      1 | fangguo@yahoo.com   |
+| 10 | 岳荣      | 15080695604 | 培训督导                        |   24 |      1 | fanglong@ding.com   |
++----+-----------+-------------+---------------------------------+------+--------+---------------------+
+10 rows in set (0.00 sec)
+```
+
+创建索引
+
+```sql
+-- 创建普通索引
+create index idx_user_name on tb_user (name);
+
+-- 创建唯一索引
+create unique index idx_user_phone on tb_user (phone);
+
+-- 创建联合索引
+create index idx_user_profession_age_status on tb_user (profession, age, status);
+
+-- 创建普通索引
+create index idx_user_email on tb_user (email);
+
+-- 创建索引
+create index idx_user_age on tb_user ( age );
+
+-- 查看索引
+show index from tb_user;
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name                       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY                        |            1 | id          | A         |        9804 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| tb_user |          0 | idx_user_phone                 |            1 | phone       | A         |        9804 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_name                  |            1 | name        | A         |        9130 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            1 | profession  | A         |         948 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            2 | age         | A         |        6232 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            3 | status      | A         |        7596 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_email                 |            1 | email       | A         |        9569 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_age                   |            1 | age         | A         |          11 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+8 rows in set (0.03 sec)
+
+```
+
+查看执行计划
+
+```sql
+mysql> explain select * from tb_user where profession = '法务经理';
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys                  | key                            | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status | idx_user_profession_age_status | 203     | const |   12 |   100.00 | NULL  |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+-- 创建一个单列索引
+create index idx_user_profession on tb_user (profession);
+
+-- 性能分析
+explain select * from tb_user where profession = '法务经理';
++----+-------------+---------+------------+------+----------------------------------------------------+--------------------------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys                                      | key                            | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+------+----------------------------------------------------+--------------------------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status,idx_user_profession | idx_user_profession_age_status | 203     | const |   12 |   100.00 | NULL  |
++----+-------------+---------+------------+------+----------------------------------------------------+--------------------------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+
+-- 查看执行计划（use index）使用单列索引idx_user_profession
+explain select * from tb_user use index (idx_user_profession) where profession = '法务经理';
++----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys       | key                 | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession | idx_user_profession | 203     | const |   12 |   100.00 | NULL  |
++----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.01 sec)
+
+-- 查看执行计划（ignore index）,忽略单列索引idx_user_profession
+explain select * from tb_user ignore index (idx_user_profession) where profession = '法务经理';
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys                  | key                            | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession_age_status | idx_user_profession_age_status | 203     | const |   12 |   100.00 | NULL  |
++----+-------------+---------+------------+------+--------------------------------+--------------------------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.01 sec)
+
+-- 查看执行计划（force index）强制使用单列索引idx_user_profession
+explain select * from tb_user force index (idx_user_profession) where profession = '法务经理';
++----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys       | key                 | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | ref  | idx_user_profession | idx_user_profession | 203     | const |   12 |   100.00 | NULL  |
++----+-------------+---------+------------+------+---------------------+---------------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
 ```
 
 

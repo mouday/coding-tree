@@ -50,3 +50,8 @@
 [Twig](https://twig.symfony.com/):  is a modern template engine for PHP
 
 [FastAdmin](https://www.fastadmin.net/): 基于ThinkPHP和Bootstrap的极速后台开发框架
+
+## awesome-php
+- [https://github.com/ziadoz/awesome-php](https://github.com/ziadoz/awesome-php)
+- [https://github.com/jingwentian/awesome-php](https://github.com/jingwentian/awesome-php)
+- [https://github.com/shockerli/php-awesome/](https://github.com/shockerli/php-awesome/)

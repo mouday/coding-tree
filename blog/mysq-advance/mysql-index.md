@@ -1605,6 +1605,81 @@ explain select * from tb_user where email = 'wyao@gmail.com';
 
 ![](img/pre-index.png)
 
+
+### 6.7、单列索引和联合索引
+
+
+- 单列索引：一个索引只包含单个列
+
+- 联合索引：一个索引包含了多个列（创建索引时，需要考虑字段的先后顺序）
+
+业务场景中，如果存在多个查询条件，考虑针对查询字段建立索引时，建议建立联合索引，而非单列索引
+
+![](img/union-index.png)
+
+示例
+
+```sql
+-- 查看索引
+show index from tb_user;
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name                       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| tb_user |          0 | PRIMARY                        |            1 | id          | A         |        9804 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| tb_user |          0 | idx_user_phone                 |            1 | phone       | A         |        9804 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_name                  |            1 | name        | A         |        9130 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            1 | profession  | A         |         948 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            2 | age         | A         |        6232 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_user_profession_age_status |            3 | status      | A         |        7596 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| tb_user |          1 | idx_email_5                    |            1 | email       | A         |        3955 |        5 |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+--------------------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+7 rows in set (0.07 sec)
+
+-- 查询数据
+select id, phone, name from tb_user where phone = '13777763170' and name = '费阳';
++----+-------------+--------+
+| id | phone       | name   |
++----+-------------+--------+
+|  1 | 13777763170 | 费阳   |
++----+-------------+--------+
+1 row in set (0.00 sec)
+
+-- 查看执行计划
+explain select id, phone, name from tb_user where phone = '13777763170' and name = '费阳';
++----+-------------+---------+------------+-------+------------------------------+----------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type  | possible_keys                | key            | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+-------+------------------------------+----------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | const | idx_user_phone,idx_user_name | idx_user_phone | 47      | const |    1 |   100.00 | NULL  |
++----+-------------+---------+------------+-------+------------------------------+----------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.01 sec)
+
+-- 创建联合索引
+create unique index idx_user_phone_name on tb_user(phone, name);
+
+
+-- 查看执行计划
+-- 多条件联合查询时，MySQL优化器会评估哪个字段的索引效率更高，会选择该索引完成本次查询
+explain select id, phone, name from tb_user where phone = '13777763170' and name = '费阳';
++----+-------------+---------+------------+-------+--------------------------------------------------+----------------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type  | possible_keys                                    | key            | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+-------+--------------------------------------------------+----------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | tb_user | NULL       | const | idx_user_phone,idx_user_phone_name,idx_user_name | idx_user_phone | 47      | const |    1 |   100.00 | NULL  |
++----+-------------+---------+------------+-------+--------------------------------------------------+----------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+
+
+-- 查看执行计划（指定使用联合索引）
+-- Using index 用到覆盖索引，避免回表查询
+explain select id, phone, name from tb_user use index(idx_user_phone_name) where phone = '13777763170' and name = '费阳';
++----+-------------+---------+------------+-------+---------------------+---------------------+---------+-------------+------+----------+-------------+
+| id | select_type | table   | partitions | type  | possible_keys       | key                 | key_len | ref         | rows | filtered | Extra       |
++----+-------------+---------+------------+-------+---------------------+---------------------+---------+-------------+------+----------+-------------+
+|  1 | SIMPLE      | tb_user | NULL       | const | idx_user_phone_name | idx_user_phone_name | 130     | const,const |    1 |   100.00 | Using index |
++----+-------------+---------+------------+-------+---------------------+---------------------+---------+-------------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+```
+
 ## 7、索引失效的场景
 
 ### 7.1、索引列运算

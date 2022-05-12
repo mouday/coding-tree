@@ -15,6 +15,8 @@
 
 [2. 索引](blog/mysq-advance/mysql-index.md)
 
+[3. SQL优化](blog/mysq-advance/sql-optimization.md)
+
 3. SQL 优化
 4. 视图/存储过程/触发器
 5. 锁
@@ -34,6 +36,4 @@ MySQL 运维篇
 - 3. [https://www.yuque.com/heychu/akbndd/zhuxqd](https://www.yuque.com/heychu/akbndd/zhuxqd)
 
 
-
-
-https://www.bilibili.com/video/BV1Kr4y1i7ru?p=89&spm_id_from=pageDriver
+https://www.bilibili.com/video/BV1Kr4y1i7ru?p=90&spm_id_from=pageDriver

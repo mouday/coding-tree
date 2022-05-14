@@ -16,7 +16,7 @@
 
 7. [数据类型-整数](blog/php-mysql/sql-int.md)
 
-[数据类型-小数](blog/php-mysql/sql-float.md)
+8. [数据类型-小数](blog/php-mysql/sql-float.md)
 
 [数据类型-时间日期类型](blog/php-mysql/sql-datetime.md)
 

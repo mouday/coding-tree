@@ -17,7 +17,6 @@
 
 [3. SQL优化](blog/mysq-advance/sql-optimization.md)
 
-3. SQL 优化
 4. 视图/存储过程/触发器
 5. 锁
 6. InnoDB 引擎

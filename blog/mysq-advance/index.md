@@ -39,5 +39,4 @@ MySQL 运维篇
 
 
 
-
-https://www.bilibili.com/video/BV1Kr4y1i7ru?p=123&spm_id_from=pageDriver
+https://www.bilibili.com/video/BV1Kr4y1i7ru?p=125&spm_id_from=pageDriver

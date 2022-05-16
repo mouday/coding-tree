@@ -18,7 +18,7 @@
 
 8. [数据类型-小数](blog/php-mysql/sql-float.md)
 
-[数据类型-时间日期类型](blog/php-mysql/sql-datetime.md)
+9. [数据类型-时间日期类型](blog/php-mysql/sql-datetime.md)
 
 [数据类型-字符串类型](blog/php-mysql/sql-string.md)
 

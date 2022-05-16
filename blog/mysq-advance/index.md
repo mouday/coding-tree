@@ -18,7 +18,9 @@
 [3. SQL优化](blog/mysq-advance/sql-optimization.md)
 
 4. 视图/存储过程/触发器
-5. 锁
+
+[5. 锁](blog/mysq-advance/lock.md)
+
 6. InnoDB 引擎
 7. MySQL 管理
 
@@ -36,4 +38,6 @@ MySQL 运维篇
 
 
 
-https://www.bilibili.com/video/BV1Kr4y1i7ru?p=97&spm_id_from=pageDriver
+
+
+https://www.bilibili.com/video/BV1Kr4y1i7ru?p=123&spm_id_from=pageDriver

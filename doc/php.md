@@ -51,6 +51,8 @@
 
 [FastAdmin](https://www.fastadmin.net/): 基于ThinkPHP和Bootstrap的极速后台开发框架
 
+[MineAdmin](https://gitee.com/xmo/MineAdmin) 基于Hyperf框架 和 SCUI（Element UI）开发的前后端分离权限管理系统。
+
 ## awesome-php
 - [https://github.com/ziadoz/awesome-php](https://github.com/ziadoz/awesome-php)
 - [https://github.com/jingwentian/awesome-php](https://github.com/jingwentian/awesome-php)

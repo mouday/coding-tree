@@ -10,6 +10,7 @@
   - [微信小程序](doc/miniprogram.md)
   - [Vue.js](doc/vue.md)
   - [websocket](blog/websocket/index.md)
+  - [webpack](doc/webpack.md)
 
 - 后端
 

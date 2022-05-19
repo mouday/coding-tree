@@ -20,9 +20,9 @@
 
 9. [数据类型-时间日期类型](blog/php-mysql/sql-datetime.md)
 
-[数据类型-字符串类型](blog/php-mysql/sql-string.md)
+10. [数据类型-字符串类型](blog/php-mysql/sql-string.md)
 
-[数据类型-enum 枚举类型](blog/php-mysql/sql-enum.md)
+11. [数据类型-enum 枚举类型](blog/php-mysql/sql-enum.md)
 
 [数据类型-Set集合](blog/php-mysql/sql-set.md)
 

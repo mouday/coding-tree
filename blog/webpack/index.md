@@ -1178,7 +1178,44 @@ package.json
 }
 ```
 
-完整配置
+
+webpack4
+
+```js
+// webpack配置
+module.exports = {
+  // loader配置
+  module: {
+    rules: [
+      // 处理css文件
+      {
+        test: /\.css$/i,
+        use: [
+          // 创建style标签，将样式放入style标签中
+          // "style-loader",
+          // 提取js中的css成单独文件
+          MiniCssExtractPlugin.loader,
+          // 将css文件整合到js文件中
+          "css-loader",
+          // 需要配置 browserlist，配合NODE_ENV使用
+          {
+            loader: "postcss-loader",
+            options: {
+                ident: 'postcss',
+                plugins: ()=>[
+                    require('postcss-preset-env')()
+                ]
+              },
+            },
+          }, 
+        ],
+      },
+    ],
+  },
+};
+```
+
+webpack5完整配置
 
 ```js
 // webpack.config.js
@@ -1634,7 +1671,274 @@ module.exports = {
 
 ```
 
+### 5.6、压缩html和js
+
+```js
+// 生产环境下会自动压缩js代码
+mode: 'production'
+
+// 生产环境默认压缩html
+new HtmlWebpackPlugin({
+    template: "./src/index.html",
+    minify: {
+        // 移除空格
+        collapseWhitespace: true,
+        // 移除注释
+        removeComments: true,
+    }
+}),
+```
+
+webpack5压缩js
+
+```bash
+$ npm install terser-webpack-plugin --save-dev
+```
+
+```js
+const TerserPlugin = require("terser-webpack-plugin");
+
+module.exports = {
+  optimization: {
+    minimize: true,
+    minimizer: [
+      // 使用 terser 优化和压缩 JS
+      new TerserPlugin()
+    ],
+  },
+};
+```
+
+### 5.7、webpack生产环境
+
+需要处理的资源
+- css/less 兼容性处理 单文件提取 压缩优化
+- js 兼容性处理 压缩优化
+- html 压缩优化
+- 图片
+- 字体
 
 
+正常来讲，一个文件只能被一个loader处理
 
-https://www.bilibili.com/video/BV1e7411j7T5?p=17&spm_id_from=pageDriver
+当一个文件要被多个loader处理，一定要指定loader执行的先后顺序
+
+```js
+// 优先执行
+enforce: 'pre'
+```
+
+完整配置
+```js
+// webpack.config.js
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
+
+// css 公共loader
+const commonCssLoaders = [
+  // "style-loader",
+  MiniCssExtractPlugin.loader,
+  "css-loader",
+  {
+    loader: "postcss-loader",
+    options: {
+      postcssOptions: {
+        plugins: [
+          [
+            // 配合package.json browserlist使用
+            "postcss-preset-env",
+          ],
+        ],
+      },
+    },
+  },
+];
+
+// webpack配置
+module.exports = {
+  // 入口文件
+  entry: "./src/index.js",
+
+  // 输出
+  output: {
+    filename: "[name].js",
+    path: path.resolve(__dirname, "dist"),
+    // 自定义资源文件名
+    assetModuleFilename: "images/[hash:10][ext][query]",
+    // 在生成文件之前清空 output 目录
+    clean: true,
+  },
+
+  // 开发服务器配置
+  devServer: {
+    // 从目录提供静态文件
+    static: {
+      directory: path.join(__dirname, "public"),
+      publicPath: "/",
+    },
+
+    // 启动后打开浏览器
+    open: true,
+
+    // 监听请求的端口号
+    port: 8080,
+  },
+
+  // loader配置
+  module: {
+    rules: [
+      // 处理css文件
+      {
+        test: /\.css$/i,
+        use: commonCssLoaders,
+      },
+      // 处理less文件
+      {
+        test: /\.less$/i,
+        use: [...commonCssLoaders, "less-loader"],
+      },
+      // 处理资源文件
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset",
+      },
+      // 处理html文件，加载其中的图片
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
+      // 处理字体文件
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
+      },
+      // js兼容性处理
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            // 预设，提示babel怎么样做兼容性处理
+            // 基本的兼容性处理，
+            presets: [
+              [
+                "@babel/preset-env",
+                {
+                  // 按需加载
+                  useBuiltIns: "usage",
+                  // 指定core-js版本
+                  corejs: {
+                    version: 3,
+                  },
+                  // 指定兼容性到哪个版本浏览器
+                  targets: {
+                    chrome: "60",
+                    firefox: "60",
+                    ie: "9",
+                    safari: "10",
+                    edge: "17",
+                  },
+                },
+              ],
+            ],
+          },
+        },
+      },
+    ],
+  },
+
+  // 插件配置
+  plugins: [
+    // 复制一份HTML文件，并自动引入打包资源（js/css）
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+    // 提取css文件
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
+    // 使用eslint对代码检查 
+    // package.json eslintConfig airbnb
+    new ESLintPlugin({
+      fix: true,
+    }),
+  ],
+
+  optimization: {
+    // 开发环境下启用 CSS 优化
+    minimize: true,
+    minimizer: [
+      // 使用 cssnano 优化和压缩 CSS
+      new CssMinimizerPlugin(),
+
+      // 使用 terser 优化和压缩 JS
+      new TerserPlugin(),
+    ],
+  },
+
+  // 模式
+  // mode: "development",
+  mode: "production",
+};
+
+```
+
+package.json
+
+```json
+{
+  "scripts": {
+    "dev": "webpack serve",
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.0",
+    "@babel/preset-env": "^7.18.0",
+    "babel-loader": "^8.2.5",
+    "core-js": "^3.22.5",
+    "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.0.0",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-webpack-plugin": "^3.1.1",
+    "html-loader": "^3.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "less": "^4.1.2",
+    "less-loader": "^11.0.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "postcss": "^8.4.14",
+    "postcss-loader": "^7.0.0",
+    "postcss-preset-env": "^7.6.0",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.3.1",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1"
+  },
+  "browserslist": {
+    "development": [
+      "last 1 version"
+    ],
+    "production": [
+      "last 1 version",
+      "> 1%",
+      "ie 10"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "airbnb-base"
+  }
+}
+```
+
+
+https://www.bilibili.com/video/BV1e7411j7T5?p=19&spm_id_from=pageDriver

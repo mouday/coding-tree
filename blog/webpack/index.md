@@ -886,4 +886,554 @@ module.exports = {
 
 ```
 
-https://www.bilibili.com/video/BV1e7411j7T5?p=9&spm_id_from=pageDriver
+## 4、开发环境基本配置
+
+### 4.1、devServer
+
+开发服务器，自动化开发（自动编译，自动打开浏览器，自动刷新浏览器）
+
+特点：只会在内存中编译打包，不会有任何输出
+
+```bash
+npm install webpack-dev-server --save-dev
+```
+
+webpack4配置
+
+```js
+module.exports = {
+    devServer: {
+        // 项目构建后路径
+        contentBase: resolve(__dirname, 'dist'),
+        // 启动gzip压缩
+        compress: true,
+        // 端口号
+        port: 3000,
+        // 自动打开浏览器
+        open: true
+    }
+}
+```
+
+webpack5配置
+```js
+module.exports = {{
+    // 开发服务器配置
+  devServer: {
+    // 从目录提供静态文件
+    static: {
+      directory: path.join(__dirname, "public"),
+      publicPath: "/",
+    },
+
+    // 启动后打开浏览器
+    open: true,
+
+    // 监听请求的端口号
+    port: 8080,
+  },
+}
+```
+
+为了方便启动，可以配置启动命令
+
+package.json
+
+```json
+{
+    "scripts": {
+    "dev": "webpack serve",
+    "build": "webpack"
+  },
+}
+```
+
+启动开发服务器
+```
+npm run dev
+```
+
+### 4.2、webpack开发环境
+
+1. 提升开发效率
+2. 处理js、css、less、图片、字体文件
+
+webpack.config.js 完整配置
+
+```js
+// webpack.config.js
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+// webpack配置
+module.exports = {
+  // 入口文件
+  entry: "./src/index.js",
+
+  // 输出
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    // 自定义资源文件名
+    assetModuleFilename: "images/[hash:10][ext][query]",
+  },
+
+  // 开发服务器配置
+  devServer: {
+    // 从目录提供静态文件
+    static: {
+      directory: path.join(__dirname, "public"),
+      publicPath: "/",
+    },
+
+    // 启动后打开浏览器
+    open: true,
+
+    // 监听请求的端口号
+    port: 8080,
+  },
+
+  // loader配置
+  module: {
+    rules: [
+      // 处理css文件
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      // 处理less文件
+      {
+        test: /\.less$/i,
+        use: ["style-loader", "css-loader", "less-loader"],
+      },
+      // 处理资源文件
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset",
+      },
+      // 处理html文件，加载其中的图片
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
+      // 处理字体文件
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
+      },
+    ],
+  },
+
+  // 插件配置
+  plugins: [
+    // 复制一份HTML文件，并自动引入打包资源（js/css）
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+  ],
+
+  // 模式
+  mode: "development",
+  // mode: 'production',
+};
+
+```
+
+## 5、生产环境基本配置
+
+目前存在的问题
+1. css通过js动态生成，会出现闪屏现象
+2. 代码没有压缩
+3. 浏览器兼容性问题
+
+### 5.1、提取css成单独的文件
+
+```bash
+npm i  mini-css-extract-plugin -D
+```
+
+完整配置
+
+```js
+// webpack.config.js
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+// webpack配置
+module.exports = {
+  // 入口文件
+  entry: "./src/index.js",
+
+  // 输出
+  output: {
+    filename: "[name].js",
+    path: path.resolve(__dirname, "dist"),
+    // 自定义资源文件名
+    assetModuleFilename: "images/[hash:10][ext][query]",
+    // 在生成文件之前清空 output 目录
+    clean: true,
+  },
+
+  // 开发服务器配置
+  devServer: {
+    // 从目录提供静态文件
+    static: {
+      directory: path.join(__dirname, "public"),
+      publicPath: "/",
+    },
+
+    // 启动后打开浏览器
+    open: true,
+
+    // 监听请求的端口号
+    port: 8080,
+  },
+
+  // loader配置
+  module: {
+    rules: [
+      // 处理css文件
+      {
+        test: /\.css$/i,
+        use: [
+          // 创建style标签，将样式放入style标签中
+          // "style-loader",
+          // 提取js中的css成单独文件
+          MiniCssExtractPlugin.loader,
+          // 将css文件整合到js文件中
+          "css-loader",
+        ],
+      },
+      // 处理less文件
+      {
+        test: /\.less$/i,
+        use: [
+          // "style-loader",
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "less-loader",
+        ],
+      },
+      // 处理资源文件
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset",
+      },
+      // 处理html文件，加载其中的图片
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
+      // 处理字体文件
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
+      },
+    ],
+  },
+
+  // 插件配置
+  plugins: [
+    // 复制一份HTML文件，并自动引入打包资源（js/css）
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
+  ],
+
+  // 模式
+  mode: "development",
+  // mode: 'production',
+};
+
+```
+
+### 5.2、css兼容性处理
+
+```
+npm i postcss postcss-loader postcss-preset-env -D
+```
+
+browserslist: [https://github.com/browserslist/browserslist](https://github.com/browserslist/browserslist)
+
+通过 NODE_ENV 判断环境, 默认生产环境
+
+package.json
+
+```json
+{
+  "browserslist": {
+      "development": [
+          "last 1 version"
+      ],
+      "production": [
+        "last 1 version",
+        "> 1%",
+        "ie 10"
+      ]
+  }
+}
+```
+
+完整配置
+
+```js
+// webpack.config.js
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+// webpack配置
+module.exports = {
+  // 入口文件
+  entry: "./src/index.js",
+
+  // 输出
+  output: {
+    filename: "[name].js",
+    path: path.resolve(__dirname, "dist"),
+    // 自定义资源文件名
+    assetModuleFilename: "images/[hash:10][ext][query]",
+    // 在生成文件之前清空 output 目录
+    clean: true,
+  },
+
+  // 开发服务器配置
+  devServer: {
+    // 从目录提供静态文件
+    static: {
+      directory: path.join(__dirname, "public"),
+      publicPath: "/",
+    },
+
+    // 启动后打开浏览器
+    open: true,
+
+    // 监听请求的端口号
+    port: 8080,
+  },
+
+  // loader配置
+  module: {
+    rules: [
+      // 处理css文件
+      {
+        test: /\.css$/i,
+        use: [
+          // 创建style标签，将样式放入style标签中
+          // "style-loader",
+          // 提取js中的css成单独文件
+          MiniCssExtractPlugin.loader,
+          // 将css文件整合到js文件中
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    // postcss-preset-env 帮助postcss找到package.json中`browserslist`里边的配置
+                    "postcss-preset-env",
+                  ],
+                ],
+              },
+            },
+          }, 
+        ],
+      },
+      // 处理less文件
+      {
+        test: /\.less$/i,
+        use: [
+          // "style-loader",
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    "postcss-preset-env",
+                  ],
+                ],
+              },
+            },
+          }, 
+          "less-loader",
+        ],
+      },
+      // 处理资源文件
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset",
+      },
+      // 处理html文件，加载其中的图片
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
+      // 处理字体文件
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
+      },
+    ],
+  },
+
+  // 插件配置
+  plugins: [
+    // 复制一份HTML文件，并自动引入打包资源（js/css）
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
+  ],
+
+  // 模式
+  mode: "development",
+  // mode: 'production',
+};
+
+```
+
+### 5.3、css压缩
+
+webpack4使用 optimize-css-assets-webpack-plugin: [https://github.com/NMFR/optimize-css-assets-webpack-plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin)
+
+webpack5使用 css-minimizer-webpack-plugin: [https://webpack.docschina.org/plugins/css-minimizer-webpack-plugin/](https://webpack.docschina.org/plugins/css-minimizer-webpack-plugin/)
+
+```
+npm install css-minimizer-webpack-plugin --save-dev
+```
+
+完整配置
+```js
+// webpack.config.js
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+
+// webpack配置
+module.exports = {
+  // 入口文件
+  entry: "./src/index.js",
+
+  // 输出
+  output: {
+    filename: "[name].js",
+    path: path.resolve(__dirname, "dist"),
+    // 自定义资源文件名
+    assetModuleFilename: "images/[hash:10][ext][query]",
+    // 在生成文件之前清空 output 目录
+    clean: true,
+  },
+
+  // 开发服务器配置
+  devServer: {
+    // 从目录提供静态文件
+    static: {
+      directory: path.join(__dirname, "public"),
+      publicPath: "/",
+    },
+
+    // 启动后打开浏览器
+    open: true,
+
+    // 监听请求的端口号
+    port: 8080,
+  },
+
+  // loader配置
+  module: {
+    rules: [
+      // 处理css文件
+      {
+        test: /\.css$/i,
+        use: [
+          // 创建style标签，将样式放入style标签中
+          // "style-loader",
+          // 提取js中的css成单独文件
+          MiniCssExtractPlugin.loader,
+          // 将css文件整合到js文件中
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [["postcss-preset-env"]],
+              },
+            },
+          },
+        ],
+      },
+      // 处理less文件
+      {
+        test: /\.less$/i,
+        use: [
+          // "style-loader",
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [["postcss-preset-env"]],
+              },
+            },
+          },
+          "less-loader",
+        ],
+      },
+      // 处理资源文件
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset",
+      },
+      // 处理html文件，加载其中的图片
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
+      // 处理字体文件
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
+      },
+    ],
+  },
+
+  // 插件配置
+  plugins: [
+    // 复制一份HTML文件，并自动引入打包资源（js/css）
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
+  ],
+
+  optimization: {
+    // 开发环境下启用 CSS 优化
+    minimize: true,
+    minimizer: [
+      // 使用 cssnano 优化和压缩 CSS
+      new CssMinimizerPlugin(),
+    ],
+  },
+
+  // 模式
+  mode: "development",
+  // mode: 'production',
+};
+
+```
+
+https://www.bilibili.com/video/BV1e7411j7T5?p=15&spm_id_from=pageDriver

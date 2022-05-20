@@ -1,23 +1,5 @@
 # JavaScript
 
-[W3School - JavaScript 教程](https://www.w3school.com.cn/js/index.asp)
-
-2021-12-23 [Node.js：fs（file system）文件系统管理模块](https://pengshiyu.blog.csdn.net/article/details/122111586)
-
-2021-12-23 [Pinia：Vue3.js 的状态管理器](https://pengshiyu.blog.csdn.net/article/details/122101558)
-
-2021-12-23 [PubSubJS：用 JavaScript 编写的基于主题的发布/订阅库](https://pengshiyu.blog.csdn.net/article/details/122100104)
-
-[http://www.json.org/](http://www.json.org/)
-
-[https://jekyllthemes.io/](https://jekyllthemes.io/)
-
-[ECMAScript 6 入门 Promise 对象](https://es6.ruanyifeng.com/#docs/promise)
-
-[https://www.ecma-international.org/](https://www.ecma-international.org/)
-
-[vue-element-admin](https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/) 是一个后台前端解决方案，它基于 vue 和 element-ui 实现。
-
 ## 第三方库
 
 [vue.js](https://cn.vuejs.org/v2/guide/)
@@ -81,6 +63,8 @@
 
 [CKEditor](https://ckeditor.com/docs/index.html) Smart rich text editor components with collaborative editing.
 
+[wangEditor 5](https://www.wangeditor.com/): 开源 Web 富文本编辑器，开箱即用，配置简单
+
 [ScrollReveal](https://scrollrevealjs.org/)
 
 [preactjs](https://preactjs.com/)Fast 3kB alternative to React with the same modern API.
@@ -110,3 +94,22 @@ https://npm.devtool.tech/
 ## 文章
 
 [能解决 90% 需求的 js 库](https://juejin.cn/post/7024011415144890405)
+
+
+[W3School - JavaScript 教程](https://www.w3school.com.cn/js/index.asp)
+
+2021-12-23 [Node.js：fs（file system）文件系统管理模块](https://pengshiyu.blog.csdn.net/article/details/122111586)
+
+2021-12-23 [Pinia：Vue3.js 的状态管理器](https://pengshiyu.blog.csdn.net/article/details/122101558)
+
+2021-12-23 [PubSubJS：用 JavaScript 编写的基于主题的发布/订阅库](https://pengshiyu.blog.csdn.net/article/details/122100104)
+
+[http://www.json.org/](http://www.json.org/)
+
+[https://jekyllthemes.io/](https://jekyllthemes.io/)
+
+[ECMAScript 6 入门 Promise 对象](https://es6.ruanyifeng.com/#docs/promise)
+
+[https://www.ecma-international.org/](https://www.ecma-international.org/)
+
+[vue-element-admin](https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/) 是一个后台前端解决方案，它基于 vue 和 element-ui 实现。

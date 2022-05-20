@@ -1436,4 +1436,205 @@ module.exports = {
 
 ```
 
-https://www.bilibili.com/video/BV1e7411j7T5?p=15&spm_id_from=pageDriver
+
+### 5.4、js语法检查eslint
+
+ESLint: 
+- [https://eslint.org/](https://eslint.org/)
+- [https://github.com/eslint/eslint](https://github.com/eslint/eslint)
+
+Airbnb: 
+- [https://github.com/airbnb/javascript](https://github.com/airbnb/javascript)
+- Airbnb中文版：[https://github.com/lin-123/javascript](https://github.com/lin-123/javascript)
+
+- [https://www.npmjs.com/package/eslint-config-airbnb-base](https://www.npmjs.com/package/eslint-config-airbnb-base)
+
+
+```
+npm i eslint eslint-config-airbnb-base eslint-plugin-import -D
+```
+
+
+设置检查规则
+
+package.json
+
+```json
+{
+    "eslintConfig": {
+        "extends": "airbnb-base"
+    }
+}
+```
+
+webpack4
+
+```
+cnpm i eslint eslint-loader -D
+```
+
+```js
+// webpack.config.js
+// webpack配置
+module.exports = {
+  // loader配置
+  module: {
+    rules: [
+        {
+            test: /\.js$/,
+            // 注意：只检查自己写的代码，不检查第三方库
+            exlude: /node_modules/,
+            loader: 'eslint-loader',
+            options: {
+                // 自动修复
+                fix: true
+            }
+        }
+    ]
+  },
+
+};
+
+
+```
+
+webpack5
+
+```bash
+npm install eslint eslint-webpack-plugin --save-dev
+```
+
+eslint-webpack-plugin: 
+
+- 中文文档：[https://webpack.docschina.org/plugins/eslint-webpack-plugin/](https://webpack.docschina.org/plugins/eslint-webpack-plugin/)
+- github： [https://github.com/webpack-contrib/eslint-webpack-plugin](https://github.com/webpack-contrib/eslint-webpack-plugin)
+
+```js
+// webpack.config.js
+const ESLintPlugin = require("eslint-webpack-plugin");
+
+// webpack配置
+module.exports = {
+
+  // 插件配置
+  plugins: [
+    // 使用eslint对代码检查
+    new ESLintPlugin({
+      fix: true,
+    }),
+  ],
+};
+
+```
+
+```js
+// 下一行不进行eslint规则检查
+// eslint-disable-next-line
+console.log('hi');
+```
+
+### 5.5、js兼容性处理
+
+处理方案：
+
+- 1、`@babel/preset-env` 基本js兼容性处理
+    - 问题：只能转换基本js语法。如，不能转换高级语法Promise（IE不支持）
+- 2、`@babel/polyfill` 全部js兼容性处理
+    - 问题：将所有兼容性代码全部引入，体积太大
+- 3、`core-js` 按需加载：只加载需要处理兼容性的语法
+
+
+方案一：
+
+```
+npm i babel-loader @babel/core @babel/preset-env -D
+```
+
+```js
+// webpack.config.js
+
+module.exports = {
+    module: {
+      rules: [
+          {
+            // js兼容性处理
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+            options: {
+                // 预设，提示babel怎么样做兼容性处理
+                // 基本的兼容性处理，
+                presets: ['@babel/preset-env']
+            }
+        }
+    ]
+  }
+}
+
+```
+
+方案二:
+
+```
+npm i @babel/polyfill -S
+```
+
+使用方式
+
+```js
+// 直接引入即可
+import '@babel/polyfill';
+```
+
+方案三：
+
+```
+npm i core-js -D
+```
+
+```js
+// webpack.config.js
+
+module.exports = {
+    module: {
+      rules: [
+          {
+            // js兼容性处理
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+            options: {
+                // 预设，提示babel怎么样做兼容性处理
+                // 基本的兼容性处理，
+                presets: [[
+                '@babel/preset-env',
+                {
+                // 按需加载
+                useBuiltIns: 'usage',
+                // 指定core-js版本
+                corejs: {
+                    version: 3
+                },
+                // 指定兼容性到哪个版本浏览器
+                targets: {
+                    chrome: '60',
+                    firefox: '60',
+                    ie: '9',
+                    safari: '10',
+                    edge: '17'
+                 }
+
+                }
+              ]]
+            }
+        }
+    ]
+  }
+}
+
+```
+
+
+
+
+https://www.bilibili.com/video/BV1e7411j7T5?p=17&spm_id_from=pageDriver

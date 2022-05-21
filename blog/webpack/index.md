@@ -1940,5 +1940,104 @@ package.json
 }
 ```
 
+## 6、性能优化
 
-https://www.bilibili.com/video/BV1e7411j7T5?p=19&spm_id_from=pageDriver
+- 开发环境性能优化
+    - 优化打包构建速度
+    - 优化代码调试
+
+- 生产环境性能优化
+    - 优化打包构建速度
+    - 优化代码运行的性能
+
+### 6.1、HMR 模块热替换
+
+HMR hot module replacement
+
+作用：一个模块发生变化，只会重新打包这一个模块（而不是打包所有模块），提升构建速度
+
+- 样式文件：可以使用HMR功能，style-loader内部实现
+- js文件：默认没有HMR
+    - 注意：只能对非入口文件做HMR
+- html文件：默认没有HMR
+    - 解决：将html文件加入entry入口
+
+```js
+devServer: {
+    // 热模块替换是默认开启的
+    // 开启HMR功能，修改配置之后需要重启webpack
+    hot: true,
+}
+```
+
+### 6.2、source map 源码映射
+
+一种提供源代码到构建后代码映射技术
+
+如果构建后的代码出错，可以通过映射关系追踪到源代码出错位置
+
+```js
+devtool: 'source-map'
+```
+
+模式
+
+```js
+[inline- | hidden- | eval- ][nosources-][cheap-[module-]]source-map
+```
+
+组合值
+
+|值 | 说明 | 错误提示
+| - | -  | -
+source-map | 外部 | 错误代码的准确信息，源代码的错位位置
+inline-source-map | 内联 只生成一个内联source-map | 错误代码的准确信息，源代码的错位位置
+hidden-source-map |  外部 | 错误代码的原因，没有源代码错误位置，只有构建后代码位置
+eval-source-map |  内联 每个文件都生成对应的source-map，都在eval里 | 错误代码的准确信息，源代码的错位位置
+nosources-source-map | 外部  | 有错误代码准确信息，没有源代码位置
+cheap-source-map | 外部 | 有错误代码准确信息，有源代码信息，只能精确到行
+cheap-module-source-map | 外部  | 错误代码的准确信息，源代码的错位位置
+
+内联和外部
+
+- 内联：构建速度快
+- 外部：生成单独文件，内联没有
+
+1、开发环境
+
+- 速度快，调试更友好
+
+
+速度快：
+```
+eval > inline > cheap > 
+eval-cheap-source-map
+eval-source-map
+```
+
+调试更友好
+```
+source-map
+cheap-module-source-map
+cheap-source-map
+
+module会将loader的source map加入
+```
+
+eval-source-map / eval-cheap-module-source-map
+
+
+2、生产环境
+
+- 源代码要不要隐藏，调试要不要更友好
+
+内联会让代码体积变大，所以生产环境不使用内联
+
+```
+nosources-source-map 全部隐藏
+hidden-source-map 只会隐藏源代码，会提示构建后代码错误
+```
+
+source-map / cheap-module-source-map
+
+https://www.bilibili.com/video/BV1e7411j7T5?p=22&spm_id_from=pageDriver

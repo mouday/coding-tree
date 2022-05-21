@@ -2040,4 +2040,284 @@ hidden-source-map 只会隐藏源代码，会提示构建后代码错误
 
 source-map / cheap-module-source-map
 
-https://www.bilibili.com/video/BV1e7411j7T5?p=22&spm_id_from=pageDriver
+### 6.3、oneOf
+
+当规则匹配时，只使用第一个匹配规则。
+
+```js
+module.exports = {
+  //...
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        oneOf: [
+          {
+            resourceQuery: /inline/, // foo.css?inline
+            use: 'url-loader',
+          },
+          {
+            resourceQuery: /external/, // foo.css?external
+            use: 'file-loader',
+          },
+        ],
+      },
+    ],
+  },
+};
+```
+
+### 6.4、babel-loader缓存
+
+第二次打包构建速度更快
+
+```js
+module.exports = {
+  //...
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            // 预设，提示babel怎么样做兼容性处理
+            // 基本的兼容性处理，
+            presets: [
+              [
+                "@babel/preset-env",
+                {
+                  // 按需加载
+                  useBuiltIns: "usage",
+                  // 指定core-js版本
+                  corejs: {
+                    version: 3,
+                  },
+                  // 指定兼容性到哪个版本浏览器
+                  targets: {
+                    chrome: "60",
+                    firefox: "60",
+                    ie: "9",
+                    safari: "10",
+                    edge: "17",
+                  },
+                },
+              ],
+            ],
+            // 开启编译缓存
+            cacheDirectory: true
+          },
+        },
+      },
+    ],
+  },
+};
+
+```
+
+### 6.5、文件资源缓存
+
+线上代码缓存优化
+
+1、hash: 每次webpack构建打包，都会生成唯一hash
+
+问题：
+
+因为js和css使用同一个hash值
+
+如果重新打包，会导致所有缓存失效，虽然只改动一个文件
+
+2、chunkhash: 根据chunk生成hash值，如果打包来源于同一个chunk，那么hash值就一样
+
+js和css还是使用同一个hash值
+
+因为css是在js中被引入的，所以属于同一个chunk
+
+3、contenthash: 根据文件的内容生成hash值，不同文件hash值不一样
+
+静态资源服务器
+
+```js
+// server.js
+// npm i express nodemon -S
+// node server.js 或者 nodemon server.js
+const express = require("express");
+
+const app = express();
+
+app.use(express.static("dist", { maxAge: 1000 * 3600 }));
+
+app.listen(8002);
+
+```
+
+完整配置
+```js
+// webpack.config.js
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
+
+// css 公共loader
+const commonCssLoaders = [
+  // "style-loader",
+  MiniCssExtractPlugin.loader,
+  "css-loader",
+  {
+    loader: "postcss-loader",
+    options: {
+      postcssOptions: {
+        plugins: [
+          [
+            // 配合package.json browserlist使用
+            "postcss-preset-env",
+          ],
+        ],
+      },
+    },
+  },
+];
+
+
+// webpack配置
+module.exports = {
+  // 入口文件
+  entry: "./src/index.js",
+
+  // 输出
+  output: {
+    filename: "[name].[contenthash:10].js",
+    path: path.resolve(__dirname, "dist"),
+    // 自定义资源文件名
+    assetModuleFilename: "images/[hash:10][ext][query]",
+    // 在生成文件之前清空 output 目录
+    clean: true,
+  },
+
+  // 开发服务器配置
+  devServer: {
+    // 从目录提供静态文件
+    static: {
+      directory: path.join(__dirname, "public"),
+      publicPath: "/",
+    },
+
+    // 启动后打开浏览器
+    open: true,
+
+    // 监听请求的端口号
+    port: 8080,
+  },
+
+  // loader配置
+  module: {
+    rules: [
+      // 处理css文件
+      {
+        test: /\.css$/i,
+        use: commonCssLoaders,
+      },
+      // 处理less文件
+      {
+        test: /\.less$/i,
+        use: [...commonCssLoaders, "less-loader"],
+      },
+      // 处理资源文件
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset",
+      },
+      // 处理html文件，加载其中的图片
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
+      // 处理字体文件
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
+      },
+      // js兼容性处理
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            // 预设，提示babel怎么样做兼容性处理
+            // 基本的兼容性处理，
+            presets: [
+              [
+                "@babel/preset-env",
+                {
+                  // 按需加载
+                  useBuiltIns: "usage",
+                  // 指定core-js版本
+                  corejs: {
+                    version: 3,
+                  },
+                  // 指定兼容性到哪个版本浏览器
+                  targets: {
+                    chrome: "60",
+                    firefox: "60",
+                    ie: "9",
+                    safari: "10",
+                    edge: "17",
+                  },
+                },
+              ],
+            ],
+            // 开启编译缓存
+            cacheDirectory: true
+          },
+        },
+      },
+    ],
+  },
+
+  // 插件配置
+  plugins: [
+    // 复制一份HTML文件，并自动引入打包资源（js/css）
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+    // 提取css文件
+    new MiniCssExtractPlugin({
+      filename: "[name].[contenthash:10].css",
+    }),
+    // 使用eslint对代码检查
+    // package.json eslintConfig airbnb
+    // new ESLintPlugin({
+    //   fix: true,
+    // }),
+  ],
+
+  optimization: {
+    // 开发环境下启用 CSS 优化
+    minimize: true,
+    minimizer: [
+      // 使用 cssnano 优化和压缩 CSS
+      new CssMinimizerPlugin(),
+
+      // 使用 terser 优化和压缩 JS
+      new TerserPlugin(),
+    ],
+  },
+
+  // development
+  // devtool: "eval-source-map",
+
+  // production
+  devtool: false,
+
+  // 模式
+  mode: "development",
+  // mode: "production",
+};
+```
+
+https://www.bilibili.com/video/BV1e7411j7T5?p=24&spm_id_from=pageDriver

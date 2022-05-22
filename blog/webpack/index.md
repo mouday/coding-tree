@@ -6,6 +6,9 @@ https://www.bilibili.com/video/BV1e7411j7T5
 尚硅谷前端Webpack5教程（高级进阶篇）
 https://www.bilibili.com/video/BV1cv411C74F
 
+尚硅谷2022版Webpack5入门到原理
+https://www.bilibili.com/video/BV14T4y1z7sw
+
 笔记分享:
 https://lab.puji.design/webpack-getting-started-manual/
 
@@ -2320,4 +2323,234 @@ module.exports = {
 };
 ```
 
-https://www.bilibili.com/video/BV1e7411j7T5?p=24&spm_id_from=pageDriver
+### 6.6、tree shaking 树摇
+
+去除无用代码，减少代码体积
+
+前提：
+
+1. 必须使用ES6模块化
+2. 开启production环境
+
+pagekage.json配置
+```js
+// 所有代码都没有副作用（都可以运行）
+sideEffects: false
+```
+
+可能会把css / @babel/polyfill文件干掉
+
+处理方式
+
+```js
+// 要保留的文件
+sideEffects: ["*.css"]
+```
+
+### 6.7、code split 代码分割
+
+方式一：入口起点
+
+指定不同的入口
+
+```js
+module.exports = {
+  entry: {
+    // 多入口
+    index: './index.js',
+    home: './home.js',
+   },
+   output: {
+     filename: '[name].[contenthash:4].js'
+   }
+}
+```
+
+方式二 防止重复
+
+作用
+
+1. 将node_modules中的代码单独打包一个chunk最终输出
+
+2. 自动分析多入口chunk中，如果有公共的问题件，会打包成单独一个chunk
+
+```js
+module.exports = {
+  optimization: {
+    splitChunks: {
+        chunks: 'all'
+    }
+  }
+}
+```
+
+方式三 动态导入
+
+import动态引入语法，能将文件单独打包
+
+```js
+import(/* webpackChunkName: 'test' */ './test.js').then(()=>{
+    // 加载成功
+}).catch(()=>{
+    // 加载失败
+})
+```
+
+### 6.8、懒加载和预加载
+
+1、懒加载
+
+当文件需要时才加载
+
+index.html
+```html
+<button id="btn">点击加载代码</button>
+```
+
+index.js
+```js
+document.querySelector("#btn").addEventListener("click", function () {
+  import(/* webpackChunkName: 'print' */ "./print.js")
+    .then(() => {
+      // 加载成功
+    })
+    .catch(() => {
+      // 加载失败
+    });
+});
+
+```
+
+print.js
+
+```js
+console.log("print load");
+```
+
+2、预加载
+
+prefetch 会在使用前，提前加载js文件
+
+正常加载可以认为是并行加载（同一时间加载多个文件）
+预加载 prefetch：等其他资源加载完毕，浏览器空闲了，再偷偷加载资源
+
+
+```js
+document.querySelector("#btn").addEventListener("click", function () {
+  import(/* webpackChunkName: 'print', webpackPrefetch: true */ "./print.js")
+    .then(() => {
+      // 加载成功
+    })
+    .catch(() => {
+      // 加载失败
+    });
+});
+
+```
+
+- prefetch(预获取)：将来某些导航下可能需要的资源
+- preload(预加载)：当前导航下可能需要资源
+
+```js
+import(/* webpackChunkName: 'print', webpackPrefetch: true */ "./print.js")
+
+import(/* webpackChunkName: 'print', webpackPreload: true */ "./print.js")
+```
+
+### 6.9、PWA 离线可访问
+
+progressive web application 渐进式网络开发应用程序（离线可访问）
+
+添加 workbox-webpack-plugin 插件
+
+```bash
+npm install workbox-webpack-plugin --save-dev
+```
+
+webpack.config.js
+
+```js
+ 
+const WorkboxPlugin = require('workbox-webpack-plugin');
+
+module.exports = {
+    plugins: [
+     new WorkboxPlugin.GenerateSW({
+       // 这些选项帮助快速启用 ServiceWorkers
+       // 不允许遗留任何“旧的” ServiceWorkers
+       clientsClaim: true,
+       skipWaiting: true,
+     }),
+    ]
+};
+
+```
+
+注册 Service Worker
+
+index.js
+
+```js
+// 处理兼容性
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+     navigator.serviceWorker.register('/service-worker.js').then(registration => {
+       console.log('SW registered: ', registration);
+     }).catch(registrationError => {
+       console.log('SW registration failed: ', registrationError);
+     });
+    });
+}
+```
+
+修改 package.json ESLint配置
+
+让其支持浏览器变量（window、navigator等全局变量）
+
+```json
+{
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "env": {
+        "browser": true
+    }
+  }
+}
+```
+
+快速启动一个本地服务器
+```bash
+npm install http-server --save-dev
+$ npx http-server dist
+
+# 或者
+npm i serve
+$ npx serve dist
+```
+
+### 6.10、多进程打包
+
+```bash
+npm install --save-dev thread-loader
+```
+
+webpack.config.js
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        include: path.resolve('src'),
+        use: [
+          "thread-loader",
+          // 耗时的 loader （例如 babel-loader）
+        ],
+      },
+    ],
+  },
+};
+```
+
+https://www.bilibili.com/video/BV1e7411j7T5?p=29&spm_id_from=pageDriver

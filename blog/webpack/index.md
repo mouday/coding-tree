@@ -2695,6 +2695,34 @@ console.log($);
 $ npx webpack --config webpack.config.js
 ```
 
+### 6.13、性能优化总结
 
-https://www.bilibili.com/video/BV1e7411j7T5?p=31&spm_id_from=pageDriver
+- 开发环境性能优化
 
+    - 优化打包构建速度
+        - HMR 模块热替换
+
+    - 优化代码调试
+        - source-map
+
+- 生产环境性能优化
+
+    - 优化打包构建速度
+        - oneOf
+        - babel缓存
+        - 多进程打包
+
+    - 优化代码运行的性能
+        - 缓存（hash chunkhash contenthash）
+        - tree shaking
+        - code split
+            - 多入口
+            - 单入口
+                - chunk拆分
+                - 动态import
+        - 懒加载/预加载
+        - pwa
+        - externals cdn引入
+        - dll
+
+https://www.bilibili.com/video/BV1e7411j7T5?p=32&spm_id_from=pageDriver

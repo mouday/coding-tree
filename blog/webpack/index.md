@@ -1,16 +1,21 @@
-# Webpack5实战教程
+# Webpack4实战教程
 
-尚硅谷新版Webpack5实战教程(从入门到精通)
+尚硅谷新版Webpack4实战教程(从入门到精通)
 https://www.bilibili.com/video/BV1e7411j7T5
 
-尚硅谷前端Webpack5教程（高级进阶篇）
+尚硅谷前端Webpack4教程（高级进阶篇）
 https://www.bilibili.com/video/BV1cv411C74F
 
 尚硅谷2022版Webpack5入门到原理
 https://www.bilibili.com/video/BV14T4y1z7sw
 
-笔记分享:
-https://lab.puji.design/webpack-getting-started-manual/
+笔记分享: https://lab.puji.design/webpack-getting-started-manual/
+
+课件地址webpack从入门到精通
+下载地址：https://pan.baidu.com/s/1JxvXF8EyG9TSNLqkc98YzQ  
+提取码：i5qc
+
+课堂源码和笔记: 链接:https://pan.baidu.com/s/1T2g37SpIQRjF6fjFDl_YwA  密码:uw5q
 
 ## 目录
 
@@ -2725,4 +2730,334 @@ $ npx webpack --config webpack.config.js
         - externals cdn引入
         - dll
 
-https://www.bilibili.com/video/BV1e7411j7T5?p=32&spm_id_from=pageDriver
+https://webpack.docschina.org/
+
+## 7、详细配置
+
+### 7.1、entry
+
+基本的配置
+
+```js
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+    entry: './src/index.js',
+
+    output: {
+        filename: 'build.js',
+        path: path.resolve(__dirname, 'dist')
+    },
+
+    plugins: [
+        new HtmlWebpackPlugin()
+    ],
+
+    mode: 'development'
+}
+```
+
+entry
+
+- string  单入口 输出一个文件，打包chunk默认名：main
+
+```js
+entry: './src/index.js'
+```
+
+- array  多入口，最终行成一个chunk, 使用场景：html热更新
+
+```js
+entry: ['./src/index.js', './src/add.js']
+```
+
+- object 多入口，有几个入口文件就输出几个chunk，chunk名称是key
+
+```js
+entry: {
+    index: './src/index.js', 
+    add: './src/add.js'
+}
+```
+
+
+```js
+entry: {
+    // 多个入口最终生成一个chunk
+    index: ['./src/index.js', './src/count.js']
+    // 生成一个chunk
+    add: './src/add.js'
+}
+```
+
+### 7.2、output
+
+```js
+output: {
+    // 文件名称（目录 + 名称）
+    filename: 'js/[name].js',
+    // 所有资源输出的公共目录
+    path: path.resolve(__dirname, 'dist'),
+
+    // 所有输出资源引入公共路径前缀
+    publicPath: '/'
+    // 非入口chunk的名称
+    chunkFilename: [name]_chunk.js,
+    // 整个库对外暴露的变量名
+    library: '[name]',
+     // 变量名添加到哪个变量上 window(browser), global(node)
+    libraryTarget: 'window', // 'global'、'commonjs'
+
+},
+```
+
+### 7.3、module
+
+```js
+module: {
+    rules: [
+        // loader配置
+        {
+            test: /\.css$/,
+            // 多个loader用use
+            use: [
+                'style-loader',
+                'css-loader'
+            ]
+        },
+
+         {
+            test: /\.js$/,
+            // 排除node_modules文件夹下文件
+            exclude: /node_modules/,
+            // 只检查src下的js文件
+            include: path.resolve(__dirname, 'src'),
+            // 单个loader用loader
+            loader: 'babel-loader',
+            // 优先执行
+            exforce: 'pre',
+            // 延后执行
+            // exforce: 'post',  
+            // 参数配置
+            options: {}
+        },
+
+        // 以下配置只会生效一个
+        oneOf: []
+
+    ]
+}
+```
+
+### 7.4、resolve
+
+```js
+// 解析模块的规则
+resolve: {
+    // 配置解析模块路径别名，
+    // 优点：编码时简写路径
+    // 缺点：没有路径提示
+    alias: {
+        '@': path.resolve(__dirname, 'src')
+    },
+
+    // 配置省略文件路径的后缀
+    extensions: ['.js', '.json', '.css'],
+
+    // 告诉webpack解析模块去哪个目录找
+    modules: ['node_modules']
+}
+```
+
+### 7.5、devServer
+
+```js
+devServer: {
+    // 运行代码的目录
+    contentBase: resolve(__dirname, 'dist'),
+    // 监视contentBase目录下文件，一旦变化就reload
+    watchContentBase: true,
+    watchOptions: {
+        // 忽略文件
+        ignored: /node_modules/
+    },
+
+    // 启动gzip压缩
+    compress: true,
+    // 端口号
+    port: 5000,
+    // 域名
+    host: 'localhost',
+    // 自动打开浏览器
+    open: true,
+    // 开启HMR
+    hot: true,
+    // 不要显示启动服务器日志信息
+    clientLogLevel: 'none'
+    // 除了一些基本启动信息外，其他内容都不要显示
+    quiet: true,
+    // 如果出错，不要全屏提示
+    overlay: false,
+    // 服务器代理，解决开发环境跨域问题
+    proxy: {
+        // 一旦接收 /api 开头的请求，就会把请求转发到另一个服务器
+        '/api': {
+            target: 'http://localhost:3000',
+            // 发送请求时，请求路径重写, 去掉 /api
+            pathRewrite: {
+                '^/api': ''
+            }
+        }
+    }
+}
+```
+
+### 7.6、optimization
+
+```js
+output: {
+    chunkFilename: 'js/[name].[contenthash:10]_chunk.js'
+}
+optimization: {
+    // 提取公共代码
+    splitChunks: {
+        chunks: 'all',
+        // 一下均为默认值，可以不写
+        // 分割的chunk最小为30kb
+        minSize: 30  * 1024, 
+        // 最大没有限制
+        maxSize: 0, 
+        // 要提取的chunk最少被引用1次
+        minChunks: 1
+        // 按需加载时并行加载文件的最大数量
+        maxAsyncRequests: 5,
+        // 入口文件最大并行请求数量
+        maxInitialRequests: 3,
+        // 名称连接符
+        automaticNameDelimiter: '~'
+        // 可以使用命名规则
+        name: true,
+        // 分割chunk的组
+        cacheGroups: {
+            // node_modules 文件会被打爆到vendors组的chunk中：verdors~xxx.js
+            // 满足上面的公共规则，如：大小超过30kb，至少被引用1次
+            verdors: {
+                test: /[\\/]node_modules[\\/]/,
+                // 优先级
+                priority: -10
+            },
+            default: {
+                // 至少被引用2次
+                minChunks: 2,
+                // 优先级
+                priority: -20,
+                // 如果当前要打包的模块，和之前已经被提取的模块是同一个，就会复用，而不是重新打包模块
+                reuseExistingChunk: true
+            }
+        }
+    },
+    // 将当前模块的记录其他模块的hash单独打包为一个文件 runtime
+    // 解决：修改a文件，导致b文件的contenthash变化，导致缓存失效
+    runtimeChunk: {
+        name: entrypoint => `runtime-${entrypoint.name}`
+    },
+
+    // 配置生产环境的压缩方案：js和css
+    minimizer: [
+        new TerserWebpackPlugin({
+            // 开启缓存
+            cache: true,
+            // 开启多进程打包
+            parallel: true,
+            // 启动source-map
+            sourceMap: true
+        })
+    ]
+}
+```
+
+math.js
+
+```js
+export function add(x, y){
+    return x + y;
+}
+```
+
+index.js
+```js
+import('./math.js').then(({add})=>{
+    console.log(add(1, 2));
+});
+```
+
+## 8、webpack5 vs webpack4
+
+`@next` 未来发布版
+
+- 自动删除Node.js Polyfill: V5不自动加载node.js模块
+- chunk和模块ID 添加了新的算法
+- chunkID 命名规则优化
+- Tree Shaking 能够处理嵌套模块、多模块关系、commonjs
+- output V4只输出ES5,V5支持ES5
+- SplitChunk js和css大小单独划分
+- Caching 磁盘存储
+- 监视输出文件 看是否变化再决定要不要输出全部文件
+- 添加了默认值
+
+## 9、总结
+
+五个核心概念
+
+- entry
+- output
+- loader
+- plugins
+- mode
+
+开发环境
+
+- 样式 css-loader style-loader less-loader
+- HTML html-loader
+- 图片 
+- 其他资源
+- devServer
+
+生产环境
+- 提取css成单独文件 
+- css兼容性处理 postcss
+- 压缩css 
+- js语法检查 eslint
+- js兼容性处理 babel
+- js压缩
+
+
+优化配置
+- HMR
+- source-map
+ - 开发环境：eval-source-map / eval-cheap-module-source-map
+ - 生产环境：source-map / cheap-module-source-map
+- oneOf
+- 缓存 hash chunkhash contenthash
+- tree shaking
+- code split 
+    - 多入口
+    - 单入口
+    - import
+- lazy loading （import）
+- pwa workbox
+- 多进程打包 thread-loader
+- externals cdn
+- dll 
+
+详细配置
+
+- entry
+- output
+- module
+- resolve
+- devServer porxy
+- optimization splitChunks、runtimeChunk、minimizer
+
+2022.05.24 完成学习

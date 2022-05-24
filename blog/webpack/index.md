@@ -12,10 +12,9 @@ https://www.bilibili.com/video/BV14T4y1z7sw
 笔记分享: https://lab.puji.design/webpack-getting-started-manual/
 
 课件地址webpack从入门到精通
-下载地址：https://pan.baidu.com/s/1JxvXF8EyG9TSNLqkc98YzQ  
-提取码：i5qc
 
-课堂源码和笔记: 链接:https://pan.baidu.com/s/1T2g37SpIQRjF6fjFDl_YwA  密码:uw5q
+- 下载地址：https://pan.baidu.com/s/1JxvXF8EyG9TSNLqkc98YzQ  提取码：i5qc
+- 备用地址：https://pan.baidu.com/s/1T2g37SpIQRjF6fjFDl_YwA  密码:uw5q
 
 ## 目录
 

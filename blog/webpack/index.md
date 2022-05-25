@@ -6,9 +6,6 @@ https://www.bilibili.com/video/BV1e7411j7T5
 尚硅谷前端Webpack4教程（高级进阶篇）
 https://www.bilibili.com/video/BV1cv411C74F
 
-尚硅谷2022版Webpack5入门到原理
-https://www.bilibili.com/video/BV14T4y1z7sw
-
 笔记分享: https://lab.puji.design/webpack-getting-started-manual/
 
 课件地址webpack从入门到精通

@@ -1,6 +1,14 @@
 # webpack
 
-中文文档：[https://webpack.docschina.org](https://webpack.docschina.org)
+学习笔记
+
+- [Webpack4实战教程](/blog/webpack/index.md)
+
+- [Webpack5实战教程](blog/webpack/webpack5.md)
+
+中文文档：
+
+- [https://webpack.docschina.org](https://webpack.docschina.org)
 
 插件 | github | 描述
 - |- |  - 
@@ -33,5 +41,5 @@ polyfill Promises
 </script>
 ```
 
-[Webpack5实战教程](/blog/webpack/index.md)
+
 

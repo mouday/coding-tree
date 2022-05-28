@@ -89,7 +89,30 @@ https://npm.devtool.tech/
 
 [Express 中文网](https://www.expressjs.com.cn/): 基于 Node.js 平台，快速、开放、极简的 Web 开发框架
 
-[Yarn 中文文档](https://yarn.bootcss.com/)快速、可靠、安全的依赖管理工具
+
+nvm: Node Version Manager [https://github.com/nvm-sh/nvm](https://github.com/nvm-sh/nvm)
+
+### 包管理工具
+
+npm - a JavaScript package manager
+- ![](https://img.shields.io/github/last-commit/npm/cli?style=flat-square)
+- ![](https://img.shields.io/github/stars/npm/cli.svg?style=social)
+- github [https://github.com/npm/cli](https://github.com/npm/cli)
+- [npm 中文文档](https://www.npmjs.cn/)
+
+Yarn： 快速、可靠、安全的依赖管理工具
+- ![](https://img.shields.io/github/last-commit/yarnpkg/berry?style=flat-square)
+- ![](https://img.shields.io/github/stars/yarnpkg/berry.svg?style=social)
+- [https://yarnpkg.com/](https://yarnpkg.com/)
+- github: [https://github.com/yarnpkg/berry](https://github.com/yarnpkg/berry)
+- Yarn 中文文档: [https://yarn.bootcss.com/](https://yarn.bootcss.com/)
+- Yarn 中文文档: [https://www.yarnpkg.cn/](https://www.yarnpkg.cn/)
+
+pNpm：速度快、节省磁盘空间的软件包管理器
+- ![](https://img.shields.io/github/last-commit/pnpm/pnpm?style=flat-square)
+- ![](https://img.shields.io/github/stars/pnpm/pnpm.svg?style=social)
+- [pnpm 中文文档](https://www.pnpm.cn/)
+
 
 ## 文章
 

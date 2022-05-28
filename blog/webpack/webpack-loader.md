@@ -10,7 +10,7 @@ loader 将不同类型的文件转换为 webpack 可识别的模块
 
 loader 执行优先级：
 
-```
+```bash
 pre：    前置 loader
 normal： 普通 loader
 inline： 内联 loader
@@ -41,7 +41,7 @@ module: {
 
 指定优先级
 
-```
+```js
 // 此时loader执行顺序：loader1 - loader2 - loader3
 module: {
   rules: [
@@ -166,7 +166,7 @@ console.log("Hello World");
 
 编译打包
 
-```
+```bash
 # 安装依赖
 $ pnpm add webpack webpack-cli
 

@@ -30,6 +30,7 @@
   - [MySQL](doc/mysql.md)
   - [Neo4j](doc/neo4j.md)
   - [Redis](doc/redis.md)
+  - [ElasticSearch](doc/elasticsearch.md)
 
 - 其他
   - [其他](doc/index.md)

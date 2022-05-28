@@ -28,11 +28,11 @@
 
 13. [列属性（字段属性）](blog/php-mysql/sql-field-prototype.md)
 
-[表关系](blog/php-mysql/sql-relation.md)
+14. [表关系](blog/php-mysql/sql-relation.md)
 
-[高级数据操作-新增数据](blog/php-mysql/sql-senior-add.md)
+15. [高级数据操作-新增数据](blog/php-mysql/sql-senior-add.md)
 
-[高级数据操作-更新数据](blog/php-mysql/sql-senior-update.md)
+16. [高级数据操作-更新数据](blog/php-mysql/sql-senior-update.md)
 
 [高级数据操作-删除数据](blog/php-mysql/sql-senior-delete.md)
 

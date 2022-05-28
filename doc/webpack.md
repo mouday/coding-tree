@@ -6,6 +6,8 @@
 
 - [Webpack5实战教程](blog/webpack/webpack5.md)
 
+- [webpack-loader](blog/webpack/webpack-loader.md)
+
 中文文档：
 
 - [https://webpack.docschina.org](https://webpack.docschina.org)

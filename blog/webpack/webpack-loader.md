@@ -2,13 +2,48 @@
 
 loader 将不同类型的文件转换为 webpack 可识别的模块
 
-
-使用loader的方式
+## loader 使用方式
 
 1. 配置方式： pre、normal、post (推荐使用)
 2. 内联方式： inline
 
-loader 执行优先级：
+### 配置方式
+
+```js
+module: {
+  rules: [
+    {
+      test: /\.js$/,
+      loader: "babel-loader",
+    },
+  ]
+}
+```
+
+### 内联方式
+
+使用 `!` 将资源中的 loader 分开
+
+```js
+import style from "style-loader!css-loader?modules!./style.css";
+```
+
+内联方式跳过配置方式的 loader
+
+```js
+// !  跳过 normal loader。
+import style from "!style-loader!css-loader?modules!./style.css";
+
+// -! 跳过 pre 和 normal loader。
+import style from "-!style-loader!css-loader?modules!./style.css";
+
+// !! 跳过 pre、 normal 和 post loader。
+import style from "!!style-loader!css-loader?modules!./style.css";
+```
+
+## loader 执行优先级
+
+### 默认优先级
 
 ```bash
 pre：    前置 loader
@@ -17,7 +52,9 @@ inline： 内联 loader
 post：   后置 loader
 ```
 
-相同优先级：从右到左，从下到上
+### 相同优先级
+
+从右到左，从下到上
 
 ```js
 // 此时loader执行顺序：loader3 - loader2 - loader1
@@ -39,7 +76,7 @@ module: {
 },
 ```
 
-指定优先级
+### 指定优先级
 
 ```js
 // 此时loader执行顺序：loader1 - loader2 - loader3
@@ -61,31 +98,14 @@ module: {
       loader: "loader3",
     },
   ],
-},
+}
+
 ```
 
-内联方式
-
-```js
-import style from 'style-loader!css-loader?modules!./style.css'
-```
-
-内联方式跳过配置方式的 loader
-
-```js
-// !  跳过 normal loader。
-import style from '!style-loader!css-loader?modules!./style.css'
-
-// -! 跳过 pre 和 normal loader。
-import style from '-!style-loader!css-loader?modules!./style.css'
-
-// !! 跳过 pre、 normal 和 post loader。
-import style from '!!style-loader!css-loader?modules!./style.css'
-```
-
-开发一个 loader
+## 开发一个 loader
 
 项目结构
+
 ```bash
 $ tree
 .
@@ -100,9 +120,8 @@ $ tree
 
 项目文件
 
-
 ```js
-// loaders/test-laoder.js 
+// loaders/test-laoder.js
 /**
  *
  * @param {*} content 源文件的内容
@@ -114,19 +133,17 @@ module.exports = function loader(content, map, meta) {
   console.log("hello loader");
   return content;
 };
-
 ```
 
 package.json
 
 ```json
 {
-    "dependencies": {
-        "webpack": "^5.72.1",
-        "webpack-cli": "^4.9.2"
-    }
+  "dependencies": {
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
+  }
 }
-
 ```
 
 ```js
@@ -155,13 +172,11 @@ module.exports = {
 
   mode: "development",
 };
-
 ```
 
 ```js
 // src/index.js
 console.log("Hello World");
-
 ```
 
 编译打包
@@ -176,4 +191,93 @@ hello loader
 ```
 
 
+## loader 分类
+
+### 同步 loader
+
+```js
+module.exports = function (content, map, meta) {
+  return content;
+};
+```
+
+callback方式
+
+```js
+module.exports = function (content, map, meta) {
+  // 第一个参数：err 错误
+  this.callback(null, content, map, meta);
+};
+```
+
+### 异步 loader
+
+```js
+module.exports = function (content, map, meta) {
+  const callback = this.async();
+  
+  // 进行异步操作
+  setTimeout(() => {
+    callback(null, content, map, meta);
+  }, 1000);
+};
+```
+
+### Raw Loader
+
+通常用于处理图片资源
+
+```js
+module.exports = function (content) {
+  // content是一个Buffer数据
+  return content;
+};
+
+// 开启 Raw Loader
+module.exports.raw = true; 
+```
+
+### Pitching Loader
+
+```js
+module.exports = function (content) {
+  return content;
+};
+
+module.exports.pitch = function (remainingRequest, precedingRequest, data) {
+  console.log("do somethings");
+};
+```
+
+webpack完整的loader执行顺序
+
+![](./img/loader1.png)
+
+loader提前返回
+
+![](./img/loader2.png)
+
+## loader API
+
+|方法名	| 含义	| 用法
+|- | - | - 
+this.async|	异步回调 loader。返回 this.callback |	const callback = this.async()
+this.callback	|可以同步或者异步调用的并返回多个结果的函数	|this.callback(err, content, sourceMap?, meta?)
+this.getOptions(schema)	|获取 loader 的 options	|this.getOptions(schema)
+this.emitFile	|产生一个文件	|this.emitFile(name, content, sourceMap)
+this.utils.contextify	|返回一个相对路径	|this.utils.contextify(context, request)
+this.utils.absolutify	|返回一个绝对路径	|this.utils.absolutify(context, request)
+
+文档：[https://webpack.docschina.org/api/loaders/](https://webpack.docschina.org/api/loaders/)
+
+## 手写示例
+
+### clean-log-loader
+
+```js
+// console-log-laoder.js
+module.exports = function (content, map, meta) {
+  return content.replace(/console\.log\(.*\);?/g, '');
+};
+```
 https://www.bilibili.com/video/BV14T4y1z7sw?p=67&spm_id_from=pageDriver

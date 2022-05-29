@@ -34,7 +34,7 @@
 
 16. [高级数据操作-更新数据](blog/php-mysql/sql-senior-update.md)
 
-[高级数据操作-删除数据](blog/php-mysql/sql-senior-delete.md)
+17. [高级数据操作-删除数据](blog/php-mysql/sql-senior-delete.md)
 
 [高级数据操作-查询数据](blog/php-mysql/sql-senior-select.md)
 

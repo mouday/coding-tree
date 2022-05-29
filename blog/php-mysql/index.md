@@ -36,7 +36,7 @@
 
 17. [高级数据操作-删除数据](blog/php-mysql/sql-senior-delete.md)
 
-[高级数据操作-查询数据](blog/php-mysql/sql-senior-select.md)
+18. [高级数据操作-查询数据](blog/php-mysql/sql-senior-select.md)
 
 [查询中的运算符](blog/php-mysql/sql-operator.md)
 

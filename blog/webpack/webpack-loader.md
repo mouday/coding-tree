@@ -274,10 +274,178 @@ this.utils.absolutify	|返回一个绝对路径	|this.utils.absolutify(context, 
 
 ### clean-log-loader
 
+去除`console.log` 语句
+
 ```js
 // console-log-laoder.js
 module.exports = function (content, map, meta) {
   return content.replace(/console\.log\(.*\);?/g, '');
 };
 ```
-https://www.bilibili.com/video/BV14T4y1z7sw?p=67&spm_id_from=pageDriver
+使用
+
+```js
+// webpack.config.js
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: "./loaders/console-log-laoder.js",
+      },
+    ],
+  },
+};
+
+```
+
+### banner-loader
+
+给内容中增加一个作者信息
+
+```js
+// banner-loader/index.js
+const schema = require("./schema.json");
+
+module.exports = function (content, map, meta) {
+  // schema对options进行规则校验
+  const options = this.getOptions(schema);
+  
+  const prefix = `
+       /**
+       * Author: ${options.author}
+       **/
+    `;
+  return prefix + content;
+};
+
+```
+
+参数验证规则 banner-loader/schema.json
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "author": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
+```
+
+说明：
+```json
+// 是否允许额外的属性
+"additionalProperties": false
+```
+
+使用
+
+```js
+// webpack.config.js
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: "./loaders/banner-loader/index.js",
+        options: {
+          author: "曹操"
+        },
+      },
+    ],
+  },
+};
+
+```
+
+### babel-loader
+
+自定义babel-loader,转换ES6语法
+
+```bash
+npm i -D @babel/preset-env @babel/core
+```
+
+```js
+// babel-loader/index.js
+const babel = require("@babel/core");
+
+const schema = require("./schema.json");
+
+// https://www.babeljs.cn/docs/babel-core
+
+module.exports = function (content, map, meta) {
+  // 异步loader
+  const callback = this.async();
+
+  // schema对options进行规则校验
+  const options = this.getOptions(schema);
+
+  // 使用babel 对代码进行编译
+  babel.transform(content, options, function (err, result) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, result.code);
+    }
+  });
+};
+
+```
+
+参数校验规则 babel-loader/schema.json
+```json
+{
+  "type": "object",
+  "properties": {
+    "presets": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}
+
+```
+
+入口文件
+
+```js
+// src/index.js
+
+function sum(...args) {
+  return args.reduce((x, y) => x + y, 0);
+}
+
+```
+
+使用
+
+```js
+// webpack.config.js
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: "./loaders/babel-loader/index.js",
+        options: {
+          presets: [
+            '@babel/preset-env'
+          ],
+        },
+      },
+    ],
+  }
+};
+
+```
+
+
+
+https://www.bilibili.com/video/BV14T4y1z7sw?p=74&spm_id_from=pageDriver

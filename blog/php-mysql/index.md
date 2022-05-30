@@ -38,7 +38,7 @@
 
 18. [高级数据操作-查询数据](blog/php-mysql/sql-senior-select.md)
 
-[查询中的运算符](blog/php-mysql/sql-operator.md)
+19. [查询中的运算符](blog/php-mysql/sql-operator.md)
 
 [联合查询 union](blog/php-mysql/sql-union.md)
 

@@ -447,5 +447,181 @@ module.exports = {
 ```
 
 
+### file-loader
 
-https://www.bilibili.com/video/BV14T4y1z7sw?p=74&spm_id_from=pageDriver
+使用webpack提供的loader工具
+
+```
+$ pnpm i -D loader-utils
+```
+
+```js
+// file-loader.js
+
+// https://github.com/webpack/loader-utils
+const loaderUtils = require("loader-utils");
+
+module.exports = function (content) {
+
+  // 1、根据文件内容生成带hash的文件名
+  const interpolatedName = loaderUtils.interpolateName(
+    this,
+    "[hash].[ext][query]",
+    { content }
+  );
+
+  // 2、将文件输出
+  this.emitFile(interpolatedName, content)
+
+  // 3、返回文件名
+  return `module.exports = "${interpolatedName}"`;
+};
+
+// raw loader 处理图片资源，content输入为Buffer类型
+module.exports.raw = true;
+```
+
+
+使用
+
+```js
+// src/index.js
+
+import './style.css';
+
+```
+
+```css
+/* style.css */
+.box {
+  width: 200px;
+  height: 200px;
+  /* css 文件中使用图片资源 */
+  background-image: url("./girl.png");
+}
+
+```
+
+```js
+// webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      // 处理图片资源
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        loader: "./loaders/file-loader/index.js",
+        // 不使用 asset 模块处理，避免生成重复资源
+        type: 'javascript/auto'
+      },
+      // 处理css资源
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+        ]
+      },
+    ],
+  },
+};
+
+```
+
+css代码替换如下
+```css
+.box {
+    width: 200px;
+    height: 200px;
+    background-image: url(/39e33252eac24cf9.png);
+}
+```
+
+### style-loader
+
+在file-loader 的基础上继续
+
+定义loader, 将css插入到body中
+
+```js
+// style-loader.js
+
+module.exports = function () {};
+
+module.exports.pitch = function (remainingRequest) {
+  // remainingRequest 剩余的还要处理的loader
+
+  //   console.log(remainingRequest);
+  //   _modules/css-loader/dist/cjs.js!/root/webpack-loader/src/style.css
+
+  // 将绝对路径转换为相对路径
+  const relativePath = remainingRequest
+    .split("!")
+    .map((absolutePath) => {
+      return this.utils.contextify(this.context, absolutePath);
+    })
+    .join("!");
+
+  console.log(relativePath);
+
+  // 引入css-loader处理后的资源
+  // 创建style标签，将内容插入到页面中
+  const script = `
+        import style from '!!${relativePath}';
+
+        const styleElement = document.createElement('style');
+        styleElement.innerHTML = style;
+        document.head.appendChild(styleElement); 
+    `;
+
+  // 终止后面的loader执行
+  return script;
+};
+
+```
+
+使用
+
+```js
+// webpack.config.js
+const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  entry: "./src/index.js",
+
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+    clean: true,
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        loader: "./loaders/file-loader/index.js",
+        // 不使用 asset 模块处理，避免生成重复资源
+        type: 'javascript/auto'
+      },
+      {
+        test: /\.css$/,
+        use: [
+          './loaders/style-loader/index.js',
+          'css-loader',
+        ]
+      },
+    ],
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+    }),
+  ],
+
+  mode: "development",
+};
+
+```
+https://www.bilibili.com/video/BV14T4y1z7sw?p=77&spm_id_from=pageDriver

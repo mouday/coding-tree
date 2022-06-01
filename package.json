@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "~/.nvm/versions/node/v12.22.6/bin/docsify serve --open ./",
     "live": "live-server",
-    "start": "http-server -o /"
+    "start": "http-server -o / -c-1"
   },
   "repository": {
     "type": "git",

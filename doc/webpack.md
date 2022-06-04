@@ -8,6 +8,8 @@
 
 - [webpack-loader](blog/webpack/webpack-loader.md)
 
+- [webpack-plugin](blog/webpack/webpack-plugin.md)
+
 中文文档：
 
 - [https://webpack.docschina.org](https://webpack.docschina.org)

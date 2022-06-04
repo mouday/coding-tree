@@ -1,5 +1,7 @@
 # Webpack loader
 
+文档：[https://webpack.docschina.org/api/loaders](https://webpack.docschina.org/api/loaders)
+
 loader 将不同类型的文件转换为 webpack 可识别的模块
 
 ## loader 使用方式
@@ -624,4 +626,3 @@ module.exports = {
 };
 
 ```
-https://www.bilibili.com/video/BV14T4y1z7sw?p=77&spm_id_from=pageDriver

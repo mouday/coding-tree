@@ -4,6 +4,8 @@
 
 文档：[https://webpack.docschina.org/api/plugins](https://webpack.docschina.org/api/plugins)
 
+示例代码：[https://github.com/mouday/webpack-loader-plugins](https://github.com/mouday/webpack-loader-plugins)
+
 ### 钩子
 
 钩子的本质就是：事件

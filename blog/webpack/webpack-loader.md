@@ -4,6 +4,8 @@
 
 loader 将不同类型的文件转换为 webpack 可识别的模块
 
+示例代码：[https://github.com/mouday/webpack-loader-plugins](https://github.com/mouday/webpack-loader-plugins)
+
 ## loader 使用方式
 
 1. 配置方式： pre、normal、post (推荐使用)

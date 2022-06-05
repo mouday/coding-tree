@@ -45,7 +45,6 @@
 
 [Pinia](https://pinia.vuejs.org/): The Vue Store that you will enjoy using
 
-[Animate.css](https://animate.style/): Just-add-water CSS animations
 
 [Sails.js](https://sailsjs.com/)The MVC framework for Node.js
 

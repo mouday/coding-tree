@@ -18,6 +18,8 @@
 
 [2017 年最受欢迎的 10 个编程挑战网站](https://zhuanlan.zhihu.com/p/30164522)
 
+[能解决 80% 需求的 10个 CSS动画库](https://blog.csdn.net/qq449245884/article/details/104047406)
+
 2021-12-24 [css：repeating-linear-gradient 实现托尼老师理发店门口的灯柱子](https://pengshiyu.blog.csdn.net/article/details/122123425)
 
 ## 字体图标
@@ -36,6 +38,19 @@
 [CSS Tools: Reset CSS](https://meyerweb.com/eric/tools/css/reset/)
 
 [normalize.css](https://github.com/necolas/normalize.css/)
+
+[Hover.css](https://ianlunn.github.io/Hover/): CSS 鼠标悬浮动画
+
+[Animate.css](https://animate.style/): A cross-browser library of CSS animations. As easy to use as an easy thing.
+- github: [https://github.com/animate-css/animate.css](https://github.com/animate-css/animate.css)
+
+[wickedCSS](https://github.com/kristofferandreasen/wickedCSS) CSS动画库
+
+[CSShake](https://elrumordelaluz.github.io/csshake/) Some CSS classes to move your DOM!
+
+[Animista](https://animista.net/) 在线生成 css 动画
+
+[Angrytools](https://angrytools.com/css/animation/) CSS动画生成器
 
 游戏地址：
 
@@ -94,9 +109,7 @@ https://css-tricks.com/
 
 不过脑子的动效，不过看起来很“猛”https://tholman.com/obnoxious/
 
-CSS 三维变换动画https://animista.net/
 
-CSS 鼠标悬浮动画https://ianlunn.github.io/Hover/
 
 通过给萝卜浇水，学习 CSS 网格布局https://cssgridgarden.com/
 
@@ -109,3 +122,12 @@ CSS 鼠标悬浮动画https://ianlunn.github.io/Hover/
 CSS 渐变色https://cssgradient.io/
 
 https://vue3js.cn/interview/
+
+CSS Layout [https://csslayout.io/](https://csslayout.io/): Popular layouts and patterns made with CSS
+
+loading.io [https://loading.io/](https://loading.io/) Animation Made Easy.
+
+cssgr.id [https://cssgr.id/](https://cssgr.id/)
+
+CSS Diner: [https://flukeout.github.io/](https://flukeout.github.io/)
+

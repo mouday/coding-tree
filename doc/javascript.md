@@ -88,8 +88,14 @@ https://npm.devtool.tech/
 
 [Express 中文网](https://www.expressjs.com.cn/): 基于 Node.js 平台，快速、开放、极简的 Web 开发框架
 
+### Node.js 管理工具
 
-nvm: Node Version Manager [https://github.com/nvm-sh/nvm](https://github.com/nvm-sh/nvm)
+|名称 | 简介  | 最近更新  | 标星
+|- | - | - | - | 
+| [nvm](https://github.com/nvm-sh/nvm)  | Node Version Manager  | ![](https://img.shields.io/github/last-commit/nvm-sh/nvm?style=flat-square) |![](https://img.shields.io/github/stars/nvm-sh/nvm.svg?style=social)
+|  [nvs](https://github.com/jasongin/nvs) |  Node Version Switcher | ![](https://img.shields.io/github/last-commit/jasongin/nvs?style=flat-square) |![](https://img.shields.io/github/stars/jasongin/nvs.svg?style=social)
+
+
 
 ### 包管理工具
 

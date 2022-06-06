@@ -52,6 +52,14 @@
 
 [Angrytools](https://angrytools.com/css/animation/) CSS动画生成器
 
+[Boxicons](https://boxicons.com/) High Quality Web Icons
+
+[google fonts](https://fonts.google.com/) 
+- github: [https://github.com/google/fonts/issues](https://github.com/google/fonts/issues)
+- 中文版1：[https://www.googlefonts.cn/](https://www.googlefonts.cn/)
+- 中文版2：[http://www.googlefonts.net/](http://www.googlefonts.net/)
+
+
 游戏地址：
 
 1. Flexbox froggy

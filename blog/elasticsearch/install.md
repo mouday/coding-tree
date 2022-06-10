@@ -1,11 +1,13 @@
 # 环境安装
 
-课程中使用的版本 7.10(本例使用7.14)
+课程中使用的版本 7.10.0(本例使用7.14.0)
 
 - 安装Java环境
 - 安装ElasticSearch
 - 安装Kibana
 - 安装ElasticSearch-Head插件
+
+> 技巧：MacOS下，拖拽文件或者文件夹到终端，会生成文件路径
 
 ## 1、安装Java环境
 
@@ -50,19 +52,24 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.251-b08, mixed mode)
 
 - elasticsearch中文社区：[https://elasticsearch.cn/download/](https://elasticsearch.cn/download/)
 
-- 华为云镜像：[https://repo.huaweicloud.com/elasticsearch/](https://repo.huaweicloud.com/elasticsearch/)
+- 华为云镜像elasticsearch：[https://repo.huaweicloud.com/elasticsearch/](https://repo.huaweicloud.com/elasticsearch/)
+
+- 华为云镜像kibana: [https://repo.huaweicloud.com/kibana/](https://repo.huaweicloud.com/kibana/)
 
 ### 2.2、下载解压
 
 ```bash
 # elasticsearch
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.4-linux-x86_64.tar.gz
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.14.0-linux-x86_64.tar.gz
 
-# kibana
-wget https://artifacts.elastic.co/downloads/kibana/kibana-7.17.4-linux-x86_64.tar.gz
+# 国内镜像 MacOS
+wget http://dl.elasticsearch.cn/elasticsearch/elasticsearch-7.14.0-darwin-x86_64.tar.gz
+
+# 国内镜像 Linux
+wget http://dl.elasticsearch.cn/elasticsearch/elasticsearch-7.14.0-linux-x86_64.tar.gz
 
 # 解压
-tar -xvf elasticsearch-7.17.4-linux-x86_64.tar.gz
+tar -xvf elasticsearch-7.14.0-linux-x86_64.tar.gz
 ```
 
 ### 2.3、目录结构
@@ -115,6 +122,7 @@ cd elasticsearch-7.14.0\bin
 
 MacOS
 ```bash
+# start.command
 open node1/bin/elasticsearch
 open node2/bin/elasticsearch
 open node3/bin/elasticsearch
@@ -122,12 +130,96 @@ open node3/bin/elasticsearch
 
 windows
 ```bash
+# start.bat
 start D:\node1\bin\elasticsearch.bat
 start D:\node2\bin\elasticsearch.bat
 start D:\node3\bin\elasticsearch.bat
 ```
 
 ## 3、安装Kibana
+
+### 3.1、下载
+
+```bash
+# kibana
+wget https://artifacts.elastic.co/downloads/kibana/kibana-7.14.0-linux-x86_64.tar.gz
+
+# 国内镜像 MacOS
+wget http://dl.elasticsearch.cn/kibana/kibana-7.14.0-darwin-x86_64.tar.gz
+
+# 国内镜像 Linux
+wget http://dl.elasticsearch.cn/kibana/kibana-7.14.0-linux-x86_64.tar.gz
+
+```
+
+### 3.2、解压启动
+
+```bash
+# 解压
+tar -xvf kibana-7.14.0-darwin-x86_64.tar.gz
+
+# 进入执行文件目录
+cd kibana-7.14.0-darwin-x86_64/bin
+
+# 启动
+./kibana
+```
+
+需要提前开启 elasticsearch
+
+验证地址：http://localhost:5601
+
+### 3.3、关闭kibana
+
+```bash
+# 查找进程id 3种方式
+ps -ef| grep 5601
+
+ps -ef| grep kibana
+
+lsof -i:5601
+
+# 关闭进程
+kill -9 <pid>
+```
+
+### 3.4、修改配置 
+
+config/kibana.yml
+
+```bash
+# 默认页面修改为：开发工具
+# The default application to load.
+#kibana.defaultAppId: "home"
+kibana.defaultAppId: "dev_tools"
+
+# 显示语言改为：中文
+# Specifies locale to be used for all localizable strings, dates and number formats.
+# Supported languages are the following: English - en , by default , Chinese - zh-CN .
+#i18n.locale: "en"
+i18n.locale: "zh-CN"
+```
+
+### 3.5、快捷键
+
+| 快捷键 | 功能
+| - | -
+| 提交请求| Ctrl/Cmd + Enter  
+| 自动缩进 | Ctrl/Cmd + I 
+
+
+### 3.6、问题
+
+Kibana server is not ready yet
+
+| 原因 | 解决办法
+| - | -
+| Kibana和ElasticSearch的版本不兼容 | 保持版本一致
+| Kibana中配置的elasticSearch.hosts与ElasticSearch的服务地址不同 | 修改kibana.yml中的配置
+| ElasticSearch中禁止跨域访问 | elasticSearch.yml配置允许跨域
+| 服务器中开启了防火墙 | 关闭防火墙或修改服务器的安全策略
+| ElasticSearch所在磁盘剩余空间不足90% | 清理磁盘空间，配置监控的报警
+
 ## 4、安装ElasticSearch-Head插件
 
 ## 5、不同编程语言的客户端

@@ -119,5 +119,3 @@ drop view 视图名字;
 ```sql
 drop view student_class_view;
 ```
-
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=60&spm_id_from=pageDriver

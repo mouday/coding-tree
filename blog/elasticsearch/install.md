@@ -222,6 +222,97 @@ Kibana server is not ready yet
 
 ## 4、安装ElasticSearch-Head插件
 
+### 4.1、安装Node.js
+
+下载地址：[https://nodejs.org/zh-cn/download/](https://nodejs.org/zh-cn/download/)
+
+推荐使用: [nvm](https://github.com/nvm-sh/nvm) 来管理node.js版本
+
+```bash
+# 查看版本
+node -v
+v16.14.0
+```
+
+### 4.2、下载 elasticsearch-head
+
+- [http://mobz.github.io/elasticsearch-head/](http://mobz.github.io/elasticsearch-head/)
+
+- [https://github.com/mobz/elasticsearch-head](https://github.com/mobz/elasticsearch-head)
+
+
+
+clone 代码
+```bash
+git clone git://github.com/mobz/elasticsearch-head.git
+
+cd elasticsearch-head
+```
+
+或者下载elasticsearch-head-master.zip 压缩包
+
+```bash
+wget https://github.com/mobz/elasticsearch-head/archive/refs/heads/master.zip -O elasticsearch-head-master.zip
+
+# 解压
+unzip elasticsearch-head-master.zip
+
+cd elasticsearch-head-master
+```
+
+
+修改配置（可以略过）
+
+```js
+// Gruntfile.js
+module.exports = function(grunt) {
+    grunt.initConfig({
+        connect: {
+            server: {
+                options: {
+                    // 添加配置项，可以外网访问
+                    hostname: '*',
+                    
+                    port: 9100,
+                    base: '.',
+                    keepalive: true
+                }
+            }
+        }
+    });
+};
+
+```
+
+```bash
+# 安装依赖
+pnpm i
+
+# 启动服务, 需要提前启动 elasticsearch
+npm run start
+```
+
+查看地址：http://localhost:9100/
+
+### 4.3、问题：
+
+如果无法发现ES节点，尝试修改ES配置文件，允许跨域
+
+```yaml
+# config/elasticsearch.yml
+# 允许跨域
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+```
+
+### 4.4、从Chrome应用商店安装
+
+- ElasticSearch Head 0.1.4: [elasticsearch-head-chrome](https://github.com/TravisTX/elasticsearch-head-chrome)
+
+- ElasticSearch Head v0.1.5: [https://crxdl.com/](https://crxdl.com/) 搜索：ffmkiejjmecolpfloofpjologoblkegm
+
+备用地址：[https://github.com/mouday/ElasticSearch-Head.crx](https://github.com/mouday/ElasticSearch-Head.crx)
+
 ## 5、不同编程语言的客户端
 
 https://www.elastic.co/guide/en/elasticsearch/client/index.html
@@ -274,5 +365,4 @@ server {
 }
 ```
 
-https://www.bilibili.com/video/BV1LY4y167n5?p=3&spm_id_from=pageDriver
-
+https://www.bilibili.com/video/BV1LY4y167n5?p=5&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

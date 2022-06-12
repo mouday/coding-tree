@@ -40,3 +40,8 @@ Elastic Stack
 
 [聚合查询 aggregation](blog/elasticsearch/aggregation.md)
 
+[核心概念]
+
+[搜索和查询]
+
+https://www.bilibili.com/video/BV1LY4y167n5?p=20&vd_source=efbb4dc944fa761b6e016ce2ca5933da

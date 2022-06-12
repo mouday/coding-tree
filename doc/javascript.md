@@ -2,7 +2,10 @@
 
 ## 第三方库
 
-[vue.js](https://cn.vuejs.org/v2/guide/)
+vue.js: 渐进式 JavaScript 框架
+
+- [vue2.js](https://cn.vuejs.org/v2/guide/): https://cn.vuejs.org/
+- [vue3.js](https://staging-cn.vuejs.org/guide/introduction.html): https://staging-cn.vuejs.org/
 
 - [element-ui](https://element.eleme.cn/#/zh-CN/component/installation): 一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库
 - [vColorPicker](http://vue-color-picker.rxshc.com/): 基于 Vue 的颜色选择器插件
@@ -67,6 +70,15 @@
 [ScrollReveal](https://scrollrevealjs.org/)
 
 [preactjs](https://preactjs.com/)Fast 3kB alternative to React with the same modern API.
+
+[node-qrcode](https://github.com/soldair/node-qrcode) QR code/2d barcode generator.
+
+[QRCode.js](https://github.com/davidshimjs/qrcodejs): Cross-browser QRCode generator for javascript
+
+[vue-qriously](https://github.com/theomessin/vue-qriously)：A Vue.js 2 component to draw QR codes on an HTML Canvas using qrious.
+
+[qrious](https://github.com/neocotic/qrious): Pure JavaScript library for QR code generation using canvas
+
 
 ## CDN
 

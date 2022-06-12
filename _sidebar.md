@@ -35,3 +35,4 @@
 - 其他
   - [其他](doc/index.md)
   - [chrome](doc/chrome.md)
+  - [微信支付](blog/pay/weixin-pay.md)

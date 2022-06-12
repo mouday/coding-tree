@@ -313,6 +313,24 @@ http.cors.allow-origin: "*"
 
 备用地址：[https://github.com/mouday/ElasticSearch-Head.crx](https://github.com/mouday/ElasticSearch-Head.crx)
 
+## 集群健康检查
+
+- green 集群健康
+- yellow 至少一个数据可用
+- red 数据不完整，集群不可用
+
+查看健康值
+```bash
+# 返回简要
+GET _cat/health
+
+# 返回带有标题的数据
+GET _cat/health?v
+
+# 返回json数据
+GET _cluster/health
+```
+
 ## 5、不同编程语言的客户端
 
 https://www.elastic.co/guide/en/elasticsearch/client/index.html
@@ -364,5 +382,4 @@ server {
     }
 }
 ```
-
 https://www.bilibili.com/video/BV1LY4y167n5?p=5&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

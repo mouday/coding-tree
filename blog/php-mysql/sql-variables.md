@@ -1,4 +1,4 @@
-# 变量
+# 变量 variables
 
 MySQL本质是一种编程语言
 

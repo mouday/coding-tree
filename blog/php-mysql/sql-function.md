@@ -12,19 +12,19 @@ select 函数名(参数列表);
 
 ### 1.1、字符串函数
 
-函数名 | 说明
-- | - 
-char_length | 判断字符串的字符数
-length  | 判断字符串的字节数,与字符集有关
-concat | 连接字符串
-insrt  |  检查字符是否在目标字符串中，存在返回其位置，不存在返回 0
-lcase | 全部小写
-ltrim |  消除左边的空格
-left(str, length)  | 左侧开始截取字符串，直到指定位置
-right(str, length) |  右侧开始截取字符串，直到指定位置
-mid  |  从中间指定位置开始截取，如果不指定截取长度，直接到最后
-`substring(str, index, [length])` | 从指定位置开始，指定截取长度
-substring_index(str, delim, count) | 按照关键字截取
+| 函数名 | 说明
+| - | - 
+| char_length | 判断字符串的字符数
+| length  | 判断字符串的字节数,与字符集有关
+| concat | 连接字符串
+| insrt  |  检查字符是否在目标字符串中，存在返回其位置，不存在返回 0
+| lcase | 全部小写
+| ltrim |  消除左边的空格
+| left(str, length)  | 左侧开始截取字符串，直到指定位置
+| right(str, length) |  右侧开始截取字符串，直到指定位置
+| mid  |  从中间指定位置开始截取，如果不指定截取长度，直接到最后
+| `substring(str, index, [length])` | 从指定位置开始，指定截取长度
+| substring_index(str, delim, count) | 按照关键字截取
 
 示例
 
@@ -55,15 +55,15 @@ select substring_index('www.baidu.com', '.', -2); // baidu.com
 
 ### 1.2、时间函数
 
-函数名 | 说明
-- | - 
-now() | 返回当前时间，日期 时间
-curdate()  | 当前日期
-curtime()  | 当前时间
-datediff()  | 判断两个日期之间的天数之差，日期使用字符串格式（用引号）
-date_add(日期, interval 时间数字 type)  | 时间增加（type: day hour minute second）
-unix_timestamp()  | 获取时间戳
-from_unixtime()  | 将指定时间戳转换成对应的日期时间格式
+| 函数名 | 说明
+| - | - 
+| now() | 返回当前时间，日期 时间
+| curdate()  | 当前日期
+| curtime()  | 当前时间
+| datediff()  | 判断两个日期之间的天数之差，日期使用字符串格式（用引号）
+| date_add(日期, interval 时间数字 type)  | 时间增加（type: | day hour minute second）
+| unix_timestamp()  | 获取时间戳
+| from_unixtime()  | 将指定时间戳转换成对应的日期时间格式
 
 示例
 
@@ -83,14 +83,14 @@ select from_unixtime(1649599799); // 2022-04-10 22:09:59
 
 ### 1.3、数学函数
 
-函数名 | 说明
-- | - 
-abs | 绝对值
-ceiling | 向上取整
-floor | 向下取整
-pow | 指数
-rand | 随机数(0-1)
-round | 四舍五入
+| 函数名 | 说明
+| - | - 
+| abs | 绝对值
+| ceiling | 向上取整
+| floor | 向下取整
+| pow | 指数
+| rand | 随机数(0-1)
+| round | 四舍五入
 
 示例
 
@@ -105,12 +105,12 @@ select round(1.5); // 2
 
 ### 1.4、其他函数
 
-函数名 | 说明
-- | - 
-md5() | MD5
-version()  | 版本号
-database() | 显示当前所在数据库
-uuid()  | 生成一个唯一标识符,全局唯一
+| 函数名 | 说明
+| - | - 
+| md5() | MD5
+| version()  | 版本号
+| database() | 显示当前所在数据库
+| uuid()  | 生成一个唯一标识符,全局唯一
 
 示例
 

@@ -1,4 +1,4 @@
-# 流程结构
+# 流程结构 if while
 
 ## if分支
 
@@ -110,5 +110,3 @@ mysql中没有continue 和break
 
 end while [标识名字];
 ```
-
-https://www.bilibili.com/video/BV1Vx411g7uJ?p=68&spm_id_from=pageDriver

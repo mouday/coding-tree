@@ -58,9 +58,9 @@
 
 28. [变量 variables](blog/php-mysql/sql-variables.md)
 
-[流程结构 if while](blog/php-mysql/sql-if-while.md)
+29. [流程结构 if while](blog/php-mysql/sql-if-while.md)
 
-[内置函数和自定义函数 function](blog/php-mysql/sql-function.md)
+30. [内置函数和自定义函数 function](blog/php-mysql/sql-function.md)
 
 [存储过程 procedure](blog/php-mysql/sql-procedure.md)
 

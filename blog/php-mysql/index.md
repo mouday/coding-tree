@@ -62,6 +62,6 @@
 
 30. [内置函数和自定义函数 function](blog/php-mysql/sql-function.md)
 
-[存储过程 procedure](blog/php-mysql/sql-procedure.md)
+31. [存储过程 procedure](blog/php-mysql/sql-procedure.md)
 
 [触发器 trigger](blog/php-mysql/sql-trigger.md)

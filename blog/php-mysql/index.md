@@ -64,4 +64,4 @@
 
 31. [存储过程 procedure](blog/php-mysql/sql-procedure.md)
 
-[触发器 trigger](blog/php-mysql/sql-trigger.md)
+32. [触发器 trigger](blog/php-mysql/sql-trigger.md)

@@ -77,6 +77,8 @@ Logo：https://www.logoly.pro/
 
 [ngrok](https://ngrok.com/) 内网穿透工具
 
+[阿里巴巴开源镜像站-OPSX镜像站-阿里云开发者社区](https://developer.aliyun.com/mirror/)
+
 ## 学习资料：
 
 2022 黑马程序员 Java 学习路线图

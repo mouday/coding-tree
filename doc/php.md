@@ -8,6 +8,14 @@
 
 [PHP 手册](https://www.php.net/manual/zh/index.php)
 
+Composer: A Dependency Manager for PHP
+- [https://getcomposer.org/](https://getcomposer.org/)
+- [Composer 中文文档](https://www.w3cschool.cn/composer/)
+- [Composer 中文网 / Packagist 中国全量镜像](https://www.phpcomposer.com/)
+- [阿里云 Composer 全量镜像](https://developer.aliyun.com/composer)
+
+[Packagist](https://packagist.org/) The PHP Package Repository
+
 
 [PHP 零基础入门到精通教程（P3 核心编程技术）](https://www.bilibili.com/video/BV1jx411M7B7)
 

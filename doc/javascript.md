@@ -79,6 +79,14 @@ vue.js: 渐进式 JavaScript 框架
 
 [qrious](https://github.com/neocotic/qrious): Pure JavaScript library for QR code generation using canvas
 
+[deepmerge](https://github.com/TehShrike/deepmerge): A library for deep (recursive) merging of Javascript objects
+- [npm](https://www.npmjs.com/package/deepmerge)
+
+[throttle-debounce](https://github.com/niksy/throttle-debounce): Throttle and debounce functions.
+- [npm](https://www.npmjs.com/package/throttle-debounce)
+
+[async-validator](https://github.com/yiminghe/async-validator): Validate form asynchronous
+- [npm](https://www.npmjs.com/package/async-validator)
 
 ## CDN
 

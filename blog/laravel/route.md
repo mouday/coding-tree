@@ -212,4 +212,204 @@ class TaskController extends Controller
 }
 
 ```
-https://www.bilibili.com/video/BV1gE411j78F?p=4&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+## 路由命名
+
+```php
+// 指定路由的名称
+Route::get('/task', function(){
+    return 'task';
+})->name('index.task');
+
+// 使用助手函数生成URL(URL是URI的子集)
+Route::get('/url', function(){
+    return route('index.task');
+    // http://127.0.0.1:8000/task
+});
+
+// 传参
+Route::get('/url', function(){
+    return route('index.task', ['name'=> 'Tom']);
+    // http://127.0.0.1:8000/task?name=Tom
+});
+
+// 路由跳转
+Route::get('/url', function(){
+    return redirect()->route('index.task', ['name'=> 'Tom']);
+    // 跳转地址：http://127.0.0.1:8000/task?name=Tom
+});
+
+// 生成相对地址
+Route::get('/url', function(){
+    return route('index.task', ['name'=> 'Tom'], false);
+    // /task?name=Tom
+});
+```
+
+## 路由分组
+
+```php
+// 添加路由前缀
+Route::group(['prefix' => 'api'], function () {
+    // http://127.0.0.1:8000/api/index
+    Route::get('/index', function () {
+        return 'index';
+    });
+
+    // http://127.0.0.1:8000/api/task
+    Route::get('/task', function () {
+        return 'task';
+    });
+});
+
+
+// 等价于（推荐）
+Route::prefix('api')->group(function () {
+    // http://127.0.0.1:8000/api/index
+    Route::get('/index', function () {
+        return 'index';
+    });
+
+    // http://127.0.0.1:8000/api/task
+    Route::get('/task', function () {
+        return 'task';
+    });
+});
+
+// 路由中间件
+Route::middleware('middleware')->group(function () {});
+
+// 子域路由
+Route::domain('127.0.0.1')->group(function () {});
+
+// 命名空间
+Route::namespace('Admin')->group(function () {});
+
+// 路由名称前缀
+Route::name('admin.')->group(function () {
+    Route::get('/task', function () {
+        return 'task';
+    })->name('task');
+    // admin.task
+});
+```
+
+## 单动作控制器
+
+```bash
+php artisan make:controller OneController --invokable
+```
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+class OneController extends Controller
+{
+    public function __invoke()
+    {
+       return 'one';
+    }
+}
+
+```
+
+路由
+
+```php
+// http://127.0.0.1:8000/one
+Route::get('/one', OneController::class);
+```
+
+## 回退路由
+
+```php
+// 错误处理，注意：必须放在所有路由最底部
+Route::fallback(function () {
+    return 'error';
+    // 返回404页面
+    // return view('404');
+});
+```
+
+## 当前路由
+
+### 当前路由信息
+
+```php
+Route::get('/task', function(){
+    return json_encode(Route::current());
+});
+```
+
+输出
+
+```json
+{
+    "uri": "task",
+    "methods": [
+        "GET",
+        "HEAD"
+    ],
+    "action": {
+        "middleware": [
+            "web"
+        ],
+        "uses": {},
+        "namespace": null,
+        "prefix": "",
+        "where": []
+    },
+    "isFallback": false,
+    "controller": null,
+    "defaults": [],
+    "wheres": {
+        "id": "[0-9]+"
+    },
+    "parameters": [],
+    "parameterNames": [],
+    "computedMiddleware": [
+        "web"
+    ],
+    "compiled": {}
+}
+```
+
+### 当前路由名称
+
+```php
+Route::get('/task', function(){
+    return Route::currentRouteName();
+    // index.task
+})->name('index.task');
+```
+
+### 当前路由指向的方法
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+class TaskController extends Controller
+{
+
+    public function index()
+    {
+        return Route::currentRouteAction();
+        // App\Http\Controllers\TaskController@index
+    }
+
+}
+
+```
+
+```php
+Route::get('/task',[TaskController::class, 'index']);
+```
+
+https://www.bilibili.com/video/BV1gE411j78F?p=6&spm_id_from=pageDriver

@@ -412,4 +412,214 @@ class TaskController extends Controller
 Route::get('/task',[TaskController::class, 'index']);
 ```
 
-https://www.bilibili.com/video/BV1gE411j78F?p=6&spm_id_from=pageDriver
+## 响应和重定向
+
+1、响应
+```php
+// 返回文本字符串
+return 'index';
+return response('index');
+
+// 自定义http状态码
+return response('index', 201);
+
+// 修改响应头为纯文本
+return response('<h1>index</h1>')
+    ->header(
+        'Content-Type',
+        'text/pain; charset=UTF-8'
+    );
+
+//返回json
+return [1, 2, 3];
+return response([1, 2, 3]);
+return response()->json([1, 2, 3]);
+```
+
+2、路由重定向
+
+```php
+// 简写
+return redirect('/');
+
+// 完整形式
+return redirect()->to('/');
+
+// facade模式
+return Redirect::to('/');
+
+// 通过命名路由跳转
+return redirect()->route('index');
+
+// 回退到上一页
+return redirect()->back();
+return back();
+
+// 跳转到控制器方法
+return redirect()->action([TaskController::class, 'read']);
+
+// 跳转到外部链接
+return redirect()->away('https://www.baidu.com/');
+```
+
+
+## 资源控制器
+
+命令行生成资源路由
+
+```bash
+php8 artisan make:controller BlogController --resource
+```
+
+资源控制器会产生7个方法
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class BlogController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}
+
+```
+
+HTTP 类型 | 路由 URI | 控制器方法 | 路由命名 | 描述
+- | - | - | - | -
+GET  | /photos  |  index  |  photos.index | 获得数据列表
+GET | /photos/create  | create  | photos.create | 创建页面(表单页)
+POST  |  /photos | store  |  photos.store | 创建页的接受处理
+GET | /photos/{photo}|  show  |   photos.show | 获得一条数据
+GET | /photos/{photo}/edit   |  edit |    photos.edit | 编辑(表单页)
+PUT/PATCH  |  /photos/{photo} | update |  photos.update | 从编辑页中接受处理
+DELETE  | /photos/{photo} | destroy |   photos.destroy | 删除一条数据
+
+
+查看目前可用的路由
+
+```
+php8 artisan route:list
+```
+
+输出
+
+```
+GET|HEAD        / .............................................................. index
+POST            _ignition/execute-solution ignition.executeSolution › Spatie\LaravelI…
+GET|HEAD        _ignition/health-check ignition.healthCheck › Spatie\LaravelIgnition …
+POST            _ignition/update-config ignition.updateConfig › Spatie\LaravelIgnitio…
+GET|HEAD        api/user ............................................................. 
+GET|HEAD        blogs ............................. blogs.index › BlogController@index
+POST            blogs ............................. blogs.store › BlogController@store
+GET|HEAD        blogs/create .................... blogs.create › BlogController@create
+GET|HEAD        blogs/{blog} ........................ blogs.show › BlogController@show
+PUT|PATCH       blogs/{blog} .................... blogs.update › BlogController@update
+DELETE          blogs/{blog} .................. blogs.destroy › BlogController@destroy
+GET|HEAD        blogs/{blog}/edit ................... blogs.edit › BlogController@edit
+GET|HEAD        read ............................................. TaskController@read
+GET|HEAD        sanctum/csrf-cookie ...... Laravel\Sanctum › CsrfCookieController@show
+GET|HEAD        task ............................................ TaskController@index
+
+```
+
+资源路由控制
+```php
+// 指定生成
+Route::resource('blogs', BlogController::class)
+    ->only(['index', 'create']);
+
+// 排除生成
+Route::resource('blogs', BlogController::class)
+    ->except(['index', 'create']);
+```
+
+API 路由
+
+```php
+Route::ApiResource('blogs', BlogController::class);
+```
+
+直接使用 api 资源路由
+```bash
+# 不包含 create 或 edit 方法
+php artisan make:controller CommentController --api
+```
+
+https://www.bilibili.com/video/BV1gE411j78F?p=8&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

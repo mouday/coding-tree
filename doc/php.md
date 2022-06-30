@@ -4,7 +4,7 @@
 
 [笔记：PHP 零基础入门到精通教程（P2 mysql 数据库 5 天）](blog/php-mysql/index.md)
 
-[Laravel](blog/laravel/index.md)
+[Laravel](/blog/laravel/index.md)
 
 ## 文章
 

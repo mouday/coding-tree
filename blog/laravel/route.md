@@ -622,4 +622,8 @@ Route::ApiResource('blogs', BlogController::class);
 php artisan make:controller CommentController --api
 ```
 
-https://www.bilibili.com/video/BV1gE411j78F?p=8&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+```php
+// 浅层嵌套
+Route::resource('blogs.comments', 'CommentController')   
+    ->shallow();
+```

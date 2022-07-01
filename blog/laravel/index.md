@@ -21,3 +21,7 @@ dev:
 [安装Laravel编程环境](blog/laravel/install-php.md)
 
 [Route路由](/blog/laravel/route.md)
+
+[表单伪造和 CSRF 保护](blog/laravel/csrf.md)
+
+[数据库](blog/laravel/database.md)

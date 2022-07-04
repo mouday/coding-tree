@@ -5,19 +5,29 @@
     <meta charset="UTF-8">
     <title>Coding Tree</title>
 
-    <meta http-equiv="X-UA-Compatible"
-          content="IE=edge,chrome=1" />
-    <meta name="description"
-          content="编程学习路上的笔记与知识整理收集">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="编程学习路上的笔记与知识整理收集">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link rel="icon"
-          href="img/logo-icon.png">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="icon" href="img/logo-icon.png">
 
-    <link rel="stylesheet"
-          href="static/js/vue@4.12.2.min.css">
+    <link rel="stylesheet" href="static/js/vue@4.12.2.min.css">
 
     <style>
+        /* 文字大小 */
+        body {
+            font-size: 16px;
+        }
+
+        /* 代码区域文字大小 */
+        .markdown-section>:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) code {
+            font-size: 0.9rem;
+        }
+
+        .sidebar ul li a {
+            font-size: 16px;
+        }
+
         :root {
             --toc-width: 300px;
         }
@@ -63,8 +73,6 @@
         .page_toc:hover::-webkit-scrollbar-track {
             background: hsla(0, 0%, 53.3%, .1)
         }
-
-       
     </style>
 </head>
 
@@ -128,8 +136,7 @@
     <!-- 下载地址 -->
     <!-- https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js -->
 
-    <link rel="stylesheet"
-          href="static/js/toc.css">
+    <link rel="stylesheet" href="static/js/toc.css">
     <script src="static/js/toc.js"></script>
 </body>
 

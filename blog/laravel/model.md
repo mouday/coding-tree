@@ -1,3 +1,5 @@
+# Model 模型
+
 ## 模型的定义
 
 创建了一个User.php模型
@@ -34,7 +36,8 @@ class User extends Model
     public $timestamps = true;
 
     // 自定义时间戳的格式
-    protected $dateFormat = 'U';
+    // protected $dateFormat = 'U';
+    protected $dateFormat = 'Y-m-d H:i:s';
 
     // 创建时间 created_at 字段名
     const CREATED_AT = 'create_time';
@@ -73,4 +76,74 @@ User::get();
 // select * from `user`
 ```
 
-https://www.bilibili.com/video/BV1gE411j78F?p=18&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+## 模型的增删改
+
+修改时区 config/app.php
+```php
+// 'timezone' => 'UTC',
+'timezone' => 'Asia/Shanghai',
+
+// 'locale' => 'en',
+'locale' => 'zh_CN',
+```
+
+新增
+
+```php
+// 默认模型接管created_at和updated_at
+$users = new User(); 
+$users->name = '曹操'; 
+$users->age = 23;
+$users->save();
+// insert into `user` (`name`, `age`, `update_time`, `create_time`) values (?, ?, ?, ?)
+
+// 需要在模型端设置批量赋值的许可 
+// protected $fillable = []
+//如果取消批量赋值限制，直接如下 
+// protected $guarded = [];
+
+User::create([
+    'name' => '曹真',
+    'age' => 23
+]);
+
+// insert into `user` (`name`, `age`, `update_time`, `create_time`) values (?, ?, ?, ?)
+```
+
+更新
+```php
+$users = User::find(1);
+$users->name = '曹丕';
+$users->save();
+// select * from `user` where `user`.`id` = ? limit 1
+// update `user` set `name` = ?, `user`.`update_time` = ? where `id` = ?
+
+// 批量更新
+User::where('name', '曹真')
+    ->update([
+        'name' => '曹爽'
+    ]);
+// update `user` set `name` = ?, `user`.`update_time` = ? where `name` = ?
+```
+
+删除
+
+```php
+$users = User::find(1); 
+$users->delete();
+// select * from `user` where `user`.`id` = ? limit 1
+// delete from `user` where `id` = ?
+
+//批量删除
+User::where('name', '曹爽')->delete();
+// delete from `user` where `name` = ?
+
+// 通过主键删除 
+User::destroy(2);
+// delete from `user` where `id` = ?
+
+User::destroy([2, 3, 4]);
+// select * from `user` where `id` in (?, ?, ?)
+```
+
+https://www.bilibili.com/video/BV1gE411j78F?p=19&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -32,5 +32,5 @@ dev:
 
 [构造器的增删改](blog/laravel/sql-builder-modify.md)
 
-[模型的定义](blog/laravel/model.md)
+[Model 模型](blog/laravel/model.md)
 

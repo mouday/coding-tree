@@ -146,4 +146,205 @@ User::destroy([2, 3, 4]);
 // select * from `user` where `id` in (?, ?, ?)
 ```
 
+## 批量赋值
+
+设置 create 方法允许或不允许插入的数据字段
+
+```php
+class User extends Model
+{
+    // 可批量赋值的属性
+    protected $fillable = ['name'];
+
+    // 不可以批量赋值的属性
+    protected $guarded = ['name'];
+
+    // 所有属性都可以批量赋值，$guarded 定义成一个空数组
+    protected $guarded = [];
+}
+```
+## 软删除
+
+```sql
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `age` int NOT NULL DEFAULT '0',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `delete_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB COMMENT='用户表';
+```
+```php
+class User extends Model
+{
+    //开启软删除功能 
+    use SoftDeletes;
+
+    // 软删除字段，默认deleted_at
+    const DELETED_AT = 'delete_time';
+
+}
+```
+
+```php
+//删除一
+$user = User::find(1); 
+$user->delete();
+// select * from `user` where `user`.`id` = ? and `user`.`delete_time` is null limit 1
+// update `user` set `delete_time` = ?, `user`.`update_time` = ? where `id` = ?
+
+//删除二 
+User::destroy(2);
+// select * from `user` where `id` in (?) and `user`.`delete_time` is null
+// update `user` set `delete_time` = ?, `user`.`update_time` = ? where `id` = ?
+
+//软删除的数据不可见 
+User::get();
+// select * from `user` where `user`.`delete_time` is null
+
+User::find(2);
+// select * from `user` where `user`.`id` = ? and `user`.`delete_time` is null limit 1
+
+// 获取包含软删除的数据
+User::withTrashed()->get();
+// select * from `user`
+
+// 获取某个被软删除的数据(即使不是软删除的也可以搜索到)
+User::withTrashed()->find(82);
+// select * from `user` where `user`.`id` = ? limit 1
+
+// 获取所有软删除的数据
+User::onlyTrashed()->get();
+// select * from `user` where `user`.`delete_time` is not null
+
+// 获取某个被软删除的数据(只有软删除的数据才可以被搜索到)
+User::onlyTrashed()->find(82);
+// select * from `user` where `user`.`delete_time` is not null and `user`.`id` = ? limit 1
+
+// 判断是否是被软删除的数据
+$user = User::withTrashed()->find(1); 
+$user->trashed(); // 1
+// select * from `user` where `user`.`id` = ? limit 1
+
+// 将被软删除的数据回复正常
+$user = User::onlyTrashed()->find(2);
+$user->restore();
+// select * from `user` where `user`.`delete_time` is not null and `user`.`id` = ? limit 1
+// update `user` set `delete_time` = ?, `user`.`update_time` = ? where `id` = ?
+// [null,"2022-07-05 10:47:36",1]
+
+// 开启软删除时的真实永久删除
+$user = User::onlyTrashed()->find(3); 
+$user->forceDelete();
+// select * from `user` where `user`.`delete_time` is not null and `user`.`id` = ? limit 1
+// delete from `user` where `id` = ?
+```
+
+## 模型的作用域
+
+- 本地作用域
+- 全局作用域
+
+1、本地作用域
+
+```php
+class User extends Model
+{
+    // 本地作用域 查询条件：成年人
+    public function scopeAdult($query)
+    {
+        return $query->where('age', '>', 18);
+    }
+}
+```
+
+```php
+User::adult()->get();
+// select * from `user` where `age` > ?
+```
+
+支持传递参数
+
+```php
+class User extends Model
+{
+    // 本地作用域 支持传递参数
+    public function scopeQueryWhere($query, $where)
+    {
+        return $query->where($where);
+    }
+}
+```
+
+```php
+User::queryWhere([
+            ['age', '>', 10]
+    ])->get();
+// select * from `user` where (`age` > ?)
+```
+
+2、全局作用域
+
+定义全局作用域
+
+```php
+<?php
+
+namespace App\Scopes;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope;
+
+class StatusScope implements Scope
+{
+    public function apply(Builder $builder, Model $model)
+    {
+        return $builder->where('status', 1);
+    }
+}
+```
+
+```php
+class User extends Model
+{
+    // 启用全局作用域
+    protected static function booted() {
+        parent::booted();
+        
+        // 全局公共模块
+        static::addGlobalScope(new StatusScope());
+
+        // 或者 只是针对某个模块
+        static::addGlobalScope('status', function (Builder $builder) {
+            return $builder->where('status', 1);
+        });
+    }
+}
+```
+
+使用
+
+```php
+User::queryWhere([
+        ['age', '>', 10]
+    ])->get();
+// select * from `user` where (`age` > 10) and `status` = 1
+```
+
+取消全局条件
+
+```php
+// 取消全局类的条件
+User::withoutGlobalScope(StatusScope::class)->get();
+// select * from `user`
+
+// 取消名称为 status 的全局
+User::withoutGlobalScope('status')->get();
+// select * from `user`
+```
+
+
 https://www.bilibili.com/video/BV1gE411j78F?p=19&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

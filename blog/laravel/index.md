@@ -26,11 +26,17 @@ dev:
 
 [表单伪造和 CSRF 保护](blog/laravel/csrf.md)
 
-[数据库](blog/laravel/database.md)
+[数据库 Database](blog/laravel/database.md)
 
 [构造器的查询](blog/laravel/sql-builder.md)
 
 [构造器的增删改](blog/laravel/sql-builder-modify.md)
 
-[Model 模型](blog/laravel/model.md)
+[模型 Model](blog/laravel/model.md)
+
+[集合 collection](/blog/laravel/collection.md)
+
+[模型的数据集合 ](/blog/laravel/model-collection.md)
+
+[模型关联 relation ](/blog/laravel/model-relation.md)
 

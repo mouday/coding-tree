@@ -344,7 +344,72 @@ User::withoutGlobalScope(StatusScope::class)->get();
 // 取消名称为 status 的全局
 User::withoutGlobalScope('status')->get();
 // select * from `user`
+
+// 取消全部全局作用域
+User::withoutGlobalScopes()->get();
+
+// 取消部分作用域
+User::withoutGlobalScopes([
+    FirstScope::class, 
+    SecondScope::class
+])->get();
+
+```
+
+## 模型的访问器和修改器
+
+1、访问器
+
+获取数据时，拦截属性并对属性进行修改
+
+```php
+// 前固定 get，后固定 Attribute，Name 是字段名 
+// 参数 $value 是源字段值，可修改返回
+// 属性：name
+// name 曹真 -> 【曹真】
+public function getNameAttribute($value)
+{
+    return '【'.$value.'】';
+}
+```
+
+可以创建一个虚拟字段，用已有的数据字段进行整合，不过要进行数据追加
+```php
+// 将虚拟字段追加到数据对象列表里去
+protected $appends = ['info']
+
+// 虚拟字段 info
+public function getInfoAttribute(){
+    // "info": "【曹真】-23"
+    return "{$this->name}-{$this->age}";
+
+    // 使用源字段进行创建虚拟字段 "info": "曹真-23"
+    return $this->attributes['name'] . '-' . $this->attributes['age'];
+}
+```
+
+2、修改器
+
+在写入的时候拦截，进行修改再写入
+```php
+// 修改器，写入数据时，将年龄+10
+public function setAgeAttribute($value) {
+    $this->attributes['age'] = $value + 10;
+}
+```
+
+```php
+// 设置可以自动写入日期的列 
+// 默认 created_at 和 updated_at
+protected $dates = [
+    'details'
+];
+
+// 设置字段输出的类型，比如设置一个布尔型，输出时就是true和false;
+// 设置字段类型
+protected $casts = [
+    'details' => 'boolean' 
+];
 ```
 
 
-https://www.bilibili.com/video/BV1gE411j78F?p=19&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

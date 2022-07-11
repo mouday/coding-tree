@@ -35,12 +35,16 @@ CREATE TABLE `profile` (
 初始化数据
 ```sql
 -- 用户表
-INSERT INTO `user`(`id`, `name`, `age`, `create_time`, `update_time`, `delete_time`) VALUES (1, '曹真', 23, '2022-07-05 10:32:48', '2022-07-05 10:47:36', NULL);
-INSERT INTO `user`(`id`, `name`, `age`, `create_time`, `update_time`, `delete_time`) VALUES (2, '曹丕', 21, '2022-07-05 10:36:47', '2022-07-05 10:47:22', NULL);
+INSERT INTO `user`(`id`, `name`, `age`, `create_time`, `update_time`, `delete_time`) 
+VALUES (1, '曹真', 23, '2022-07-05 10:32:48', '2022-07-05 10:47:36', NULL);
+INSERT INTO `user`(`id`, `name`, `age`, `create_time`, `update_time`, `delete_time`) 
+VALUES (2, '曹丕', 21, '2022-07-05 10:36:47', '2022-07-05 10:47:22', NULL);
 
 -- 用户信息表
-INSERT INTO `profile`(`id`, `user_id`, `hobby`, `create_time`, `update_time`, `delete_time`) VALUES (1, 1, '羽毛球', '2022-07-10 22:26:00', '2022-07-10 22:27:07', NULL);
-INSERT INTO `profile`(`id`, `user_id`, `hobby`, `create_time`, `update_time`, `delete_time`) VALUES (2, 2, '乒乓球', '2022-07-10 22:27:16', '2022-07-10 22:27:16', NULL);
+INSERT INTO `profile`(`id`, `user_id`, `hobby`, `create_time`, `update_time`, `delete_time`) 
+VALUES (1, 1, '羽毛球', '2022-07-10 22:26:00', '2022-07-10 22:27:07', NULL);
+INSERT INTO `profile`(`id`, `user_id`, `hobby`, `create_time`, `update_time`, `delete_time`) 
+VALUES (2, 2, '乒乓球', '2022-07-10 22:27:16', '2022-07-10 22:27:16', NULL);
 ```
 
 创建Model
@@ -52,7 +56,7 @@ php8 artisan make:model User
 # 用户信息表
 php8 artisan make:model Profile
 
-# 添加代码提示
+# 添加代码提示，模型修改后也可以执行从而更新注释
 php8 artisan ide-helper:models
 ```
 
@@ -139,6 +143,9 @@ class Profile extends Model
 ```php
 User::find(1)->profile;
 
+// select * from `user` where `user`.`id` = ? limit 1
+// select * from `profile` where `profile`.`user_id` = ? and `profile`.`user_id` is not null limit 1
+
 {
     "id": 1,
     "user_id": 1,
@@ -151,6 +158,9 @@ User::find(1)->profile;
 
 ```php
 Profile::find(1)->user;
+
+// select * from `profile` where `profile`.`id` = ? limit 1
+// select * from `user` where `user`.`id` = ? limit 1
 
 {
     "id": 1,
@@ -182,8 +192,10 @@ CREATE TABLE `book` (
 ) ENGINE=InnoDB  COMMENT='用户书单表';
 
 -- 用户书单表
-INSERT INTO `book`(`id`, `user_id`, `title`, `create_time`, `update_time`, `delete_time`) VALUES (1, 1, '《三国演义》', '2022-07-10 22:26:00', '2022-07-10 22:27:07', NULL);
-INSERT INTO `book`(`id`, `user_id`, `title`, `create_time`, `update_time`, `delete_time`) VALUES (2, 1, '《红楼梦》', '2022-07-10 22:27:16', '2022-07-10 22:27:16', NULL);
+INSERT INTO `book`(`id`, `user_id`, `title`, `create_time`, `update_time`, `delete_time`) 
+VALUES (1, 1, '《三国演义》', '2022-07-10 22:26:00', '2022-07-10 22:27:07', NULL);
+INSERT INTO `book`(`id`, `user_id`, `title`, `create_time`, `update_time`, `delete_time`) 
+VALUES (2, 1, '《红楼梦》', '2022-07-10 22:27:16', '2022-07-10 22:27:16', NULL);
 ```
 
 初始化数据
@@ -227,6 +239,9 @@ class Book extends Model
 ```php
 User::find(1)->books;
 
+// select * from `user` where `user`.`id` = ? limit 1
+// select * from `book` where `book`.`user_id` = ? and `book`.`user_id` is not null
+
 [
     {
         "id": 1,
@@ -251,6 +266,10 @@ User::find(1)->books;
 ```php
 Book::find(1)->user;
 
+// select * from `book` where `book`.`id` = ? limit 1
+
+// select * from `user` where `user`.`id` = ? limit 1
+
 {
     "id": 1,
     "name": "曹真",
@@ -260,12 +279,18 @@ Book::find(1)->user;
     "delete_time": null
 }
 ```
+
 使用条件查询
+
 ```php
 User::find(1)
     ->books()
     ->where('id', '>', 1)
     ->get();
+// select * from `user` where `user`.`id` = ? limit 1
+
+// select * from `book` where `book`.`user_id` = ? 
+// and `book`.`user_id` is not null and `id` > ?
 
 [
     {
@@ -279,5 +304,322 @@ User::find(1)
 ]
 
 ```
+
+## 模型的多对多关联
+
+定义数据表
+
+```sql
+-- 角色表
+CREATE TABLE `role` (
+  `id` int NOT NULL AUTO_INCREMENT,
+
+  `title` varchar(255)  NOT NULL DEFAULT '',
+
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `delete_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  COMMENT='角色表';
+
+-- 用户角色关系表
+CREATE TABLE `user_role` (
+  `id` int NOT NULL AUTO_INCREMENT,
+
+  `user_id` int NOT NULL,
+  `role_id` int NOT NULL,
+  `detail` varchar(255) NOT NULL DEFAULT '',
+
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `delete_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  COMMENT='用户角色关系表';
+```
+
+初始化数据
+
+```sql
+-- 角色表
+INSERT INTO `role`(`id`, `title`, `create_time`, `update_time`, `delete_time`) 
+VALUES (1, '评论审核员', '2022-07-11 10:10:20', '2022-07-11 10:10:54', NULL);
+INSERT INTO `role`(`id`, `title`, `create_time`, `update_time`, `delete_time`) 
+VALUES (2, '账号管理员', '2022-07-11 10:10:26', '2022-07-11 10:10:47', NULL);
+
+-- 用户角色关系表
+INSERT INTO `user_role`(`id`, `user_id`, `role_id`, `detail`, `create_time`, `update_time`, `delete_time`) 
+VALUES (1, 1, 1, '备注详情1', '2022-07-11 10:11:04', '2022-07-11 10:12:56', NULL);
+INSERT INTO `user_role`(`id`, `user_id`, `role_id`, `detail`, `create_time`, `update_time`, `delete_time`) 
+VALUES (2, 1, 2, '备注详情2', '2022-07-11 10:11:08', '2022-07-11 10:12:54', NULL);
+```
+
+生成模型类
+
+```bash
+# 角色表
+php8 artisan make:model Role
+
+# 添加代码提示
+php8 artisan ide-helper:models
+```
+
+修改模型类
+
+```php
+class User extends Model
+{
+    protected $table = 'user';
+
+    // 多对多关联
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
+    }
+}
+
+
+class Role extends Model
+{
+    protected $table = 'role';
+
+    // 多对多关联
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_role', 'role_id', 'user_id');
+    }
+}
+
+```
+
+查询示例
+
+示例1
+
+```php
+User::find(1)->roles;
+```
+
+```sql
+select * from `user` where `user`.`id` = ? limit 1
+
+select `role`.*, 
+    `user_role`.`user_id` as `pivot_user_id`, 
+    `user_role`.`role_id` as `pivot_role_id` 
+from `role` 
+inner join `user_role` 
+on `role`.`id` = `user_role`.`role_id` 
+where `user_role`.`user_id` = ?
+
+```
+
+```json
+[
+    {
+        "id": 1,
+        "title": "评论审核员",
+        "create_time": "2022-07-11 10:10:20",
+        "update_time": "2022-07-11 10:10:54",
+        "delete_time": null,
+        "pivot": {
+            "user_id": 1,
+            "role_id": 1
+        }
+    },
+    {
+        "id": 2,
+        "title": "账号管理员",
+        "create_time": "2022-07-11 10:10:26",
+        "update_time": "2022-07-11 10:10:47",
+        "delete_time": null,
+        "pivot": {
+            "user_id": 1,
+            "role_id": 2
+        }
+    }
+]
+```
+
+示例2
+
+```php
+User::find(1)
+    ->roles()
+    ->where('role_id', 1)
+    ->get();
+```
+
+```sql
+select * from `user` where `user`.`id` = ? limit 1
+
+select `role`.*, 
+    `user_role`.`user_id` as `pivot_user_id`, 
+    `user_role`.`role_id` as `pivot_role_id` 
+from `role` 
+inner join `user_role` 
+on `role`.`id` = `user_role`.`role_id` 
+where `user_role`.`user_id` = ? and `role_id` = ?
+```
+
+```json
+[
+    {
+        "id": 1,
+        "title": "评论审核员",
+        "create_time": "2022-07-11 10:10:20",
+        "update_time": "2022-07-11 10:10:54",
+        "delete_time": null,
+        "pivot": {
+            "user_id": 1,
+            "role_id": 1
+        }
+    }
+]
+```
+
+示例3
+
+```php
+Role::find(1)->users;
+```
+
+```sql
+select * from `role` where `role`.`id` = ? limit 1
+
+select `user`.*, 
+    `user_role`.`role_id` as `pivot_role_id`, 
+    `user_role`.`user_id` as `pivot_user_id` 
+from `user` 
+inner join `user_role` 
+on `user`.`id` = `user_role`.`user_id` 
+where `user_role`.`role_id` = ?
+```
+
+```json
+[
+    {
+        "id": 1,
+        "name": "曹真",
+        "age": 23,
+        "create_time": "2022-07-05 10:32:48",
+        "update_time": "2022-07-05 10:47:36",
+        "delete_time": null,
+        "pivot": {
+            "role_id": 1,
+            "user_id": 1
+        }
+    }
+]
+```
+
+示例4：获取中间表字段
+
+```php
+public function roles()
+{
+    return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')
+        ->withPivot('id', 'detail');
+}
+```
+
+```php
+User::find(1)->roles;
+```
+
+```sql
+select * from `user` where `user`.`id` = ? limit 1
+
+select `role`.*, 
+    `user_role`.`user_id` as `pivot_user_id`, 
+    `user_role`.`role_id` as `pivot_role_id`, 
+    `user_role`.`id` as `pivot_id`, 
+    `user_role`.`detail` as `pivot_detail` 
+from `role` 
+inner join `user_role` 
+on `role`.`id` = `user_role`.`role_id` 
+where `user_role`.`user_id` = ?
+```
+
+```json
+[
+    {
+        "id": 1,
+        "title": "评论审核员",
+        "create_time": "2022-07-11 10:10:20",
+        "update_time": "2022-07-11 10:10:54",
+        "delete_time": null,
+        "pivot": {
+            "user_id": 1,
+            "role_id": 1,
+            "id": 1,
+            "detail": "备注详情1"
+        }
+    },
+    {
+        "id": 2,
+        "title": "账号管理员",
+        "create_time": "2022-07-11 10:10:26",
+        "update_time": "2022-07-11 10:10:47",
+        "delete_time": null,
+        "pivot": {
+            "user_id": 1,
+            "role_id": 2,
+            "id": 2,
+            "detail": "备注详情2"
+        }
+    }
+]
+
+```
+
+示例5：筛选数据
+
+```php
+public function roles()
+{
+    return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')
+        ->wherePivot('id', 1);
+}
+```
+
+```php
+User::find(1)->roles;
+```
+
+```sql
+select * from `user` where `user`.`id` = ? limit 1
+
+select `role`.*, 
+    `user_role`.`user_id` as `pivot_user_id`, 
+    `user_role`.`role_id` as `pivot_role_id` 
+from `role` 
+inner join `user_role` 
+on `role`.`id` = `user_role`.`role_id` 
+where `user_role`.`user_id` = ? and `user_role`.`id` = ?
+```
+
+```json
+[
+    {
+        "id": 1,
+        "title": "评论审核员",
+        "create_time": "2022-07-11 10:10:20",
+        "update_time": "2022-07-11 10:10:54",
+        "delete_time": null,
+        "pivot": {
+            "user_id": 1,
+            "role_id": 1
+        }
+    }
+]
+```
+
+## 其他关联关系
+
+- 远程一对一
+- 远程一对多
+- 多态一对一
+- 多态一对多
+- 多态多对多
+
 
 https://www.bilibili.com/video/BV1gE411j78F?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

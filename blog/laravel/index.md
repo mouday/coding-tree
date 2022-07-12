@@ -36,7 +36,9 @@ dev:
 
 [集合 collection](/blog/laravel/collection.md)
 
-[模型的数据集合 ](/blog/laravel/model-collection.md)
+[模型的数据集合](/blog/laravel/model-collection.md)
 
-[模型关联 relation ](/blog/laravel/model-relation.md)
+[模型关联 relation](/blog/laravel/model-relation.md)
+
+[模型的关联查询](/blog/laravel/model-relation-query.md)
 

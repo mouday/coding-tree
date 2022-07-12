@@ -621,5 +621,3 @@ where `user_role`.`user_id` = ? and `user_role`.`id` = ?
 - 多态一对多
 - 多态多对多
 
-
-https://www.bilibili.com/video/BV1gE411j78F?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

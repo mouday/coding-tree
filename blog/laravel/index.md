@@ -42,3 +42,4 @@ dev:
 
 [模型的关联查询](/blog/laravel/model-relation-query.md)
 
+[模型的预加载](/blog/laravel/model-preload.md)

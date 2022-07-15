@@ -42,4 +42,11 @@ dev:
 
 [模型的关联查询](/blog/laravel/model-relation-query.md)
 
+[Debugbar 调试器](/blog/laravel/debugbar.md)
+
 [模型的预加载](/blog/laravel/model-preload.md)
+
+[模型的关联写入](/blog/laravel/model-relation-write.md)
+
+
+https://www.bilibili.com/video/BV1gE411j78F?p=32&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

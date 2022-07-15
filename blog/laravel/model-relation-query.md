@@ -157,5 +157,3 @@ select `user`.*,
 (select count(*) from `book` where `user`.`id` = `book`.`user_id` and `user_id` = ?) as `books_count` 
 from `user`
 ```
-
-https://www.bilibili.com/video/BV1gE411j78F?p=29&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

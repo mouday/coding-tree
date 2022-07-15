@@ -7,9 +7,12 @@ composer8 require barryvdh/laravel-debugbar
 ```
 
 生成一个配置文件
+
 ```bash
 php8 artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
 ```
+
+需要配合view模板使用
 
 页面底部的调试工具
 

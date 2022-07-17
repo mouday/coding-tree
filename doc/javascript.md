@@ -7,7 +7,8 @@
 vue.js: 渐进式 JavaScript 框架
 
 - [vue2.js](https://cn.vuejs.org/v2/guide/): https://cn.vuejs.org/
-- [vue3.js](https://staging-cn.vuejs.org/guide/introduction.html): https://staging-cn.vuejs.org/
+- [vue3.js](https://staging-cn.vuejs.org/): 渐进式
+JavaScript 框架
 
 - [element-ui](https://element.eleme.cn/#/zh-CN/component/installation): 一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库
 - [vColorPicker](http://vue-color-picker.rxshc.com/): 基于 Vue 的颜色选择器插件
@@ -84,14 +85,23 @@ vue.js: 渐进式 JavaScript 框架
 
 [qrious](https://github.com/neocotic/qrious): Pure JavaScript library for QR code generation using canvas
 
-[deepmerge](https://github.com/TehShrike/deepmerge): A library for deep (recursive) merging of Javascript objects
-- [npm](https://www.npmjs.com/package/deepmerge)
+[deepmerge](https://github.com/TehShrike/deepmerge) | [npm](https://www.npmjs.com/package/deepmerge) : A library for deep (recursive) merging of Javascript objects
 
-[throttle-debounce](https://github.com/niksy/throttle-debounce): Throttle and debounce functions.
-- [npm](https://www.npmjs.com/package/throttle-debounce)
+[throttle-debounce](https://github.com/niksy/throttle-debounce) | [npm](https://www.npmjs.com/package/throttle-debounce): Throttle and debounce functions.
 
-[async-validator](https://github.com/yiminghe/async-validator): Validate form asynchronous
-- [npm](https://www.npmjs.com/package/async-validator)
+[async-validator](https://github.com/yiminghe/async-validator) | [npm](https://www.npmjs.com/package/async-validator) : Validate form asynchronous
+
+[portal-vue](https://github.com/linusborg/portal-vue): A Portal Component for Vuejs, to render DOM outside of a component, anywhere in the document.
+
+[V-Calendar](https://vcalendar.io/) An elegant calendar and datepicker plugin for Vuejs.
+
+[Draft.js](https://draftjs.org/) Rich Text Editor Framework for React
+
+[vue-codemirror](https://github.com/surmon-china/vue-codemirror) @codemirror code editor component for @vuejs
+
+[vue-local-storage](https://github.com/pinguinjkeke/vue-local-storage) Vue.js localStorage plugin with types support
+
+[vue-js-modal](http://vue-js-modal.yev.io/) | [github](https://github.com/euvl/vue-js-modal): Easy to use, highly customizable Vue.js modal library.
 
 ## CDN
 
@@ -104,6 +114,8 @@ fast, reliable, and automated
 
 [cdnjs](https://cdnjs.com/):Simple. Fast. Reliable.
 Content delivery at its finest.
+
+[AdonisJS](https://adonisjs.com/): A fully featured web framework for Node.js
 
 ## Node.js
 

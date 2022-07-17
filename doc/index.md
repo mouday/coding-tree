@@ -16,6 +16,11 @@
 
 ## 工具
 
+[mpv.io](https://mpv.io/) a free, open source, and cross-platform media player
+
+[Carbon](https://carbon.now.sh/): Create and share beautiful images of your source code.
+Start typing or drop a file into the text area to get started.
+
 [ZY Player](http://zyplayer.fun/): 跨平台视频资源播放器, 简洁免费无广告.
 
 [Md2All](http://md.aclickall.com/): Markdown 排版利器
@@ -79,6 +84,10 @@ Logo：https://www.logoly.pro/
 
 [阿里巴巴开源镜像站-OPSX镜像站-阿里云开发者社区](https://developer.aliyun.com/mirror/)
 
+[网易UU网游加速器](https://uu.163.com/)全球专线加速，玩出超快感
+
+[JSON.cn](https://www.json.cn/)JSON在线解析及格式化验证
+
 ## 学习资料：
 
 2022 黑马程序员 Java 学习路线图
@@ -92,3 +101,8 @@ https://www.bilibili.com/video/BV1Kr4y1i7ru
 [电脑爱好者](https://www.cfan.com.cn/)
 
 [Road To Coding](https://www.r2coding.com/#/)意为编程自学之路，是自学编程以来所用资源和分享内容的大聚合。
+
+
+## API
+
+[和风天气](https://dev.qweather.com/) 全球气象数据开发服务

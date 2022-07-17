@@ -90,6 +90,8 @@ Celery
 
 [Unofficial Windows Binaries for Python Extension Packages](https://www.lfd.uci.edu/~gohlke/pythonlibs/): This page provides 32 and 64-bit Windows binaries of many scientific open-source extension packages for the official CPython distribution of the Python programming language. A few binaries are available for the PyPy distribution.
 
+[python-markdown](https://python-markdown.github.io/): This is a Python implementation of John Gruber’s Markdown.
+
 ## 爬虫
 
 [云立方](https://www.yunlifang.cn/): 动态 VPS
@@ -97,3 +99,13 @@ Celery
 [快代理](https://www.kuaidaili.com/free/intr/)
 
 [六六代理](http://www.66ip.cn/)
+
+[User Agent String](http://www.useragentstring.com/)
+
+[HanLP](https://www.hanlp.com/) HanLP采用全世界量级最大，种类最多的语料库，达到史上最高准确率，旨在普及落地最前沿的NLP技术！
+
+[PDFMiner](https://euske.github.io/pdfminer/) Python PDF parser and analyzer
+
+[pdf2htmlEX](https://wang-lu.com/pdf2htmlEX/) Convert PDF to HTML without losing text or format.
+
+[wkhtmltopdf](https://wkhtmltopdf.org/index.html) open source (LGPLv3) command line tools to render HTML into PDF and various image formats using the Qt WebKit rendering engine.

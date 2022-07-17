@@ -35,3 +35,5 @@
 [mobx-miniprogram-bindings](https://github.com/wechat-miniprogram/mobx-miniprogram-bindings) 小程序的 MobX 绑定辅助库
 
 [Day.js](https://day.js.org/zh-CN/) Moment.js 的 2kB 轻量化方案，拥有同样强大的 API
+
+[Lin UI](https://doc.mini.talelin.com/) Lin UI 是基于 微信小程序原生语法 实现的组件库。遵循简洁，易用的设计规范。

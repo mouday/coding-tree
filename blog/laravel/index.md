@@ -48,5 +48,9 @@ dev:
 
 [模型的关联写入](/blog/laravel/model-relation-write.md)
 
+[模型多对多的关联写入](/blog/laravel/model-relation-write2.md)
 
-https://www.bilibili.com/video/BV1gE411j78F?p=32&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+[请求和依赖注入](/blog/laravel/request.md)
+
+
+https://www.bilibili.com/video/BV1gE411j78F?p=34&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

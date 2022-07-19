@@ -52,5 +52,10 @@ dev:
 
 [请求和依赖注入](/blog/laravel/request.md)
 
+[请求的常用方法](/blog/laravel/request-method.md)
+
+[生成 URL](/blog/laravel/url.md)
+
+
 
 https://www.bilibili.com/video/BV1gE411j78F?p=34&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

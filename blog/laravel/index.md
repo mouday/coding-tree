@@ -56,6 +56,9 @@ dev:
 
 [生成 URL](/blog/laravel/url.md)
 
+[Cookie](/blog/laravel/cookie.md)
+
+[Session](/blog/laravel/session.md)
 
 
-https://www.bilibili.com/video/BV1gE411j78F?p=34&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1gE411j78F?p=38&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

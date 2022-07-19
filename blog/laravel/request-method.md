@@ -13,11 +13,14 @@ $request->input();
 $request->name;
 ```
 
-接受数组
+接受二维数组
 
 ```html
 <form action="/post" method="get">
-    <input type="checkbox" name="select[][a]" value="1"> <input type="checkbox" name="select[][b]" value="2"> <input type="checkbox" name="select[][c]" value="3"> <button type="submit">发送</button>
+    <input type="checkbox" name="select[][a]" value="1"> 
+    <input type="checkbox" name="select[][b]" value="2"> 
+    <input type="checkbox" name="select[][c]" value="3"> 
+    <button type="submit">发送</button>
 </form>
 ```
 

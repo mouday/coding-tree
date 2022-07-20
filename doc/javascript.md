@@ -2,21 +2,13 @@
 
 [https://github.com/ryanmcdermott/clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) Clean Code concepts adapted for JavaScript
 
+[TypeScript 中文手册](https://typescript.bootcss.com/)
+
+[ES6 入门教程(阮一峰)](https://es6.ruanyifeng.com/)
+
 ## 第三方库
 
-vue.js: 渐进式 JavaScript 框架
-
-- [vue2.js](https://cn.vuejs.org/v2/guide/): https://cn.vuejs.org/
-- [vue3.js](https://staging-cn.vuejs.org/): 渐进式
-JavaScript 框架
-
-- [element-ui](https://element.eleme.cn/#/zh-CN/component/installation): 一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库
-- [vColorPicker](http://vue-color-picker.rxshc.com/): 基于 Vue 的颜色选择器插件
-- [vuedraggable](https://www.npmjs.com/package/vuedraggable)
-- [Vuetify](https://vuetifyjs.com/zh-Hans/) 是一个纯手工精心打造的 Material 样式的 Vue UI 组件库。
-- [arco-design](https://arco.design/)字节跳动出品的企业级UI库（Vue.js3）
-- [ant-design-vue](https://2x.antdv.com/docs/vue/getting-started-cn) 企业级应用的最佳 UI 实践
-- [heyui](https://www.heyui.top/): 一个基于Vue.js的高质量UI组件库
+[Vue.js](/doc/vue.md)
 
 [React.js](https://reactjs.org/): A JavaScript library for building user interfaces
 
@@ -103,6 +95,14 @@ JavaScript 框架
 
 [vue-js-modal](http://vue-js-modal.yev.io/) | [github](https://github.com/euvl/vue-js-modal): Easy to use, highly customizable Vue.js modal library.
 
+[typeahead.js](https://typeahead.js.org/) a flexible JavaScript library that provides a strong foundation for building robust typeaheads
+
+[EJS](https://ejs.bootcss.com/) 高效的嵌入式 JavaScript 模板引擎。
+
+[mavon-editor](https://github.com/hinesboy/mavonEditor) | [npm](https://www.npmjs.com/package/mavon-editor) A markdown editor based on Vue that supports a variety of personalized features
+
+[naming-style](https://github.com/parksben/naming-style) | [npm](https://www.npmjs.com/package/naming-style) | [中文doc](https://github.com/parksben/naming-style/blob/HEAD/DOC_ZH.md): 变量命名风格转化
+
 ## CDN
 
 [BootCDN](https://www.bootcdn.cn/): 稳定、快速、免费的前端开源项目 CDN 加速服务
@@ -124,6 +124,8 @@ https://npm.devtool.tech/
 [ionic 教程](https://www.runoob.com/ionic/ionic-tutorial.html): 一个强大的 HTML5 应用程序开发框架(HTML5 Hybrid Mobile App Framework )
 
 [Express 中文网](https://www.expressjs.com.cn/): 基于 Node.js 平台，快速、开放、极简的 Web 开发框架
+
+[Egg.js](https://www.eggjs.org/zh-CN) 企业级 Node.js 开发框架
 
 ### Node.js 管理工具
 
@@ -178,3 +180,7 @@ pNpm：速度快、节省磁盘空间的软件包管理器
 [https://www.ecma-international.org/](https://www.ecma-international.org/)
 
 [vue-element-admin](https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/) 是一个后台前端解决方案，它基于 vue 和 element-ui 实现。
+
+[JSON Web Tokens](https://www.jsonwebtoken.io/) JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties.
+
+[GraphQL](https://graphql.cn/) 一种用于 API 的查询语言

@@ -12,7 +12,7 @@
 
 [Vant Weapp](https://vant-contrib.gitee.io/vant-weapp/): 有赞前端团队开源,轻量、可靠的小程序 UI 组件库
 
-[](https://megalojs.org/)
+[megalojs](https://megalojs.org/)
 
 [mpvue](https://mpvue.com/): 一个使用 Vue.js 开发小程序的前端框架。
 

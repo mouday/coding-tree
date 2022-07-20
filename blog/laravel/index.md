@@ -60,5 +60,7 @@ dev:
 
 [Session](/blog/laravel/session.md)
 
+[中间件 Middleware](/blog/laravel/middleware.md)
+
 
 https://www.bilibili.com/video/BV1gE411j78F?p=38&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

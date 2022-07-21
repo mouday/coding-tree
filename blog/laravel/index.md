@@ -67,5 +67,3 @@ Blade模板（略）
 [表单验证validate](/blog/laravel/validate.md)
 
 [数据分页 paginate](/blog/laravel/paginate.md)
-
-https://www.bilibili.com/video/BV1gE411j78F?p=43&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

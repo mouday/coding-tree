@@ -146,3 +146,4 @@ cssgr.id [https://cssgr.id/](https://cssgr.id/)
 
 CSS Diner: [https://flukeout.github.io/](https://flukeout.github.io/)
 
+[Flex Cheatsheet](https://yoksel.github.io/flex-cheatsheet/): Demos for W3C CSS Flexbox Specification http://www.w3.org/TR/css-flexbox-1/

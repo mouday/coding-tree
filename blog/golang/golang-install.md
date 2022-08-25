@@ -100,3 +100,14 @@ func main(){
 $ go run demo.go
 Hello Golang
 ```
+
+编译后再执行
+```bash
+$ go build demo.go
+
+$ ls
+demo    demo.go
+
+$ ./demo
+Hello Golang
+```

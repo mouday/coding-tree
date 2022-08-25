@@ -14,15 +14,15 @@
 
 - 后端
 
+  - [Go 语言](doc/go.md)
   - [Python](doc/python.md)
   - [Java](doc/java.md)
   - [PHP](doc/php.md)
+  - [Linux](doc/linux.md)
   - [C#](doc/csharp.md)
   - [Visual Basic](doc/visual-basic.md)
   - [C 语言](doc/c.md)
   - [Ruby](doc/ruby.md)
-  - [Linux](doc/linux.md)
-  - [Go 语言](doc/go.md)
   - [区块链（blockchain）](doc/blockchain.md)
 
 - 数据库

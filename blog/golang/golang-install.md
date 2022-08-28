@@ -279,3 +279,12 @@ $ gofmt -w demo.go
 包 <==>  文件夹 / 原文件 / 函数
 ```
 
+## Dos 基本介绍
+
+Dos Disk Operating System 磁盘操作系统
+
+基本原理
+
+```
+终端 --> Dos操作系统 --> Windows目录
+```

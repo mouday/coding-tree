@@ -27,11 +27,22 @@ $ sudo launchctl list | grep ssh
 > vscode快捷键：
 > 快速复制一行：shift + option + 方向键向下
 > 字体大小修改：command +/-
-> 注释/取消注释：command + /
+> 行注释：command + /
+> 块注释：shift + option + a
+> 全选：command + a
+> 复制：command + c
+> 粘贴：command + v
+> 删除行：command + shift + k
+> 命令行：command + shift + p
 > 整体向右移动 tab 
 > 整体向左移动 shift + tab
 
-## 安装 Golang
+安装插件
+
+-[https://marketplace.visualstudio.com/items?itemName=golang.Go](https://marketplace.visualstudio.com/items?itemName=golang.Go)
+- [https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner)
+
+## 安装 Golang1.9.2
 
 SDK：Software Development Kit 软件开发工具包
 
@@ -99,6 +110,41 @@ $ source ~/.bash_profile
 
 $ go version
 go version go1.9.2 darwin/amd64
+```
+
+## 安装Golang 1.19
+
+```bash
+# 查看版本
+$ go version
+go version go1.19 darwin/amd64
+
+# 查看环境变量
+go env
+
+# 使用go mod管理库
+$ go env -w GO111MODULE=on
+$ go env -w GOPROXY=https://goproxy.cn,direct
+```
+
+Go Module代理仓库服务
+
+- 七牛云 https://goproxy.cn/
+- 百度： https://goproxy.bj.bcebos.com/
+
+
+安装git：https://git-scm.com/
+
+配置环境变量
+```bash
+# Linux
+vim /etc/profile
+
+# Mac
+vim ~/.bash_profile
+
+export GOROOT=/usr/local
+export PATH=$PATH:$GOROOT/bin
 ```
 
 代码测试

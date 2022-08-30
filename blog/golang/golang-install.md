@@ -24,22 +24,23 @@ $ sudo launchctl list | grep ssh
 -	0	com.openssh.sshd
 ```
 
-> vscode快捷键：
-> 快速复制一行：shift + option + 方向键向下
-> 字体大小修改：command +/-
-> 行注释：command + /
-> 块注释：shift + option + a
-> 全选：command + a
-> 复制：command + c
-> 粘贴：command + v
-> 删除行：command + shift + k
-> 命令行：command + shift + p
-> 整体向右移动 tab 
-> 整体向左移动 shift + tab
+vscode快捷键：
+
+- 快速复制一行：shift + option + 方向键向下
+- 字体大小修改：command +/-
+- 行注释：command + /
+- 块注释：shift + option + a
+- 全选：command + a
+- 复制：command + c
+- 粘贴：command + v
+- 删除行：command + shift + k
+- 命令行：command + shift + p
+- 整体向右移动 tab 
+- 整体向左移动 shift + tab
 
 安装插件
 
--[https://marketplace.visualstudio.com/items?itemName=golang.Go](https://marketplace.visualstudio.com/items?itemName=golang.Go)
+- [https://marketplace.visualstudio.com/items?itemName=golang.Go](https://marketplace.visualstudio.com/items?itemName=golang.Go)
 - [https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner)
 
 ## 安装 Golang1.9.2
@@ -333,4 +334,51 @@ Dos Disk Operating System 磁盘操作系统
 
 ```
 终端 --> Dos操作系统 --> Windows目录
+```
+
+## Go常用命令
+
+```bash
+$ go help
+bug         start a bug report
+build       compile packages and dependencies
+clean       remove object files and cached files
+doc         show documentation for package or symbol
+env         print Go environment information
+fix         update packages to use new APIs
+fmt         gofmt (reformat) package sources
+generate    generate Go files by processing source
+get         add dependencies to current module and install them
+install     compile and install packages and dependencies
+list        list packages or modules
+mod         module maintenance
+work        workspace maintenance
+run         compile and run Go program
+test        test packages
+tool        run specified go tool
+version     print Go version
+vet         report likely mistakes in packages
+```
+
+管理依赖包
+
+搜索包：https://pkg.go.dev
+
+```bash
+# 初始化模块
+go mod init code
+
+# 下载依赖
+go get github.com/go-sql-driver/mysql
+```
+
+快捷输入
+
+```go
+pkgm 
+ff
+for
+forr
+fmain
+a.print
 ```

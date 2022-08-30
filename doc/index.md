@@ -27,6 +27,10 @@ Start typing or drop a file into the text area to get started.
 
 [Markdown Nice](https://editor.mdnice.com/): 自定义样式的 Markdown 编辑器
 
+[openwrite](https://md.openwrite.cn/) 一款高度简洁的微信 Markdown 编辑器
+
+[MDX Editor](https://editor.runjs.cool/)一个微信排版编辑器，使用 MDX 来排版
+
 [shields](https://shields.io/)
 
 - [shields 给 python 项目在 github 贴上 build 和 pypi 小徽章](https://pengshiyu.blog.csdn.net/article/details/82804630)

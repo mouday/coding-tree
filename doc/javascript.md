@@ -117,6 +117,13 @@ Content delivery at its finest.
 
 [AdonisJS](https://adonisjs.com/): A fully featured web framework for Node.js
 
+[Fabric.js](http://fabricjs.com/) is a powerful and simple
+Javascript HTML5 canvas library
+
+[Prettier.js](https://prettier.io/) Opinionated Code Formatter
+
+[西瓜视频播放器（HTML5）](https://v2.h5player.bytedance.com/) 一款带解析器、能节省流量的HTML5视频播放器
+
 ## Node.js
 
 https://npm.devtool.tech/

@@ -1,18 +1,19 @@
 # Java
 
+## 在线文档
+
+Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjavaer.com/)
+
 [毕向东—Java 基础知识总结（超级经典）](https://www.cnblogs.com/In-order-to-tomorrow/p/3652315.html)
 
 [Spring 系列教程](https://github.com/wuyouzhuguli/SpringAll)
 
 [Spring Boot 学习/面试指南](https://snailclimb.gitee.io/springboot-guide/)
 
-[Spring Quickstart Guide](https://spring.io/quickstart)
-
-[Spring Initializr](https://start.spring.io/)
 
 [JavaGuide](https://snailclimb.gitee.io/javaguide/#/): 「Java学习+面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。
 
- - [JavaGuide](https://javaguide.cn/) JavaGuide 在线阅读网站（新版，推荐👍）
+[JavaGuide](https://javaguide.cn/) JavaGuide 在线阅读网站（新版，推荐👍）
 
 [Java 全栈知识体系](https://pdai.tech/) 包含: Java 基础, Java 部分源码, JVM, Spring, Spring Boot, Spring Cloud, 数据库原理, MySQL, ElasticSearch, MongoDB, Docker, k8s, CI&CD, Linux, DevOps, 分布式, 中间件, 开发工具, Git, IDE, 源码阅读，读书笔记, 开源项目...
 
@@ -21,9 +22,14 @@
 
 [Java 教程 | 菜鸟教程](https://www.runoob.com/java/java-tutorial.html)
 
-[jsoup](https://jsoup.org/):  Java HTML Parser
 
-[尚硅谷【官网】Java培训](http://www.atguigu.com/)
+## 开源库
+
+[Spring Quickstart Guide](https://spring.io/quickstart)
+
+[Spring Initializr](https://start.spring.io/)
+
+[jsoup](https://jsoup.org/):  Java HTML Parser
 
 [JFinal 极速开发](https://jfinal.com/)
 
@@ -59,5 +65,8 @@
 
 [第二篇 使用JavaFX图形](http://www.javafxchina.net/blog/docs/graphics/)
 
-## 文章
+## 学习资料
+
+[尚硅谷【官网】Java培训](http://www.atguigu.com/)
+
 [Java 必须掌握的 20+ 种 Spring 常用注解](https://mp.weixin.qq.com/s/b8bKuoaJAgGdFx9nTaFpgg)

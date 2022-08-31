@@ -124,6 +124,8 @@ Javascript HTML5 canvas library
 
 [西瓜视频播放器（HTML5）](https://v2.h5player.bytedance.com/) 一款带解析器、能节省流量的HTML5视频播放器
 
+[https://prettyhtml.netlify.app/](https://prettyhtml.netlify.app/):[](https://github.com/Prettyhtml/prettyhtml)
+
 ## Node.js
 
 https://npm.devtool.tech/

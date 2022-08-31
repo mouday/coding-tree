@@ -10,9 +10,19 @@
 
 [第一章 Golang 概述](blog/golang/golang-start.md)
 
-[第二章 Golang 快速开始和特性](blog/golang/golang-install.md)
+[第二章 Golang 环境安装](blog/golang/golang-install.md)
+
+[第三章 Golang 运行代码](blog/golang/golang-run.md)
+
+[第四章 Golang 项目管理](blog/golang/golang-project.md)
+
+[第五章 Golang标识符、关键字、命名规则](blog/golang/golang-identifier.md)
+
+[第六章 Golang变量](blog/golang/golang-variable.md)
+
+[第七章 Golang 常量](blog/golang/golang-constant.md)
 
 
 https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
-https://www.bilibili.com/video/BV1zR4y1t7Wj?p=8&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1zR4y1t7Wj?p=12&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

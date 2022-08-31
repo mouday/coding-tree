@@ -8,6 +8,7 @@
 
 - 官网：[https://golang.org/](https://golang.org/)
 - 官网中文：[https://go-zh.org/](https://go-zh.org/)
+- Go Packages：[https://pkg.go.dev/](https://pkg.go.dev/)
 - 官网中文：[https://golang.google.cn/](https://golang.google.cn/)
 - Golang标准库文档 [https://studygolang.com/pkgdoc](https://studygolang.com/pkgdoc)
 - Go 语言教程 | 菜鸟教程 [https://www.runoob.com/go/go-tutorial.html](https://www.runoob.com/go/go-tutorial.html)

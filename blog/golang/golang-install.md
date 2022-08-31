@@ -41,12 +41,36 @@ vscode快捷键：
 快捷输入
 
 ```go
-pkgm 
-ff
-for
-forr
-fmain
-a.print
+// pkgm 
+package main
+
+func main() {
+	
+}
+
+// fmain
+func main() {
+	
+}
+
+// for
+for i := 0; i < count; i++ {
+		
+}
+
+// forr
+for _, v := range v {
+		
+}
+
+// fp
+fmt.Println("")
+
+// ff
+fmt.Printf("", var)
+
+// var.print
+fmt.Printf("var: %v\n", var)
 ```
 
 安装插件

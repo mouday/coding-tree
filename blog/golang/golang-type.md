@@ -131,3 +131,173 @@ func main() {
 
 注意：不能使用 `0` 和 `非0` 表示真假
 
+Golang数字类型
+
+- 整型的零值是0
+- 浮点型的零值是0.0
+
+整型
+
+```go
+package main
+
+import (
+    "fmt"
+    "math"
+    "unsafe"
+)
+
+func main() {
+    age := 18
+
+    // 查看数据的大小
+    fmt.Println(unsafe.Sizeof(age))
+    // 8
+
+    // 数据类型 int8 最大值和最小值
+    fmt.Println(math.MinInt8, math.MaxInt8)
+    // -128 127
+
+}
+```
+
+进制格式化输出
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    age := 18
+
+    // 十进制
+    fmt.Printf("%d \n", age)
+    // 18
+
+    // 二进制
+    fmt.Printf("%b \n", age)
+    // 10010
+
+    // 八进制
+    fmt.Printf("%o \n", age)
+    // 22
+
+    // 十六进制
+    fmt.Printf("%x \n", age)
+    // 12
+}
+```
+
+浮点型
+
+```go
+package main
+
+import (
+    "fmt"
+    "math"
+)
+
+func main() {
+
+    // PI
+    fmt.Printf("%f\n", math.Pi)
+    // 3.141593
+
+    // 保留两位小数点
+    fmt.Printf("%.2f\n", math.Pi)
+    // 3.14
+}
+
+```
+
+## Golang字符串
+
+字符串是一个任意字节的常量序列 [] byte
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+
+    var s1 string = "Hello"
+    var s2 = "Hello"
+    s3 := "Hello"
+
+    fmt.Printf("s1: %v\n", s1)
+    // s1: Hello
+
+    fmt.Printf("s2: %v\n", s2)
+    // s2: Hello
+
+    fmt.Printf("s3: %v\n", s3)
+    // s3: Hello
+}
+```
+
+多行字符串
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+
+    var s string = `
+<div>
+    <div>Title</div>
+</div>
+    `
+
+    fmt.Printf("%v\n", s)
+}
+
+```
+
+使用+连接字符串
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    s1 := "Tom"
+    s2 := "20"
+
+    msg := s1 + s2
+    fmt.Printf("msg: %v\n", msg)
+    // msg: Tom20
+}
+
+```
+
+使用Sprintf连接字符串
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    name := "Tom"
+    age := "20"
+
+    msg := fmt.Sprintf("name=%s, age=%s", name, age)
+    fmt.Printf("msg: %v\n", msg)
+    // msg: name=Tom, age=20
+}
+
+```

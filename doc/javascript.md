@@ -46,7 +46,6 @@
 
 [Pinia](https://pinia.vuejs.org/): The Vue Store that you will enjoy using
 
-
 [Sails.js](https://sailsjs.com/)The MVC framework for Node.js
 
 [iView UI](https://iviewui.com/docs/guide/install): 一套基于 Vue.js 的高质量 UI 组件库
@@ -101,7 +100,7 @@
 
 [mavon-editor](https://github.com/hinesboy/mavonEditor) | [npm](https://www.npmjs.com/package/mavon-editor) A markdown editor based on Vue that supports a variety of personalized features
 
-[naming-style](https://github.com/parksben/naming-style) | [npm](https://www.npmjs.com/package/naming-style) | [中文doc](https://github.com/parksben/naming-style/blob/HEAD/DOC_ZH.md): 变量命名风格转化
+[naming-style](https://github.com/parksben/naming-style) | [npm](https://www.npmjs.com/package/naming-style) | [中文 doc](https://github.com/parksben/naming-style/blob/HEAD/DOC_ZH.md): 变量命名风格转化
 
 ## CDN
 
@@ -122,9 +121,23 @@ Javascript HTML5 canvas library
 
 [Prettier.js](https://prettier.io/) Opinionated Code Formatter
 
-[西瓜视频播放器（HTML5）](https://v2.h5player.bytedance.com/) 一款带解析器、能节省流量的HTML5视频播放器
+[西瓜视频播放器（HTML5）](https://v2.h5player.bytedance.com/) 一款带解析器、能节省流量的 HTML5 视频播放器
 
 [https://prettyhtml.netlify.app/](https://prettyhtml.netlify.app/):[](https://github.com/Prettyhtml/prettyhtml)
+
+cnchar: 功能全面、多端支持的汉字拼音笔画 js 库
+
+- 官网：[https://shiyix.cn/cnchar/](https://shiyix.cn/cnchar/)
+- github：[https://github.com/theajack/cnchar](https://github.com/theajack/cnchar)
+
+Hanzi Writer: 汉字书写笔画顺序的描边动画
+- 官网：[https://hanziwriter.org/cn/](https://hanziwriter.org/cn/)
+- github：[https://github.com/chanind/hanzi-writer](https://github.com/chanind/hanzi-writer)
+
+Make Me a Hanzi：Free, open-source Chinese character data
+- 官网：[https://www.skishore.me/makemeahanzi/](https://www.skishore.me/makemeahanzi/)
+- github：[https://github.com/skishore/makemeahanzi](https://github.com/skishore/makemeahanzi)
+
 
 ## Node.js
 
@@ -138,22 +151,22 @@ https://npm.devtool.tech/
 
 ### Node.js 管理工具
 
-|名称 | 简介  | 最近更新  | 标星
-|- | - | - | - | 
-| [nvm](https://github.com/nvm-sh/nvm)  | Node Version Manager  | ![](https://img.shields.io/github/last-commit/nvm-sh/nvm?style=flat-square) |![](https://img.shields.io/github/stars/nvm-sh/nvm.svg?style=social)
-|  [nvs](https://github.com/jasongin/nvs) |  Node Version Switcher | ![](https://img.shields.io/github/last-commit/jasongin/nvs?style=flat-square) |![](https://img.shields.io/github/stars/jasongin/nvs.svg?style=social)
-
-
+| 名称                                   | 简介                  | 最近更新                                                                      | 标星                                                                   |
+| -------------------------------------- | --------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| [nvm](https://github.com/nvm-sh/nvm)   | Node Version Manager  | ![](https://img.shields.io/github/last-commit/nvm-sh/nvm?style=flat-square)   | ![](https://img.shields.io/github/stars/nvm-sh/nvm.svg?style=social)   |
+| [nvs](https://github.com/jasongin/nvs) | Node Version Switcher | ![](https://img.shields.io/github/last-commit/jasongin/nvs?style=flat-square) | ![](https://img.shields.io/github/stars/jasongin/nvs.svg?style=social) |
 
 ### 包管理工具
 
 npm - a JavaScript package manager
+
 - ![](https://img.shields.io/github/last-commit/npm/cli?style=flat-square)
 - ![](https://img.shields.io/github/stars/npm/cli.svg?style=social)
 - github [https://github.com/npm/cli](https://github.com/npm/cli)
 - [npm 中文文档](https://www.npmjs.cn/)
 
 Yarn： 快速、可靠、安全的依赖管理工具
+
 - ![](https://img.shields.io/github/last-commit/yarnpkg/berry?style=flat-square)
 - ![](https://img.shields.io/github/stars/yarnpkg/berry.svg?style=social)
 - [https://yarnpkg.com/](https://yarnpkg.com/)
@@ -162,15 +175,14 @@ Yarn： 快速、可靠、安全的依赖管理工具
 - Yarn 中文文档: [https://www.yarnpkg.cn/](https://www.yarnpkg.cn/)
 
 pNpm：速度快、节省磁盘空间的软件包管理器
+
 - ![](https://img.shields.io/github/last-commit/pnpm/pnpm?style=flat-square)
 - ![](https://img.shields.io/github/stars/pnpm/pnpm.svg?style=social)
 - [pnpm 中文文档](https://www.pnpm.cn/)
 
-
 ## 文章
 
 [能解决 90% 需求的 js 库](https://juejin.cn/post/7024011415144890405)
-
 
 [W3School - JavaScript 教程](https://www.w3school.com.cn/js/index.asp)
 

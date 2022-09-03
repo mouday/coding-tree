@@ -136,7 +136,7 @@ func main() {
 - 整型的零值是0
 - 浮点型的零值是0.0
 
-整型
+### 整型
 
 ```go
 package main
@@ -161,7 +161,7 @@ func main() {
 }
 ```
 
-进制格式化输出
+### 进制格式化输出
 
 ```go
 package main
@@ -189,7 +189,7 @@ func main() {
 }
 ```
 
-浮点型
+### 浮点型
 
 ```go
 package main
@@ -240,7 +240,7 @@ func main() {
 }
 ```
 
-多行字符串
+### 多行字符串
 
 ```go
 package main
@@ -262,7 +262,7 @@ func main() {
 
 ```
 
-使用+连接字符串
+### 使用 `+` 连接字符串
 
 ```go
 package main
@@ -282,7 +282,7 @@ func main() {
 
 ```
 
-使用Sprintf连接字符串
+### 使用 `Sprintf` 连接字符串
 
 ```go
 package main
@@ -298,6 +298,201 @@ func main() {
     msg := fmt.Sprintf("name=%s, age=%s", name, age)
     fmt.Printf("msg: %v\n", msg)
     // msg: name=Tom, age=20
+}
+
+```
+
+### 使用 `strings.Join()` 连接字符串
+
+```go
+package main
+
+import (
+    "fmt"
+    "strings"
+)
+
+func main() {
+    name := "Tom"
+    age := "20"
+
+    str := strings.Join([]string{name, age}, ",")
+    fmt.Printf("str: %v\n", str)
+    // str: Tom,20
+
+}
+
+```
+
+### 使用 `bytes.Buffer` 拼接字符串
+
+```go
+package main
+
+import (
+    "bytes"
+    "fmt"
+)
+
+func main() {
+    var buffer bytes.Buffer
+
+    buffer.WriteString("Tom")
+    buffer.WriteString("Jack")
+    buffer.WriteString("Steve")
+
+    fmt.Println(buffer.String())
+    // TomJackSteve
+
+}
+
+```
+
+### 转义字符（escape char）
+
+| 转义字符 | 说明
+| - | - 
+| `\r`  | 回车，光标移动到行首
+| `\n`  | 换行符，光标移动到下一行
+| `\t`| 制表位
+| `\\` | 反斜杆
+| `\"` | 双引号
+| `\'` | 单引号
+
+
+示例
+
+```go
+package main
+
+import "fmt"
+
+func main(){
+    fmt.Println("Hello\tGolang")
+    // Hello    Golang
+
+    fmt.Println("Hello\nGolang")
+    // Hello
+    // Golang
+
+    fmt.Println("Hello\rGolang")
+    // Golang
+
+    fmt.Println("Hello\\Golang")
+    // Hello\Golang
+
+    fmt.Println("Hello\"Golang")
+    // Hello"Golang
+}
+```
+
+### 字符串切片操作
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    // H e l l o   W o r l d
+    // 0 1 2 3 4 5 6 7 8 9 10
+    str := "Hello World"
+
+    n := 3
+    m := 5
+
+    // 获取索引位置字符串的原始字节
+    fmt.Println(str[n])
+    // 108
+
+    // 获取字符显示
+    fmt.Printf("%c\n", str[n])
+    // l
+
+    // 获取 [n, m)的子串
+    fmt.Println(str[n:m])
+    // lo
+
+    // 获取 [n, len)的子串
+    fmt.Println(str[n:])
+    // lo World
+
+    // 获取 [0, m)的子串
+    fmt.Println(str[:m])
+    // Hello
+
+}
+
+```
+
+### 字符串函数
+
+| 函数 | 说明
+| - | -
+| len(str) | 求长度
+| + 或 fmt.Springf | 字符串拼接
+strings.Contains | 判断是否包含
+strings.HasPrefix| 前缀判断
+strings.HasSuffix  | 后缀判断
+strings.Index  | 子串位置
+strings.LastIndex | 子串位置
+strings.Split | 拆分
+strings.Join() | 拼接
+strings.ToLower() | 转小写
+strings.ToUpper() | 转大写
+
+
+示例
+```go
+package main
+
+import (
+    "fmt"
+    "strings"
+)
+
+func main() {
+
+    str := "Hello World"
+
+    fmt.Println(len(str))
+    // 11
+
+    fmt.Printf("%q\n", strings.Split(str, " "))
+    // ["Hello" "World"]
+
+    fmt.Println(strings.Join([]string{"Hello", "World"}, " "))
+    // Hello World
+
+    fmt.Println(strings.Contains(str, "Hello"))
+    // true
+
+    fmt.Println(strings.HasPrefix(str, "Hello"))
+    // true
+
+    fmt.Println(strings.HasSuffix(str, "World"))
+    // true
+
+    fmt.Println(strings.Index(str, "World"))
+    // 6
+
+    fmt.Println(strings.LastIndex(str, "World"))
+    // 6
+
+    fmt.Println("Hello" + " " + "World")
+    // Hello World
+
+    newStr := fmt.Sprintf("%s %s", "Hello", "World")
+    fmt.Println(newStr)
+    // Hello World
+
+    fmt.Println(strings.ToLower("Hello World"))
+    // hello world
+
+    fmt.Println(strings.ToUpper("Hello World"))
+    // HELLO WORLD
+
 }
 
 ```

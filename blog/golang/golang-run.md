@@ -62,43 +62,6 @@ go run demo.go
 - 大括号成对出现
 
 
-## Golang 转义字符（escape char）
-
-| 转义字符 | 说明
-| - | - 
-| `\t`| 制表位
-| `\n`  | 换行符，光标移动到下一行
-| `\\` | 斜杆
-| `\"` | 引号
-| `\r`  | 回车，光标移动到行首
-
-
-示例
-
-```go
-package main
-
-import "fmt"
-
-func main(){
-    fmt.Println("Hello\tGolang")
-    // Hello    Golang
-
-    fmt.Println("Hello\nGolang")
-    // Hello
-    // Golang
-
-    fmt.Println("Hello\rGolang")
-    // Golang
-
-    fmt.Println("Hello\\Golang")
-    // Hello\Golang
-
-    fmt.Println("Hello\"Golang")
-    // Hello"Golang
-}
-```
-
 示例：使用一行语句输出类似表格布局的数据
 
 ```go

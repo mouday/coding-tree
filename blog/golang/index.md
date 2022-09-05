@@ -26,11 +26,12 @@
 
 [第九章 Golang 格式化输出](blog/golang/golang-format.md)
 
-[第十章 Golang 运算符](blog/golang/golang-operator.md)
+[第十章 Golang 运算符](/blog/golang/golang-operator.md)
+
+[第十一章 Golang 流程控制](/blog/golang/golang-process.md)
 
 
 https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 
-05:47
-https://www.bilibili.com/video/BV1zR4y1t7Wj?p=17&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1zR4y1t7Wj?p=19&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

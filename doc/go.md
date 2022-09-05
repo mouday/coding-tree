@@ -1,7 +1,7 @@
 # Go语言
 
 ## 学习笔记
-[笔记: Golang 核心编程](blog/golang/index.md)
+[笔记: Golang 核心编程](/blog/golang/index.md)
 
 
 ## 学习资料

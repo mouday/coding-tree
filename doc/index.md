@@ -110,3 +110,9 @@ https://www.bilibili.com/video/BV1Kr4y1i7ru
 ## API
 
 [和风天气](https://dev.qweather.com/) 全球气象数据开发服务
+
+## 其他
+
+Android富文本编辑器 [https://github.com/wasabeef/richeditor-android](https://github.com/wasabeef/richeditor-android)
+
+iOS富文本编辑器[https://github.com/cjwirth/RichEditorView](https://github.com/cjwirth/RichEditorView)

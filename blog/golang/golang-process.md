@@ -52,6 +52,60 @@ func main() {
 }
 
 ```
+
+Golang中的特殊写法
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+
+	// age处于局部作用域
+	if age := 18; age > 18 {
+		fmt.Println("age > 18")
+	} else {
+		fmt.Println("age <= 18")
+	}
+	// age <= 18
+}
+```
+
+接收用户输入
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+
+    var age int
+
+    fmt.Printf("请输入age:\n")
+    fmt.Scan(&age)
+
+    fmt.Printf("age: %v\n", age)
+
+}
+
+```
+
+命令行方式运行
+
+```bash
+$ go run main.go
+
+请输入age:
+23
+age: 23
+```
+
 ### switch...case
 
 示例
@@ -80,6 +134,8 @@ func main() {
 	// a = 1
 }
 ```
+
+> 注意：不能使用0和非0表示真假
 
 ## 循环执行
 

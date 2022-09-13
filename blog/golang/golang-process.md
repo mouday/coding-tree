@@ -243,7 +243,7 @@ func main() {
 
 ### for...range
 
-for...range遍历数组、切片、字符串、map及通道（channel）
+for...range 遍历数组、切片、字符串、map 及通道（channel）
 
 返回值：
 
@@ -270,7 +270,7 @@ func main() {
 
 ```
 
-遍历map
+遍历 map
 
 ```go
 package main
@@ -295,3 +295,131 @@ func main() {
 - break
 - continue
 - goto
+
+#### break
+
+break 结束 for switch select 的代码块
+
+break 注意事项
+
+- 单独在 select 中使用 break，和不使用 break 没区别
+- 单独在表达式 switch 语句，并且没有 falllthough，使用 break 和不使用 break 没区别
+- 单独在表达式 switch 语句，并且有 falllthough，使用 break 能够终止 fallthough 后面的 case 语句
+- 带标签的 break,可以跳出多层 select/switch 作用域，让 break 更加灵活，写法更加简单灵活，不需要使用控制变量一层一层跳出循环，没有带 break 的只能跳出当前语句块
+
+示例
+
+for
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    for i := 0; i < 10; i++ {
+        if i >= 3 {
+            break
+        }
+        fmt.Printf("%v\t", i)
+    }
+    // 0    1   2
+}
+
+```
+
+switch
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    i := 1
+
+    switch i {
+    case 1:
+        fmt.Println("1")
+        fallthrough
+    case 2:
+        fmt.Println("2")
+        // break
+    case 3:
+        fmt.Println("3")
+        // break
+    }
+}
+
+```
+
+标签
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+LABEL:
+    for i := 0; i < 10; i++ {
+        fmt.Printf("%v ", i)
+
+        if i >= 3 {
+            break LABEL
+        }
+    }
+
+    fmt.Println("end")
+}
+// 0 1 2 3 end
+
+```
+
+#### continue
+
+只能用在 for 循环，终止本次循环，进行下次循环
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    for i := 0; i < 10; i++ {
+
+        if i%2 == 0 {
+            continue
+        } else {
+            fmt.Printf("%v ", i)
+        }
+    }
+    // 1 3 5 7 9
+}
+
+```
+
+#### goto
+
+通过标签进行代码之间的无条件跳转
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    goto LABEL
+    fmt.Println("label")
+
+LABEL:
+    fmt.Println("end")
+}
+// end
+
+```

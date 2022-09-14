@@ -90,3 +90,67 @@ func main() {
 }
 
 ```
+
+## 切片初始化
+
+直接初始化
+
+```go
+s := []int{1, 2, 3, 4, 5}
+fmt.Printf("s: %v\n", s)
+// s: [1 2 3 4 5]
+```
+
+使用数组初始化
+
+```go
+arr := [...]int{1, 2, 3, 4, 5}
+
+s := arr[:]
+fmt.Printf("s: %v\n", s)
+// s: [1 2 3 4 5]
+```
+
+空切片
+
+```go
+var s []int
+```
+
+
+切片操作
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    s := []int{1, 2, 3, 4, 5}
+    fmt.Printf("s: %v\n", s)
+    // s: [1 2 3 4 5]
+
+    // [0, 3)
+    s1 := s[0:3]
+    fmt.Printf("s1: %v\n", s1)
+    // s1: [1 2 3]
+
+    // [3, 最后)
+    s2 := s[3:]
+    fmt.Printf("s2: %v\n", s2)
+    // s2: [4 5]
+
+    // [开始，3)
+    s3 := s[:3]
+    fmt.Printf("s3: %v\n", s3)
+    // s3: [1 2 3]
+
+    // 拷贝
+    s4 := s[:]
+    fmt.Printf("s4: %v\n", s4)
+    // s4: [1 2 3 4 5]
+}
+
+```

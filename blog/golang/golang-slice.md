@@ -154,3 +154,203 @@ func main() {
 }
 
 ```
+
+## 切片的遍历
+
+for循环
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var s = []int{1, 2, 3, 4}
+    length := len(s)
+
+    for i := 0; i < length; i++ {
+        fmt.Printf("s[%v]=%v\n", i, s[i])
+    }
+    // s[0]=1
+    // s[1]=2
+    // s[2]=3
+    // s[3]=4
+}
+
+```
+
+for...range
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var s = []int{1, 2, 3, 4}
+
+    for index, value := range s {
+        fmt.Printf("s[%v]=%v\n", index, value)
+    }
+
+    // s[0]=1
+    // s[1]=2
+    // s[2]=3
+    // s[3]=4
+}
+```
+
+## 切片的CURD(添加、删除、修改、查询)
+
+切片是动态数组
+
+添加元素
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var s = []int{}
+
+    // 添加单个元素
+    s = append(s, 1)
+
+    // 添加多个元素
+    s = append(s, 2, 3)
+
+    fmt.Printf("s: %v\n", s)
+    // s: [1 2 3]
+
+}
+
+```
+
+删除元素
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var s = []int{1, 2, 3, 4, 5}
+
+    // 删除元素3，索引为2
+    // 公式：s = append(s[:index], s[index+1:]...)
+    s = append(s[:2], s[3:]...)
+
+    fmt.Printf("s: %v\n", s)
+    // s: [1 2 4 5]
+}
+
+```
+
+修改元素
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    var s = []int{1, 2, 3, 4, 5}
+
+    s[2] = 6
+    fmt.Printf("s: %v\n", s)
+    // s: [1 2 6 4 5]
+}
+
+```
+
+查询元素
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    var s = []int{1, 2, 3, 4, 5}
+
+    // 查询元素的索引
+    for index, value := range s {
+        if value == 3 {
+            fmt.Printf("index: %v\n", index)
+            break
+        }
+    }
+    // index: 2
+}
+
+```
+
+## 切片的复制 copy
+
+浅拷贝
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    var s1 = []int{1, 2, 3, 4, 5}
+
+    // 浅拷贝，地址引用，指向同一个对象
+    var s2 = s1
+
+    s2[0] = 6
+
+    fmt.Printf("s1: %v\n", s1)
+    // s1: [6 2 3 4 5]
+
+    fmt.Printf("s2: %v\n", s2)
+    // s2: [6 2 3 4 5]
+
+}
+
+```
+
+深拷贝
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    var s1 = []int{1, 2, 3, 4, 5}
+
+    // copy目标容器，没有足够的空间接收数据
+    var s2 = []int{}
+    copy(s2, s1)
+
+    fmt.Printf("s2: %v\n", s2)
+    // s2: []
+
+    // copy目标容器，需要预先开辟足够的内存空间
+    var s3 = make([]int, len(s1))
+    copy(s3, s1)
+    s3[0] = 6
+
+    // s1没有被修改
+    fmt.Printf("s1: %v\n", s1)
+    // s1: [1 2 3 4 5]
+
+    // s3被修改了
+    fmt.Printf("s3: %v\n", s3)
+    // s3: [6 2 3 4 5]
+
+}
+
+```

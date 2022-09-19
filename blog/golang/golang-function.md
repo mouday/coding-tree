@@ -295,3 +295,259 @@ func main() {
 ```
 
 
+## 匿名函数
+
+语法格式
+
+```go
+// 没有函数名称
+func (参数列表)(返回值){
+    
+}
+```
+
+示例1
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    sum := func(a int, b int) int {
+        return a + b
+    }
+
+    ret := sum(1, 1)
+    fmt.Printf("%v", ret)
+    // 2
+}
+
+```
+
+示例2
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    ret := func(a int, b int) int {
+        return a + b
+    }(1, 1)
+
+    fmt.Printf("%v", ret)
+    // 2
+}
+
+```
+
+## 闭包
+
+闭包可以理解成：定义在一个函数内部的函数，本质上是将函数内部和函数外部连接起来的桥梁
+
+```
+闭包 = 函数 + 引用环境
+```
+
+示例1
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+// 返回一个函数
+func add() func(int) int {
+    var a int
+    return func(b int) int {
+        a += b
+        return a
+    }
+}
+
+func main() {
+    f := add()
+    fmt.Println(f(1)) // 1
+    fmt.Println(f(1)) // 2
+    fmt.Println(f(1)) // 3
+
+    f2 := add()
+    fmt.Println(f2(1)) // 1
+    fmt.Println(f2(1)) // 2
+    fmt.Println(f2(1)) // 3
+}
+
+```
+
+示例2
+```go
+package main
+
+import (
+    "fmt"
+    "strings"
+)
+
+// 返回一个函数
+func makeSuffixFunc(suffix string) func(string) string {
+    return func(name string) string {
+        if strings.HasSuffix(name, suffix) {
+            return name
+        } else {
+            return name + suffix
+        }
+    }
+}
+
+func main() {
+    txtFunc := makeSuffixFunc(".txt")
+    jpgFunc := makeSuffixFunc(".jpg")
+
+    fmt.Println(txtFunc("test")) // test.txt
+    fmt.Println(jpgFunc("test")) // test.jpg
+}
+
+```
+
+示例3
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+// 返回两个函数
+func calc(base int) (func(int) int, func(int) int) {
+
+    add := func(i int) int {
+        return base + i
+    }
+
+    sub := func(i int) int {
+        return base - i
+    }
+
+    return add, sub
+}
+
+func main() {
+    f1, f2 := calc(10)
+    fmt.Println(f1(1), f2(2))
+    // 11 8
+}
+
+```
+
+## 递归
+
+递归函数：函数内部调用函数自身的函数
+
+递归函数特点
+
+- 递归就是自己调用自己
+- 必须定义退出条件，否则就会成为死循环
+- 递归很可能会出现栈空间内存溢出
+
+示例：阶乘
+
+for循环实现
+
+```go
+package main
+
+import "fmt"
+
+// 阶乘
+func foo(n int) int {
+    ret := 1
+    for i := 1; i <= n; i++ {
+        ret *= i
+    }
+
+    return ret
+}
+
+func main() {
+    // 5! = 5 x 4 x 3 x 2 x 1
+    ret := foo(5)
+    fmt.Println(ret)
+    // 120
+}
+
+```
+
+递归实现
+
+```go
+package main
+
+import "fmt"
+
+// 阶乘
+func foo(n int) int {
+    
+    if n == 1 {
+        // 退出条件
+        return 1
+    } else {
+        // 自己调用自己
+        return n * foo(n-1)
+    }
+}
+
+func main() {
+    // 5! = 5 x 4 x 3 x 2 x 1
+    ret := foo(5)
+    fmt.Println(ret)
+    // 120
+}
+
+```
+
+菲波那切数列
+
+计算公式
+
+```
+f(n) = f(n-1) + f(n-2) 
+且
+f(2) = f(1) = 1
+```
+
+代码实现
+
+```go
+package main
+
+import "fmt"
+
+// 菲波那切数列
+func foo(n int) int {
+    if n == 1 || n == 2 {
+        // 退出条件
+        return 1
+    } else {
+        // 递归表达式
+        return foo(n-1) + foo(n-2)
+    }
+}
+
+func main() {
+    // foo(5) = foo(4) + foo(3) = 3 + 2 = 5
+    // foo(4) = foo(3) + foo(2) = 2 + 1 = 3
+    // foo(3) = foo(2) + foo(1) = 1 + 1 = 2
+    // foo(2) = 1
+    // foo(1) = 1
+
+    ret := foo(5)
+    fmt.Println(ret)
+    // 5
+}
+
+```

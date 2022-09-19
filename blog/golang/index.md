@@ -12,7 +12,7 @@
 
 [第二章 Golang 环境安装](blog/golang/golang-install.md)
 
-[第三章 Golang 运行代码](blog/golang/golang-run.md)
+[第三章 Golang 运行代码](/blog/golang/golang-run.md)
 
 [第四章 Golang 项目管理](blog/golang/golang-project.md)
 
@@ -34,7 +34,12 @@
 
 [第十三章 Golang 切片 slice](/blog/golang/golang-slice.md)
 
+[第十四章 Golang map](/blog/golang/golang-map.md)
+
+[第十五章 Golang 函数](/blog/golang/golang-function.md)
+
 
 https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
-https://www.bilibili.com/video/BV1zR4y1t7Wj?p=35&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV1zR4y1t7Wj?p=42&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

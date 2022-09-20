@@ -551,3 +551,95 @@ func main() {
 }
 
 ```
+
+## defer语句
+
+defer语句后面的语句延迟处理，在defer归属的函数即将返回时，将延迟处理的语句按照defer定义的逆序进行执行
+
+也就是说，先定义的defer语句最后执行；后定义的defer语句，先执行
+
+defer特性
+
+- 关键字defer用于注册延迟调用
+- 这些调用知道return前才被执行，可以用来做资源清理
+- 多个defer语句，按照先进后出的顺序执行
+- defer语句中的变量，defer声明时就决定了
+
+defer用途
+
+- 关闭文件句柄
+- 锁资源释放
+- 数据库连接释放
+
+示例
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("start")
+
+    defer fmt.Println("defer1")
+    defer fmt.Println("defer2")
+    defer fmt.Println("defer3")
+
+    fmt.Println("end")
+
+    // start
+    // end
+    // defer3
+    // defer2
+    // defer1
+}
+
+```
+
+## init函数
+
+init函数是特殊函数，会先于main函数执行，实现包级别的`初始化操作`
+
+init函数特点
+
+- init函数先于main函数`自动执行`，不能被其他函数调用
+- init函数没有输入参数，没有返回值
+- 每个包可以有多个init函数
+- 包的每个源文件也可以有多个init函数
+- 同一个包的init执行顺序，golang没有明确意义
+- 不同胞的init函数按照包导入的依赖关系决定执行顺序
+
+
+golang初始化顺序
+
+```
+变量初始化 -> init() -> main()
+```
+
+示例
+
+```go
+package main
+
+import "fmt"
+
+var i int = initVar()
+
+func initVar() int {
+    fmt.Println("initVar")
+    return 100
+}
+
+func init() {
+    fmt.Println("init")
+}
+
+func main() {
+    fmt.Println("main")
+}
+
+// initVar
+// init
+// main
+
+```

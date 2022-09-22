@@ -360,6 +360,7 @@ func main() {
     var person = new(Person)
 
     // 访问结构体指针成员，可以省略*
+    // 自动解引用
     (*person).age = 23
     person.id = 12
     person.name = "Tom"
@@ -459,4 +460,168 @@ func main() {
     // {12 Jakc}
 }
 
+```
+## 结构体的嵌套
+
+示例
+
+```go
+package main
+
+import "fmt"
+
+type Dog struct {
+    age  int
+    name string
+}
+
+type Person struct {
+    age  int
+    name string
+    dog  Dog
+}
+
+func main() {
+    dog := Dog{
+        age:  1,
+        name: "dog",
+    }
+
+    person := Person{
+        dog:  dog,
+        age:  11,
+        name: "Tom",
+    }
+
+    fmt.Printf("%v\n", person)
+    // {11 Tom {1 dog}}
+
+    fmt.Printf("%v\n", person.dog.name)
+    // dog
+}
+
+
+```
+
+## 方法
+
+golang中，方法是一种特殊的函数
+
+定义与struct之上（与struct关联、绑定），被称为struct的接受者（receiver）
+
+通俗讲，方法就是有接收者的函数
+
+语法格式
+
+```go
+type struct_name struct{}
+
+func (recv struct_name) method_name(param_type) return_type{}
+
+func (recv *struct_name) method_name(param_type) return_type{}
+```
+
+
+
+```go
+package main
+
+import "fmt"
+
+// 属性和方法分开写
+type Person struct {
+    age  int
+    name string
+}
+
+// Person 接收者 receiver
+func (person Person) eat() {
+    fmt.Printf("%v eat\n", person.name)
+}
+
+func (person Person) sleep() {
+    fmt.Printf("%v sleep\n", person.name)
+}
+
+func main() {
+
+    person := Person{
+        age:  11,
+        name: "Tom",
+    }
+
+    person.eat()
+    // Tom eat
+
+    person.sleep()
+    // Tom sleep
+}
+
+```
+
+go语言方法的注意事项
+
+- 方法的receiver type可以是类型别名、struct、slice、map、channel、func等
+- struct结合它的方法等价于面向对象中的类，只不过struct可以和它的方法分开写，并非一定要属于同一个文件，但是，必须属于同一个包
+- 方法有两种接收类型`(T type)` 和 `(T *Type)`，它们之间有区别
+- 方法就是函数，所有Go中没有方法重载overload的说法，也就是说同一个类型中的所有方法名必须唯一
+- 如果receiver是一个指针类型，则会自动解除引用
+- 方法和type是分开的，意味着实例的行为behavior和数据存储field是分开的，但它们通过receiver建立起关联关系
+
+## 方法接收者类型
+
+- 值类型：复制结构体副本
+- 指针类型：不复制
+
+```go
+package main
+
+import "fmt"
+
+// Person 接收者 receiver
+type Person struct {
+    age  int
+    name string
+}
+
+// 值传递，拷贝了一份副本
+func (person Person) showPersonByValue() {
+    person.age = 12
+    person.name = "Jack"
+
+    fmt.Printf("%v\n", person)
+}
+
+// 指针传递
+func (person *Person) showPersonByPointer() {
+    person.age = 12
+    person.name = "Jack"
+
+    fmt.Printf("%v\n", person)
+}
+
+func main() {
+
+    person := Person{
+        age:  11,
+        name: "Tom",
+    }
+
+    fmt.Printf("%v\n", person)
+    // {11 Tom}
+
+    // 接收者类型是变量，值没有被修改
+    person.showPersonByValue()
+    // {12 Jack}
+
+    fmt.Printf("%v\n", person)
+    // {11 Tom}
+
+    // 接收者类型是指针，值被修改
+    person.showPersonByPointer()
+    // &{12 Jack}
+
+    fmt.Printf("%v\n", person)
+    // {12 Jack}
+}
 ```

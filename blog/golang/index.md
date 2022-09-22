@@ -42,9 +42,10 @@
 
 [第十七章 Golang 结构体 struct](/blog/golang/golang-struct.md)
 
+[第十八章 Golang接口 interface](/blog/golang/golang-interface.md)
+
 
 https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 
-
-https://www.bilibili.com/video/BV1zR4y1t7Wj/?p=54&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1zR4y1t7Wj/?p=58&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -16,15 +16,15 @@
 
 [第四章 Golang 项目管理](/blog/golang/golang-project.md)
 
-[第五章 Golang标识符、关键字、命名规则](blog/golang/golang-identifier.md)
+[第五章 Golang标识符、关键字、命名规则](/blog/golang/golang-identifier.md)
 
-[第六章 Golang变量](blog/golang/golang-variable.md)
+[第六章 Golang变量](/blog/golang/golang-variable.md)
 
-[第七章 Golang 常量](blog/golang/golang-constant.md)
+[第七章 Golang 常量](/blog/golang/golang-constant.md)
 
-[第八章 Golang 数据类型](blog/golang/golang-type.md)
+[第八章 Golang 数据类型](/blog/golang/golang-type.md)
 
-[第九章 Golang 格式化输出](blog/golang/golang-format.md)
+[第九章 Golang 格式化输出](/blog/golang/golang-format.md)
 
 [第十章 Golang 运算符](/blog/golang/golang-operator.md)
 
@@ -46,7 +46,10 @@
 
 [第十九章 Golang包 package](/blog/golang/golang-package.md)
 
+[第二十章 golang 并发编程](/blog/golang/golang-concurrency.md)
+
 
 https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
-https://www.bilibili.com/video/BV1zR4y1t7Wj?p=67&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV1zR4y1t7Wj/?p=68&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

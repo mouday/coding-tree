@@ -13,6 +13,10 @@
 
 4. 商户证书
     - 微信商户平台：https://pay.weixin.qq.com/
+    - 文档：https://kf.qq.com/faq/161222NneAJf161222U7fARv.html
+    - 下载证书工具：
+        - windows版本 ：https://wx.gtimg.com/mch/files/WXCertUtil.exe
+        - mac版本 ：https://wx.gtimg.com/mch/files/WXCertUtil.dmg
 
 5. 微信平台证书
     - Java命令行下载工具： https://github.com/wechatpay-apiv3/CertificateDownloader

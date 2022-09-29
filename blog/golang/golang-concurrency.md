@@ -544,3 +544,252 @@ func main() {
 
 ```
 
+
+## golang并发编程之Channel遍历
+
+示例
+
+```go
+package main
+
+import "fmt"
+
+var c = make(chan int)
+
+func main() {
+	go func() {
+		for i := 0; i < 2; i++ {
+			c <- i
+		}
+		// 不关闭可能出现死锁
+		close(c)
+	}()
+
+	// 方式一
+	// for i := 0; i < 2; i++ {
+	// 	v := <-c
+	// 	fmt.Printf("v: %v\n", v)
+	// }
+
+	// 方式二
+	// for v := range c {
+	// 	fmt.Printf("v: %v\n", v)
+	// }
+
+	// 方式三
+	for {
+		v, ok := <-c
+		if ok {
+			fmt.Printf("v: %v\n", v)
+		} else {
+			break
+		}
+	}
+}
+
+```
+
+## golang并发编程之select switch
+
+select 是go中的一个控制结构，类似于switch语句，用于处理异步IO操作
+
+select 会监听case语句中channel的读写操作，当case中channel读写操作为非阻塞状态（即能读写）时，将会触发相应的动作
+
+sekect 中的case语句必须是一个channel操作
+
+select 中的default子句总是可运行的
+
+如果有多个case都可以运行，select会`随机`公平地选出一个执行，其他不会执行
+
+如果没有可运行的case语句，且有default语句，那么就会执行default语句
+
+如果没有可运行的case语句，且没有default语句，select将`阻塞`，知道某个case通信可以运行
+
+示例
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+var chanInt = make(chan int)
+var chanString = make(chan string)
+
+func main() {
+    go func() {
+        chanInt <- 10
+        chanString <- "Tom"
+        defer close(chanInt)
+        defer close(chanString)
+    }()
+
+    for {
+        select {
+        case i := <-chanInt:
+            fmt.Printf("int: %v\n", i)
+        case i := <-chanString:
+            fmt.Printf("string: %v\n", i)
+        default:
+            fmt.Println("default")
+
+        }
+
+        time.Sleep(time.Second)
+    }
+}
+
+```
+
+## golang并发编程之Timer
+
+定时器，可以实现一些定时操作，内部通过channel实现
+
+示例
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    timer := time.NewTimer(time.Second * 2)
+    fmt.Printf("time.Now(): %v\n", time.Now())
+    // time.Now(): 2022-09-29 22:31:16.348683 +0800 CST m=+0.000252176
+
+    // 阻塞，直到到达指定时间
+    c := <-timer.C
+    fmt.Printf("c: %v\n", c)
+    // c: 2022-09-29 22:31:18.35269 +0800 CST m=+2.004256507
+}
+
+```
+
+示例
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    timer := time.NewTimer(time.Second * 2)
+    fmt.Printf("time.Now(): %v\n", time.Now())
+    // time.Now(): 2022-09-29 22:32:25.585226 +0800 CST m=+0.000134248
+
+    // 阻塞，直到到达指定时间
+    <-timer.C
+    fmt.Printf("time.Now(): %v\n", time.Now())
+    // time.Now(): 2022-09-29 22:32:27.585439 +0800 CST m=+2.000219266
+}
+
+```
+
+示例
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+
+    fmt.Printf("time.Now(): %v\n", time.Now())
+    // time.Now(): 2022-09-29 22:34:08.764178 +0800 CST m=+0.000082405
+
+    time.Sleep(time.Second * 2)
+
+    fmt.Printf("time.Now(): %v\n", time.Now())
+    // time.Now(): 2022-09-29 22:34:10.765022 +0800 CST m=+2.000924537
+}
+
+```
+
+示例
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+
+    fmt.Printf("time.Now(): %v\n", time.Now())
+    // time.Now(): 2022-09-29 22:34:41.029391 +0800 CST m=+0.000077713
+
+    <-time.After(time.Second * 2)
+
+    fmt.Printf("time.Now(): %v\n", time.Now())
+    // time.Now(): 2022-09-29 22:34:43.031081 +0800 CST m=+2.001766091
+}
+
+```
+
+示例
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    timer := time.NewTimer(time.Second * 1)
+
+    go func() {
+        <-timer.C
+        fmt.Println("func")
+    }()
+
+    // 停止定时器
+    stop := timer.Stop()
+
+    if stop {
+        fmt.Println("stop")
+    }
+
+    time.Sleep(time.Second * 2)
+
+}
+
+```
+
+示例
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    timer := time.NewTimer(time.Second * 5)
+
+    // 重新设置定时器时间
+    timer.Reset(time.Second * 1)
+
+    <-timer.C
+
+    fmt.Println("end")
+
+}
+
+```
+

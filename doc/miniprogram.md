@@ -8,6 +8,8 @@
 
 [稀土掘金-微信小程序](https://juejin.cn/tag/微信小程序)
 
+[kbone](https://wechat-miniprogram.github.io/kbone/docs/) 一个致力于微信小程序和 Web 端同构的解决方案。
+
 ## 开发资源
 
 [Vant Weapp](https://vant-contrib.gitee.io/vant-weapp/): 有赞前端团队开源,轻量、可靠的小程序 UI 组件库
@@ -22,7 +24,7 @@
 
 [echarts-map](https://github.com/mouday/echarts-map) 包含 echarts 用到的 map 地图文件
 
-[uni-app](https://uniapp.dcloud.io/) 是一个使用 Vue.js (opens new window)开发所有前端应用的框架，开发者编写一套代码，可发布到iOS、Android、Web（响应式）、以及各种小程序（微信/支付宝/百度/头条/飞书/QQ/快手/钉钉/淘宝）、快应用等多个平台。
+[uni-app](https://uniapp.dcloud.io/) | [github](https://github.com/dcloudio/uni-app) 一个使用 Vue.js 开发小程序、H5、App的统一前端框架
 
 [uView UI](https://www.uviewui.com/): 是全面兼容nvue的uni-app生态框架，全面的组件和便捷的工具会让您信手拈来，如鱼得水
 

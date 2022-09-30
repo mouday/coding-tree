@@ -1,6 +1,6 @@
 # 第二十章 golang 并发编程
 
-## golang 并发编程之协程
+## 协程
 
 共语言中的并发是`函数`相互独立运行的能力。goroutines 是并发运行的函数
 
@@ -128,7 +128,7 @@ step3:  https://www.taobao.com/
 step4:  87347
 ```
 
-## golang并发编程之channel
+## channel
 
 Go提供了一种通道机制，用于goroutine之间`共享数据`
 
@@ -206,7 +206,7 @@ func main() {
 
 ```
 
-## golang并发编程之WaitGroup实现同步
+## WaitGroup实现同步
 
 示例1
 
@@ -321,11 +321,11 @@ i: 6
 end
 ```
 
-## golang并发编程之runtime包
+## runtime包
 
 runtime定义了协程管理的包
 
-## Gosched
+### Gosched
 
 让出执行权限
 
@@ -487,7 +487,7 @@ func main() {
 
 ```
 
-## golang并发编程之Mutex 互斥锁实现同步
+## Mutex 互斥锁实现同步
 
 示例
 
@@ -545,7 +545,7 @@ func main() {
 ```
 
 
-## golang并发编程之Channel遍历
+## Channel遍历
 
 示例
 
@@ -589,7 +589,7 @@ func main() {
 
 ```
 
-## golang并发编程之select switch
+## select switch
 
 select 是go中的一个控制结构，类似于switch语句，用于处理异步IO操作
 
@@ -643,7 +643,7 @@ func main() {
 
 ```
 
-## golang并发编程之Timer
+## Timer
 
 定时器，可以实现一些定时操作，内部通过channel实现
 

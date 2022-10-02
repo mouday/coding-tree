@@ -36,9 +36,9 @@
 
 [第十四章 Golang map](/blog/golang/golang-map.md)
 
-[第十五章 Golang 函数](/blog/golang/golang-function.md)
+[第十五章 Golang 函数 func](/blog/golang/golang-function.md)
 
-[第十六章 Golang 指针](/blog/golang/golang-pointer.md)
+[第十六章 Golang 指针 pointer ](/blog/golang/golang-pointer.md)
 
 [第十七章 Golang 结构体 struct](/blog/golang/golang-struct.md)
 
@@ -46,11 +46,12 @@
 
 [第十九章 Golang包 package](/blog/golang/golang-package.md)
 
-[第二十章 golang 并发编程](/blog/golang/golang-concurrency.md)
+[第二十章 Golang 并发编程](/blog/golang/golang-concurrency.md)
+
+[第二十一章 Golang标准库](/blog/golang/golang-standard.md)
 
 
 https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 
-
-https://www.bilibili.com/video/BV1zR4y1t7Wj/?p=75&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1zR4y1t7Wj/?p=78&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

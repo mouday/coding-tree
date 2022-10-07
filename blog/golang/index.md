@@ -56,8 +56,10 @@
 - [Golang标准库-bufio](/blog/golang/golang-standard-bufio.md)
 - [Golang标准库-log](/blog/golang/golang-standard-log.md)
 - [Golang标准库-builtin](/blog/golang/golang-standard-builtin.md)
+- [Golang标准库-bytes](/blog/golang/golang-standard-bytes.md)
+- [Golang标准库-errors](/blog/golang/golang-standard-errors.md)
 
 https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 
-https://www.bilibili.com/video/BV1zR4y1t7Wj?p=89&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1zR4y1t7Wj?p=93&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

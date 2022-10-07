@@ -48,10 +48,16 @@
 
 [第二十章 Golang 并发编程](/blog/golang/golang-concurrency.md)
 
-[第二十一章 Golang标准库](/blog/golang/golang-standard.md)
+第二十一章 Golang标准库
 
+- [Golang标准库-os](/blog/golang/golang-standard-os.md)
+- [Golang标准库-io输入输出](/blog/golang/golang-standard-io.md)
+- [Golang标准库-ioutil](/blog/golang/golang-standard-ioutil.md)
+- [Golang标准库-bufio](/blog/golang/golang-standard-bufio.md)
+- [Golang标准库-log](/blog/golang/golang-standard-log.md)
+- [Golang标准库-builtin](/blog/golang/golang-standard-builtin.md)
 
 https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 
-https://www.bilibili.com/video/BV1zR4y1t7Wj?p=84&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1zR4y1t7Wj?p=89&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

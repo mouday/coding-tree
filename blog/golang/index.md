@@ -69,9 +69,10 @@
 - [Golang标准库-bytes](/blog/golang/golang-standard-bytes.md)
 - [Golang标准库-errors](/blog/golang/golang-standard-errors.md)
 - [Golang标准库-sort](/blog/golang/golang-standard-sort.md)
+- [Golang标准库-time](/blog/golang/golang-standard-time.md)
 
 https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 
 
-https://www.bilibili.com/video/BV1zR4y1t7Wj/?p=95&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1zR4y1t7Wj/?p=96&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

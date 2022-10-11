@@ -8,45 +8,51 @@
 
 ## 目录
 
-[第一章 Golang 概述](blog/golang/golang-start.md)
+第一章 语言基础
 
-[第二章 Golang 环境安装](blog/golang/golang-install.md)
+- [1.1、Golang 概述](/blog/golang/golang-start.md)
 
-[第三章 Golang 运行代码](/blog/golang/golang-run.md)
+- [1.2、Golang 环境安装](/blog/golang/golang-install.md)
 
-[第四章 Golang 项目管理](/blog/golang/golang-project.md)
+- [1.3、Golang 运行代码](/blog/golang/golang-run.md)
 
-[第五章 Golang标识符、关键字、命名规则](/blog/golang/golang-identifier.md)
+- [1.4、Golang 项目管理](/blog/golang/golang-project.md)
 
-[第六章 Golang变量](/blog/golang/golang-variable.md)
+第二章 基本语法
 
-[第七章 Golang 常量](/blog/golang/golang-constant.md)
+- [第五章 Golang标识符、关键字、命名规则](/blog/golang/golang-identifier.md)
 
-[第八章 Golang 数据类型](/blog/golang/golang-type.md)
+- [第六章 Golang变量](/blog/golang/golang-variable.md)
 
-[第九章 Golang 格式化输出](/blog/golang/golang-format.md)
+- [第七章 Golang 常量](/blog/golang/golang-constant.md)
 
-[第十章 Golang 运算符](/blog/golang/golang-operator.md)
+- [第八章 Golang 数据类型](/blog/golang/golang-type.md)
 
-[第十一章 Golang 流程控制](/blog/golang/golang-process.md)
+- [第九章 Golang 格式化输出](/blog/golang/golang-format.md)
 
-[第十二章 Golang 数组 array](/blog/golang/golang-array.md)
+- [第十章 Golang 运算符](/blog/golang/golang-operator.md)
 
-[第十三章 Golang 切片 slice](/blog/golang/golang-slice.md)
+- [第十一章 Golang 流程控制](/blog/golang/golang-process.md)
 
-[第十四章 Golang map](/blog/golang/golang-map.md)
+第三章 数据结构
 
-[第十五章 Golang 函数 func](/blog/golang/golang-function.md)
+- [第十二章 Golang 数组 array](/blog/golang/golang-array.md)
 
-[第十六章 Golang 指针 pointer ](/blog/golang/golang-pointer.md)
+- [第十三章 Golang 切片 slice](/blog/golang/golang-slice.md)
 
-[第十七章 Golang 结构体 struct](/blog/golang/golang-struct.md)
+- [第十四章 Golang map](/blog/golang/golang-map.md)
 
-[第十八章 Golang接口 interface](/blog/golang/golang-interface.md)
+- [第十五章 Golang 函数 func](/blog/golang/golang-function.md)
 
-[第十九章 Golang包 package](/blog/golang/golang-package.md)
+- [第十六章 Golang 指针 pointer ](/blog/golang/golang-pointer.md)
 
-第二十章 Golang 并发编程
+- [第十七章 Golang 结构体 struct](/blog/golang/golang-struct.md)
+
+- [第十八章 Golang接口 interface](/blog/golang/golang-interface.md)
+
+- [第十九章 Golang包 package](/blog/golang/golang-package.md)
+
+第四章 Golang 并发编程
 
 - [Golang 并发编程-协程](/blog/golang/golang-concurrency-goroutines.md)
 - [Golang 并发编程-channel](/blog/golang/golang-concurrency-channel.md)
@@ -58,7 +64,7 @@
 - [Golang 并发编程-Timer定时器](/blog/golang/golang-concurrency-Timer.md)
 - [Golang 并发编程-Ticker 周期执行](/blog/golang/golang-concurrency-Ticker.md)
 
-第二十一章 Golang标准库
+第五章 Golang标准库
 
 - [Golang标准库-os](/blog/golang/golang-standard-os.md)
 - [Golang标准库-io输入输出](/blog/golang/golang-standard-io.md)
@@ -72,8 +78,15 @@
 - [Golang标准库-time](/blog/golang/golang-standard-time.md)
 - [Golang标准库-json](/blog/golang/golang-standard-json.md)
 - [Golang标准库-xml](/blog/golang/golang-standard-xml.md)
+- [Golang标准库-math](/blog/golang/golang-standard-math.md)
+
+[Golang操作MySQL数据库](/blog/golang/golang-mysql.md)
+
+第六章 MySQL数据库
+
 
 https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 
-https://www.bilibili.com/video/BV1zR4y1t7Wj/?p=98&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV1zR4y1t7Wj/?p=103&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

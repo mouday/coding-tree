@@ -1,4 +1,4 @@
-# Golang标准库-log
+# 5.5、Golang标准库-log
 
 log包，实现了简单的日志服务
 

@@ -1,4 +1,4 @@
-# 第十七章 Golang 结构体 struct
+# 3.6、Golang 结构体 struct
 
 ## 类型定义和类型别名
 

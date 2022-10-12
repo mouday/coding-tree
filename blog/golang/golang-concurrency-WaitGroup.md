@@ -1,4 +1,4 @@
-# Golang 并发编程-WaitGroup实现同步
+# 4.3、Golang 并发编程-WaitGroup实现同步
 
 示例1
 

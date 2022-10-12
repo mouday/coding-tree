@@ -1,4 +1,4 @@
-# 第十三章 Golang 切片 slice
+# 3.2、Golang 切片 slice
 
 切片：可变长度的数组
 

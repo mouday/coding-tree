@@ -1,4 +1,4 @@
-# Golang 并发编程-Ticker 周期执行
+# 4.9、Golang 并发编程-Ticker 周期执行
 
 Timer 只执行一次，Ticker 可以周期的执行
 

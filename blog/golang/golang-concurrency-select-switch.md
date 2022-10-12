@@ -1,4 +1,4 @@
-# Golang 并发编程-select switch
+# 4.7、Golang 并发编程-select switch
 
 select 是go中的一个控制结构，类似于switch语句，用于处理异步IO操作
 

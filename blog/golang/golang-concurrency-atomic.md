@@ -1,4 +1,4 @@
-# Golang 并发编程-atomic原子操作
+# 4.6、Golang 并发编程-atomic原子操作
 
 ## 原子变量
 

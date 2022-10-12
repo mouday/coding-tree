@@ -1,4 +1,4 @@
-# Golang 标准库-bytes
+# 5.7、Golang 标准库-bytes
 
 bytes 包提供了对字节切片进行读写操作的一系列函数
 

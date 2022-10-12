@@ -1,4 +1,4 @@
-# 第十九章 Golang包 package
+# 3.8、Golang包 package
 
 ## Golang 包的定义和导入
 

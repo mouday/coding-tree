@@ -1,4 +1,4 @@
-# Golang 标准库-math
+# 5.13、Golang 标准库-math
 
 math 包提供了一些常量和一些有用的数学计算函数
 

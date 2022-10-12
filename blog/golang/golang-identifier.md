@@ -1,4 +1,4 @@
-# 第五章 Golang标识符、关键字、命名规则
+# 2.1、Golang标识符、关键字、命名规则
 
 标识符 identifier
 

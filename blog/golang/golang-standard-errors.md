@@ -1,4 +1,4 @@
-# Golang 标准库-errors
+# 5.8、Golang 标准库-errors
 
 errors包实现了操作错误的函数
 

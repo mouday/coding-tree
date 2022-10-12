@@ -1,4 +1,4 @@
-# Golang 并发编程-Timer定时器
+# 4.8、Golang 并发编程-Timer定时器
 
 定时器，可以实现一些定时操作，内部通过 channel 实现
 

@@ -1,4 +1,4 @@
-# Golang 并发编程-channel
+# 4.2、Golang 并发编程-channel
 
 Go 提供了一种通道机制，用于 goroutine 之间`共享数据`
 

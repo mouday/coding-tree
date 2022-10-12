@@ -1,4 +1,4 @@
-# Golang 并发编程-Mutex 互斥锁实现同步
+# 4.5、Golang 并发编程-Mutex 互斥锁实现同步
 
 Mutex 互斥锁实现同步
 

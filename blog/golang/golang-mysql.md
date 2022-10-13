@@ -138,3 +138,157 @@ func main() {
 
 ```
 
+
+## 查询操作
+
+单行查询
+
+```go
+package main
+
+import (
+    "database/sql"
+    "fmt"
+
+    _ "github.com/go-sql-driver/mysql"
+)
+
+type User struct {
+    id       int
+    username string
+    password string
+}
+
+func main() {
+    db_url := "root:123456@tcp(127.0.0.1:3306)/go_db?charset=utf8mb4&parseTime=true"
+
+    db, _ := sql.Open("mysql", db_url)
+    defer db.Close()
+
+    // 查询单条数据
+    var user User
+
+    sql := "select * from user_tbl where id = ?"
+
+    db.QueryRow(sql, 1).Scan(&user.id, &user.username, &user.password)
+    fmt.Printf("row: %v\n", user)
+    // row: {1 Tom 123456}
+}
+
+```
+
+查询多条数据
+
+```go
+package main
+
+import (
+    "database/sql"
+    "fmt"
+
+    _ "github.com/go-sql-driver/mysql"
+)
+
+type User struct {
+    id       int
+    username string
+    password string
+}
+
+func main() {
+    db_url := "root:123456@tcp(127.0.0.1:3306)/go_db?charset=utf8mb4&parseTime=true"
+
+    db, _ := sql.Open("mysql", db_url)
+    defer db.Close()
+
+    sql := "select * from user_tbl"
+
+    rows, _ := db.Query(sql)
+    defer rows.Close()
+
+    for rows.Next() {
+        var user User
+
+        rows.Scan(&user.id, &user.username, &user.password)
+        fmt.Printf("row: %v\n", user)
+        // row: {1 Tom 123456}
+        // row: {2 Kite abcdef}
+        // row: {3 Jack jjyy}
+    }
+
+}
+
+```
+
+## 更新操作
+
+```go
+package main
+
+import (
+    "database/sql"
+    "fmt"
+
+    _ "github.com/go-sql-driver/mysql"
+)
+
+type User struct {
+    id       int
+    username string
+    password string
+}
+
+func main() {
+    db_url := "root:123456@tcp(127.0.0.1:3306)/go_db?charset=utf8mb4&parseTime=true"
+
+    db, _ := sql.Open("mysql", db_url)
+    defer db.Close()
+
+    // 更新数据
+    sql := "update user_tbl set username = ? where id = ?"
+    result, _ := db.Exec(sql, "Tom-1", 1)
+
+    // 影响行数
+    i, _ := result.RowsAffected()
+    fmt.Printf("i: %v\n", i)
+    // i: 1
+}
+
+```
+
+## 删除数据
+
+```go
+package main
+
+import (
+    "database/sql"
+    "fmt"
+
+    _ "github.com/go-sql-driver/mysql"
+)
+
+type User struct {
+    id       int
+    username string
+    password string
+}
+
+func main() {
+    db_url := "root:123456@tcp(127.0.0.1:3306)/go_db?charset=utf8mb4&parseTime=true"
+
+    db, _ := sql.Open("mysql", db_url)
+    defer db.Close()
+
+    // 删除数据
+    sql := "delete from user_tbl where id = ?"
+    result, _ := db.Exec(sql, 3)
+
+    // 影响行数
+    i, _ := result.RowsAffected()
+    fmt.Printf("i: %v\n", i)
+    // i: 1
+}
+
+```
+

@@ -100,13 +100,17 @@
 
 - [5.13、Golang标准库-math](/blog/golang/golang-standard-math.md)
 
-[Golang操作MySQL数据库](/blog/golang/golang-mysql.md)
 
-第六章 MySQL数据库
+### 第六章 Golang操作数据库
+
+- [Golang操作MySQL数据库](/blog/golang/golang-mysql.md)
+
+- [Golang操作MongoDB数据库](/blog/golang/golang-mongo.md)
+
+
 
 
 https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 
-
-https://www.bilibili.com/video/BV1zR4y1t7Wj/?p=103&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1zR4y1t7Wj/?p=109&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

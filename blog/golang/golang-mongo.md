@@ -175,3 +175,130 @@ func main() {
 }
 
 ```
+
+## 查找文档
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "time"
+
+    "go.mongodb.org/mongo-driver/bson"
+    "go.mongodb.org/mongo-driver/mongo"
+    "go.mongodb.org/mongo-driver/mongo/options"
+)
+
+func main() {
+
+    ctx, cancel := context.WithTimeout(context.Background(), time.Second*30)
+    defer cancel()
+
+    // 连接到mongo
+    db_url := "mongodb://localhost:27017"
+    clientOptions := options.Client().ApplyURI(db_url)
+    client, _ := mongo.Connect(ctx, clientOptions)
+    defer client.Disconnect(ctx)
+
+    // 查询数据
+    collection := client.Database("go_db").Collection("student")
+
+    // 查询所有
+    // cursor, _ := collection.Find(ctx, bson.D{})
+    // 增加查询条件 name = "Tom"
+    cursor, _ := collection.Find(ctx, bson.D{{"name", "Tom"}})
+    defer cursor.Close(ctx)
+
+    // 遍历查询结果
+    for cursor.Next(ctx) {
+        var result bson.D
+        cursor.Decode(&result)
+        fmt.Printf("result: %v\n", result)
+        // result: [{_id ObjectID("634822c35881b85ab2aa138e")} {name Tom} {age 23}]
+    }
+
+}
+
+```
+
+## 更新文档
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+
+    "go.mongodb.org/mongo-driver/bson"
+    "go.mongodb.org/mongo-driver/mongo"
+    "go.mongodb.org/mongo-driver/mongo/options"
+)
+
+
+func main() {
+
+    ctx := context.TODO()
+
+    // 连接到mongo
+    db_url := "mongodb://localhost:27017"
+    clientOptions := options.Client().ApplyURI(db_url)
+    client, _ := mongo.Connect(ctx, clientOptions)
+    defer client.Disconnect(ctx)
+
+    // 更新数据
+    collection := client.Database("go_db").Collection("student")
+
+    cursor, _ := collection.UpdateOne(ctx,
+        bson.D{{"name", "Tom"}},
+        bson.D{{"$set", bson.D{{"name", "Tom-1"}, {"age", 23}}}},
+    )
+
+    fmt.Printf("cursor.ModifiedCount: %v\n", cursor.ModifiedCount)
+    // cursor.ModifiedCount: 1
+
+}
+
+```
+
+## 删除数据
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+
+    "go.mongodb.org/mongo-driver/bson"
+    "go.mongodb.org/mongo-driver/mongo"
+    "go.mongodb.org/mongo-driver/mongo/options"
+)
+
+
+
+func main() {
+
+    ctx := context.TODO()
+
+    // 连接到mongo
+    db_url := "mongodb://localhost:27017"
+    clientOptions := options.Client().ApplyURI(db_url)
+    client, _ := mongo.Connect(ctx, clientOptions)
+    defer client.Disconnect(ctx)
+
+    // 删除数据
+    collection := client.Database("go_db").Collection("student")
+
+    cursor, _ := collection.DeleteOne(ctx,
+        bson.D{{"name", "Tom"}},
+    )
+
+    fmt.Printf("cursor.DeletedCount: %v\n", cursor.DeletedCount)
+    // cursor.DeletedCount: 1
+
+}
+
+```

@@ -107,6 +107,8 @@
 
 - [Golang操作MongoDB数据库](/blog/golang/golang-mongo.md)
 
+- [Golang ORM库 gorm](/blog/golang/golang-gorm.md)
+
 
 
 
@@ -114,4 +116,4 @@ https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_sourc
 
 
 
-https://www.bilibili.com/video/BV1zR4y1t7Wj?p=112&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1zR4y1t7Wj?p=113&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

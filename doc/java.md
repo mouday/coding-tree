@@ -2,6 +2,8 @@
 
 ## 在线文档
 
+[鱼皮编程学习路线](https://luxian.yupi.icu/)
+
 Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjavaer.com/)
 
 [毕向东—Java 基础知识总结（超级经典）](https://www.cnblogs.com/In-order-to-tomorrow/p/3652315.html)

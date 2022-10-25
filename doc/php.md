@@ -67,3 +67,7 @@ Composer: A Dependency Manager for PHP
 - [https://github.com/ziadoz/awesome-php](https://github.com/ziadoz/awesome-php)
 - [https://github.com/jingwentian/awesome-php](https://github.com/jingwentian/awesome-php)
 - [https://github.com/shockerli/php-awesome/](https://github.com/shockerli/php-awesome/)
+
+## 开源库
+
+screw-plus [github](https://github.com/del-xiong/screw-plus) 开源php加密运行扩展，基于screw二次开发，暂时只能在linux下运行

@@ -79,3 +79,5 @@ golang-jwt/jwt [pkg](https://pkg.go.dev/github.com/golang-jwt/jwt/v4) | [github]
 robfig/cron [pkg](https://pkg.go.dev/github.com/robfig/cron/v3) | [github](https://github.com/robfig/cron) ![](https://img.shields.io/github/stars/robfig/cron.svg?style=social) 执行定时任务
 
 flosch/pongo2 [pkg](https://pkg.go.dev/github.com/flosch/pongo2/v6) | [github](https://github.com/flosch/pongo2) ![](https://img.shields.io/github/stars/flosch/pongo2.svg?style=social) 一种类似于Django语法的模板语言
+
+gocron [github](https://github.com/ouqiang/gocron) 定时任务管理系统

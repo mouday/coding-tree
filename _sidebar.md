@@ -38,3 +38,4 @@
   - [其他](doc/index.md)
   - [chrome](doc/chrome.md)
   - [微信支付](blog/pay/weixin-pay.md)
+  - [jetbrains全家桶激活](/doc/jetbrains.md)

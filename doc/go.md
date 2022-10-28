@@ -40,6 +40,7 @@ awesome-go: [官网​](https://awesome-go.com) | [github](https://github.com/av
 
 Data Science Masters [官网](​http://datasciencemasters.org/​​) | [github](​https://github.com/datasciencemasters/go​) 开源项目带你学习数据科学的开源课程
 
+[李文周的博客](https://www.liwenzhou.com/) 总结Go语言学习之路，提供免费的Go语言学习教程
 
 ## 开源库
 

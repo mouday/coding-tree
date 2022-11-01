@@ -37,5 +37,6 @@
 - 其他
   - [其他](doc/index.md)
   - [chrome](doc/chrome.md)
+  - [Git](doc/git.md)
   - [微信支付](blog/pay/weixin-pay.md)
   - [jetbrains全家桶激活](/doc/jetbrains.md)

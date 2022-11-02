@@ -1,5 +1,17 @@
 # PHP
 
+[Laravel China 社区](https://learnku.com/laravel)
+
+[Laravel](https://laravel.com/) The PHP Framework
+for Web Artisans
+
+
+php-awesome
+
+- https://github.com/ziadoz/awesome-php
+- https://github.com/shockerli/php-awesome
+- https://github.com/jobbole/awesome-php-cn
+
 [笔记：黑马程序员PHP零基础入门到精通教程（P1基础6天）](blog/php-basic/index.md)
 
 [笔记：PHP 零基础入门到精通教程（P2 mysql 数据库 5 天）](blog/php-mysql/index.md)

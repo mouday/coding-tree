@@ -1,5 +1,7 @@
 # Python
 
+[The New Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
+
 ## 语言基础
 
 [Python 2.7.18 文档 » 标准库](https://docs.python.org/zh-cn/2/library/index.html)

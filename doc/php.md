@@ -5,6 +5,7 @@
 [Laravel](https://laravel.com/) The PHP Framework
 for Web Artisans
 
+[CentOS Linux环境下源码安装PHP](/blog/php-basic/install-php.md)
 
 php-awesome
 
@@ -83,3 +84,5 @@ Composer: A Dependency Manager for PHP
 ## 开源库
 
 screw-plus [github](https://github.com/del-xiong/screw-plus) 开源php加密运行扩展，基于screw二次开发，暂时只能在linux下运行
+
+phpdotenv [github](https://github.com/vlucas/phpdotenv) Loads environment variables from .env to getenv(), $_ENV and $_SERVER automagically.

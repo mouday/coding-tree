@@ -72,3 +72,32 @@ Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjava
 [尚硅谷【官网】Java培训](http://www.atguigu.com/)
 
 [Java 必须掌握的 20+ 种 Spring 常用注解](https://mp.weixin.qq.com/s/b8bKuoaJAgGdFx9nTaFpgg)
+
+
+实战视频课程
+
+Java项目《谷粒商城》Java架构师 | 微服务 | 大型电商项目
+https://www.bilibili.com/video/BV1np4y1C7Yf/
+
+
+黑马程序员Java项目实战《瑞吉外卖》，轻松掌握springboot + mybatisplus
+https://www.bilibili.com/video/BV13a411q753/
+
+
+尚硅谷Java微服务+分布式+全栈项目【尚医通】
+https://www.bilibili.com/video/BV1Bo4y117zV
+
+
+尚硅谷《尚融宝》Java微服务分布式金融项目
+https://www.bilibili.com/video/BV1VV411n7nR/
+
+
+黑马程序员Java项目SaaS移动办公完整版《iHRM 人力资源管理系统》
+https://www.bilibili.com/video/BV18A411L7UX/
+
+
+黑马程序员Java项目《传智健康》，完整的企业级医疗行业项目
+https://www.bilibili.com/video/BV1Bo4y117zV/
+
+黑马程序员Java项目《好客租房》，Java企业级解决方案（Spring全家桶+
+https://www.bilibili.com/video/BV1sZ4y1F7PD/

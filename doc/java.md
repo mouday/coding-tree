@@ -1,5 +1,7 @@
 # Java
 
+[《瑞吉外卖》项目学习笔记](https://mouday.github.io/reggie-doc/) | [github](https://github.com/mouday/reggie-doc)
+
 ## 在线文档
 
 [鱼皮编程学习路线](https://luxian.yupi.icu/)
@@ -12,7 +14,6 @@ Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjava
 
 [Spring Boot 学习/面试指南](https://snailclimb.gitee.io/springboot-guide/)
 
-
 [JavaGuide](https://snailclimb.gitee.io/javaguide/#/): 「Java学习+面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。
 
 [JavaGuide](https://javaguide.cn/) JavaGuide 在线阅读网站（新版，推荐👍）
@@ -23,7 +24,6 @@ Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjava
  - [http://www.cyc2018.xyz/](http://www.cyc2018.xyz/)
 
 [Java 教程 | 菜鸟教程](https://www.runoob.com/java/java-tutorial.html)
-
 
 ## 开源库
 
@@ -101,3 +101,7 @@ https://www.bilibili.com/video/BV1Bo4y117zV/
 
 黑马程序员Java项目《好客租房》，Java企业级解决方案（Spring全家桶+
 https://www.bilibili.com/video/BV1sZ4y1F7PD/
+
+
+Halo [ˈheɪloʊ]，一款现代化的开源博客/CMS系统，值得一试
+https://github.com/halo-dev/halo

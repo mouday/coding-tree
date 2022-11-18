@@ -48,6 +48,8 @@ Celery
 
 - [异步任务（Celery）详解 ](https://www.cnblogs.com/skyflask/p/9865378.html)
 
+[scrapy](https://scrapy.org/)  An open source and collaborative framework for extracting the data you need from websites.
+
 [scrapyd](https://scrapyd.readthedocs.io/en/stable/index.html)
 
 [apscheduler](https://apscheduler.readthedocs.io/en/latest/index.html)

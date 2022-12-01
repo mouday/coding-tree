@@ -41,6 +41,10 @@ search.maven [https://search.maven.org/](https://search.maven.org/)
 
 [Thymeleaf](https://www.thymeleaf.org/) a modern server-side Java template engine for both web and standalone environments.
 
+[Project Lombok](https://www.projectlombok.org/)
+
+P6Spy [github](https://github.com/p6spy/p6spy)is a framework that enables database data to be seamlessly intercepted and logged with no code changes to the application.
+
 - [Thymeleaf 入门到吃灰 ](https://www.cnblogs.com/msi-chen/p/10974009.html)
 
 - [在 html 中使用 thymeleaf 编写通用模块](https://www.cnblogs.com/miaoying/p/7804351.html)

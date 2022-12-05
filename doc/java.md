@@ -53,6 +53,8 @@ P6Spy [github](https://github.com/p6spy/p6spy)is a framework that enables databa
 
 [JavaLite](https://javalite.io/) - Java, light as a feather
 
+[MyBatis](https://mybatis.org/mybatis-3/zh/index.html) 一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射
+
 [MyBatis-Plus](https://baomidou.com/): （简称 MP）是一个 MyBatis (opens new window)的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。
 
 [MyBatis 工具](https://mybatis.io/): 分页插件 PageHelper、通用 Mapper

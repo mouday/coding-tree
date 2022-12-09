@@ -90,8 +90,6 @@ Logo：https://www.logoly.pro/
 
 [网易UU网游加速器](https://uu.163.com/)全球专线加速，玩出超快感
 
-[JSON.cn](https://www.json.cn/)JSON在线解析及格式化验证
-
 ## 学习资料：
 
 2022 黑马程序员 Java 学习路线图

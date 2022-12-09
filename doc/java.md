@@ -1,6 +1,6 @@
 # Java
 
-[《瑞吉外卖》项目学习笔记](https://mouday.github.io/reggie-doc/) | [github](https://github.com/mouday/reggie-doc)
+[《瑞吉外卖》项目学习笔记](/blog/reggie-doc/README.md) 
 
 ## 在线文档
 

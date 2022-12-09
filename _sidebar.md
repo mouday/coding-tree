@@ -15,10 +15,10 @@
 
 - 后端
 
-  - [Go 语言](doc/go.md)
-  - [Python](doc/python.md)
   - [Java](doc/java.md)
+  - [Python](doc/python.md)
   - [PHP](doc/php.md)
+  - [Go 语言](doc/go.md)
   - [Linux](doc/linux.md)
   - [C#](doc/csharp.md)
   - [Visual Basic](doc/visual-basic.md)

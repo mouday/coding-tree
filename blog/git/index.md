@@ -157,6 +157,48 @@ git reset  | 将暂存区的文件取消暂存或者是切换到指定版本
 git commit | 将暂存区的文件修改提交到版本库
 git log  | 查看日志
 
+
+修改文件 User.java 并提交到版本库
+
+```java
+public class User{
+    
+}
+```
+
+```bash
+# 查看log
+$ git log
+commit 9a05bf544a2d6d85e67d66460115b86687ff9f10 (HEAD -> master)
+Author: xxx <xxx@qq.com>
+Date:   Sat Dec 10 20:10:48 2022 +0800
+
+    change name
+
+commit 9fdba5a102b73c1328d4e0303e1c793e9459d40f
+Author: xxx <xxx@qq.com>
+Date:   Fri Dec 9 22:29:33 2022 +0800
+
+    add file
+
+# 回退到指定历史版本
+$ git reset --hard 9fdba5a102b73c1328d4e0303e1c793e9459d40f
+```
+
+
+
+
+6、远程仓库操作
+
+常用命令 | 说明
+- | - 
+git remote | 查看远程仓库
+git remote add | 添加远程仓库
+git clone | 从远程仓库克隆
+git pull | 从远程仓库拉取
+git push | 推送到远程仓库
+
+
 https://www.bilibili.com/video/BV13a411q753/?p=108&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 

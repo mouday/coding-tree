@@ -96,13 +96,7 @@ Celery
 
 [python-markdown](https://python-markdown.github.io/): This is a Python implementation of John Gruber’s Markdown.
 
-## 爬虫
-
-[云立方](https://www.yunlifang.cn/): 动态 VPS
-
-[快代理](https://www.kuaidaili.com/free/intr/)
-
-[六六代理](http://www.66ip.cn/)
+## 其他
 
 [User Agent String](http://www.useragentstring.com/)
 

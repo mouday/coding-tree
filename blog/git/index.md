@@ -199,6 +199,131 @@ git pull | 从远程仓库拉取
 git push | 推送到远程仓库
 
 
+```bash
+# 绑定远程仓库
+# git remote add <name> <url>
+$ git remote add origin git@gitee.com:mouday/git-demo.git
+
+# 查看远程仓库
+$ git remote -v
+origin  git@gitee.com:mouday/git-demo.git (fetch)
+origin  git@gitee.com:mouday/git-demo.git (push)
+
+# 推送到远程仓库
+# git push <remote-name> <branch-name>
+$ git push origin master
+```
+
+切换到上级目录
+
+```bash
+# 从远程仓库克隆
+# git clone <url>
+$ git clone git@gitee.com:mouday/git-demo.git
+
+# 从远程仓库拉取
+# git pull <remote> <branch>
+$ git pull
+```
+
+如果是本地创建的仓库，要从远程仓库拉取文件，会报错
+
+```bash
+$ git pull origin master
+From gitee.com:mouday/git-demo
+ * branch            master     -> FETCH_HEAD
+fatal: refusing to merge unrelated histories
+
+# 指定参考可解决此问题
+$ git pull origin master --allow-unrelated-histories
+```
+
+7、分支操作
+
+常用命令 | 说明
+- | - 
+git branch  | 查看分支
+git branch [branch-name]  | 创建分支
+git checkout [branch-name]  |切换分支
+git push [remote-name] [branch-name]  | 推送至远程仓库
+git merge [branch-name]  | 合并分支
+
+查看分支
+
+```bash
+# 查看本地分支
+$ git branch
+* master
+
+# 查看远程分支
+$ git branch -r
+origin/master
+
+# 查看所有本地和远程分支
+$ git branch -a
+* master
+  remotes/origin/master
+```
+
+创建分支
+
+```bash
+# git branch [branch-name]
+$ git branch dev
+
+$ git branch
+  dev
+* master
+```
+
+切换分支
+
+```bash
+# git checkout [branch-name]
+$ git checkout dev
+Switched to branch 'dev'
+
+$ git branch
+* dev
+  master
+```
+
+推送至远程仓库
+
+```bash
+# git push [remote-name] [branch-name]
+$ git push origin dev
+
+# 或者将本地仓库和远程仓库绑定
+$ git push --set-upstream origin dev
+# 之后就可以直接push
+$ git push
+```
+
+合并分支
+
+```bash
+# 先切换到主分支
+$ git checkout master
+
+# 将dev 分支合并到master 分支
+# git merge [branch-name]
+$ git merge dev
+```
+
+冲突解决
+
+查看冲突文件，修改冲突部分内容，重新提交
+
+```bash
+$ git merge dev
+Auto-merging dev.txt
+CONFLICT (content): Merge conflict in dev.txt
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
 https://www.bilibili.com/video/BV13a411q753/?p=108&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 
+
+https://www.bilibili.com/video/BV13a411q753/?p=113&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

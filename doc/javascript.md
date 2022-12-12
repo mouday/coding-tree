@@ -1,10 +1,16 @@
 # JavaScript
 
+
+[ES6 入门教程(阮一峰)](https://es6.ruanyifeng.com/)
+
+[重新介绍 JavaScript（JS 教程）](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Language_Overview)
+
+[现代 JavaScript 教程](https://zh.javascript.info/)
+
 [https://github.com/ryanmcdermott/clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) Clean Code concepts adapted for JavaScript
 
 [TypeScript 中文手册](https://typescript.bootcss.com/)
 
-[ES6 入门教程(阮一峰)](https://es6.ruanyifeng.com/)
 
 ## 第三方库
 

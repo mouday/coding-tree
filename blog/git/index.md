@@ -322,8 +322,39 @@ CONFLICT (content): Merge conflict in dev.txt
 Automatic merge failed; fix conflicts and then commit the result.
 ```
 
-https://www.bilibili.com/video/BV13a411q753/?p=108&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+8、标签操作
+
+常用命令 | 说明
+- | - 
+git tag | 列出已有标签
+git tag [name] |  创建标签
+git push [short-name] [name] | 将标签推送至远程仓库
+git checkout -b [branch] [name] | 检出标签
+
+示例
+
+```bash
+# 创建标签
+$ git tag v0.1
+
+# 查看标签
+$ git tag
+v0.1
+
+# 将标签推送至远程仓库
+$ git push origin v0.1
+
+# 检出标签到分支
+$ git checkout -b b0.1 v0.1
+```
+
+注意：标签是一个静态的概念，某一时刻的快照
+
+## IDEA中使用Git
+
+VCS 版本控制
+
+.gitignore 忽略git管理的文件
 
 
-
-https://www.bilibili.com/video/BV13a411q753/?p=113&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV13a411q753/?p=115&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

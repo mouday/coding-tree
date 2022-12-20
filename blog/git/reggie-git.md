@@ -355,6 +355,3 @@ $ git checkout -b b0.1 v0.1
 VCS 版本控制
 
 .gitignore 忽略git管理的文件
-
-
-https://www.bilibili.com/video/BV13a411q753/?p=115&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

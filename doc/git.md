@@ -6,4 +6,4 @@
 
 在沙盒里执行命令：[Learn Git Branching](https://learngitbranching.js.org/?locale=zh_CN) | [国内镜像](https://oschina.gitee.io/learn-git-branching/)
 
-[《瑞吉外卖》项目学习笔记-git](/blog/git/index.md)
+[《瑞吉外卖》项目学习笔记-git](/blog/git/reggie-git.md)

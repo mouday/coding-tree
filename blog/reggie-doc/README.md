@@ -33,14 +33,16 @@
     - [分类管理(新增、分页、更新、查询)](doc/day3.md)
     - [菜品管理(新增、分页、更新、查询)](doc/day4.md)
     - [套餐管理业务开发](doc/day5.md)
-    - [手机验证码登录](/doc/sms.md)
+
+- 移动端
+    - [手机验证码登录](/doc/h5-sms.md)
     - [菜品展示](doc/h5-index.md)
     - [购物车](doc/h5-shopping-cart.md)
     - [订单](doc/h5-order.md)
 
-- 移动端
 
-- [git](/blog/git/index.md)
+- [git笔记](/blog/git/reggie-git.md)
+- [linux笔记](/blog/reggie-doc/doc/reggie-linux.md)
 
 ## 学员笔记
 
@@ -60,6 +62,3 @@
 - 后续的项目优化笔记：[https://cyborg2077.github.io/2022/10/18/ReggieOptimization/](https://cyborg2077.github.io/2022/10/18/ReggieOptimization/)
 - [瑞吉外卖项目功能全实现及完全代码解析](https://blog.csdn.net/weixin_59798969/article/details/127335566)
 
-
-
-https://www.bilibili.com/video/BV13a411q753/?p=106&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

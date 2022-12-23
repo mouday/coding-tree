@@ -95,5 +95,40 @@ echo 'LANG="en_US.UTF-8"' >> /ect/profile
 source /ect/profile
 ```
 
+使用技巧
 
-https://www.bilibili.com/video/BV13a411q753/?p=123&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+- tab键自动补全
+- 连续两次tab键操作提示
+- 上下箭头，切换命令历史
+- clear 或者 ctrl + l 清空屏幕
+
+Linux命令格式
+
+```bash
+# 空格隔开
+command [-options] [parameter]
+```
+
+说明
+
+- command 命令名
+- [-options]  选项，可选
+- [parameter] 参数
+
+示例
+
+```bash
+# 命令
+$ pwd
+
+# 命令 + 选项
+$ ls -l
+
+# 命令 + 参数
+$ touch 1.txt 2.txt
+
+# 命令 + 选项 + 参数
+$ rm -f 1.txt
+```
+
+https://www.bilibili.com/video/BV13a411q753/?p=124&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

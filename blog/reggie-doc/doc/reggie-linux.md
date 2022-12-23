@@ -68,4 +68,32 @@ SSH连接工具 (secure shell)
 - xshell
 - finalshell
 
-https://www.bilibili.com/video/BV13a411q753/?p=122&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+## Linux常用命令
+
+- Linu常用命令
+- 文件目录操作命令
+- 拷贝移动命令
+- 打包压缩命令
+- 文本编辑命令
+- 查找命令
+
+1、Linu常用命令
+
+| 命令 | 英文 | 作用
+| - | - | - 
+| ls | list |  查看当前目录下的内容
+| pwd | print work directory | 查看当前所在目录
+| cd | change directory | 切换目录
+| touch | - | 如果文件不存在，新建文件
+| mkdir | make directory |  创建目录
+| rm  | remove | 删除指定文件
+
+修改Linux编码
+
+```bash
+echo 'LANG="en_US.UTF-8"' >> /ect/profile
+source /ect/profile
+```
+
+
+https://www.bilibili.com/video/BV13a411q753/?p=123&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

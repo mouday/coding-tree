@@ -75,8 +75,23 @@ SSH连接工具 (secure shell)
 # 运行centos
 docker run -itd --name centos centos /bin/bash
 
+# 获取systemctl权限
+docker run --privileged -itd --name centos -p 8080:8080 centos /usr/sbin/init
+
+# 启动
+docker start centos
+
 # 进入终端
 docker exec -it centos /bin/bash
+```
+
+更新yum源
+
+```bash
+sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-* && \
+sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-* && \
+yum makecache && \
+yum update -y
 ```
 
 ## Linux常用命令
@@ -505,6 +520,8 @@ tar -zxvf jdk-8u351-linux-x64.tar.gz -C /usr/local
 配置环境变量
 
 ```bash
+yum install -y vim
+
 vim /etc/profile
 
 # jdk
@@ -526,7 +543,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.351-b10, mixed mode)
 ```
 
 ### 3、安装tomcat
-
 
 开源地址：[https://github.com/apache/tomcat](https://github.com/apache/tomcat)
 
@@ -554,8 +570,8 @@ cd /usr/local/
 
 启动
 ```bash
-cd apache-tomcat-8.5.84/bin
-bash startup.sh
+cd apache-tomcat-8.5.84
+bash ./bin/startup.sh
 ```
 
 验证启动是否成功
@@ -563,12 +579,10 @@ bash startup.sh
 方式一：查看启动日志
 
 ```bash
-cd logs/
-
-more catalina.out
+more ./logs/catalina.out
 
 # 或者只查看最后几行日志
-tail catalina.out
+tail -f ./logs/catalina.out
 ```
 
 方式二：查看进程
@@ -582,13 +596,69 @@ ps -ef | grep tomcat
 - `-ps` 查看当前运行的所有进程的详细信息
 - `|` 管道符，前一个命令的输出作为后一个命令的输入
 
+停止tomcat
+
+方式一：
+
+```bash
+# 切换到 tomcat目录
+bash ./bin/shutdown.sh
+```
+
+方式二：
+
+```bash
+# 获取进程id
+ps -ef |grep tomcat
+
+# 结束进程
+kill -9 <pid>
+```
+
+注意：
+
+- `kill -9`表示强制结束进程
+
+
+### 防火墙
+
+```bash
+# 查看防火墙状态
+systemctl status firewalld
+firewall-cmd --state
+
+# 暂时关闭防火墙
+systemctl stop firewalld
+
+# 永久关闭防火墙
+systemctl disable firewalld
+
+# 开启防火墙
+systemctl start firewalld
+
+# 开放指定端口
+firewall-cmd --zone=public --add-port=8080/tcp --permanent
+
+# 关闭指定端口
+firewall-cmd --zone=public --remove-port=8080/tcp --permanent
+
+# 立即生效
+firewall-cmd --reload
+
+# 查看开放端口
+firewall-cmd --zone=public --list-ports
+```
+
+注意：
+
+- `systemctl` 是管理Linux服务的命令，可以进行启动、停止、重启、查看状态等操作
+- `firewall-cmd` 是Linux中专门用于控制防火墙的命令
+- 为了保证系统安全，不建议关闭防火墙
+
 
 ### 4、安装mysql
+
 ### 5、安装lrzsz
 
 
-
-
-
-
-https://www.bilibili.com/video/BV13a411q753/?p=134&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV13a411q753/?p=135&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

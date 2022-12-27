@@ -658,7 +658,114 @@ firewall-cmd --zone=public --list-ports
 
 ### 4、安装mysql
 
+rpm Red-Hat package manager 管理和安装软件的工具
+
+```bash
+# 查询当前系统中安装的所有软件
+rpm -qa 
+
+# 按照名称查询安装的软件
+rpm -qa | grep mysql
+rpm -qa | grep mariadb
+
+# 卸载软件
+rpm -e --nodeps [软件名称]
+rpm -e --nodeps mariadb
+```
+
+说明：如果centos自带了mariadb，需要卸载之后再安装mysql
+
+下载  MySQL Community Server
+
+https://downloads.mysql.com/archives/community/
+
+查看系统版本
+
+```bash
+$ cat /etc/redhat-release
+CentOS Linux release 8.5.2111
+```
+
+选项：
+
+```
+Product Version: 8.0.30
+Operating System: Red Hat Enterprise Linux / Oracle Linux
+OS Version: Red Hat Enterprise Linux 8 / Oracle Linux 8 (x86, 64-bit)
+```
+
+下载
+```
+RPM Bundle (mysql-8.0.30-1.el8.x86_64.rpm-bundle.tar)
+```
+
+```bash
+# mysql-8.0
+wget https://downloads.mysql.com/archives/get/p/23/file/mysql-8.0.30-1.el8.x86_64.rpm-bundle.tar
+
+# mysql-5.7
+wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.39-1.el7.x86_64.rpm-bundle.tar
+```
+
+解压
+
+```
+mkdir /usr/local/mysql-8.0.31
+tar -xvf mysql-8.0.31-1.el8.x86_64.rpm-bundle.tar -C /usr/local/mysql-8.0.31
+```
+
+mysql-5.7.39 解压后文件
+```
+mysql-community-client-5.7.39-1.el7.x86_64.rpm
+mysql-community-common-5.7.39-1.el7.x86_64.rpm
+mysql-community-devel-5.7.39-1.el7.x86_64.rpm
+mysql-community-embedded-5.7.39-1.el7.x86_64.rpm
+mysql-community-embedded-compat-5.7.39-1.el7.x86_64.rpm
+mysql-community-embedded-devel-5.7.39-1.el7.x86_64.rpm
+mysql-community-libs-5.7.39-1.el7.x86_64.rpm
+mysql-community-libs-compat-5.7.39-1.el7.x86_64.rpm
+mysql-community-server-5.7.39-1.el7.x86_64.rpm
+mysql-community-test-5.7.39-1.el7.x86_64.rpm
+```
+
+安装顺序
+```
+rpm -ivh mysql-community-common-5.7.39-1.el7.x86_64.rpm
+rpm -ivh mysql-community-libs-5.7.39-1.el7.x86_64.rpm
+rpm -ivh mysql-community-devel-5.7.39-1.el7.x86_64.rpm
+rpm -ivh mysql-community-libs-compat-5.7.39-1.el7.x86_64.rpm
+rpm -ivh mysql-community-client-5.7.39-1.el7.x86_64.rpm
+
+# yum install net-tools
+rpm -ivh mysql-community-server-5.7.39-1.el7.x86_64.rpm
+```
+
+mysql-8.0.31 解压后文件
+```
+mysql-community-client-8.0.31-1.el8.x86_64.rpm
+mysql-community-client-debuginfo-8.0.31-1.el8.x86_64.rpm
+mysql-community-client-plugins-8.0.31-1.el8.x86_64.rpm
+mysql-community-client-plugins-debuginfo-8.0.31-1.el8.x86_64.rpm
+mysql-community-common-8.0.31-1.el8.x86_64.rpm
+mysql-community-debuginfo-8.0.31-1.el8.x86_64.rpm
+mysql-community-debugsource-8.0.31-1.el8.x86_64.rpm
+mysql-community-devel-8.0.31-1.el8.x86_64.rpm
+mysql-community-icu-data-files-8.0.31-1.el8.x86_64.rpm
+mysql-community-libs-8.0.31-1.el8.x86_64.rpm
+mysql-community-libs-debuginfo-8.0.31-1.el8.x86_64.rpm
+mysql-community-server-8.0.31-1.el8.x86_64.rpm
+mysql-community-server-debug-8.0.31-1.el8.x86_64.rpm
+mysql-community-server-debug-debuginfo-8.0.31-1.el8.x86_64.rpm
+mysql-community-server-debuginfo-8.0.31-1.el8.x86_64.rpm
+mysql-community-test-8.0.31-1.el8.x86_64.rpm
+mysql-community-test-debuginfo-8.0.31-1.el8.x86_64.rpm
+```
+
+
+
 ### 5、安装lrzsz
 
 
-https://www.bilibili.com/video/BV13a411q753/?p=135&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+
+https://www.bilibili.com/video/BV13a411q753/?p=136&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

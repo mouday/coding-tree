@@ -1,7 +1,7 @@
 # 《瑞吉外卖》项目学习笔记
 
 - api接口代码: https://github.com/mouday/reggie-api
-- 项目笔记：https://github.com/mouday/reggie-doc
+- 项目笔记：https://mouday.github.io/coding-tree/#/blog/reggie-doc/README
 
 《黑马 瑞吉外卖实战项目》
 
@@ -42,7 +42,7 @@
 
 
 - [git笔记](/blog/git/reggie-git.md)
-- [linux笔记](/blog/reggie-doc/doc/reggie-linux.md)
+- [linux笔记](/blog/reggie-doc/doc/linux/index.md)
 
 ## 学员笔记
 

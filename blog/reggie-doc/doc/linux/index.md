@@ -14,10 +14,12 @@
     - [安装tomcat](/blog/reggie-doc/doc/linux/linux-install-tomcat)
     - [防火墙](/blog/reggie-doc/doc/linux/linux-firewalld.md)
     - [安装mysql](/blog/reggie-doc/doc/linux/linux-install-mysql)
-    - 安装lrzsz
-- 项目部署
+    - [安装lrzsz](/blog/reggie-doc/doc/linux/linux-install-lrzsz)
 
+- [项目部署](/blog/reggie-doc/doc/linux/linux-project-deploy.md)
 
-### 5、安装lrzsz
 
 https://www.bilibili.com/video/BV13a411q753/?p=136&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+
+https://www.bilibili.com/video/BV13a411q753/?p=139&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

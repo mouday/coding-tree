@@ -176,11 +176,20 @@ yum install mysql-community-server
 通过systemctl管理mysql服务
 
 ```bash
+# 启动
 systemctl start mysqld
 
+# 查看状态
 systemctl status mysqld
 
+# 关闭
 systemctl stop mysqld
+
+# 检查是否开机启动
+systemctl is-enabled mysqld
+
+# 开机启动
+systemctl enable mysqld
 ```
 
 ## 4.4、重置密码
@@ -188,6 +197,9 @@ systemctl stop mysqld
 ```bash
 # 查看初始密码
 grep 'temporary password' /var/log/mysqld.log
+
+# 或者
+cat /var/log/mysqld.log | grep 'temporary password'
 
 # 登录
 mysql -uroot -p
@@ -214,3 +226,46 @@ mysql> show databases;
 - one digit 一个数字
 - and one special character 一个特殊字符
 - and that the total password length is at least 8 characters 总长度至少8个字符
+
+查看mysql进程
+
+```bash
+# 查看已启动的服务 net-tools
+netstat -tunlp
+
+netstat -tunlp |grep mysql
+
+# 查看进程
+ps -ef | grep mysql
+```
+
+设置密码和访问权限
+
+```sql
+-- 查看密码校验参数
+show variables like 'validate_password%';
+
+-- 修改密码复杂度限制参数
+set global validate_password_policy = LOW;
+set global validate_password_length = 6;
+
+-- 设置root密码
+set password = password('123456');
+
+-- 开启访问权限
+grant all on *.* to 'root'@'%' identified by '123456';
+flush privileges;
+```
+
+创建数据库和用户
+
+```sql
+-- 创建数据库
+create database db_data;
+
+-- 创建用户
+create user 'user'@'%' IDENTIFIED BY '123456';
+
+-- 授权访问
+grant all on user.* to 'db_data'@'%';
+```

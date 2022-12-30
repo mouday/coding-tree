@@ -18,8 +18,7 @@
 
 - [项目部署](/blog/reggie-doc/doc/linux/linux-project-deploy.md)
 
-
-https://www.bilibili.com/video/BV13a411q753/?p=136&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
-
 https://www.bilibili.com/video/BV13a411q753/?p=139&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+
+https://www.bilibili.com/video/BV13a411q753/?p=141&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

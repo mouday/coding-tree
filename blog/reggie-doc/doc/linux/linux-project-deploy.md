@@ -306,16 +306,78 @@ chmod 全称：change mode 控制用户对文件权限
 - rwx rwx rwx
 
 文件类型 -/d
-owner
-group
-other users
+owner 拥有者
+group 同组用户
+other users 其他用户
+```
+
+rwx分别对应数值421
+
+| 数值 | 权限 | rwx
+| - | - | -
+| 7 | 读 + 写 + 执行 | rwx
+| 6 | 读 + 写  | rw-
+| 5 | 读 + 执行  | rw-
+| 4 | 只读  | r--
+| 3 |  写 + 执行 | -wx
+| 2 |  只写 | -w-
+| 1 |  只执行 | --x
+| 0 |  无 | ---
+
+举例
+
+```bash
+# 为用户授予读 + 写 + 执行权限
+chmod 777 bootstart.sh
+
+# 为用户授予读 + 写 + 执行权限
+# 为用户组授予读 + 执行权限
+# 为其他用户授予读 + 执行权限
+chmod 755 bootstart.sh
+
+# 为用户授予写权限
+# 为用户组授执行权限
+# 为其他用户没有任何权限
+chmod 210 bootstart.sh
 ```
 
 ### 4.4、执行 shell 脚本
 
 bootstart.sh
 
-[](bootstart.sh ":include :type=code bash")
+```bash
+#!/usr/bin/bash
+
+# 项目名
+APP_NAME=demo-0.0.1-SNAPSHOT.jar
+
+# 1、停止运行中的项目
+tpid=`ps -ef | grep ${APP_NAME} | grep -v grep | grep -v 'kill' | awk '{print $2}'`
+
+if [[ ${tpid} ]]; then
+    kill -15 ${tpid}
+fi
+
+sleep 2
+
+tpid=`ps -ef | grep ${APP_NAME} | grep -v grep | grep -v 'kill' | awk '{print $2}'`
+
+if [[ ${tpid} ]]; then
+    kill -9 ${tpid}
+fi
+
+# 2、拉取代码
+cd /usr/local/helloworld
+git pull
+
+# 3、打包
+output=`mvn clean package -Dmaven.test.skip=true`
+
+# 4、启动
+nohup java -jar target/${APP_NAME} &> hello.log &
+
+echo "启动/重启完成"
+```
 
 ## 5、supervisor来管理进程
 

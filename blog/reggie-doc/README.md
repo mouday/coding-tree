@@ -41,8 +41,9 @@
     - [订单](doc/h5-order.md)
 
 
-- [git笔记](/blog/git/reggie-git.md)
+- [git笔记](/blog/reggie-doc/doc/reggie-git.md)
 - [linux笔记](/blog/reggie-doc/doc/linux/index.md)
+- [redis笔记](/blog/reggie-doc/doc/redis/index.md)
 
 ## 学员笔记
 

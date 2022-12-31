@@ -26,6 +26,7 @@
   - [Ruby](doc/ruby.md)
   - [区块链（blockchain）](doc/blockchain.md)
   - [Docker](/doc/docker.md)
+  - [Git](doc/git.md)
 
 - 数据库
 
@@ -35,8 +36,8 @@
   - [ElasticSearch](blog/elasticsearch/index.md)
 
 - 其他
-  - [其他](doc/index.md)
+  - [macOS](/doc/macos.md)
   - [chrome](doc/chrome.md)
-  - [Git](doc/git.md)
   - [微信支付](blog/pay/weixin-pay.md)
   - [jetbrains全家桶激活](/doc/jetbrains.md)
+  - [其他](doc/index.md)

@@ -16,8 +16,6 @@
 
 ## 工具
 
-[mpv.io](https://mpv.io/) a free, open source, and cross-platform media player
-
 [Carbon](https://carbon.now.sh/): Create and share beautiful images of your source code.
 Start typing or drop a file into the text area to get started.
 
@@ -51,10 +49,8 @@ Logo：https://www.logoly.pro/
 
 [starchart.cc](https://starchart.cc/) Plot your repository stars over time.
 
-[Cmder](https://cmder.net/): Windows 下的终端工具 Portable console emulator for Windows
 
 [Nestopia](http://nestopia.sourceforge.net/): Nintendo NES Emulator
-
 
 [Hoppscotch](https://hoppscotch.io/): Postwoman
 - github: [https://github.com/hoppscotch/hoppscotch](https://github.com/hoppscotch/hoppscotch)
@@ -63,9 +59,8 @@ Logo：https://www.logoly.pro/
 
 [JWT.IO](https://jwt.io/): JWT.IO allows you to decode, verify and generate JWT.
 
-[MacZip](https://ezip.awehunt.com/) 专为 macOS 而设计的压缩软件！
 
-[Homebrew](https://brew.sh/index_zh-cn): macOS（或 Linux）缺失的软件包的管理器
+
 
 
 [效率工具](http://blog.luckly-mjw.cn/tool-show/index.html)
@@ -74,21 +69,16 @@ Logo：https://www.logoly.pro/
 
 [OneinStack](https://oneinstack.com/)一键PHP/JAVA安装工具
 
-[PxCook](https://www.fancynode.com.cn/pxcook): 高效易用的自动标注工具, 生成前端代码, 设计研发协作利器
 
 [FeHelper ( 浏览器插件 )](https://www.baidufe.com/fehelper/index/index.html) Web开发者助手 FeHelper
 
 [JetBrains](https://www.jetbrains.com/)Essential tools for software developers and teams
 
-[uTools官网 ](http://www.u.tools/)新一代效率工具平台
-
-[Snipaste](https://zh.snipaste.com/index.html) 截图 + 贴图，提高您的工作效率
-
-[ngrok](https://ngrok.com/) 内网穿透工具
-
 [阿里巴巴开源镜像站-OPSX镜像站-阿里云开发者社区](https://developer.aliyun.com/mirror/)
 
-[网易UU网游加速器](https://uu.163.com/)全球专线加速，玩出超快感
+| 软件名称 | 简介 | 官网
+| - | - | -
+| Cmder |  Windows 下的终端工具 | [https://cmder.net/](https://cmder.net/)
 
 ## 学习资料：
 
@@ -111,6 +101,3 @@ https://www.bilibili.com/video/BV1Kr4y1i7ru
 
 ## 其他
 
-Android富文本编辑器 [https://github.com/wasabeef/richeditor-android](https://github.com/wasabeef/richeditor-android)
-
-iOS富文本编辑器[https://github.com/cjwirth/RichEditorView](https://github.com/cjwirth/RichEditorView)

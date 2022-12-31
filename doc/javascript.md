@@ -211,3 +211,7 @@ pNpm：速度快、节省磁盘空间的软件包管理器
 [JSON Web Tokens](https://www.jsonwebtoken.io/) JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties.
 
 [GraphQL](https://graphql.cn/) 一种用于 API 的查询语言
+
+Android富文本编辑器 [https://github.com/wasabeef/richeditor-android](https://github.com/wasabeef/richeditor-android)
+
+iOS富文本编辑器[https://github.com/cjwirth/RichEditorView](https://github.com/cjwirth/RichEditorView)

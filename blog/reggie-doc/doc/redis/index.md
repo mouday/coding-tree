@@ -9,3 +9,6 @@
 - [Redis下载与安装](/blog/reggie-doc/doc/redis/redis-install.md)
 - Redis常用命令
 - 在Java中操作Redis
+
+
+https://www.bilibili.com/video/BV13a411q753/?p=148&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

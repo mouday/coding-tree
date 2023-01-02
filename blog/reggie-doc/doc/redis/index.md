@@ -1,14 +1,16 @@
 # 《瑞吉外卖》Redis笔记
 
-官网：[https://redis.io/](https://redis.io/)
-中文网：[https://www.redis.net.cn/](https://www.redis.net.cn/)
+资料
+
+- 官网：[https://redis.io/](https://redis.io/)
+- 中文网：[https://www.redis.net.cn/](https://www.redis.net.cn/)
 
 目录
 
 - [Redis简介和数据类型](/blog/reggie-doc/doc/redis/redis-introduction.md)
 - [Redis下载与安装](/blog/reggie-doc/doc/redis/redis-install.md)
-- Redis常用命令
-- 在Java中操作Redis
+- [Redis常用命令](/blog/reggie-doc/doc/redis/redis-command.md)
+- [在Java中操作Redis](/blog/reggie-doc/doc/redis/redis-java.md)
 
 
-https://www.bilibili.com/video/BV13a411q753/?p=148&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV13a411q753/?p=156&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

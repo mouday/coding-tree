@@ -10,7 +10,7 @@ NoSQL not only sql 不仅仅是SQL 泛指非关系型数据库
 
 NoSQL数据库是关系型数据库的补充
 
-数据库分类
+## 数据库分类
 
 1. 关系型数据库RDBMS
     - MySQL
@@ -22,14 +22,14 @@ NoSQL数据库是关系型数据库的补充
     - MongoDB
     - MemCached
 
-Redis应用场景
+## Redis应用场景
 
 - 缓存
 - 任务队里
 - 消息队列
 - 分布式锁
 
-5种常用数据类型
+## 5种常用数据类型
 
 - 字符串 string
 - 哈希 hash

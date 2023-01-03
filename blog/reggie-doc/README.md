@@ -44,6 +44,7 @@
 - [git笔记](/blog/reggie-doc/doc/reggie-git.md)
 - [linux笔记](/blog/reggie-doc/doc/linux/index.md)
 - [redis笔记](/blog/reggie-doc/doc/redis/index.md)
+- 代码优化
 
 ## 学员笔记
 
@@ -63,3 +64,5 @@
 - 后续的项目优化笔记：[https://cyborg2077.github.io/2022/10/18/ReggieOptimization/](https://cyborg2077.github.io/2022/10/18/ReggieOptimization/)
 - [瑞吉外卖项目功能全实现及完全代码解析](https://blog.csdn.net/weixin_59798969/article/details/127335566)
 
+
+https://www.bilibili.com/video/BV13a411q753/?p=159&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

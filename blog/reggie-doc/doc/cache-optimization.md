@@ -81,6 +81,49 @@ public class RedisConfig extends CachingConfigurerSupport {
 
 ## 缓存短信验证码
 
+实现思路
+
+1. 将验证码存入Redis中
+2. 登录时从Redis中获取验证码，比对用户输入
+3. 登录成功后，删除Redis中的验证码
+
+关键代码
+
+```java
+// 存入redis 过期时间5分钟
+redisTemplate.opsForValue().set(phone, code, 5, TimeUnit.MINUTES);
+
+// 从 redis 取出验证码
+String sessionCode = redisTemplate.opsForValue().get(phone);
+
+// 登录成功后，删除redis中的验证码
+redisTemplate.delete(phone);
+
+```
+
 ## 缓存菜品数据
+
+实现思路
+
+1. 查询数据的时候先尝试从redis中获取
+2. 获取失败再走数据库查询，查询结果缓存到redis中
+3. 如果数据库中的数据变化了，需要及时清理缓存，保证数据库中的数据和缓存中的数据一致
+
+关键代码
+
+```java
+// 动态构造缓存的key
+String key = "dish:" + dish.getCategoryId() + "_" + dish.getStatus();
+
+// 1、查询数据的时候先尝试从redis中获取
+String value = redisTemplate.opsForValue().get(key);
+if (value != null) {
+    return R.success(JSON.parseArray(value, DishDto.class));
+}
+
+// 2、获取失败再走数据库查询，查询结果缓存到redis中
+redisTemplate.opsForValue().set(key, JSON.toJSONString(dishDtolist), 60, TimeUnit.MINUTES);
+
+```
 ## Spring Cache
 ## 缓存套餐数据

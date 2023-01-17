@@ -1,6 +1,7 @@
 - 常用
   - [在线工具](doc/tools.md)
   - [知识博主](/doc/nav.md)
+  - [开源库](/doc/open.md)
   - [Python Web开发实战](/blog/python-web/index.md)
 - 前端
 

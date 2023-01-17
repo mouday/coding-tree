@@ -36,7 +36,7 @@
 
 - [学习笔记](https://mouday.github.io/LearningNote/)
 
-- [SpringBoot Demo](https://mouday.github.io/Spring-Boot-Demo/#/)
+- [SpringBoot Demo](https://mouday.github.io/spring-boot-demo/#/)
 
 本地预览
 

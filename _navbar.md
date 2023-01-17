@@ -4,7 +4,7 @@
 
 * [前端Demo](https://mouday.github.io/front-end-demo/)
 
-* [Spring-Boot-Demo](https://mouday.github.io/Spring-Boot-Demo/)
+* [SpringBoot Demo](https://mouday.github.io/spring-boot-demo/)
 
 * [个人网站](https://www.pengshiyu.com/)
 

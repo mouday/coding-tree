@@ -15,3 +15,7 @@ ip-area | Python | IP地址获取真实的物理地址 | [github](https://github
 flask-controller | Python | 简化Flask开发，自动路由注册，以类的形式管理控制器 | [github](https://github.com/mouday/flask-controller)
 work-weixin-api | Python | 企业微信接口封装库 | [github](https://github.com/mouday/work-weixin-api)
 weixin-open-api | Python |  微信开放部分接口Python封装 | [github](https://github.com/mouday/weixin-open-api)
+weixin-open-api | Python |  微信开放部分接口Python封装 | [github](https://github.com/mouday/weixin-open-api)
+momo-util-js | JavaScript | js 常用工具方法整理 | [github](https://github.com/mouday/momo-util)
+ThinkPHP-Webpack-Template | PHP | 前后端不分离开发模板 | [github](https://github.com/mouday/ThinkPHP-Webpack-Template)
+

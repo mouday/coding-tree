@@ -124,6 +124,10 @@ if (value != null) {
 // 2、获取失败再走数据库查询，查询结果缓存到redis中
 redisTemplate.opsForValue().set(key, JSON.toJSONString(dishDtolist), 60, TimeUnit.MINUTES);
 
+// 3. 如果数据库中的数据变化了，需要及时清理缓存，保证数据库中的数据和缓存中的数据一致
+redisTemplate.delete(key);
 ```
+
 ## Spring Cache
+
 ## 缓存套餐数据

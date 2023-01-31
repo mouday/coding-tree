@@ -65,4 +65,5 @@
 - [瑞吉外卖项目功能全实现及完全代码解析](https://blog.csdn.net/weixin_59798969/article/details/127335566)
 
 
-https://www.bilibili.com/video/BV13a411q753/?p=163&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV13a411q753/?p=164&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

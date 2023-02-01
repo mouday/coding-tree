@@ -45,6 +45,7 @@
 - [linux笔记](/blog/reggie-doc/doc/linux/index.md)
 - [redis笔记](/blog/reggie-doc/doc/redis/index.md)
 - 代码优化
+    - [Spring Cache](/blog/reggie-doc/doc/spring-cache.md)
 
 ## 学员笔记
 
@@ -66,4 +67,4 @@
 
 
 
-https://www.bilibili.com/video/BV13a411q753/?p=164&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV13a411q753/?p=167&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

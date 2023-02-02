@@ -23,5 +23,37 @@ CacheManager
 
 ## Spring Cache使用方式
 
+Spring Cache 使用Redis作为缓存存储介质
+
+1、导入缓存坐标
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-cache</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+```
+
+2、开启缓存注解功能
+
+在启动类加`@EnableCaching`
+
+3、使用缓存功能
+
+控制器方法上加`@CachePut`、`@CacheEvict`、`@Cacheable`
 
 
+## 缓存套餐数据
+
+实现思路
+
+1. 引入spring cache 和 Redis 的 maven坐标
+2. application.yml中配置过期时间
+3. 启动类上加上@EnableCaching注解
+4. list方法加缓存@Cacheable注解
+5. save和delete方法加缓存删除@CacheEvict注解

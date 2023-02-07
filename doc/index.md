@@ -79,6 +79,7 @@ Logo：https://www.logoly.pro/
 | 软件名称 | 简介 | 官网
 | - | - | -
 | Cmder |  Windows 下的终端工具 | [https://cmder.net/](https://cmder.net/)
+| HeidiSQL | 轻量级的免费MySQL GUI工具 | [https://www.heidisql.com/](https://www.heidisql.com/download.php)
 
 ## 学习资料：
 

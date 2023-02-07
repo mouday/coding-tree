@@ -49,7 +49,7 @@ GRANT REPLICATION SLAVE ON *.* TO 'slave01'@'%' IDENTIFIED BY 'Slave@123456';
 
 4、查看主库状态
 ```
-show master status;
+show master status \G
 ```
 
 二、配置从库

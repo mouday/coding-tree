@@ -116,3 +116,10 @@ https://www.bilibili.com/video/BV1sZ4y1F7PD/
 Halo [ˈheɪloʊ]，一款现代化的开源博客/CMS系统，值得一试
 https://github.com/halo-dev/halo
 
+
+## JRebel激活
+
+服务器链接：
+- 可用：http://idea.javatiku.cn/ad4bd706-15a3-4ecf-b3e3-c7b6a64942bf
+- https://jrebel.qekang.com/c0588c1e-7294-4193-96a7-46cbe3ef5f9d
+- http://jrebel.cicoding.cn:80/28997DD8-6FD0-3823-CA78-D98C7BECE9BC

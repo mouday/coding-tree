@@ -15,5 +15,6 @@
     - [防火墙](/blog/reggie-doc/doc/linux/linux-firewalld.md)
     - [安装mysql](/blog/reggie-doc/doc/linux/linux-install-mysql)
     - [安装lrzsz](/blog/reggie-doc/doc/linux/linux-install-lrzsz)
+    - [安装nginx](/blog/reggie-doc/doc/linux/liunx-install-nginx.md)
 
 - [项目部署](/blog/reggie-doc/doc/linux/linux-project-deploy.md)

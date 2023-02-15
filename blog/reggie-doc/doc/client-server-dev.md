@@ -5,7 +5,6 @@
 - Swagger
 - 项目部署
 
-
 ## 前后端分离开发
 
 ### 介绍
@@ -65,3 +64,41 @@ Java代码、html、css、js
 [Swagger](blog/reggie-doc/doc/swagger.md)
 
 ## 项目部署
+
+部署架构
+
+```
+客户端 Browser
+服务端 Nginx 反向代理
+业务层 Tomcat、JDK、Git、Maven、jar包
+数据层 Redis MySQL
+```
+
+nginx.conf配置文件
+
+```bash
+server{
+    listen 80;
+    server_name localhost;
+
+    # 前端资源
+    location / {
+        root www
+        index index.html
+    }
+
+    # 反向代理接口
+    location ^~ /api/ {
+        rewrite ^/api/(.*)$ /$1 break;
+        proxy_pass http://192.168.0.2:8080
+    }
+}
+```
+
+运行环境
+
+```bash
+java -v
+mvn -v
+git -v
+```

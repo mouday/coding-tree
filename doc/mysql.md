@@ -1,10 +1,12 @@
 # MySQL
 
-
 [笔记：PHP 零基础入门到精通教程（P2 mysql 数据库 5 天）](/blog/php-mysql/index.md)
 
 [MySQL进阶笔记](blog/mysq-advance/index.md)
 
+[瑞吉外卖笔记-安装mysql](/blog/reggie-doc/doc/linux/linux-install-mysql)
+
+[使用Docker模拟实现两台MySQL主从同步复制](https://pengshiyu.blog.csdn.net/article/details/128923517)
 
 ## 客户端
 

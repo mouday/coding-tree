@@ -119,6 +119,8 @@ Halo [ˈheɪloʊ]，一款现代化的开源博客/CMS系统，值得一试
 https://github.com/halo-dev/halo
 
 
+[打造前后端分离 权限系统 基于SpringBoot2+SpringSecurity+Vue3.2](https://www.bilibili.com/video/BV1GU4y1r7UV/)
+
 ## JRebel激活
 
 服务器链接：

@@ -63,6 +63,8 @@ P6Spy [github](https://github.com/p6spy/p6spy)is a framework that enables databa
 
 [WebMagic](http://webmagic.io/)是一个简单灵活的Java爬虫框架。基于WebMagic，你可以快速开发出一个高效、易维护的爬虫。
 
+[jenkins](https://www.jenkins.io/zh/) 一个开源自动化服务器
+
 ## JavaFX
 
 [JavaFX 快速入门](https://www.yiibai.com/javafx/javafx-tutorial-for-beginners.html)

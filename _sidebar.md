@@ -21,7 +21,7 @@
   - [Java](doc/java.md)
   - [Python](doc/python.md)
   - [PHP](doc/php.md)
-  - [Go 语言](doc/go.md)
+  - [Golang](doc/go.md)
   - [Linux](doc/linux.md)
   - [C#](doc/csharp.md)
   - [Visual Basic](doc/visual-basic.md)

@@ -106,6 +106,8 @@
 
 - [Golang 操作 MongoDB 数据库](/blog/golang/golang-mongo.md)
 
+- [Golang操作redis数据库](/blog/golang/golang-database-redis.md)
+
 - [Golang ORM 库 gorm](/blog/golang/golang-gorm.md)
 
 ### 第七章 Go 语言 Web 框架

@@ -4,6 +4,10 @@
 
 SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 
+![](img/微服务技术栈.png)
+
+![](img/微服务技术栈-1.png)
+
 目录
 
 - [认识微服务](blog/microservices/start-microservices.md)

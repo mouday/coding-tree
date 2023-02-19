@@ -4,10 +4,6 @@
 
 SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 
-![](img/微服务技术栈.png)
-
-![](img/微服务技术栈-1.png)
-
 视频资料
 
 - 视频: [https://www.bilibili.com/video/BV1LQ4y127n4](https://www.bilibili.com/video/BV1LQ4y127n4)
@@ -17,15 +13,9 @@ SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 
 - [认识微服务](blog/microservices/microservices-start.md)
 - [分布式服务架构案例](/blog/microservices/microservices-example.md)
-- eureka注册中心
-- Ribbon负载均衡原理
-- nacos注册中心
+- [eureka注册中心](/blog/microservices/microservices-eureka.md)
+- [Ribbon负载均衡原理](/blog/microservices/microservices-ribbon.md)
+- [nacos注册中心](/blog/microservices/microservices-nacos.md)
 
 
-## 分布式服务架构案例
-## eureka注册中心
-## Ribbon负载均衡原理
-## nacos注册中心
-
-
-https://www.bilibili.com/video/BV1LQ4y127n4?p=7&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1LQ4y127n4?p=19&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

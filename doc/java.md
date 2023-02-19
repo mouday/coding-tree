@@ -1,14 +1,12 @@
 # Java
 
-[《瑞吉外卖》项目学习笔记](/blog/reggie-doc/README.md) 
+[Java学习路线图（2023黑马程序员）](/blog/java/java-learn-road.md)
 
 ## 在线文档
 
 [鱼皮编程学习路线](https://luxian.yupi.icu/)
 
 Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjavaer.com/)
-
-[毕向东—Java 基础知识总结（超级经典）](https://www.cnblogs.com/In-order-to-tomorrow/p/3652315.html)
 
 [Spring 系列教程](https://github.com/wuyouzhuguli/SpringAll)
 
@@ -23,7 +21,7 @@ Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjava
 [CS-Notes](https://github.com/CyC2018/CS-Notes) 技术面试必备基础知识、Leetcode、计算机操作系统、计算机网络、系统设计
  - [http://www.cyc2018.xyz/](http://www.cyc2018.xyz/)
 
-[Java 教程 | 菜鸟教程](https://www.runoob.com/java/java-tutorial.html)
+
 
 ## 开源库
 
@@ -64,6 +62,8 @@ P6Spy [github](https://github.com/p6spy/p6spy)is a framework that enables databa
 [WebMagic](http://webmagic.io/)是一个简单灵活的Java爬虫框架。基于WebMagic，你可以快速开发出一个高效、易维护的爬虫。
 
 [jenkins](https://www.jenkins.io/zh/) 一个开源自动化服务器
+
+[X Spring File Storage](https://spring-file-storage.xuyanwu.cn/#/) | [github](https://github.com/1171736840/spring-file-storage) 整合市面上所有的OSS对象存储平台
 
 ## JavaFX
 

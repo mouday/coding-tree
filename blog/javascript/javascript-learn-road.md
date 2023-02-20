@@ -44,6 +44,7 @@
     - ES6+
         - [ES6 入门教程(阮一峰)](https://es6.ruanyifeng.com/)
         - [现代 JavaScript 教程](https://zh.javascript.info/)
+    - setTimeout/setInterval
 
 2. 网页交互
     - DOM 操作
@@ -60,6 +61,8 @@
     - Eventloop
     - API 接口
     - token
+    - cookie
+    - localStorage/sessionStorage
 
 ## 三、Node.js
 
@@ -97,7 +100,7 @@
     - 插件
 
 2. Vue2.x全家桶
-    - vue cli
+    - vue-cli
     - vue-router
     - vuex
     - [ElementUI](https://element.eleme.cn/#/zh-CN)
@@ -122,6 +125,8 @@
     - js-cookie
     - js-md5
     - crypto-js
+    - 防抖debounce/节流throttle
+    - 竞态请求
 
 5. 移动端项目
     - Tailwindcss

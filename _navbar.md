@@ -6,7 +6,12 @@
 
 * [SpringBoot Demo](https://mouday.github.io/spring-boot-demo/)
 
-* [个人网站](https://www.pengshiyu.com/)
+<!-- * [个人网站](https://www.pengshiyu.com/) -->
+
+* 学习路线图
+    * [Web前端学习路线图](/blog/javascript/javascript-learn-road.md)
+    * [Java学习路线图](/blog/java/java-learn-road.md)
+
 
 * 博客站点
     * [GitHub](https://github.com/mouday)

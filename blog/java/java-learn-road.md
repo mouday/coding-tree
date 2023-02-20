@@ -1,9 +1,12 @@
-# Java学习路线图（2023黑马程序员）
+# Java学习路线图
 
 学习资料
 
 - [https://pan.baidu.com/s/1LxIxcHDO7SYB96SE-GZfuQ](https://pan.baidu.com/s/1LxIxcHDO7SYB96SE-GZfuQ?pwd=dor4#list/path=%2F)
 - [黑马程序员 - bilibili](https://space.bilibili.com/37974444)
+
+参考
+- [2023黑马程序员Java学习路线图](https://www.bilibili.com/read/cv9965357)
 
 ## 一、Java基础
 

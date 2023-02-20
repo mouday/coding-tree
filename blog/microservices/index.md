@@ -18,4 +18,4 @@ SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 - [nacos注册中心](/blog/microservices/microservices-nacos.md)
 
 
-https://www.bilibili.com/video/BV1LQ4y127n4?p=19&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1LQ4y127n4/?p=24&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

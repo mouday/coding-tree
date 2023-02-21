@@ -25,10 +25,10 @@ wget https://ghproxy.com/https://github.com/alibaba/nacos/releases/download/1.4.
 tar -zxvf nacos-server-1.4.1.tar.gz
 
 # 启动命令(standalone代表着单机模式运行，非集群模式)
-sh ./bin/startup.sh -m standalone
+bash ./bin/startup.sh -m standalone
 
 # 关闭服务器
-sh shutdown.sh
+bash shutdown.sh
 
 # 查看日志
 tail -f ./logs/start.out

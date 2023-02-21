@@ -18,7 +18,7 @@ Microsoft Edge | 以用户为本的 web 浏览器 | [https://www.microsoft.com/]
 QQ | 腾讯QQ  | [https://im.qq.com/](https://im.qq.com/download)
 微信 | 一款跨平台的通讯工具 | [https://weixin.qq.com/](https://weixin.qq.com/)
 | 企业微信 | 腾讯微信团队为企业打造的专业办公管理工具  | [https://work.weixin.qq.com/](https://work.weixin.qq.com/#indexDownload)
-| 钉钉DingTalk| 阿里巴巴打造的企业级智能移动办公平台 | [https://www.dingtalk.com/](https://page.dingtalk.com/wow/z/dingtalk/simple/ddhomedownlaod#/)
+| 钉钉 | 阿里巴巴打造的企业级智能移动办公平台 | [https://www.dingtalk.com/](https://page.dingtalk.com/wow/z/dingtalk/simple/ddhomedownlaod#/)
 | 腾讯会议 | 提供一站式音视频会议解决方案 | [https://meeting.tencent.com/](https://meeting.tencent.com/download/)
 Foxmail | 邮件客户端 | [https://www.foxmail.com/](https://www.foxmail.com/)
 | 百度网盘 | 提供文件的网络备份、同步和分享服务 | [https://pan.baidu.com/](https://pan.baidu.com/download#pan)| 
@@ -49,6 +49,7 @@ Charles | 一个HTTP代理服务器 | [https://www.charlesproxy.com/](https://ww
 FileZilla | FTP客户端 | [https://www.filezilla.cn/](https://www.filezilla.cn/download)
 ShadowsocksX-NG | 科学上网工具 | [https://github.com/](https://github.com/shadowsocks/ShadowsocksX-NG/releases)
 OBS | 视频录制和视频实时交流软件 |[https://obsproject.com/](https://obsproject.com/)
+Typora | 一款 Markdown 编辑器和阅读器 |[https://typoraio.cn/](https://typoraio.cn/)
 
 
 ## 开发者工具

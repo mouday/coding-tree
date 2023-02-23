@@ -13,16 +13,16 @@
 
 下载页面
 
-- [https://github.com/alibaba/nacos/releases/tag/1.4.1](https://github.com/alibaba/nacos/releases/tag/1.4.1)
+- [https://github.com/alibaba/nacos/releases/tag/1.4.2](https://github.com/alibaba/nacos/releases/tag/1.4.2)
 
 下载安装
 
 ```bash
 # 使用加速下载
-wget https://ghproxy.com/https://github.com/alibaba/nacos/releases/download/1.4.1/nacos-server-1.4.1.tar.gz
+wget https://ghproxy.com/https://github.com/alibaba/nacos/releases/download/1.4.2/nacos-server-1.4.2.tar.gz
 
 # 解压
-tar -zxvf nacos-server-1.4.1.tar.gz
+tar -zxvf nacos-server-1.4.2.tar.gz
 
 # 启动命令(standalone代表着单机模式运行，非集群模式)
 bash ./bin/startup.sh -m standalone

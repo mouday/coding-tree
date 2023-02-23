@@ -85,8 +85,87 @@ public class TimeController {
 ```
 
 
-配置热更新
-配置共享
-搭建Nacos集群
+## 配置热更新
+
+方式一：`@RefreshScope`
+
+```java
+package cn.itcast.user.web;
+
+import cn.itcast.user.config.PatternProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+@RestController
+@RefreshScope
+public class TimeController {
+
+    // pattern.dateformat
+    @Value("${pattern.dateformat}")
+    private String dateFormat;
+
+    @GetMapping("/now")
+    public String getNow(){
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(this.dateFormat));
+    }
+}
+```
+
+方式二：`@ConfigurationProperties`
+
+```java
+package cn.itcast.user.config;
+
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@Data
+@ConfigurationProperties(prefix = "pattern")
+public class PatternProperties {
+
+    private String dateFormat;
+}
+
+```
+
+使用配置
+
+```java
+package cn.itcast.user.web;
+
+import cn.itcast.user.config.PatternProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+@RestController
+@RefreshScope
+public class TimeController {
+
+    @Autowired
+    private PatternProperties patternProperties;
+
+    @GetMapping("/now")
+    public String getNow(){
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(patternProperties.getDateFormat()));
+    }
+}
+```
+
+## 配置共享
+
+## 搭建Nacos集群
 
 

@@ -129,3 +129,9 @@ https://github.com/halo-dev/halo
 - 可用：http://idea.javatiku.cn/ad4bd706-15a3-4ecf-b3e3-c7b6a64942bf
 - https://jrebel.qekang.com/c0588c1e-7294-4193-96a7-46cbe3ef5f9d
 - http://jrebel.cicoding.cn:80/28997DD8-6FD0-3823-CA78-D98C7BECE9BC
+
+## 文章
+
+[4 个维度搞懂 Nacos 注册中心](https://mp.weixin.qq.com/s/w9HmJ9mrGh5vX15ODbYS6Q)
+
+[全网最全的权限系统设计方案（建议收藏）](https://mp.weixin.qq.com/s/ludjl_lw1oRzebg_J-3XXg)

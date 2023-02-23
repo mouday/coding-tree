@@ -22,4 +22,5 @@ SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 - Gateway服务网关
 
 
-https://www.bilibili.com/video/BV1LQ4y127n4/?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV1LQ4y127n4/?p=28&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

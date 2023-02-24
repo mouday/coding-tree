@@ -82,7 +82,10 @@
         - [pnpm](https://www.pnpm.cn/)
     - 打包工具
         - [webpack](https://webpack.docschina.org/)
-        - babel
+        - [rollupjs](https://rollupjs.org/)
+        - [swc](https://swc.rs/)
+        - [esbuild](https://esbuild.github.io/)
+        - [babel](https://babel.docschina.org/)
 
 3. TypeScript
     - [TypeScript](https://typescript.bootcss.com/)

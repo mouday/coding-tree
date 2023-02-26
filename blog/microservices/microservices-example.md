@@ -17,10 +17,13 @@
 新建两个数据库并导入数据表
 
 - cloud_user
-    - <a href="/blog/microservices/microservices-example-code/cloud-user.sql" download="cloud-user">cloud-user.sql</a>
+
+[](microservices-example-code/cloud-user.sql ':include')
 
 - cloud_order
-    - <a href="/blog/microservices/microservices-example-code/cloud-order.sql" download="cloud-order.sql">cloud-order.sql</a>
+
+[](microservices-example-code/cloud-order.sql ':include')
+
 
 启动服务
 

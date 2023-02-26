@@ -13,17 +13,12 @@ SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 
 - [认识微服务](blog/microservices/microservices-start.md)
 - [分布式服务架构案例](/blog/microservices/microservices-example.md)
-- [eureka注册中心](/blog/microservices/microservices-eureka.md)
+- [Eureka注册中心](/blog/microservices/microservices-eureka.md)
 - [Ribbon负载均衡原理](/blog/microservices/microservices-ribbon.md)
-- [nacos注册中心](/blog/microservices/microservices-nacos.md)
+- [Nacos注册中心](/blog/microservices/microservices-nacos.md)
 
 - [Nacos配置管理](/blog/microservices/microservices-nacos-config.md)
-- Feign远程调用
+- [Feign远程调用](/blog/microservices/microservices-feign.md)
 - Gateway服务网关
 
-
-
-https://www.bilibili.com/video/BV1LQ4y127n4/?p=28&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
-
-https://www.bilibili.com/video/BV1LQ4y127n4/?p=29&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1LQ4y127n4?p=31&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

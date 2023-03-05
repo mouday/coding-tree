@@ -7,16 +7,14 @@
 - Feign使用优化
 - 最佳实践
 
-## Feign替代RestTemplate
+## 1、Feign替代RestTemplate
 
 RestTemplate方式调用存在的问题
 
 - 代码可读性差，编程体验不统一
 - 参数复杂URL难以维护
 
-## Feign
-
-声明式HTTP客户端
+Feign：声明式HTTP客户端
 
 https://github.com/OpenFeign/feign
 
@@ -115,3 +113,151 @@ public class OrderService {
 }
 
 ```
+
+
+## 2、自定义配置
+
+Feign支持的自定义配置：
+
+| 类型                   | 作用             | 说明                                                   |
+| ---------------------- | ---------------- | ------------------------------------------------------ |
+| **feign.Logger.Level** | 修改日志级别     | 包含四种不同的级别：NONE、BASIC、HEADERS、FULL         |
+| feign.codec.Decoder    | 响应结果的解析器 | http远程调用的结果做解析，例如解析json字符串为java对象 |
+| feign.codec.Encoder    | 请求参数编码     | 将请求参数编码，便于通过http请求发送                   |
+| feign. Contract        | 支持的注解格式   | 默认是SpringMVC的注解                                  |
+| feign. Retryer         | 失败重试机制     | 请求失败的重试机制，默认是没有，不过会使用Ribbon的重试 |
+
+
+日志的级别分为四种：
+
+- NONE：不记录任何日志信息，这是`默认值`。
+- BASIC：仅记录请求的方法，URL以及响应状态码和执行时间
+- HEADERS：在BASIC的基础上，额外记录了请求和响应的头信息
+- FULL：记录所有请求和响应的明细，包括头信息、请求体、元数据。
+
+
+### 1、配置文件方式
+
+application.yml
+
+1、所有服务
+
+```yaml
+feign:
+  client:
+    config: 
+      default: # 这里用default就是全局配置
+        loggerLevel: FULL #  日志级别 
+```
+
+
+2、单个服务
+
+```yaml
+feign:  
+  client:
+    config: 
+      userservice: # 针对某个微服务的配置
+        loggerLevel: FULL #  日志级别 
+```
+
+### 2、Java代码方式
+
+配置类
+
+```java
+package cn.itcast.order.config;
+
+import feign.Logger;
+import org.springframework.context.annotation.Bean;
+
+/**
+ * Feign配置
+ */
+public class FeignConfiguration {
+
+    @Bean
+    public Logger.Level feignLogLevel(){
+        return Logger.Level.BASIC; // 日志级别为BASIC
+    }
+}
+
+```
+
+1、全局生效
+
+```java
+// 启动类
+@EnableFeignClients(defaultConfiguration = FeignConfiguration.class)
+```
+
+2、局部生效
+
+```java
+// 客户端类
+@FeignClient(value = "userservice", configuration = FeignConfiguration.class)
+```
+
+## 3、Feign使用优化
+
+Feign底层客户端实现包括：
+
+| 实现方式 | 连接池 |
+| - | - |
+| URLConnection `默认`| 不支持
+| Apache HttpClient | 支持
+| OKHttp | 支持
+
+
+提高Feign的性能主要手段
+
+- 使用`连接池`代替默认的URLConnection
+- 日志级别：使用Basic或none
+
+
+1）引入依赖
+
+引入Apache的HttpClient依赖
+
+```xml
+<!--httpClient的依赖 -->
+<dependency>
+    <groupId>io.github.openfeign</groupId>
+    <artifactId>feign-httpclient</artifactId>
+</dependency>
+```
+
+2）配置连接池
+
+application.yml配置
+
+```yaml
+feign:
+  client:
+    config:
+      default: # default全局的配置
+        loggerLevel: NONE # 日志级别,默认
+  httpclient:
+    enabled: true # 开启feign对HttpClient的支持
+    max-connections: 200 # 最大的连接数
+    max-connections-per-route: 50 # 每个路径的最大连接数
+```
+
+## 4、最佳实践
+
+### 1、继承方式
+
+Feign客户端和Controller都继承同一个接口
+
+![](img/feign-extends.png)
+
+缺点：
+
+- 服务提供方、服务消费方紧耦合
+
+
+### 2、抽取方式
+
+将Feign的Client和有关的POJO、默认的Feign配置抽取为独立模块，提供给所有消费者使用。
+
+![](img/feign-extract.png)

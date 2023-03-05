@@ -261,3 +261,122 @@ Feign客户端和Controller都继承同一个接口
 将Feign的Client和有关的POJO、默认的Feign配置抽取为独立模块，提供给所有消费者使用。
 
 ![](img/feign-extract.png)
+
+## 5、抽取案例
+
+将抽取为feign-api模块
+
+```bash
+feign-api/
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── cn.itcast.feign
+    │   │       ├── client
+    │   │       │   └── UserClient.java
+    │   │       ├── config
+    │   │       │   └── DefaultFeignConfiguration.java
+    │   │       └── pojo
+    │   │           └── User.java
+    │   └── resources
+    └── test
+        └── java
+```
+
+pom.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>cloud-demo</artifactId>
+        <groupId>cn.itcast.demo</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>feign-api</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
+```
+
+User.java
+```java
+package cn.itcast.feign.pojo;
+
+import lombok.Data;
+
+@Data
+public class User {
+    private Long id;
+    private String username;
+    private String address;
+}
+```
+
+DefaultFeignConfiguration.java
+
+```java
+package cn.itcast.feign.config;
+
+import feign.Logger;
+import org.springframework.context.annotation.Bean;
+
+/**
+ * Feign配置
+ */
+public class DefaultFeignConfiguration {
+
+    @Bean
+    public Logger.Level feignLogLevel(){
+        return Logger.Level.BASIC; // 日志级别为BASIC
+    }
+}
+
+```
+
+UserClient.java
+
+```java
+package cn.itcast.feign.client;
+
+import cn.itcast.feign.pojo.User;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(value = "userservice")
+public interface UserClient {
+    @GetMapping("/user/{id}")
+    User getUserById(@PathVariable("id") Long id);
+}
+
+```
+
+### 解决扫描包问题
+
+1、方式一
+
+指定Feign应该扫描的包
+
+```java
+@EnableFeignClients(basePackages = "cn.itcast.feign.clients")
+```
+
+2、方式二
+
+指定需要加载的Client接口
+
+```java
+@EnableFeignClients(clients = {UserClient.class})
+```

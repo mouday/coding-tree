@@ -1,4 +1,4 @@
-## SpringCloud微服务技术栈
+## SpringCloud微服务技术栈学习笔记
 
 微服务技术
 
@@ -19,7 +19,8 @@ SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 
 - [Nacos配置管理](/blog/microservices/microservices-nacos-config.md)
 - [Feign远程调用](/blog/microservices/microservices-feign.md)
-- Gateway服务网关
+- [Gateway服务网关](/blog/microservices/microservices-gateway.md)
 
 
-https://www.bilibili.com/video/BV1LQ4y127n4/?p=34&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV1LQ4y127n4/?p=39&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

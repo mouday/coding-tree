@@ -20,7 +20,6 @@
 
 [Nuxt](https://nuxtjs.org/) 一个开源框架，使Web开发变得简单而强大。
 
-[Vue Element Admin](https://github.com/PanJiaChen/vue-element-admin) 帮助构建具有管理网站所需的许多功能的简单管理界面。
 
 [Vue Apollo](https://vue-apollo.netlify.app/) 它可以帮助我们的 Vue.js 项目设置 GraphQL 变得更容易。
 
@@ -206,5 +205,8 @@ UI库/相关工具/可视化/生态全分享
 
 47. [@vueuse/sound](https://sound.vueuse.org/) 用于播放音效的 Vue 组合
 
+## 后台集成方案
 
+[Vue Element Admin](https://github.com/PanJiaChen/vue-element-admin) 帮助构建具有管理网站所需的许多功能的简单管理界面。
 
+[vue-element-plus-admin](https://gitee.com/kailong110120130/vue-element-plus-admin) 一套基于vue3、element-plus、typescript4、vite3的后台集成方案

@@ -20,7 +20,7 @@ dev:
 
 ## 目录
 
-[安装Laravel编程环境](blog/laravel/install-php.md)
+[安装Laravel编程环境](/blog/laravel/install-php.md)
 
 [Route路由](/blog/laravel/route.md)
 

@@ -186,4 +186,188 @@ spring:
 
 ## 5、全局过滤器
 
+全局过滤器的作用：
+- 对所有路由都生效的过滤器，并且可以自定义处理逻辑
+
+实现全局过滤器的步骤：
+- 实现GlobalFiler 接口
+- 添加@Order 注解或实现Ordered 接口
+- 编写处理逻辑
+
+区别：
+
+- GatewayFilter通过配置定义，处理逻辑是固定的
+- GlobalFilter的逻辑需要自己写代码实现
+
+```java
+public interface GlobalFilter {
+    /**
+     *  处理当前请求，有必要的话通过{@link GatewayFilterChain}将请求交给下一个过滤器处理
+     *
+     * @param exchange 请求上下文，里面可以获取Request、Response等信息
+     * @param chain 用来把请求委托给下一个过滤器 
+     * @return {@code Mono<Void>} 返回标示当前过滤器业务结束
+     */
+    Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain);
+}
+```
+
+示例
+
+判断参数中是否含有`role=admin`
+
+```java
+package cn.itcast.gateway.config;
+
+import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
+
+@Order(-1)
+@Component
+public class AuthorizeFilter implements GlobalFilter {
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        // 获取请求参数
+        MultiValueMap<String, String> queryParams = exchange.getRequest().getQueryParams();
+
+        // 获取认证参数
+        String role = queryParams.getFirst("role");
+
+        if ("admin".equals(role)) {
+            // 放行
+            return chain.filter(exchange);
+        } else {
+            // 拦截
+            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+            return exchange.getResponse().setComplete();
+        }
+
+    }
+}
+```
+
+访问测试
+```bash
+GET http://127.0.0.1:10010/user/1
+
+# 返回状态代码: 
+401 Unauthorized
+
+### 
+
+GET http://127.0.0.1:10010/user/1?role=admin
+
+# 返回
+{
+  "id": 1,
+  "username": "柳岩",
+  "address": "湖南省衡阳市"
+}
+```
+
+### 过滤器执行顺序
+
+三类过滤器（优先级由高到低）：
+- DefaultFilter
+- 路由过滤器
+- GlobalFilter
+
+Order值越小，优先级越高
+
+![](img/gateway-order.png)
+
+```yaml
+gateway:
+  routes:
+      - id: user-service
+        filters: # 路由过滤器
+          - AddRequestHeader=X-Token, route-value
+  default-filters: # 默认过滤器
+    - AddRequestHeader=X-Token, default-value
+```
+
 ## 6、跨域问题
+
+跨域：域名 + 端口 不一致就是跨域
+
+主要包括：
+
+- 域名不同： www.taobao.com 和 www.taobao.org 和 www.jd.com 和 miaosha.jd.com
+
+- 域名相同，端口不同：localhost:8080和localhost:8081
+
+跨域问题：浏览器禁止请求的发起者与服务端发生跨域ajax请求，请求被浏览器拦截的问题
+
+解决方案：CORS "跨域资源共享"（Cross-origin resource sharing）
+
+可参考：跨域资源共享 CORS 详解 https://www.ruanyifeng.com/blog/2016/04/cors.html
+
+
+### 解决跨域问题
+
+gateway服务的application.yml文件配置
+
+```yaml
+spring:
+  cloud:
+    gateway:
+      globalcors: # 全局的跨域处理
+        add-to-simple-url-handler-mapping: true # 解决options请求被拦截问题
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: # 允许哪些网站的跨域请求 
+              - "http://localhost:8090"
+            allowedMethods: # 允许的跨域ajax的请求方式
+              - "GET"
+              - "POST"
+              - "DELETE"
+              - "PUT"
+              - "OPTIONS"
+            allowedHeaders: "*" # 允许在请求中携带的头信息
+            allowCredentials: true # 是否允许携带cookie
+            maxAge: 360000 # 这次跨域检测的有效期
+```
+
+跨域配置参数
+- 域名
+- 请求方式 
+- 请求头
+- cookie
+- 有效期
+
+### 模拟跨域问题
+
+```html
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+<script>
+    axios.get("http://127.0.0.1:10010/user/1?role=admin")
+        .then(function(res){
+            console.log(res.data)
+        })
+</script>
+</body>
+</html>
+```
+
+如果没有配置允许跨域请求，会报错
+```
+Access to XMLHttpRequest at 'http://127.0.0.1:10010/user/1?role=admin' 
+from origin 'http://localhost:63342' has been blocked by CORS policy: 
+No 'Access-Control-Allow-Origin' header is present on the requested resource.
+```

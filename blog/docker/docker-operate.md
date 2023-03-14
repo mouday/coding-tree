@@ -388,12 +388,12 @@ $ docker pull mysql:5.7.41
 
 # 运行容器
 docker run \
---name my-mysql \
--p 3309:3306
--e MYSQL_ROOT_PASSWORD=123456 \
--v /Users/hina/Applications/docker/mysql/conf.d:/etc/mysql/conf.d \
--v /Users/hina/Applications/docker/mysql/data:/var/lib/mysql \
--d mysql:5.7.41
+    --name my-mysql \
+    -p 3309:3306 \
+    -e MYSQL_ROOT_PASSWORD=123456 \
+    -v /Users/hina/Applications/docker/mysql/conf.d:/etc/mysql/conf.d \
+    -v /Users/hina/Applications/docker/mysql/data:/var/lib/mysql \
+    -d mysql:5.7.41
 ```
 
 ### 4.6、小结

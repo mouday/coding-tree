@@ -1,10 +1,10 @@
 [返回目录](/blog/docker/index)
 
-# 安装Docker
+# 二、安装Docker
 
 安装环境 CentOS 7
 
-## Docker版本
+## 1、Docker版本
 
 - CE 即社区版（免费，支持周期 7 个月）
     - stable
@@ -15,7 +15,7 @@
 安装指南：[https://docs.docker.com/install/](https://docs.docker.com/install/)
 
 
-## 安装docker
+## 2、安装docker
 
 安装yum工具
 
@@ -44,7 +44,7 @@ yum makecache fast
 yum install -y docker-ce
 ```
 
-## 启动docker
+## 3、启动docker
 
 关闭防火墙
 
@@ -77,7 +77,7 @@ systemctl status docker  # 查看状态
 docker -v
 ```
 
-## 配置镜像
+## 4、配置镜像
 
 参考阿里云的镜像加速文档：
 
@@ -102,7 +102,7 @@ Mac
   ]
 }
 ```
-## 卸载Docker
+## 5、卸载Docker
 
 卸载命令
 

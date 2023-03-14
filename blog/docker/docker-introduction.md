@@ -1,15 +1,15 @@
 [返回目录](/blog/docker/index)
 
-# 初识Docker
+# 一、初识Docker
 
-## 什么是Docker
+## 1、什么是Docker
 
 - Docker允许开发中将应用、Deps依赖、Libs函数库、配置一起`打包`，形成可移植`镜像`
 - Docker应用运行在`容器`中，使用沙箱机制，相互`隔离`
 
 ![](img/docker.png)
 
-## Docker和虚拟机的区别
+## 2、Docker和虚拟机的区别
 
 Docker和虚拟机的差异：
 
@@ -18,7 +18,7 @@ Docker和虚拟机的差异：
 
 ![](img/docker-compare-vm.png)
 
-## Docker架构
+## 3、Docker架构
 
 镜像（Image）：Docker将应用程序及其所需的依赖、函数库、环境、配置等文件打包在一起
 

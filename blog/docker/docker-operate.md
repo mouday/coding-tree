@@ -1,12 +1,12 @@
 [返回目录](/blog/docker/index)
 
-# Docker的基本操作
+# 三、Docker的基本操作
 
 - 镜像操作
 - 容器操作
 - 数据卷（容器数据管理）
 
-## 镜像名称
+## 1、镜像名称
 
 - 镜像名称一般分两部分组成：`[repository]:[tag]`
 - 在没有指定tag时，默认是`latest`，代表最新版本的镜像
@@ -16,11 +16,11 @@
 - repository: mysql
 - tag: 5.7
 
-## 镜像命令
+## 2、镜像命令
 
 ![](img/docker-operate.png)
 
-### 案例1-拉取、查看镜像
+### 2.1、案例1-拉取、查看镜像
 
 需求：从DockerHub中拉取一个nginx镜像并查看
 
@@ -35,7 +35,7 @@ docker images
 ```
 
 
-### 案例2-保存、导入镜像
+### 2.2、案例2-保存、导入镜像
 
 需求：利用docker save将nginx镜像导出磁盘，然后再通过load加载回来
 
@@ -62,7 +62,7 @@ docker load -i nginx.tar
 ```
 
 
-## 容器命令
+## 3、容器命令
 
 ![](img/docker-command.png)
 
@@ -81,7 +81,7 @@ docker load -i nginx.tar
 - docker start：让一个停止的容器再次运行
 - docker rm：删除一个容器
 
-### 案例1-创建并运行一个容器
+### 3.1、案例1-创建并运行一个容器
 
 https://hub.docker.com/_/nginx
 
@@ -124,7 +124,7 @@ docker rm -f my-nginx
 访问测试：http://127.0.0.1:8080/
 
 
-### 案例2-进入容器，修改文件
+### 3.2、案例2-进入容器，修改文件
 
 需求：进入Nginx容器，修改HTML文件内容，添加：你好Nginx
 
@@ -168,7 +168,7 @@ sed -i -e 's#Welcome to nginx#你好Nginx#g' -e 's#<head>#<head><meta charset="u
 
 访问测试：http://127.0.0.1:8080/
 
-### 练习：运行redis容器
+### 3.3、练习：运行redis容器
 
 需求: 创建并运行一个redis容器，并且支持数据持久化
 
@@ -209,7 +209,7 @@ root@dc6903a9bcf7:/data# exit
 
 ```
 
-## 数据卷
+## 4、数据卷
 
 数据卷（volume）是一个虚拟目录，指向宿主机文件系统中的某个目录。
 
@@ -219,7 +219,7 @@ root@dc6903a9bcf7:/data# exit
 
 ![](img/docker-volume.png)
 
-### 数据卷操作命令
+### 4.1、数据卷操作命令
 
 基本语法如下：
 
@@ -268,7 +268,7 @@ $ docker volume prune
 $ docker volume rm html
 ```
 
-### 挂载数据卷
+### 4.2、挂载数据卷
 
 命令格式如下：
 
@@ -285,7 +285,7 @@ docker run \
 - `-v html:/root/htm` ：把html数据卷挂载到容器内的/root/html这个目录中
 - 如果volume不存在，会自动创建
 
-### 案例1-给Nginx挂载数据卷
+### 4.3、案例1-给Nginx挂载数据卷
 
 需求：创建一个nginx容器，修改容器内的html目录内的index.html内容
 
@@ -329,4 +329,82 @@ $ cd /var/lib/docker/volumes/html/_data
 vi index.html
 ```
 
-### 案例2-给MySQL挂载本地目录
+### 4.4、挂载本地目录
+
+容器可以挂载数据卷，也可以直接挂载到宿主机目录上
+
+```bash
+# 带数据卷模式：
+宿主机目录 --> 数据卷 --> 容器内目录
+
+# 直接挂载模式：
+宿主机目录 --> 容器内目录
+```
+
+如图：
+
+![](img/docker-volume-file.png)
+
+
+语法：
+
+目录挂载与数据卷挂载的语法是类似的：
+
+```bash
+-v [宿主机目录]:[容器内目录]
+-v [宿主机文件]:[容器内文件]
+```
+
+### 4.5、案例2-给MySQL挂载本地目录
+
+需求：创建并运行一个MySQL容器，将宿主机目录直接挂载到容器
+
+https://hub.docker.com/_/mysql
+
+步骤：
+
+1、创建目录
+
+存储目录 mysql/conf.d
+配置目录 mysql/data
+
+2、配置文件
+
+hmy.cnf
+
+```bash
+[mysqld]
+skip-name-resolve
+character_set_server=utf8
+datadir=/var/lib/mysql
+server-id=1000
+```
+
+3、启动容器
+
+```bash
+# 拉取镜像
+$ docker pull mysql:5.7.41
+
+# 运行容器
+docker run \
+--name my-mysql \
+-p 3309:3306
+-e MYSQL_ROOT_PASSWORD=123456 \
+-v /Users/hina/Applications/docker/mysql/conf.d:/etc/mysql/conf.d \
+-v /Users/hina/Applications/docker/mysql/data:/var/lib/mysql \
+-d mysql:5.7.41
+```
+
+### 4.6、小结
+
+docker run的命令中通过 -v 参数挂载文件或目录到容器中：
+
+- -v volume名称:容器内目录
+- -v 宿主机文件:容器内文件
+- -v 宿主机目录:容器内目录
+
+数据卷挂载与目录直接挂载的
+
+- 数据卷挂载耦合度低，由docker来管理目录，但是目录较深，不好找
+- 目录挂载耦合度高，需要我们自己管理目录，不过目录容易寻找查看

@@ -103,9 +103,9 @@
     - 插件
 
 2. Vue2.x全家桶
-    - vue-cli
-    - vue-router
-    - vuex
+    - [vue-cli](https://cli.vuejs.org/zh/guide/): 基于 Vue.js 进行快速开发的完整系统
+    - [vue-router](https://v3.router.vuejs.org/zh/installation.html): Vue.js 官方的路由管理器
+    - [vuex](https://vuex.vuejs.org/zh/): 专为 Vue.js 应用程序开发的状态管理模式
     - [ElementUI](https://element.eleme.cn/#/zh-CN)
     - vant
 

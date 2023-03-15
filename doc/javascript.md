@@ -1,6 +1,6 @@
 # JavaScript
 
-[前端学习路线图](blog/javascript/javascript-learn-road.md)
+[前端学习路线图](/blog/javascript/javascript-learn-road.md)
 
 
 [https://github.com/ryanmcdermott/clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) Clean Code concepts adapted for JavaScript

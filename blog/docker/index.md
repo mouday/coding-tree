@@ -9,6 +9,3 @@
 - [五、安装 DockerCompose](/blog/docker/docker-compose-install.md)
 - [六、Docker-Compose](/blog/docker/docker-compose.md)
 - [七、Docker镜像仓库](/blog/docker/docker-registry.md)
-
-
-https://www.bilibili.com/video/BV1LQ4y127n4?p=59&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

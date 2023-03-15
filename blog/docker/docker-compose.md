@@ -1,11 +1,11 @@
 [返回目录](/blog/docker/index)
 
-# 4.Docker-Compose
+# 六、Docker-Compose
 
 Docker Compose可以基于Compose文件帮我们快速的部署分布式应用，而无需手动一个个创建和运行容器！
 
 
-## 4.1.初识DockerCompose
+## 1、初识DockerCompose
 
 Compose文件是一个文本文件，通过指令定义集群中的每个容器如何运行。格式如下：
 
@@ -36,7 +36,7 @@ DockerCompose的详细语法参考官网：https://docs.docker.com/compose/compo
 其实DockerCompose文件可以看做是将多个docker run命令写到一个文件，只是语法稍有差异。
 
 
-## 4.3.部署微服务集群
+## 2、部署微服务集群
 
 需求：将之前学习的cloud-demo微服务集群利用DockerCompose部署
 
@@ -53,7 +53,7 @@ DockerCompose的详细语法参考官网：https://docs.docker.com/compose/compo
 ⑤ 将cloud-demo上传至虚拟机，利用 docker-compose up -d 来部署
 
 
-### 4.3.1.compose文件
+### 2.1、compose文件
 
 查看课前资料提供的cloud-demo文件夹，里面已经编写好了docker-compose文件，而且每个微服务都准备了一个独立的目录：
 
@@ -131,7 +131,7 @@ ENTRYPOINT java -jar /tmp/app.jar
 ```
 
 
-### 4.3.2.修改微服务配置
+### 2.2、修改微服务配置
 
 因为微服务将来要部署为docker容器，而容器之间互联不是通过IP地址，而是通过容器名。这里我们将order-service、user-service、gateway服务的mysql、nacos地址都修改为基于容器名的访问。
 
@@ -151,7 +151,7 @@ spring:
       server-addr: nacos:8848 # nacos服务地址
 ```
 
-### 4.3.3.打包
+### 2.3、打包
 
 接下来需要将我们的每个微服务都打包。因为之前查看到Dockerfile中的jar包名称都是app.jar，因此我们的每个微服务都需要用这个名称。
 
@@ -180,7 +180,7 @@ user-service
 order-service
 gateway
 
-### 4.3.5.部署
+### 2.4、部署
 
 最后，我们需要将文件整个cloud-demo文件夹上传到虚拟机中，理由DockerCompose部署。
 
@@ -191,5 +191,17 @@ gateway
 进入cloud-demo目录，然后运行下面的命令：
 
 ```bash
+# 创建并启动容器，后台运行
 docker-compose up -d
+
+# 查看日志
+docker-compose logs -f 
+
+# 查看帮助
+docker-compose -h
+
+# 如果nacos报错，可重启服务
+docker-compose restart user-service order-service gateway
 ```
+
+一般情况下，mysql和nacos需要单独启动，应用服务后启动

@@ -21,6 +21,4 @@ SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 - [Feign远程调用](/blog/microservices/microservices-feign.md)
 - [Gateway服务网关](/blog/microservices/microservices-gateway.md)
 - [Docker](/blog/docker/index.md)
-
-
-https://www.bilibili.com/video/BV1LQ4y127n4?p=55&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+- [RabbitMQ使用篇](/blog/rabbitmq/index.md)

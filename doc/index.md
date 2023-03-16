@@ -102,3 +102,5 @@ https://www.bilibili.com/video/BV1Kr4y1i7ru
 
 ## 其他
 
+[Erlang](https://www.erlang.org/)
+

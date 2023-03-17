@@ -11,7 +11,7 @@
 * 学习路线图
     * [Web前端学习路线图](/blog/javascript/javascript-learn-road.md)
     * [Java学习路线图](/blog/java/java-learn-road.md)
-
+    * [Python Web开发实战](/blog/python-web/index.md)
 
 * 博客站点
     * [GitHub](https://github.com/mouday)

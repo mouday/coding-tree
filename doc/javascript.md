@@ -63,7 +63,7 @@
 
 [CKEditor](https://ckeditor.com/docs/index.html) Smart rich text editor components with collaborative editing.
 
-[wangEditor 5](https://www.wangeditor.com/): 开源 Web 富文本编辑器，开箱即用，配置简单
+[wangEditor 5](https://www.wangeditor.com/)|[github](https://github.com/wangeditor-team/wangEditor): 开源 Web 富文本编辑器，开箱即用，配置简单
 
 [ScrollReveal](https://scrollrevealjs.org/)
 

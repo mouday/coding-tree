@@ -22,3 +22,4 @@ SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 - [Gateway服务网关](/blog/microservices/microservices-gateway.md)
 - [Docker](/blog/docker/index.md)
 - [RabbitMQ使用篇](/blog/rabbitmq/index.md)
+- [Elasticsearch](/blog/elasticsearch/springcloud-elasticsearch/index.md)

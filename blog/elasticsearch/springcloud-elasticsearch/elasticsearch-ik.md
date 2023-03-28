@@ -250,3 +250,129 @@ GET /_analyze
 }
 
 ```
+
+## 3.3 扩展词词典
+
+IK分词器提供了扩展词汇的功能。
+
+配置文件config/IKAnalyzer.cfg.xml：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+        <comment>IK Analyzer 扩展配置</comment>
+        <!--用户可以在这里配置自己的扩展字典 *** 添加扩展词典-->
+        <entry key="ext_dict">ext.dic</entry>
+</properties>
+```
+
+config目录下新建一个文件 ext.dic
+
+```
+真好
+奥利给
+今天
+天气
+```
+
+4）重启elasticsearch 
+
+```sh
+docker restart es
+
+# 查看 日志
+docker logs -f elasticsearch
+```
+
+日志中已经成功加载ext.dic配置文件
+
+5）测试效果：
+
+```json
+GET /_analyze
+{
+  "analyzer": "ik_max_word",
+  "text": "今天的天气真好，奥力给！"
+}
+```
+
+## 3.4 停用词词典
+
+IK分词器也提供了强大的停用词功能，让我们在索引时就直接忽略当前的停用词汇表中的内容。
+
+1）config/IKAnalyzer.cfg.xml配置文件内容添加：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>IK Analyzer 扩展配置</comment>
+    <!--用户可以在这里配置自己的扩展字典-->
+    <entry key="ext_dict">ext.dic</entry>
+      <!--用户可以在这里配置自己的扩展停止词字典  *** 添加停用词词典-->
+    <entry key="ext_stopwords">stopword.dic</entry>
+</properties>
+```
+
+3）在 stopword.dic 添加停用词
+
+```
+的
+啊
+```
+
+4）重启elasticsearch 
+
+```sh
+# 重启服务
+docker restart elasticsearch
+docker restart kibana
+
+# 查看 日志
+docker logs -f elasticsearch
+```
+
+日志中已经成功加载stopword.dic配置文件
+
+5）测试效果：
+
+```json
+GET /_analyze
+{
+  "analyzer": "ik_max_word",
+  "text": "今天的天气真好，奥力给！"
+}
+```
+
+
+配置扩展词和停用词后进行分词测试
+```json
+GET /_analyze
+{
+  "text": "今天天气真好啊！奥利给",
+  "analyzer": "ik_smart"
+  
+}
+```
+
+分词测试结果
+
+```
+默认：今天天气/真/好啊/奥/利/给
+增加扩展词语：今天天气/真/好啊/奥利给
+```
+
+## 小结
+
+分词器的作用是什么？
+- 创建倒排索引时对文档分词
+- 用户搜索时，对输入的内容分词
+
+IK分词器有几种模式？
+- ik_smart：智能切分，粗粒度
+- ik_max_word：最细切分，细粒度
+
+IK分词器如何拓展词条？如何停用词条？
+- 利用config目录的IkAnalyzer.cfg.xml文件添加拓展词典和停用词典
+- 在词典中添加拓展词条或者停用词条

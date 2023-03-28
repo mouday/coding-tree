@@ -19,20 +19,20 @@ curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compos
 
 修改文件权限：
 
-```sh
+```bash
 # 修改权限
 chmod +x /usr/local/bin/docker-compose
 ```
 
 ## 3、Base自动补全命令：
 
-```sh
+```bash
 # 补全命令
 curl -L https://raw.githubusercontent.com/docker/compose/1.29.1/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose
 ```
 
 如果这里出现错误，需要修改自己的hosts文件：
 
-```sh
+```bash
 echo "199.232.68.133 raw.githubusercontent.com" >> /etc/hosts
 ```

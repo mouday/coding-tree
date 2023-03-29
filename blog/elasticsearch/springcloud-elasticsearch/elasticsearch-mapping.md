@@ -125,3 +125,114 @@ PUT /blog
   "index": "blog"
 }
 ```
+
+### 2.2.2.查询索引库
+
+**基本语法**：
+
+- 请求方式：GET
+
+- 请求路径：/索引库名
+
+- 请求参数：无
+
+示例
+
+```json
+GET /blog
+```
+
+响应结果
+
+```json
+{
+  "blog" : {
+    "aliases" : { },
+    "mappings" : {
+      "properties" : {
+        "email" : {
+          "type" : "keyword",
+          "index" : false
+        },
+        "info" : {
+          "type" : "text",
+          "analyzer" : "ik_smart"
+        },
+        "name" : {
+          "properties" : {
+            "firstName" : {
+              "type" : "keyword"
+            },
+            "lastName" : {
+              "type" : "keyword"
+            }
+          }
+        }
+      }
+    },
+    "settings" : {
+      "index" : {
+        "routing" : {
+          "allocation" : {
+            "include" : {
+              "_tier_preference" : "data_content"
+            }
+          }
+        },
+        "number_of_shards" : "1",
+        "provided_name" : "blog",
+        "creation_date" : "1680014311538",
+        "number_of_replicas" : "1",
+        "uuid" : "I40eBmFxSTqoH1EuIWykYQ",
+        "version" : {
+          "created" : "7120199"
+        }
+      }
+    }
+  }
+}
+
+```
+
+### 2.2.3.修改索引库
+
+倒排索引结构虽然不复杂，但是一旦数据结构改变（比如改变了分词器），就需要重新创建倒排索引，这简直是灾难。因此索引库**一旦创建，无法修改mapping**。
+
+
+
+虽然无法修改mapping中已有的字段，但是却 `允许添加` 新的字段到mapping中，因为不会对倒排索引产生影响。
+
+**语法说明**：
+
+```json
+PUT /索引库名/_mapping
+{
+  "properties": {
+    "新字段名":{
+      "type": "integer"
+    }
+  }
+}
+```
+
+
+
+**示例**：
+
+```json
+PUT /blog/_mapping
+{
+  "properties": {
+    "age": {
+      "type": "integer"
+    }
+  }
+}
+```
+
+响应结果
+```json
+{
+  "acknowledged" : true
+}
+```

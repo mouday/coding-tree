@@ -245,3 +245,42 @@ PUT /blog/_mapping
   "acknowledged" : true
 }
 ```
+
+## 5、删除索引库
+
+### 5.1、语法
+
+- 请求方式：DELETE
+
+- 请求路径：/索引库名
+
+- 请求参数：无
+
+格式
+
+```
+DELETE /索引库名
+```
+
+### 5.2、示例
+
+```
+DELETE /blog
+```
+
+响应
+
+```json
+{
+  "acknowledged" : true
+}
+```
+
+## 6、总结
+
+索引库操作有哪些？
+
+- 创建索引库：PUT /索引库名
+- 查询索引库：GET /索引库名
+- 删除索引库：DELETE /索引库名
+- 添加字段：PUT /索引库名/_mapping

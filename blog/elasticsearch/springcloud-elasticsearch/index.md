@@ -5,7 +5,7 @@
 - [Elasticsearch简介](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-introduction.md)
 - [Elasticsearch安装](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-install.md)
 - [安装IK分词器](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-ik.md)
-- [操作索引库](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-mapping.md)
+- [操作索引库mapping](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-mapping.md)
 
 
 

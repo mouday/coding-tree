@@ -11,7 +11,7 @@ ES官方提供了各种不同语言的客户端，用来操作ES。这些客户�
 - Java Low Level Rest Client
 - Java High Level Rest Client(学习)
 
-课程资料
+## 1、课程资料
 
 <a href="/blog/elasticsearch/springcloud-elasticsearch/tb_hotel.sql">tb_hotel.sql</a>   
 
@@ -37,7 +37,7 @@ CREATE TABLE `tb_hotel` (
 ```
 
 
-### 4.0.3.mapping映射分析
+## 2、mapping映射分析
 
 创建索引库，最关键的是mapping映射，而mapping映射要考虑的信息包括：
 
@@ -123,7 +123,7 @@ ES中支持两种地理坐标数据类型：
     - 例如一条直线，"LINESTRING (-77.03653 38.897676, -77.009051 38.889939)"
 
 
-### 4.0.4.初始化RestClient
+## 3、初始化RestClient
 
 在elasticsearch提供的API中，与elasticsearch一切交互都封装在一个名为RestHighLevelClient的类中，必须先完成这个对象的初始化，建立与elasticsearch的连接。
 

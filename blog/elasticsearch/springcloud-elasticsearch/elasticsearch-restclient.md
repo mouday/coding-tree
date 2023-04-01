@@ -195,4 +195,106 @@ public class HotelIndexTest {
 ```
 
 
+## 4、创建索引库
 
+代码分为三步：
+
+- 1）创建Request对象。因为是创建索引库的操作，因此Request是CreateIndexRequest。
+- 2）添加请求参数，其实就是DSL的JSON参数部分。因为json字符串很长，这里是定义了静态字符串常量MAPPING_TEMPLATE，让代码看起来更加优雅。
+- 3）发送请求，client.indices()方法的返回值是IndicesClient类型，封装了所有与索引库操作有关的方法。
+
+### 4.1、完整示例
+
+创建一个类，定义mapping映射的JSON字符串常量：
+
+```java
+package cn.itcast.hotel.constants;
+
+public class HotelConstants {
+    // 可以放到json文件，更优雅
+    public static final String MAPPING_TEMPLATE = "";
+}
+```
+
+HotelIndexTest测试类中，编写单元测试，实现创建索引：
+
+```java
+@Test
+void createHotelIndex() throws IOException {
+    // 1.创建Request对象
+    CreateIndexRequest request = new CreateIndexRequest("hotel");
+    // 2.准备请求的参数：DSL语句
+    request.source(MAPPING_TEMPLATE, XContentType.JSON);
+    // 3.发送请求
+    client.indices().create(request, RequestOptions.DEFAULT);
+}
+```
+
+## 5、删除索引库
+
+删除索引库的DSL语句非常简单：
+
+```json
+DELETE /hotel
+```
+
+与创建索引库相比：
+
+- 请求方式从PUT变为DELTE
+- 请求路径不变
+- 无请求参数
+
+所以代码的差异，注意体现在Request对象上。依然是三步走：
+
+- 1）创建Request对象。这次是DeleteIndexRequest对象
+- 2）准备参数。这里是无参
+- 3）发送请求。改用delete方法
+
+在hotel-demo中的HotelIndexTest测试类中，编写单元测试，实现删除索引：
+
+```java
+@Test
+void testDeleteHotelIndex() throws IOException {
+    // 1.创建Request对象
+    DeleteIndexRequest request = new DeleteIndexRequest("hotel");
+    // 2.发送请求
+    client.indices().delete(request, RequestOptions.DEFAULT);
+}
+```
+
+## 6、判断索引库是否存在
+
+判断索引库是否存在，本质就是查询，对应的DSL是：
+
+```json
+GET /hotel
+```
+
+因此与删除的Java代码流程是类似的。依然是三步走：
+
+- 1）创建Request对象。这次是GetIndexRequest对象
+- 2）准备参数。这里是无参
+- 3）发送请求。改用exists方法
+
+```java
+@Test
+void testExistsHotelIndex() throws IOException {
+    // 1.创建Request对象
+    GetIndexRequest request = new GetIndexRequest("hotel");
+    // 2.发送请求
+    boolean exists = client.indices().exists(request, RequestOptions.DEFAULT);
+    // 3.输出
+    System.err.println(exists ? "索引库已经存在！" : "索引库不存在！");
+}
+```
+
+## 7、总结
+
+JavaRestClient操作elasticsearch的流程基本类似。核心是client.indices()方法来获取索引库的操作对象。
+
+索引库操作的基本步骤：
+
+- 初始化RestHighLevelClient
+- 创建XxxIndexRequest。XXX是Create、Get、Delete
+- 准备DSL（ Create时需要，其它是无参）
+- 发送请求。调用RestHighLevelClient#indices().xxx()方法，xxx是create、exists、delete

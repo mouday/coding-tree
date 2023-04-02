@@ -135,3 +135,5 @@ https://github.com/halo-dev/halo
 [4 个维度搞懂 Nacos 注册中心](https://mp.weixin.qq.com/s/w9HmJ9mrGh5vX15ODbYS6Q)
 
 [全网最全的权限系统设计方案（建议收藏）](https://mp.weixin.qq.com/s/ludjl_lw1oRzebg_J-3XXg)
+
+[知乎：为什么大多公司不要培训班培训出来的Java程序员？](https://www.zhihu.com/question/63981591/answer/1774339687)

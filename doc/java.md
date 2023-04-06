@@ -22,6 +22,7 @@ Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjava
  - [http://www.cyc2018.xyz/](http://www.cyc2018.xyz/)
 
 
+[ Java1234](http://www.java1234.vip/)
 
 ## 开源库
 
@@ -137,3 +138,4 @@ https://github.com/halo-dev/halo
 [全网最全的权限系统设计方案（建议收藏）](https://mp.weixin.qq.com/s/ludjl_lw1oRzebg_J-3XXg)
 
 [知乎：为什么大多公司不要培训班培训出来的Java程序员？](https://www.zhihu.com/question/63981591/answer/1774339687)
+

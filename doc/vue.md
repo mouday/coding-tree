@@ -210,3 +210,7 @@ UI库/相关工具/可视化/生态全分享
 [Vue Element Admin](https://github.com/PanJiaChen/vue-element-admin) 帮助构建具有管理网站所需的许多功能的简单管理界面。
 
 [vue-element-plus-admin](https://gitee.com/kailong110120130/vue-element-plus-admin) 一套基于vue3、element-plus、typescript4、vite3的后台集成方案
+
+[vue-admin-better](https://github.com/chuzhixin/vue-admin-better) vue3.x + element-plus
+
+[vue-pure-admin](https://github.com/pure-admin/vue-pure-admin) Vue3+Vite4+Element-Plus+TypeScript编写的一款后台管理系统（兼容移动端）

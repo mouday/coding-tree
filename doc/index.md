@@ -80,6 +80,8 @@ Logo：https://www.logoly.pro/
 | - | - | -
 | Cmder |  Windows 下的终端工具 | [https://cmder.net/](https://cmder.net/)
 | HeidiSQL | 轻量级的免费MySQL GUI工具 | [https://www.heidisql.com/](https://www.heidisql.com/download.php)
+| SecureCRT | 支持SSH（SSH1和SSH2）的终端仿真程序 | [https://www.vandyke.com/](https://www.vandyke.com/products/securecrt/index.html)
+
 
 ## 学习资料：
 

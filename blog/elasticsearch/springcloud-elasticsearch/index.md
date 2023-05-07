@@ -10,8 +10,7 @@
 - [RestClient操作索引库](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-restclient.md)
 - [RestClient操作文档](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-restclient-doc.md)
 - [DSL查询文档](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-dsl.md)
+- [搜索结果处理](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-result.md)
 
 
-
-
-https://www.bilibili.com/video/BV1LQ4y127n4/?p=107&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1LQ4y127n4?p=108&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

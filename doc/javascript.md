@@ -53,7 +53,6 @@
 
 [Vant 2](https://vant-contrib.gitee.io/vant/v2/#/zh-CN/) 轻量、可靠的移动端 Vue 组件库
 
-[Swiper](https://www.swiper.com.cn/)(Swiper master)是目前应用较广泛的移动端网页触摸内容滑动 js 插件
 
 [Moment.js](http://momentjs.cn/) JavaScript 日期处理类库
 
@@ -79,7 +78,6 @@
 
 [deepmerge](https://github.com/TehShrike/deepmerge) | [npm](https://www.npmjs.com/package/deepmerge) : A library for deep (recursive) merging of Javascript objects
 
-[throttle-debounce](https://github.com/niksy/throttle-debounce) | [npm](https://www.npmjs.com/package/throttle-debounce): Throttle and debounce functions.
 
 [async-validator](https://github.com/yiminghe/async-validator) | [npm](https://www.npmjs.com/package/async-validator) : Validate form asynchronous
 
@@ -101,7 +99,25 @@
 
 [mavon-editor](https://github.com/hinesboy/mavonEditor) | [npm](https://www.npmjs.com/package/mavon-editor) A markdown editor based on Vue that supports a variety of personalized features
 
-[naming-style](https://github.com/parksben/naming-style) | [npm](https://www.npmjs.com/package/naming-style) | [中文 doc](https://github.com/parksben/naming-style/blob/HEAD/DOC_ZH.md): 变量命名风格转化
+
+| 库名 | 简介 | 地址|
+| - | - |- | 
+| current-device | 判断设备 | [npm](https://www.npmjs.com/package/current-device) |
+| vconsole | 移动端打印日志 | [npm](https://www.npmjs.com/package/vconsole) | 
+| Eruda | 手机网页前端调试面板 | [官网](https://eruda.liriliri.io/)、[github](https://github.com/liriliri/eruda)
+Swiper | 移动端网页触摸内容滑动 | [官网](https://www.swiper.com.cn/)
+| vue | - | - |
+| vuex | - | - |
+| axios | - | - |
+| lodash | - | - |
+| vue-router | - | - |
+| composition-api | - | - |
+| echarts | - | - |
+| vue-echarts | - | - |
+| html2canvas | - | - |
+| naming-style | 变量命名风格转化 | [github](https://github.com/parksben/naming-style) [npm](https://www.npmjs.com/package/naming-style) [中文 doc](https://github.com/parksben/naming-style/blob/HEAD/DOC_ZH.md) | 
+| throttle-debounce | Throttle and debounce functions. | [github](https://github.com/niksy/throttle-debounce) [npm](https://www.npmjs.com/package/throttle-debounce) | 
+
 
 ## CDN
 

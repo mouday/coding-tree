@@ -117,7 +117,7 @@ Swiper | 移动端网页触摸内容滑动 | [官网](https://www.swiper.com.cn/
 | html2canvas | - | - |
 | naming-style | 变量命名风格转化 | [github](https://github.com/parksben/naming-style) [npm](https://www.npmjs.com/package/naming-style) [中文 doc](https://github.com/parksben/naming-style/blob/HEAD/DOC_ZH.md) | 
 | throttle-debounce | Throttle and debounce functions. | [github](https://github.com/niksy/throttle-debounce) [npm](https://www.npmjs.com/package/throttle-debounce) | 
-
+| Resize Observer |Polyfills the ResizeObserver API |  [github](https://github.com/juggle/resize-observer)
 
 ## CDN
 

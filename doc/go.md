@@ -81,7 +81,9 @@ robfig/cron [pkg](https://pkg.go.dev/github.com/robfig/cron/v3) | [github](https
 
 flosch/pongo2 [pkg](https://pkg.go.dev/github.com/flosch/pongo2/v6) | [github](https://github.com/flosch/pongo2) ![](https://img.shields.io/github/stars/flosch/pongo2.svg?style=social) 一种类似于Django语法的模板语言
 
-gocron [github](https://github.com/ouqiang/gocron) 定时任务管理系统
 
-Sonic 意为声速的、声音的，正如它的名字一样, sonic 致力于成为最快速的开源博客平台。
-https://github.com/go-sonic/sonic
+| 库名 | 简介 | 地址|
+| - | - |- | 
+| mimetype | 一个支持172种MIME类型检测的包 | [github](https://github.com/gabriel-vasile/mimetype) |
+| Sonic | 快速的开源博客平台 | [github](https://github.com/go-sonic/sonic) |
+| gocron | 定时任务管理系统 | [github](https://github.com/ouqiang/gocron) | 

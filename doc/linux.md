@@ -6,6 +6,8 @@
 
 [《瑞吉外卖》Linux笔记](/blog/reggie-doc/doc/linux/index.md)
 
+[鸟哥的 Linux 私房菜 -- 基础学习篇](http://cn.linux.vbird.org/linux_basic/linux_basic.php)
+
 ## 软件
 
 Snapcraft [https://snapcraft.io/](https://snapcraft.io/) Linux 软件包管理工具

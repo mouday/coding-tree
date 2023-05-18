@@ -15,6 +15,7 @@
 - [RestClient搜索结果处理](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-restclient-result.md)
 - [黑马旅游案例](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-example.md)
 - [数据聚合aggregations](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-aggregations.md)
+- [自动补全](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-suggest.md)
 
 
-https://www.bilibili.com/video/BV1LQ4y127n4/?p=125&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1LQ4y127n4?p=127&vd_source=efbb4dc944fa761b6e016ce2ca5933da

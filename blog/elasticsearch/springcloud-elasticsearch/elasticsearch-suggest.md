@@ -479,7 +479,9 @@ for (CompletionSuggestion.Entry.Option option : suggestionSuggest.getOptions()) 
 
 查看前端页面，可以发现当我们在输入框键入时，前端会发起ajax请求：
 
-![image-20210723214021062](assets/image-20210723214021062.png)
+```
+GET http://localhost:8089/hotel/suggestion?key=x
+```
 
 返回值是补全词条的集合，类型为`List<String>`
 

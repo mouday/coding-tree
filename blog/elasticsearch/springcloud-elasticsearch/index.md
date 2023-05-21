@@ -17,6 +17,6 @@
 - [数据聚合aggregations](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-aggregations.md)
 - [拼音分词器](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-pinyin.md)
 - [自动补全](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-suggest.md)
-
+- [数据同步](/blog/elasticsearch/springcloud-elasticsearch/elasticsearch-sync.md)
 
 https://www.bilibili.com/video/BV1LQ4y127n4/?p=131&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

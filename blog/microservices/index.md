@@ -23,3 +23,6 @@ SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 - [Docker](/blog/docker/index.md)
 - [RabbitMQ使用篇](/blog/rabbitmq/index.md)
 - [Elasticsearch](/blog/elasticsearch/springcloud-elasticsearch/index.md)
+
+
+https://www.bilibili.com/video/BV1LQ4y127n4?p=143&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -11,6 +11,8 @@ SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 
 目录
 
+## 实用篇
+
 - [认识微服务](blog/microservices/microservices-start.md)
 - [分布式服务架构案例](/blog/microservices/microservices-example.md)
 - [Eureka注册中心](/blog/microservices/microservices-eureka.md)
@@ -25,4 +27,10 @@ SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 - [Elasticsearch](/blog/elasticsearch/springcloud-elasticsearch/index.md)
 
 
-https://www.bilibili.com/video/BV1LQ4y127n4?p=143&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+## 高级篇
+- [Sentinel](/blog/microservices/sentinel.md)
+
+
+
+
+https://www.bilibili.com/video/BV1LQ4y127n4/?p=144&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

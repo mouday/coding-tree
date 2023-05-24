@@ -196,6 +196,24 @@ java -Dserver.port=8090 -jar sentinel-dashboard-1.8.1.jar
 
 我们在order-service中整合sentinel，并连接sentinel的控制台，步骤如下：
 
+1、启动nacos
+
+```bash
+bash ./bin/startup.sh -m standalone
+```
+
+http://localhost:8848/nacos/
+
+2、启动order-service
+
+http://localhost:8088/order/101
+
+3、启动user-service
+
+http://localhost:8081/user/1
+
+4、引入sentinel
+
 1）引入sentinel依赖
 
 ```xml
@@ -222,14 +240,22 @@ spring:
         dashboard: localhost:8080
 ```
 
-
-
 3）访问order-service的任意端点
+
+重启order-service服务，
 
 打开浏览器，访问[http://localhost:8088/order/101](http://localhost:8088/order/101)，这样才能触发sentinel的监控。
 
 然后再访问sentinel的控制台，查看效果：
 
+问题及解决：
 
+如果发现能打开sentinel，一直没有记录访问数据，查看一下端口是被占用，如果被占用了，就杀掉进程，重启sentinel
 
+```bash
+# 查看端口是否被占用
+lsof -i:8080
 
+# 杀掉进程
+kill -9 <pid>
+```

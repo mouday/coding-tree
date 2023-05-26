@@ -139,3 +139,9 @@ https://github.com/halo-dev/halo
 
 [知乎：为什么大多公司不要培训班培训出来的Java程序员？](https://www.zhihu.com/question/63981591/answer/1774339687)
 
+
+
+Java零基础到就业视频课程：https://pan.baidu.com/s/1tilrnPNXiLXg1ebouO2_nQ 提取码：6ruw
+
+
+架构师全套视频课程：https://pan.baidu.com/s/120crv9u9qg3fHK8Sw3Q_aA 提取码: b3rm

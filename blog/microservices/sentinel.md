@@ -212,7 +212,15 @@ http://localhost:8088/order/101
 
 http://localhost:8081/user/1
 
-4、引入sentinel
+4、启动sentinel
+
+```sh
+java -jar sentinel-dashboard-1.8.1.jar
+```
+
+http://localhost:8080/
+
+5、引入sentinel
 
 1）引入sentinel依赖
 

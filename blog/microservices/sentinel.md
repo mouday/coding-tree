@@ -179,7 +179,9 @@ java -Dserver.port=8090 -jar sentinel-dashboard-1.8.1.jar
 
 3）访问
 
-访问[http://localhost:8080](http://localhost:8080) 页面，就可以看到sentinel的控制台了：
+访问 [http://localhost:8080](http://localhost:8080) 
+
+就可以看到sentinel的控制台了：
 
 
 需要输入账号和密码，默认都是：sentinel

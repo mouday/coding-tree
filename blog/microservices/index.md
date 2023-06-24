@@ -32,6 +32,9 @@ SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 - [微服务保护sentinel](blog/sentinel/微服务保护.md)
 - [sentinel规则持久化](/blog/jmeter/sentinel规则持久化.md)
 - [Jmeter快速入门](/blog/jmeter/index.md)
-
+- [seata分布式事务](/blog/seata/index.md)
+- [seata的部署和集成](/blog/seata-deploy/seata的部署和集成.md)
 
 https://www.bilibili.com/video/BV1LQ4y127n4/?p=148&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV1LQ4y127n4/?p=149&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

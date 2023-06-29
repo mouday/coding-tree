@@ -46,6 +46,7 @@
     - [Git 教程 | 菜鸟教程](https://www.runoob.com/git/git-tutorial.html)
 - 项目构建Maven
     - [Maven 教程 | 菜鸟教程](https://www.runoob.com/maven/maven-tutorial.html)
+    - [尚硅谷Maven教程](/blog/maven/index.md)
 - 服务器系统Linux
 
 ## 四、中间件&服务框架

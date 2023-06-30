@@ -7,7 +7,9 @@
 
 本课程将会让你从不会使用 Maven 的小白晋升熟练使用 Maven 管理依赖和构建过程的大牛，并理解 Maven 中各种内部机制的来龙去脉，在 Maven 的整个生态中游刃有余。
 
-https://www.bilibili.com/video/BV12q4y147e4/?p=2&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
-学员笔记：http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/
+老师笔记：http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/
 
+笔记备份：https://www.wolai.com/arAiYJYCr6Kkfi2kZ8HxE8
+
+https://www.bilibili.com/video/BV12q4y147e4/?p=14&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

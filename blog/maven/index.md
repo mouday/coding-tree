@@ -12,4 +12,12 @@
 
 笔记备份：https://www.wolai.com/arAiYJYCr6Kkfi2kZ8HxE8
 
-https://www.bilibili.com/video/BV12q4y147e4/?p=14&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+目录
+
+- [maven入门篇](/blog/maven/maven-introduction.md)
+- [maven原理篇](/blog/maven/maven-principle.md)
+- [maven实战篇](/blog/maven/maven-practice.md)
+
+
+
+https://www.bilibili.com/video/BV12q4y147e4/?p=20&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

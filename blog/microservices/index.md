@@ -29,7 +29,7 @@ SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 
 ## 高级篇
 - [Sentinel笔记（部分）](/blog/microservices/sentinel.md)
-- [sentinel微服务保护](blog/sentinel/微服务保护.md)
+- [sentinel微服务保护](/blog/sentinel/微服务保护.md)
 - [sentinel规则持久化](/blog/jmeter/sentinel规则持久化.md)
 - [Jmeter快速入门](/blog/jmeter/index.md)
 - [seata分布式事务](/blog/seata/index.md)
@@ -39,4 +39,4 @@ SpringCloudAlibaba、RabbitMQ、Docker、Redis、Elasticsearch
 - [Redis集群](/blog/redis-cluster/Redis集群.md)
 
 
-https://www.bilibili.com/video/BV1LQ4y127n4/?p=152&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1LQ4y127n4/?p=153&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

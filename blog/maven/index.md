@@ -19,5 +19,4 @@
 - [maven实战篇](/blog/maven/maven-practice.md)
 
 
-
-https://www.bilibili.com/video/BV12q4y147e4/?p=20&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV12q4y147e4?p=35&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -1,166 +1,8 @@
 [返回目录](/blog/maven/index.md)
 
-# Maven 入门篇
+# 第三章 使用 Maven：命令行环境
 
-## 第一章 Maven 概述
-
-### 第一节 为什么要学习 Maven
-
-1、Maven 作为`依赖管理` 工具
-
-2、Maven 作为`构建管理` 工具
-
-### 第二节 什么是 Maven
-
-Maven 是 Apache 软件基金会组织维护的一款专门为 Java 项目提供构建和依赖管理支持的工具。
-
-1、构建
-
-构建过程包含的主要的环节：
-
-1. 清理：删除上一次构建的结果，为下一次构建做好准备
-2. 编译：Java 源程序编译成 \*.class 字节码文件
-3. 测试：运行提前准备好的测试程序
-4. 报告：针对刚才测试的结果生成一个全面的信息
-5. 打包
-   - Java 工程：jar 包
-   - Web 工程：war 包
-6. 安装：把一个 Maven 工程经过打包操作生成的 jar 包或 war 包存入 Maven 仓库
-7. 部署
-   - 部署 jar 包：把一个 jar 包部署到 Nexus 私服服务器上
-   - 部署 war 包：借助相关 Maven 插件（例如 cargo），将 war 包部署到 Tomcat 服务器上
-
-2、依赖
-
-依赖管理中要解决的具体问题：
-
-1. jar 包的下载：使用 Maven 之后，jar 包会从规范的远程仓库下载到本地
-2. jar 包之间的依赖：通过依赖的传递性自动完成
-3. jar 包之间的冲突：通过对依赖的配置进行调整，让某些 jar 包不会被导入
-
-3、Maven 的工作机制
-
-![](img/img003.f9cc536c.png)
-
-## 第二章 Maven 核心程序解压和配置
-
-### 第一节 Maven 核心程序解压与配置
-
-1、Maven 官网地址
-
-- 首页：[https://maven.apache.org/](https://maven.apache.org/)
-- 下载页面：[https://maven.apache.org/download.cgi](https://maven.apache.org/download.cgi)
-
-2、解压 Maven 核心程序
-
-```
-$ tree -L 1
-.
-├── LICENSE
-├── NOTICE
-├── README.txt
-├── bin
-├── boot
-├── conf
-├── lib
-└── repository
-```
-
-3、指定本地仓库
-
-本地仓库默认值：
-
-```bash
-# 用户家目录下
-~/.m2/repository
-```
-
-核心配置文件：conf/settings.xml
-
-```xml
-<localRepository>/opt/maven-repository</localRepository>
-```
-
-> 注意：本地仓库本身也需要使用一个`非中文`、`没有空格` 的目录
-
-4、配置阿里云提供的镜像仓库
-
-[https://developer.aliyun.com/mvn/guide](https://developer.aliyun.com/mvn/guide)
-
-```xml
-<mirror>
-  <id>aliyunmaven</id>
-  <mirrorOf>*</mirrorOf>
-  <name>阿里云公共仓库</name>
-  <url>https://maven.aliyun.com/repository/public</url>
-</mirror>
-```
-
-5、配置 Maven 工程的基础 JDK 版本
-
-Java 工程使用的默认 JDK 版本是 1.5
-
-```xml
-<profile>
-    <id>jdk-1.8</id>
-    <activation>
-        <activeByDefault>true</activeByDefault>
-        <jdk>1.8</jdk>
-    </activation>
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-    </properties>
-</profile>
-```
-
-### 第二节 配置环境变量
-
-1、检查 JAVA_HOME 配置是否正确
-
-```bash
-# windows
-$ echo %JAVA_HOME%
-
-# linux
-$ echo $JAVA_HOME
-
-$ java -version
-java version "1.8.0_361"
-Java(TM) SE Runtime Environment (build 1.8.0_361-b09)
-Java HotSpot(TM) 64-Bit Server VM (build 25.361-b09, mixed mode)
-```
-
-2、配置 MAVEN_HOME 和 PATH
-
-> TIP：
-> 配置环境变量的规律：
-> XXX_HOME 通常指向的是 bin 目录的上一级；
-> PATH 指向的是 bin 目录
-
-`vim ~/.bash_profile`
-
-```bash
-# maven
-export MAVEN_HOME=/Users/tom/Applications/apache-maven-3.6.3
-export PATH=${PATH}:${MAVEN_HOME}/bin
-```
-
-3、验证
-
-```bash
-$ mvn -v
-Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)
-Maven home: /Users/hina/Applications/apache-maven-3.6.3
-Java version: 1.8.0_361, vendor: Oracle Corporation, runtime: /Users/hina/Applications/jdk/jdk1.8.0_361.jdk/Contents/Home/jre
-Default locale: zh_CN, platform encoding: UTF-8
-OS name: "mac os x", version: "10.14.4", arch: "x86_64", family: "mac"
-```
-
-## 第三章 使用 Maven：命令行环境
-
-### 第一节 实验一：根据坐标创建 Maven 工程
+## 第一节 实验一：根据坐标创建 Maven 工程
 
 1、Maven 核心概念：坐标
 
@@ -370,7 +212,7 @@ Maven 对于目录结构这个问题，没有采用配置的方式，而是基�
 
 目前开发领域的技术发展趋势就是：约定大于配置，配置大于编码。
 
-### 第二节 实验二：在 Maven 工程中编写代码
+## 第二节 实验二：在 Maven 工程中编写代码
 
 1、主体程序
 
@@ -427,7 +269,7 @@ public class CalculatorTest{
 	
 }
 ```
-### 第三节 实验三：执行 Maven 的构建命令
+## 第三节 实验三：执行 Maven 的构建命令
 
 1、要求
 
@@ -502,7 +344,7 @@ D:\maven-rep1026\com\atguigu\maven\pro01-maven-java\1.0-SNAPSHOT\pro01-maven-jav
 
 另外，安装操作还会将 pom.xml 文件转换为 XXX.pom 文件一起存入本地仓库。所以我们在 Maven 的本地仓库中想看一个 jar 包原始的 pom.xml 文件时，查看对应 XXX.pom 文件即可，它们是名字发生了改变，本质上是同一个文件。
 
-### 第四节 实验四：创建 Maven 版的 Web 工程
+## 第四节 实验四：创建 Maven 版的 Web 工程
 
 
 1、说明
@@ -696,7 +538,7 @@ $ bash ./bin/startup.sh
 
 通过浏览器尝试访问：http://localhost:8080/pro02-maven-web/index.jsp
 
-### 第五节 实验五：让 Web 工程依赖 Java 工程
+## 第五节 实验五：让 Web 工程依赖 Java 工程
 
 1、观念
 
@@ -818,7 +660,7 @@ mvn dependency:tree
 ```
 我们在 pom.xml 中并没有依赖 hamcrest-core，但是它却被加入了我们依赖的列表。原因是：junit 依赖了hamcrest-core，然后基于依赖的传递性，hamcrest-core 被传递到我们的工程了。
 
-### 第六节 实验六：测试依赖范围
+## 第六节 实验六：测试依赖范围
 
 1、依赖范围
 
@@ -942,18 +784,433 @@ public class CalculatorTest{
 然后看到编译成功。
 
 
-### 第七节 实验七：测试依赖的传递性
+## 第七节 实验七：测试依赖的传递性
 
-http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/chapter03/verse06.html
 
-### 第八节 实验八：测试依赖的排除
+1、依赖的传递性
 
-### 第九节 实验九：继承
+①概念
 
-### 第十节 实验十：聚合
+A 依赖 B，B 依赖 C，那么在 A 没有配置对 C 的依赖的情况下，A 里面能不能直接使用 C？
 
-## 第四章 使用 Maven：IDEA 环境
+②传递的原则
 
-## 第五章 其他核心概念
+在 A 依赖 B，B 依赖 C 的前提下，C 是否能够传递到 A，取决于 B 依赖 C 时使用的依赖范围。
 
-## 第六章 单一架构案例
+B 依赖 C 时使用 compile 范围：可以传递
+
+B 依赖 C 时使用 test 或 provided 范围：不能传递，所以需要这样的 jar 包时，就必须在需要的地方明确配置依赖才可以。
+
+2、使用 compile 范围依赖 spring-core
+
+测试方式：让 pro01-maven-java 工程依赖 spring-core
+
+具体操作：编辑 pro01-maven-java 工程根目录下 pom.xml
+
+```xml
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+<dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-core</artifactId>
+	<version>4.0.0.RELEASE</version>
+</dependency>
+```
+
+
+使用 `mvn dependency:tree` 命令查看效果：
+```
+[INFO] com.atguigu.maven:pro01-maven-java:jar:1.0-SNAPSHOT
+[INFO] +- junit:junit:jar:4.12:test
+[INFO] | \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO] \- org.springframework:spring-core:jar:4.0.0.RELEASE:compile
+[INFO] \- commons-logging:commons-logging:jar:1.1.1:compile
+```
+
+还可以在 Web 工程中，使用 `mvn dependency:tree` 命令查看效果（需要重新将 pro01-maven-java 安装到仓库）：
+
+```
+[INFO] com.atguigu.maven:pro02-maven-web:war:1.0-SNAPSHOT
+[INFO] +- junit:junit:jar:4.12:test
+[INFO] | \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO] +- javax.servlet:javax.servlet-api:jar:3.1.0:provided
+[INFO] \- com.atguigu.maven:pro01-maven-java:jar:1.0-SNAPSHOT:compile
+[INFO] \- org.springframework:spring-core:jar:4.0.0.RELEASE:compile
+[INFO] \- commons-logging:commons-logging:jar:1.1.1:compile
+```
+
+3、验证 test 和 provided 范围不能传递
+
+从上面的例子已经能够看到，pro01-maven-java 依赖了 junit，但是在 pro02-maven-web 工程中查看依赖树的时候并没有看到 junit。
+
+要验证 provided 范围不能传递，可以在 pro01-maven-java 工程中加入 servlet-api 的依赖。
+
+```xml
+<dependency>
+	<groupId>javax.servlet</groupId>
+	<artifactId>javax.servlet-api</artifactId>
+	<version>3.1.0</version>
+	<scope>provided</scope>
+</dependency>
+```
+
+效果还是和之前一样：
+
+```
+[INFO] com.atguigu.maven:pro02-maven-web:war:1.0-SNAPSHOT
+[INFO] +- junit:junit:jar:4.12:test
+[INFO] | \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO] +- javax.servlet:javax.servlet-api:jar:3.1.0:provided
+[INFO] \- com.atguigu.maven:pro01-maven-java:jar:1.0-SNAPSHOT:compile
+[INFO] \- org.springframework:spring-core:jar:4.0.0.RELEASE:compile
+[INFO] \- commons-logging:commons-logging:jar:1.1.1:compile
+```
+
+## 第八节 实验八：测试依赖的排除
+
+1、概念
+
+当 A 依赖 B，B 依赖 C 而且 C 可以传递到 A 的时候，A 不想要 C，需要在 A 里面把 C 排除掉。而往往这种情况都是为了避免 jar 包之间的冲突。
+
+![](img/img027.2faff879.png)
+
+所以配置依赖的排除其实就是阻止某些 jar 包的传递。因为这样的 jar 包传递过来会和其他 jar 包冲突。
+
+2、配置方式
+
+```xml
+<dependency>
+	<groupId>com.atguigu.maven</groupId>
+	<artifactId>pro01-maven-java</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<scope>compile</scope>
+	<!-- 使用excludes标签配置依赖的排除	-->
+	<exclusions>
+		<!-- 在exclude标签中配置一个具体的排除 -->
+		<exclusion>
+			<!-- 指定要排除的依赖的坐标（不需要写version） -->
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+
+```
+
+3、测试
+
+测试的方式：在 pro02-maven-web 工程中配置对 commons-logging 的排除
+
+```xml
+<dependency>
+	<groupId>com.atguigu.maven</groupId>
+	<artifactId>pro01-maven-java</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<scope>compile</scope>
+	<!-- 使用excludes标签配置依赖的排除	-->
+	<exclusions>
+		<!-- 在exclude标签中配置一个具体的排除 -->
+		<exclusion>
+			<!-- 指定要排除的依赖的坐标（不需要写version） -->
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+```
+
+运行 `mvn dependency:tree` 命令查看效果：
+
+```
+[INFO] com.atguigu.maven:pro02-maven-web:war:1.0-SNAPSHOT
+[INFO] +- junit:junit:jar:4.12:test
+[INFO] | \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO] +- javax.servlet:javax.servlet-api:jar:3.1.0:provided
+[INFO] \- com.atguigu.maven:pro01-maven-java:jar:1.0-SNAPSHOT:compile
+[INFO] \- org.springframework:spring-core:jar:4.0.0.RELEASE:compile
+```
+
+发现在 spring-core 下面就没有 commons-logging 了。
+
+
+## 第九节 实验九：继承
+
+1、概念
+
+Maven工程之间，A 工程继承 B 工程
+
+- B 工程：父工程
+- A 工程：子工程
+
+本质上是 A 工程的 pom.xml 中的配置继承了 B 工程中 pom.xml 的配置。
+
+2、作用
+
+在父工程中统一管理项目中的依赖信息，具体来说是管理依赖信息的版本。
+
+它的背景是：
+
+- 对一个比较大型的项目进行了模块拆分。
+- 一个 project 下面，创建了很多个 module。
+- 每一个 module 都需要配置自己的依赖信息。
+
+
+它背后的需求是：
+
+- 在每一个 module 中各自维护各自的依赖信息很容易发生出入，不易统一管理。
+- 使用同一个框架内的不同 jar 包，它们应该是同一个版本，所以整个项目中使用的框架版本需要统一。
+- 使用框架时所需要的 jar 包组合（或者说依赖信息组合）需要经过长期摸索和反复调试，最终确定一个可用组合。这个耗费很大精力总结出来的方案不应该在新的项目中重新摸索。
+
+通过在父工程中为整个项目维护依赖信息的组合既保证了整个项目使用规范、准确的 jar 包；又能够将以往的经验沉淀下来，节约时间和精力。
+
+3、举例
+
+在一个工程中依赖多个 Spring 的 jar 包
+
+```
+[INFO] +- org.springframework:spring-core:jar:4.0.0.RELEASE:compile
+[INFO] | \- commons-logging:commons-logging:jar:1.1.1:compile
+[INFO] +- org.springframework:spring-beans:jar:4.0.0.RELEASE:compile
+[INFO] +- org.springframework:spring-context:jar:4.0.0.RELEASE:compile
+[INFO] +- org.springframework:spring-expression:jar:4.0.0.RELEASE:compile
+[INFO] +- org.springframework:spring-aop:jar:4.0.0.RELEASE:compile
+[INFO] | \- aopalliance:aopalliance:jar:1.0:compile
+```
+
+使用 Spring 时要求所有 Spring 自己的 jar 包版本必须一致。为了能够对这些 jar 包的版本进行统一管理，我们使用继承这个机制，将所有版本信息统一在父工程中进行管理。
+
+4、操作
+
+①创建父工程
+
+创建的过程和前面创建 pro01-maven-java 一样。
+
+工程名称：pro03-maven-parent
+
+工程创建好之后，要修改它的打包方式：
+
+```xml
+<groupId>com.atguigu.maven</groupId>
+<artifactId>pro03-maven-parent</artifactId>
+<version>1.0-SNAPSHOT</version>
+
+<!-- 当前工程作为父工程，它要去管理子工程，所以打包方式必须是 pom -->
+<packaging>pom</packaging>
+```
+
+只有打包方式为 pom 的 Maven 工程能够管理其他 Maven 工程。打包方式为 pom 的 Maven 工程中不写业务代码，它是专门管理其他 Maven 工程的工程。
+
+②创建模块工程
+
+模块工程类似于 IDEA 中的 module，所以需要进入 pro03-maven-parent 工程的根目录，然后运行 `mvn archetype:generate` 命令来创建模块工程。
+
+假设，我们创建三个模块工程：
+
+③查看被添加新内容的父工程 pom.xml
+
+下面 modules 和 module 标签是聚合功能的配置
+
+```xml
+<modules>  
+	<module>pro04-maven-module</module>
+	<module>pro05-maven-module</module>
+	<module>pro06-maven-module</module>
+</modules>
+```
+
+④解读子工程的pom.xml
+
+```xml
+<!-- 使用parent标签指定当前工程的父工程 -->
+<parent>
+	<!-- 父工程的坐标 -->
+	<groupId>com.atguigu.maven</groupId>
+	<artifactId>pro03-maven-parent</artifactId>
+	<version>1.0-SNAPSHOT</version>
+</parent>
+
+<!-- 子工程的坐标 -->
+<!-- 如果子工程坐标中的groupId和version与父工程一致，那么可以省略 -->
+<!-- <groupId>com.atguigu.maven</groupId> -->
+<artifactId>pro04-maven-module</artifactId>
+<!-- <version>1.0-SNAPSHOT</version> -->
+```
+
+⑤在父工程中配置依赖的统一管理
+
+```xml
+<!-- 使用dependencyManagement标签配置对依赖的管理 -->
+<!-- 被管理的依赖并没有真正被引入到工程 -->
+<dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>4.0.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>4.0.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.0.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>4.0.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>4.0.0.RELEASE</version>
+		</dependency>
+	</dependencies>
+</dependencyManagement>
+```
+
+⑥子工程中引用那些被父工程管理的依赖
+
+关键点：省略版本号
+
+```xml
+<!-- 子工程引用父工程中的依赖信息时，可以把版本号去掉。	-->
+<!-- 把版本号去掉就表示子工程中这个依赖的版本由父工程决定。 -->
+<!-- 具体来说是由父工程的dependencyManagement来决定。 -->
+<dependencies>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-beans</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-expression</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aop</artifactId>
+	</dependency>
+</dependencies>
+```
+
+⑦在父工程中升级依赖信息的版本
+
+```xml
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-beans</artifactId>
+    <version>4.1.4.RELEASE</version>
+</dependency>
+```
+
+然后在子工程中运行mvn dependency:list，效果如下：
+
+```
+[INFO] org.springframework:spring-aop:jar:4.1.4.RELEASE:compile
+[INFO] org.springframework:spring-core:jar:4.1.4.RELEASE:compile
+[INFO] org.springframework:spring-context:jar:4.1.4.RELEASE:compile
+[INFO] org.springframework:spring-beans:jar:4.1.4.RELEASE:compile
+[INFO] org.springframework:spring-expression:jar:4.1.4.RELEASE:compile
+```
+
+⑧在父工程中声明自定义属性
+
+```xml
+<!-- 通过自定义属性，统一指定Spring的版本 -->
+<properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	
+	<!-- 自定义标签，维护Spring版本数据 -->
+	<atguigu.spring.version>4.3.6.RELEASE</atguigu.spring.version>
+</properties>
+```
+
+在需要的地方使用 `${}` 的形式来引用自定义的属性名：
+
+```xml
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>
+    <version>${atguigu.spring.version}</version>
+</dependency>
+```
+
+真正实现“一处修改，处处生效”。
+
+5、实际意义
+
+![](img/img037.53c95c38.jpg)
+
+编写一套符合要求、开发各种功能都能正常工作的依赖组合并不容易。如果公司里已经有人总结了成熟的组合方案，那么再开发新项目时，如果不使用原有的积累，而是重新摸索，会浪费大量的时间。为了提高效率，我们可以使用工程继承的机制，让成熟的依赖组合方案能够保留下来。
+
+如上图所示，公司级的父工程中管理的就是成熟的依赖组合方案，各个新项目、子系统各取所需即可。
+
+
+## 第十节 实验十：聚合
+
+1、聚合本身的含义
+
+部分组成整体
+
+
+2、Maven 中的聚合
+
+使用一个“总工程”将各个“模块工程”汇集起来，作为一个整体对应完整的项目。
+
+- 项目：整体
+- 模块：部分
+
+概念的对应关系：
+
+从继承关系角度来看：
+
+- 父工程
+- 子工程
+
+
+从聚合关系角度来看：
+
+- 总工程
+- 模块工程
+
+3、好处
+
+一键执行 Maven 命令：很多构建命令都可以在“总工程”中一键执行。
+
+以 mvn install 命令为例：Maven 要求有父工程时先安装父工程；有依赖的工程时，先安装被依赖的工程。我们自己考虑这些规则会很麻烦。但是工程聚合之后，在总工程执行 mvn install 可以一键完成安装，而且会自动按照正确的顺序执行。
+
+配置聚合之后，各个模块工程会在总工程中展示一个列表，让项目中的各个模块一目了然。
+
+4、聚合的配置
+
+在总工程中配置 modules 即可：
+
+```xml
+<modules>  
+    <module>pro04-maven-module</module>
+    <module>pro05-maven-module</module>
+    <module>pro06-maven-module</module>
+</modules>
+```
+
+5、依赖循环问题
+
+如果 A 工程依赖 B 工程，B 工程依赖 C 工程，C 工程又反过来依赖 A 工程，那么在执行构建操作时会报下面的错误：
+
+```
+DANGER
+
+[ERROR] [ERROR] The projects in the reactor contain a cyclic reference:
+```
+
+这个错误的含义是：循环引用。

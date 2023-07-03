@@ -1214,3 +1214,14 @@ DANGER
 ```
 
 这个错误的含义是：循环引用。
+
+不使用交互，直接生成项目目录
+
+```bash
+mvn archetype:generate \
+-DarchetypeGroupId=org.apache.maven.archetypes \
+-DarchetypeArtifactId=maven-archetype-quickstart \
+-DgroupId=com.atguigu.maven \
+-DartifactId=pro06-maven-java \
+-DinteractiveMode=false
+```

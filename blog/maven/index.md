@@ -32,4 +32,4 @@
 http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/chapter04/
 
 
-https://www.bilibili.com/video/BV12q4y147e4/?p=49&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV12q4y147e4/?p=66&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

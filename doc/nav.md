@@ -19,4 +19,6 @@
 
 - [https://javaguide.cn/](https://javaguide.cn/)
 
+- [小林 x 图解计算机基础](https://www.xiaolincoding.com/)
+
 - [知乎：关于JAVA的书籍最佳阅读顺序，大家有什么建议？](https://www.zhihu.com/question/269505829)

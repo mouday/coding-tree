@@ -813,13 +813,469 @@ $ tree
 
 ## 第三节 搭建环境：事务控制
 
-http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/chapter06/verse03.html
+### 1、总体思路
+
+![](img/img016.png)
+
+### 2、TransactionFilter
+
+①创建 Filter 类
+
+```
+/src/main/java/
+    com/atguigu/imperial/court/
+        filter/
+            TransactionFilter.java
+```
+
+②TransactionFilter 完整代码
+
+```java
+public class TransactionFilter implements Filter {
+
+    // 声明集合保存静态资源扩展名
+    private static Set<String> staticResourceExtNameSet;
+
+    static {
+        staticResourceExtNameSet = new HashSet<>();
+        staticResourceExtNameSet.add(".png");
+        staticResourceExtNameSet.add(".jpg");
+        staticResourceExtNameSet.add(".css");
+        staticResourceExtNameSet.add(".js");
+    }
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+
+        // 前置操作：排除静态资源
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        String servletPath = request.getServletPath();
+        if (servletPath.contains(".")) {
+            String extName = servletPath.substring(servletPath.lastIndexOf("."));
+
+            if (staticResourceExtNameSet.contains(extName)) {
+
+                // 如果检测到当前请求确实是静态资源，则直接放行，不做事务操作
+                filterChain.doFilter(servletRequest, servletResponse);
+
+                // 当前方法立即返回
+                return ;
+            }
+
+        }
+
+        Connection connection = null;
+
+        try{
+
+            // 1、获取数据库连接
+            connection = JDBCUtils.getConnection();
+
+            // 重要操作：关闭自动提交功能
+            connection.setAutoCommit(false);
+
+            // 2、核心操作
+            filterChain.doFilter(servletRequest, servletResponse);
+
+            // 3、提交事务
+            connection.commit();
+
+        }catch (Exception e) {
+
+            try {
+                // 4、回滚事务
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+
+            // 页面显示：将这里捕获到的异常发送到指定页面显示
+            // 获取异常信息
+            String message = e.getMessage();
+
+            // 将异常信息存入请求域
+            request.setAttribute("systemMessage", message);
+
+            // 将请求转发到指定页面
+            request.getRequestDispatcher("/").forward(request, servletResponse);
+
+        }finally {
+
+            // 5、释放数据库连接
+            JDBCUtils.releaseConnection(connection);
+
+        }
+
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {}
+    
+    @Override
+    public void destroy() {}
+}
+```
+
+③配置 web.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+        http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <filter>
+        <filter-name>txFilter</filter-name>
+        <filter-class>com.atguigu.imperial.court.filter.TransactionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>txFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>
+
+```
+
+④注意点
+
+[1]确保异常回滚
+
+在程序执行的过程中，必须让所有 catch 块都把编译时异常转换为运行时异常抛出；如果不这么做，在 TransactionFilter 中 catch 就无法捕获到底层抛出的异常，那么该回滚的时候就无法回滚。
+
+[2]谨防数据库连接提前释放
+
+由于诸多操作都是在使用同一个数据库连接，那么中间任何一个环节释放数据库连接都会导致后续操作无法正常完成。
 
 ## 第四节 搭建环境：表述层
 
+1、视图模板技术 Thymeleaf
+
+①服务器端渲染
+
+![](img/img019.png)
+
+
+②Thymeleaf 简要工作机制
+
+[1]初始化阶段
+
+- 目标：创建 TemplateEngine 对象
+- 封装：因为对每一个请求来说，TemplateEngine 对象使用的都是同一个，所以在初始化阶段准备好
+
+![](img/maven-6-1.png)
+
+[2]请求处理阶段
+
+![](img/maven-6-2.png)
+
+③逻辑视图与物理视图
+
+假设有下列页面地址：
+
+```
+/WEB-INF/pages/apple.html
+/WEB-INF/pages/banana.html
+/WEB-INF/pages/orange.html
+/WEB-INF/pages/grape.html
+/WEB-INF/pages/egg.html
+```
+
+这样的地址可以直接访问到页面本身，我们称之为：物理视图。
+
+而将物理视图中前面、后面的固定内容抽取出来，让每次请求指定中间变化部分即可，那么中间变化部分就叫：逻辑视图。
+
+![](img/maven-6-3.png)
+
+④ViewBaseServlet 完整代码
+
+为了简化视图页面处理过程，我们将 Thymeleaf 模板引擎的初始化和请求处理过程封装到一个 Servlet 基类中：ViewBaseServlet。以后负责具体模块业务功能的 Servlet 继承该基类即可直接使用。
+
+```
+/src/main/java/
+    com/atguigu/imperial/court/
+        servlet/
+            base/
+                ViewBaseServlet.java
+```
+
+ViewBaseServlet 完整代码
+
+```java
+public class ViewBaseServlet extends HttpServlet {
+
+    private TemplateEngine templateEngine;
+
+    @Override
+    public void init() throws ServletException {
+
+        // 1.获取ServletContext对象
+        ServletContext servletContext = this.getServletContext();
+
+        // 2.创建Thymeleaf解析器对象
+        ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
+
+        // 3.给解析器对象设置参数
+        // ①HTML是默认模式，明确设置是为了代码更容易理解
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+
+        // ②设置前缀
+        String viewPrefix = servletContext.getInitParameter("view-prefix");
+
+        templateResolver.setPrefix(viewPrefix);
+
+        // ③设置后缀
+        String viewSuffix = servletContext.getInitParameter("view-suffix");
+
+        templateResolver.setSuffix(viewSuffix);
+
+        // ④设置缓存过期时间（毫秒）
+        templateResolver.setCacheTTLMs(60000L);
+
+        // ⑤设置是否缓存
+        templateResolver.setCacheable(true);
+
+        // ⑥设置服务器端编码方式
+        templateResolver.setCharacterEncoding("utf-8");
+
+        // 4.创建模板引擎对象
+        templateEngine = new TemplateEngine();
+
+        // 5.给模板引擎对象设置模板解析器
+        templateEngine.setTemplateResolver(templateResolver);
+
+    }
+
+    protected void processTemplate(String templateName, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        // 1.设置响应体内容类型和字符集
+        resp.setContentType("text/html;charset=UTF-8");
+
+        // 2.创建WebContext对象
+        WebContext webContext = new WebContext(req, resp, getServletContext());
+
+        // 3.处理模板数据
+        templateEngine.process(templateName, webContext, resp.getWriter());
+    }
+}
+```
+
+特别提醒：这个类不需要掌握，因为以后都被框架封装了，我们现在只是暂时用一下。
+
+⑤声明初始化参数
+
+web.xml
+
+```xml
+<!-- 配置 Web 应用初始化参数指定视图前缀、后缀 -->
+<!-- 
+    物理视图举例：/WEB-INF/pages/index.html
+    对应逻辑视图：index
+-->
+<context-param>
+    <param-name>view-prefix</param-name>
+    <param-value>/WEB-INF/pages/</param-value>
+</context-param>
+
+<context-param>
+    <param-name>view-suffix</param-name>
+    <param-value>.html</param-value>
+</context-param>
+```
+
+⑥Thymeleaf 的页面语法
+
+[http://heavy_code_industry.gitee.io/code_heavy_industry/pro001-javaweb/lecture/chapter08/](http://heavy_code_industry.gitee.io/code_heavy_industry/pro001-javaweb/lecture/chapter08/)
+
+2、ModelBaseServlet
+
+①提出问题
+
+[1]我们的需求
+
+```
+请求 -> UserServlet -> method
+```
+
+[2]HttpServlet 的局限
+- doGet() 方法：处理 GET 请求
+- doPost() 方法：处理 POST 请求
+
+②解决方案
+
+每个请求附带一个请求参数，表明自己要调用的目标方法
+Servlet 根据目标方法名通过反射调用目标方法
+
+③ModelBaseServlet 完整代码
+```
+/src/main/java/
+    com/atguigu/imperial/court/
+        servlet/
+            base/
+                ModelBaseServlet.java
+```
+
+特别提醒：为了配合 TransactionFilter 实现事务控制，捕获的异常必须抛出。
+
+```java
+public class ModelBaseServlet extends ViewBaseServlet {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // 在doGet()方法中调用doPost()方法，这样就可以在doPost()方法中集中处理所有请求
+        doPost(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // 1.在所有request.getParameter()前面设置解析请求体的字符集
+        request.setCharacterEncoding("UTF-8");
+
+        // 2.从请求参数中获取method对应的数据
+        String method = request.getParameter("method");
+
+        // 3.通过反射调用method对应的方法
+        // ①获取Class对象
+        Class<? extends ModelBaseServlet> clazz = this.getClass();
+
+        try {
+            // ②获取method对应的Method对象
+            Method methodObject = clazz.getDeclaredMethod(method, HttpServletRequest.class, HttpServletResponse.class);
+
+            // ③打开访问权限
+            methodObject.setAccessible(true);
+
+            // ④通过Method对象调用目标方法
+            methodObject.invoke(this, request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            // 重要提醒：为了配合 TransactionFilter 实现事务控制，捕获的异常必须抛出。
+            throw new RuntimeException(e);
+        }
+    }
+
+}
+```
+
+④继承关系
+
+![](img/maven-6-4.png)
+
 ## 第五节 搭建环境：辅助功能
 
+1、常量类
+
+```
+/src/main/java/
+    com/atguigu/imperial/court/
+        util/
+            ImperialCourtConst.java
+```
+
+```java
+public class ImperialCourtConst {
+
+    public static final String LOGIN_FAILED_MESSAGE = "账号、密码错误，不可进宫！";
+    public static final String ACCESS_DENIED_MESSAGE = "宫闱禁地，不得擅入！";
+
+}
+```
+
+2、MD5 加密工具方法
+
+```
+/src/main/java/
+    com/atguigu/imperial/court/
+        util/
+            MD5Util.java
+```
+
+```java
+public class MD5Util {
+
+    /**
+     * 针对明文字符串执行MD5加密
+     * @param source
+     * @return
+     */
+    public static String encode(String source) {
+
+        // 1.判断明文字符串是否有效
+        if (source == null || "".equals(source)) {
+            throw new RuntimeException("用于加密的明文不可为空");
+        }
+
+        // 2.声明算法名称
+        String algorithm = "md5";
+
+        // 3.获取MessageDigest对象
+        MessageDigest messageDigest = null;
+        try {
+            messageDigest = MessageDigest.getInstance(algorithm);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        // 4.获取明文字符串对应的字节数组
+        byte[] input = source.getBytes();
+
+        // 5.执行加密
+        byte[] output = messageDigest.digest(input);
+
+        // 6.创建BigInteger对象
+        int signum = 1;
+        BigInteger bigInteger = new BigInteger(signum, output);
+
+        // 7.按照16进制将bigInteger的值转换为字符串
+        int radix = 16;
+        String encoded = bigInteger.toString(radix).toUpperCase();
+
+        return encoded;
+    }
+
+}
+```
+
+
+3、日志配置文件
+
+```
+/src/main/resources/
+    logback.xml
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    <!-- 指定日志输出的位置 -->
+    <appender name="STDOUT"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 日志输出的格式 -->
+            <!-- 按照顺序分别是：时间、日志级别、线程名称、打印日志的类、日志主体内容、换行 -->
+            <pattern>[%d{HH:mm:ss.SSS}] [%-5level] [%thread] [%logger] [%msg]%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 设置全局日志级别。日志级别按顺序分别是：DEBUG、INFO、WARN、ERROR -->
+    <!-- 指定任何一个日志级别都只打印当前级别和后面级别的日志。 -->
+    <root level="INFO">
+        <!-- 指定打印日志的appender，这里通过“STDOUT”引用了前面配置的appender -->
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <!-- 专门给某一个包指定日志级别 -->
+    <logger name="com.atguigu" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+</configuration>
+```
+
 ## 第六节 业务功能：登录
+
+http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/chapter06/verse06.html
 
 ## 第七节 业务功能：显示奏折列表
 

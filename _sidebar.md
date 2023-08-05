@@ -12,6 +12,7 @@
   - [Canvas](doc/canvas.md)
   - [微信小程序](doc/miniprogram.md)
   - [Vue.js](doc/vue.md)
+  - [React.js](blog/react/index.md)
   - [websocket](blog/websocket/index.md)
   - [webpack](doc/webpack.md)
   - [Rust](doc/rust.md)

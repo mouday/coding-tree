@@ -999,4 +999,312 @@ console.log(person.age); // 18
   root.render(<InputComponent />);
 </script>
 ```
-https://www.bilibili.com/video/BV1wy4y1D7JT?p=33&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+## Form表单数据收集
+
+非受控组件
+
+```html
+<!-- React 容器 -->
+<div id="root"></div>
+
+<script type="text/babel">
+  class InputComponent extends React.Component {
+    // 创建一个ref容器
+    usernameRef = React.createRef();
+    passwordRef = React.createRef();
+
+    handleSubmit = (event) => {
+      event.preventDefault(); // 阻止默认行为
+
+      let data = {
+        username: this.usernameRef.current.value,
+        password: this.passwordRef.current.value,
+      };
+
+      console.log(data);
+    };
+
+    render() {
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            用户名
+            <input
+              ref={this.usernameRef}
+              type="text"
+              placeholder="用户名"
+            />
+          </label>
+
+          <label>
+            密码
+            <input
+              ref={this.passwordRef}
+              type="password"
+              placeholder="密码"
+            />
+          </label>
+          <button>提交</button>
+        </form>
+      );
+    }
+  }
+
+  // 渲染组件
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+  root.render(<InputComponent />);
+</script>
+```
+
+
+受控组件
+
+
+```html
+<!-- React 容器 -->
+<div id="root"></div>
+
+<script type="text/babel">
+  class InputComponent extends React.Component {
+    state = {
+      username: "",
+      password: "",
+    };
+
+    // 保存用户名
+    handleUsernameChange = (event) => {
+      this.setState({
+        username: event.target.value,
+      });
+    };
+
+    // 保存密码
+    handlePasswordChange = (event) => {
+      this.setState({
+        password: event.target.value,
+      });
+    };
+
+    // 提交表单
+    handleSubmit = (event) => {
+      event.preventDefault(); // 阻止默认行为
+
+      let data = {
+        username: this.state.username,
+        password: this.state.password,
+      };
+
+      console.log(data);
+    };
+
+    render() {
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            用户名
+            <input
+              onChange={this.handleUsernameChange}
+              type="text"
+              placeholder="用户名"
+            />
+          </label>
+
+          <label>
+            密码
+            <input
+              onChange={this.handlePasswordChange}
+              type="password"
+              placeholder="密码"
+            />
+          </label>
+          <button>提交</button>
+        </form>
+      );
+    }
+  }
+
+  // 渲染组件
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+  root.render(<InputComponent />);
+</script>
+```
+
+复习：js对象属性
+
+```js
+let a = "name";
+let obj = {};
+
+obj[a] = "Tom";
+console.log(obj); // {name: 'Tom'}
+
+obj = {
+  [a]: "Jack",
+};
+console.log(obj); // {name: 'Jack'}
+```
+
+高阶函数（满足其中一个即可）：
+
+1. 接收函数作为参数
+2. 返回值是函数
+
+常见的高阶函数：Promise、setTimeout、Array.map() 等等
+
+函数柯里化：
+
+通过函数调用，继续返回函数的方式，实现多次接收参数，最后统一处理的函数编码形式
+
+复习：js 柯里化函数
+
+```js
+// 普通函数
+function sum(a, b, c) {
+  return a + b + c;
+}
+console.log(sum(1, 2, 3)); // 6
+
+// 柯里化
+function currySum(a) {
+  return function (b) {
+    return function (c) {
+      return a + b + c;
+    };
+  };
+}
+
+console.log(currySum(1)(2)(3)); // 6
+```
+
+柯里化函数优化表单接收数据
+
+```html
+<!-- React 容器 -->
+<div id="root"></div>
+
+<script type="text/babel">
+  class InputComponent extends React.Component {
+    state = {
+      username: "",
+      password: "",
+    };
+
+    // 保存用户名
+    handleDataChange = (name) => {
+      return (event) => {
+        this.setState({
+          [name]: event.target.value,
+        });
+      };
+    };
+
+    // 提交表单
+    handleSubmit = (event) => {
+      event.preventDefault(); // 阻止默认行为
+
+      let data = {
+        username: this.state.username,
+        password: this.state.password,
+      };
+
+      console.log(data);
+    };
+
+    render() {
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            用户名
+            <input
+              onChange={this.handleDataChange("username")}
+              type="text"
+              placeholder="用户名"
+            />
+          </label>
+
+          <label>
+            密码
+            <input
+              onChange={this.handleDataChange("password")}
+              type="password"
+              placeholder="密码"
+            />
+          </label>
+          <button>提交</button>
+        </form>
+      );
+    }
+  }
+
+  // 渲染组件
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+  root.render(<InputComponent />);
+</script>
+```
+
+不使用柯里化函数优化表单接收数据
+
+```html
+<!-- React 容器 -->
+<div id="root"></div>
+
+<script type="text/babel">
+  class InputComponent extends React.Component {
+    state = {
+      username: "",
+      password: "",
+    };
+
+    // 保存用户名
+    handleDataChange = (name, event) => {
+      this.setState({
+        [name]: event.target.value,
+      });
+    };
+
+    // 提交表单
+    handleSubmit = (event) => {
+      event.preventDefault(); // 阻止默认行为
+
+      let data = {
+        username: this.state.username,
+        password: this.state.password,
+      };
+
+      console.log(data);
+    };
+
+    render() {
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            用户名
+            <input
+              onChange={(event) => this.handleDataChange("username", event)}
+              type="text"
+              placeholder="用户名"
+            />
+          </label>
+
+          <label>
+            密码
+            <input
+              onChange={(event) => this.handleDataChange("password", event)}
+              type="password"
+              placeholder="密码"
+            />
+          </label>
+          <button>提交</button>
+        </form>
+      );
+    }
+  }
+
+  // 渲染组件
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+  root.render(<InputComponent />);
+</script>
+```
+
+
+https://www.bilibili.com/video/BV1wy4y1D7JT/?p=37&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -33,33 +33,33 @@ module.exports = {
     // 侧边栏
     sidebar: [
       {
-        title: "目录", // 必要的
-        path: "/_sidebar",
+        text: "目录", // 必要的
+        link: "/_sidebar",
         collapsable: false, // 可选的, 默认值是 true,
         sidebarDepth: 0, //
       },
       {
-        title: "导航", // 必要的
-        path: "/_navbar",
+        text: "导航", // 必要的
+        link: "/_navbar",
         collapsable: false, // 可选的, 默认值是 true,
         sidebarDepth: 0, //
       },
       {
-        title: "常用", // 必要的
+        text: "常用", // 必要的
         collapsable: false, // 可选的, 默认值是 true,
         sidebarDepth: 0, // 可选的, 默认值是 1
         children: [
           {
-            title: "在线工具", // 必要的
-            path: "/doc/tools.md", // 可选的, 标题的跳转链接，应为绝对路径
+            text: "在线工具", // 必要的
+            link: "/doc/tools.md", // 可选的, 标题的跳转链接，应为绝对路径
           },
           {
-            title: "知识博主", // 必要的
-            path: "/doc/nav.md", // 可选的, 标题的跳转链接，应为绝对路径
+            text: "知识博主", // 必要的
+            link: "/doc/nav.md", // 可选的, 标题的跳转链接，应为绝对路径
           },
           {
-            title: "开源库", // 必要的
-            path: "/doc/open.md", // 可选的, 标题的跳转链接，应为绝对路径
+            text: "开源库", // 必要的
+            link: "/doc/open.md", // 可选的, 标题的跳转链接，应为绝对路径
           },
         ],
       },

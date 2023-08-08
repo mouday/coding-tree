@@ -8,6 +8,8 @@
 
 ![](https://weixin.sogou.com/weixin?type=1&s_from=input&query=Python%E4%BC%98%E9%80%89)
 
+[目录](./_sidebar.md)
+
 ## 前言
 
 学习的过程，就像是培育一个树苗

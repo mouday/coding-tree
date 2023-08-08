@@ -5,9 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "~/.nvm/versions/node/v12.22.6/bin/docsify serve --open ./",
-    "live": "live-server",
-    "start": "http-server -o / -c-1"
+    "dev": "vuepress dev ./",
+    "build": "vuepress build ./"
   },
   "repository": {
     "type": "git",
@@ -24,5 +23,7 @@
     "docsify": "^4.12.2",
     "http-server": "^14.1.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "vuepress": "^1.9.9"
+  }
 }

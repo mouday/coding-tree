@@ -1,0 +1,29 @@
+# doc https://github.com/jenkey2011/vuepress-deploy/
+
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  pull-requests: write
+  issues: write
+  repository-projects: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: vuepress-deploy
+      uses: jenkey2011/vuepress-deploy@master
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        TARGET_REPO: ${{ env.GITHUB_REPOSITORY }}
+        TARGET_BRANCH: dist
+        BUILD_SCRIPT: yarn && yarn build
+        BUILD_DIR: docs/.vuepress/dist

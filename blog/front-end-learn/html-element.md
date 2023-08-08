@@ -339,7 +339,7 @@ placeholder 占位符
 ```
 
 <output>
-<input type="text" placeholder="文本框占位符">
+<input type="text" placeholder="文本框占位符" />
 </output>
 
 （2）password 密码框
@@ -351,7 +351,7 @@ placeholder 占位符
 ```
 
 <output>
-<input type="password" placeholder="密码框占位符">
+<input type="password" placeholder="密码框占位符" />
 </output>
 
 （3）radio 单选框
@@ -366,8 +366,8 @@ checked 默认选中
 ```
 
 <output>
-<input type="radio" name="sex" value="1">男
-<input type="radio" name="sex" value="2" checked>女
+<input type="radio" name="sex" value="1" />男
+<input type="radio" name="sex" value="2" checked />女
 </output>
 
 （4）checkbox 多选框
@@ -380,8 +380,8 @@ checked 默认选中
 ```
 
 <output>
-<input type="checkbox" name="city" value="beijing">北京
-<input type="checkbox" name="city" value="shanghai" checked>上海
+<input type="checkbox" name="city" value="beijing" />北京
+<input type="checkbox" name="city" value="shanghai" checked />上海
 </output>
 
 （5）file 文件选择
@@ -389,12 +389,13 @@ checked 默认选中
 multiple 多选(按住 ctrl 多选)
 
 ```html
-<input type="file" /> <input type="file" multiple />
+<input type="file" /> 
+<input type="file" multiple />
 ```
 
 <output>
-<input type="file" >
-<input type="file" multiple>
+<input type="file" />
+<input type="file" multiple />
 </output>
 
 （6）按钮
@@ -414,9 +415,9 @@ multiple 多选(按住 ctrl 多选)
 ```
 
 <output>
-<input type="submit" >
-<input type="reset">
-<input type="button" value="普通按钮">
+<input type="submit" />
+<input type="reset" />
+<input type="button" value="普通按钮" />
 </output>
 
 ## button 按钮标签
@@ -457,7 +458,7 @@ type 取值
   <option>北京</option>
   <option>上海</option>
   <option selected>广州</option>
-<select>
+</select>
 </output>
 
 option 选项
@@ -493,9 +494,9 @@ option 选项
 ```
 
 <output>
-<input type="radio" name="sex" id="man">
+<input type="radio" name="sex" id="man" />
 <label for="man">男</label>
-<label><input type="radio" name="sex">女</label>
+<label><input type="radio" name="sex" />女</label>
 </output>
 
 ## 无语义标签

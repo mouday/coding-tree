@@ -5,8 +5,9 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "vuepress dev ./",
-    "build": "vuepress build ./"
+    "dev": "vitepress dev ./",
+    "build": "vitepress build ./",
+    "preview": "vitepress preview ./"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,8 @@
   "homepage": "https://github.com/mouday/coding-tree#readme",
   "devDependencies": {
     "docsify": "^4.12.2",
-    "http-server": "^14.1.0"
+    "http-server": "^14.1.0",
+    "vitepress": "1.0.0-beta.7"
   },
   "dependencies": {
     "vuepress": "^1.9.9"

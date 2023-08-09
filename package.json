@@ -6,8 +6,11 @@
   "type": "commonjs",
   "private": true,
   "scripts": {
-    "dev": "nodemon ./cli/server.js",
-    "build": "node ./cli/build.js"
+    "dev:cli": "nodemon ./cli/server.js",
+    "build:cli": "node ./cli/build.js",
+    "dev": "~/.nvm/versions/node/v12.22.6/bin/docsify serve --open ./",
+    "live": "live-server",
+    "start": "http-server -o / -c-1"
   },
   "repository": {
     "type": "git",

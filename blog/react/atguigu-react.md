@@ -1306,5 +1306,60 @@ console.log(currySum(1)(2)(3)); // 6
 </script>
 ```
 
+生命周期
 
-https://www.bilibili.com/video/BV1wy4y1D7JT/?p=37&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+```js
+class LifeComponent extends React.Component {
+  // 组件挂载完成
+  componentDidMount() {
+    console.log("componentDidMount");
+  }
+
+  // 组件即将卸载
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>Hello</h2>
+      </div>
+    );
+  }
+}
+```
+
+![](img/react-component-life.png)
+
+
+
+挂载顺序
+
+```
+constructor
+componentDidMount
+render
+componentDidMount
+```
+
+数据更新顺序
+
+```
+handleAddClick
+shouldComponentUpdate
+componentWillUpdate
+render
+componentDidUpdate
+```
+
+强制更新顺序
+
+```
+handleForceClick
+componentWillUpdate
+render
+componentDidUpdate
+```
+
+https://www.bilibili.com/video/BV1wy4y1D7JT/?p=43&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

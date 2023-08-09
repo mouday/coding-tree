@@ -840,7 +840,7 @@ console.log(person.age); // 18
 
 ## 8、组件属性refs
 
-方式一：字符串 ref
+### 8.1、字符串 ref
 
 > 注意：该方法已经不推荐使用
 
@@ -848,7 +848,9 @@ console.log(person.age); // 18
 <input ref="input" />
 ```
 
-方式二：内联回调函数 ref
+### 8.2、内联回调
+
+内联回调函数 ref
 
 > 备注：内联函数方式，数据更新的时候会被调用两次
 
@@ -856,7 +858,9 @@ console.log(person.age); // 18
 <input ref={(currentNode) => (this.input = currentNode)} />
 ```
 
-方式三：属性绑定回调函数 ref
+### 8.3、属性绑定
+
+属性绑定回调函数 ref
 
 ```jsx
 <input ref={this.saveInput} />
@@ -937,7 +941,7 @@ console.log(person.age); // 18
 </script>
 ```
 
-方式四：createRef
+### 8.4、createRef
 
 推荐该方式
 
@@ -999,9 +1003,10 @@ console.log(person.age); // 18
   root.render(<InputComponent />);
 </script>
 ```
-## Form表单数据收集
 
-非受控组件
+## 9、Form表单数据收集
+
+### 9.1、非受控组件
 
 ```html
 <!-- React 容器 -->
@@ -1057,7 +1062,7 @@ console.log(person.age); // 18
 ```
 
 
-受控组件
+### 9.2、受控组件
 
 
 ```html
@@ -1128,6 +1133,8 @@ console.log(person.age); // 18
   root.render(<InputComponent />);
 </script>
 ```
+
+### 9.3、柯里化
 
 复习：js对象属性
 
@@ -1242,6 +1249,8 @@ console.log(currySum(1)(2)(3)); // 6
 </script>
 ```
 
+### 9.4、不使用柯里化
+
 不使用柯里化函数优化表单接收数据
 
 ```html
@@ -1306,7 +1315,9 @@ console.log(currySum(1)(2)(3)); // 6
 </script>
 ```
 
-生命周期
+## 10、生命周期
+
+![](img/react-component-life.png)
 
 ```js
 class LifeComponent extends React.Component {
@@ -1330,36 +1341,207 @@ class LifeComponent extends React.Component {
 }
 ```
 
-![](img/react-component-life.png)
+### 10.1、组件内部
+
+组件内部生命周期
+
+```js
+class LifeComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log("constructor");
+
+    this.state = {
+      count: 0,
+    };
+  }
+
+  // 更新数据
+  handleAddClick = () => {
+    console.log("handleAddClick");
+    let { count } = this.state;
+    count += 1;
+    this.setState({ count });
+  };
+
+  // 强制更新
+  handleForceClick = () => {
+    console.log("handleForceClick");
+
+    this.forceUpdate()
+  };
+
+  // 组件将要挂载
+  componentWillMount() {
+    console.log("componentWillMount");
+  }
+
+  // 组件挂载完成
+  componentDidMount() {
+    console.log("componentDidMount");
+  }
+
+  // 组件是否需要更新：阀门
+  shouldComponentUpdate() {
+    console.log("shouldComponentUpdate");
+    return true
+  }
+
+  // 组件将要更新
+  componentWillUpdate() {
+    console.log("componentWillUpdate");
+  }
+
+  // 组件更新完成
+  componentDidUpdate() {
+    console.log("componentDidUpdate");
+  }
+
+  // 组件即将卸载
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+  }
+
+  render() {
+    console.log("render");
+    const { count } = this.state;
+
+    return (
+      <div>
+        <h2>{count}</h2>
+        <button onClick={this.handleAddClick}>+1</button>
+        <button onClick={this.handleForceClick}>强制更新</button>
+      </div>
+    );
+  }
+  }
+```
+
+### 10.2、父子组件
+
+父子组件参数更新
+
+```js
+class ParentComponent extends React.Component {
+  state = {
+    count: 0,
+  };
+
+  handleClick = () => {
+    const { count } = this.state;
+
+    this.setState({
+      count: count + 1,
+    });
+  };
+
+  render() {
+    const { count } = this.state;
+
+    return (
+      <div>
+        <ChildComponent count={count}></ChildComponent>
+        <button onClick={this.handleClick}>更新</button>
+      </div>
+    );
+  }
+}
+
+class ChildComponent extends React.Component {
+  // 接收父组件的数据更新
+  componentWillReceiveProps() {
+    console.log("componentWillReceiveProps");
+  }
+
+  // 组件将要挂载
+  componentWillMount() {
+    console.log("componentDidMount");
+  }
+
+  // 组件挂载完成
+  componentDidMount() {
+    console.log("componentDidMount");
+  }
+
+  // 组件是否需要更新：阀门
+  shouldComponentUpdate() {
+    console.log("shouldComponentUpdate");
+    return true;
+  }
+
+  // 组件将要更新
+  componentWillUpdate() {
+    console.log("componentWillUpdate");
+  }
+
+  // 组件更新完成
+  componentDidUpdate() {
+    console.log("componentDidUpdate");
+  }
+
+  // 组件即将卸载
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+  }
+
+  render() {
+    console.log("render");
+    const { count } = this.props;
+
+    return (
+      <div>
+        <h2>{count}</h2>
+      </div>
+    );
+  }
+}
+```
 
 
 
-挂载顺序
+### 10.3、生命周期总结
+
+1、挂载顺序
 
 ```
 constructor
-componentDidMount
+componentWillMount
 render
-componentDidMount
+componentDidMount  初始化工作：开启定时器、发送网络请求、订阅消息
 ```
 
-数据更新顺序
+2、数据更新顺序
 
 ```
 handleAddClick
 shouldComponentUpdate
 componentWillUpdate
-render
+render        -- 必须存在
 componentDidUpdate
 ```
 
-强制更新顺序
+3、强制更新顺序
 
 ```
 handleForceClick
 componentWillUpdate
 render
 componentDidUpdate
+```
+
+4、父级组件参数更新
+
+```
+componentWillReceiveProps
+shouldComponentUpdate
+componentWillUpdate
+render
+componentDidUpdate
+```
+
+5、组件卸载
+```
+componentWillUnmount
 ```
 
 https://www.bilibili.com/video/BV1wy4y1D7JT/?p=43&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

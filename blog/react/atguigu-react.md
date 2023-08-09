@@ -9,6 +9,7 @@
 - React 基础 https://www.yuque.com/fechaichai/qeamqf/xbai87
 - Mobx https://www.yuque.com/fechaichai/qeamqf/apomum
 - React-极客园 PC 项目 https://www.yuque.com/fechaichai/tzzlh1
+- [https://www.runoob.com/react/react-tutorial.html](https://www.runoob.com/react/react-tutorial.html)
 
 - 英文官网 [https://react.dev/](https://react.dev/)
 - 中文官网 [https://react.docschina.org/](https://react.docschina.org/)
@@ -1317,6 +1318,8 @@ console.log(currySum(1)(2)(3)); // 6
 
 ## 10、生命周期
 
+react16生命周期
+
 ![](img/react-component-life.png)
 
 ```js
@@ -1544,4 +1547,340 @@ componentDidUpdate
 componentWillUnmount
 ```
 
-https://www.bilibili.com/video/BV1wy4y1D7JT/?p=43&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+## react18生命周期
+
+![](img/react-component-life-new.png)
+
+
+示例
+
+```js
+class MyComponent extends React.Component {
+  state = {
+    count: 0,
+  };
+
+  constructor(props) {
+    super(props);
+    console.log("constructor", props);
+  }
+
+  handleClick = () => {
+    const { count } = this.state;
+
+    this.setState({
+      count: count + 1,
+    });
+  };
+
+  // state的值任何时候都取决于props
+  static getDerivedStateFromProps(props, state) {
+    console.log("getDerivedStateFromProps", props, state);
+    return null;
+  }
+
+  // 控制组件更新的阀门
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("shouldComponentUpdate", nextProps, nextState);
+    return true;
+  }
+
+  // 获取更新之前的快照
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    console.log("getSnapshotBeforeUpdate", prevProps, prevState);
+    return null;
+  }
+
+  // 组件更新完毕
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log("componentDidUpdate", prevProps, prevState, snapshot);
+  }
+
+  // 组件挂载完毕
+  componentDidMount() {
+    console.log("componentDidMount");
+  }
+
+  // 组件将要卸载
+  componentWillUnmount(){
+    console.log("componentWillUnmount");
+  }
+
+  render() {
+    console.log("render");
+
+    const { count } = this.state;
+
+    return (
+      <div>
+        <div>{count}</div>
+        <button onClick={this.handleClick}>更新</button>
+      </div>
+    );
+  }
+}
+
+// 渲染组件
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<MyComponent age={19} />);
+```
+
+getSnapshotBeforeUpdate示例
+
+实现需求：滚动条滚动到固定位置，不随数据增多而滚动
+
+```html
+<style>
+  .list {
+    height: 150px;
+    overflow: auto;
+    background-color: #76c56a;
+  }
+
+  .item {
+    line-height: 30px;
+  }
+</style>
+<!-- React 容器 -->
+<div id="root"></div>
+
+<script type="text/babel">
+  class MyComponent extends React.Component {
+    state = {
+      list: [],
+    };
+
+    constructor(props) {
+      super(props);
+      this.timer = null;
+      this.listRef = React.createRef();
+    }
+
+    // 获取更新之前的快照
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+      console.log("getSnapshotBeforeUpdate", prevProps, prevState);
+
+      return {
+        scrollHeight: this.listRef.current.scrollHeight,
+      };
+    }
+
+    // 组件更新完毕
+    componentDidUpdate(prevProps, prevState, snapshot) {
+      console.log("componentDidUpdate", prevProps, prevState, snapshot);
+      this.listRef.current.scrollTop +=
+        this.listRef.current.scrollHeight - snapshot.scrollHeight;
+    }
+
+    // 组件挂载完毕
+    componentDidMount() {
+      this.timer = setInterval(() => {
+        const { list } = this.state;
+
+        let item = "文章：" + (list.length + 1);
+
+        this.setState({
+          list: [item, ...list],
+        });
+      }, 1000);
+    }
+
+    // 组件将要卸载
+    componentWillUnmount() {
+      console.log("componentWillUnmount");
+      clearTimeout(this.timer);
+      this.timer = null;
+    }
+
+    render() {
+      console.log("render");
+
+      const { list } = this.state;
+
+      return (
+        <div className="list" ref={this.listRef}>
+          {list.map((item, index) => {
+            return (
+              <div key={index} className="item">
+                {item}
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+  }
+
+  // 渲染组件
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+  root.render(<MyComponent />);
+</script>
+```
+
+### 总结
+
+
+挂载时
+
+```
+constructor
+getDerivedStateFromProps
+render            -- 重要，初始化渲染
+componentDidMount -- 重要，开启监听，发送ajax请求
+```
+
+更新时
+
+```
+getDerivedStateFromProps
+shouldComponentUpdate
+render
+getSnapshotBeforeUpdate
+componentDidUpdate
+```
+
+卸载时
+```
+componentWillUnmount  -- 重要，收尾工作，如：清理定时器
+```
+
+即将废弃的钩子
+
+```
+componentWillMount
+componentWillReceiveProps
+componentWillUpdate
+```
+
+## diff 算法
+
+```js
+class LifeComponent extends React.Component {
+  state = {
+    list: [
+      {
+        id: 1,
+        name: "张三",
+        age: 18,
+      },
+      {
+        id: 2,
+        name: "李四",
+        age: 20,
+      },
+    ],
+  };
+
+  // 更新数据
+  handleAddClick = () => {
+    let { list } = this.state;
+    let item = {
+      id: 3,
+      name: "王五",
+      age: 22,
+    };
+
+    this.setState({
+      list: [item, ...list],
+    });
+  };
+
+  render() {
+    console.log("render");
+    const { list } = this.state;
+
+    return (
+      <div>
+        <h2>元素key</h2>
+        <button onClick={this.handleAddClick}>+1</button>
+
+        <h3>用index索引值作为key</h3>
+        <ul>
+          {list.map((item, index) => {
+            return (
+              <li key={index}>
+                {item.name} - {item.age}
+                <input type="text"/>
+              </li>
+            );
+          })}
+        </ul>
+
+        <br />
+
+        <h3>用id数据唯一值作为key</h3>
+        <ul>
+          {list.map((item) => {
+            return (
+              <li key={item.id}>
+                {item.name} - {item.age}
+                <input type="text"/>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
+}
+```
+
+diff分析
+
+index索引值作为key
+```
+初始数据
+{ id: 1, name: "张三", age: 18}
+{ id: 2, name: "李四", age: 20}
+
+初始虚拟DOM
+<li key=0>张三 - 18</li>
+<li key=1>李四 - 20</li>
+
+====================================
+更新后的数据
+{ id: 3, name: "王五", age: 22}
+{ id: 1, name: "张三", age: 18}
+{ id: 2, name: "李四", age: 20}
+
+更新后的虚拟DOM
+<li key=0>王五 - 22</li>
+<li key=1>张三 - 18</li>
+<li key=2>李四 - 20</li>
+
+
+```
+
+id数据唯一值作为key
+
+```
+初始数据
+{ id: 1, name: "张三", age: 18}
+{ id: 2, name: "李四", age: 20}
+
+初始虚拟DOM
+<li key=1>张三 - 18</li>
+<li key=2>李四 - 20</li>
+
+====================================
+更新后的数据
+{ id: 3, name: "王五", age: 22}
+{ id: 1, name: "张三", age: 18}
+{ id: 2, name: "李四", age: 20}
+
+
+更新后的虚拟DOM
+<li key=3>王五 - 22</li>
+<li key=1>张三 - 18</li>
+<li key=2>李四 - 20</li>
+```
+
+index作为key可能会引发问题：对数据的逆序添加、逆序删除等破坏顺序的操作
+
+key的选择
+
+- 最好使用数据的唯一值作为key: 数据id、学号、手机号、身份证号
+- 如果仅做简单展示，也可以使用index作为key
+
+
+https://www.bilibili.com/video/BV1wy4y1D7JT/?p=49&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

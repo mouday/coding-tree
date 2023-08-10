@@ -2,6 +2,8 @@
 
 [Java学习路线图（2023黑马程序员）](/blog/java/java-learn-road.md)
 
+[Java常用组件和框架](blog/java/java-awesome.md)
+
 ## 在线文档
 
 [鱼皮编程学习路线](https://luxian.yupi.icu/)
@@ -22,52 +24,6 @@ Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjava
  - [http://www.cyc2018.xyz/](http://www.cyc2018.xyz/)
 
 [ Java1234](http://www.java1234.vip/)
-
-## 开源库
-
-mvnrepository [https://mvnrepository.com/](https://mvnrepository.com/)
-
-search.maven [https://search.maven.org/](https://search.maven.org/)
-
-[Spring Quickstart Guide](https://spring.io/quickstart)
-
-[Spring Initializr](https://start.spring.io/)
-
-[jsoup](https://jsoup.org/):  Java HTML Parser
-
-[JFinal 极速开发](https://jfinal.com/)
-
-
-[Project Lombok](https://www.projectlombok.org/)
-
-P6Spy [github](https://github.com/p6spy/p6spy)is a framework that enables database data to be seamlessly intercepted and logged with no code changes to the application.
-
-- [Thymeleaf 入门到吃灰 ](https://www.cnblogs.com/msi-chen/p/10974009.html)
-
-- [在 html 中使用 thymeleaf 编写通用模块](https://www.cnblogs.com/miaoying/p/7804351.html)
-
-
-
-[JavaLite](https://javalite.io/) - Java, light as a feather
-
-
-
-[WebMagic](http://webmagic.io/)是一个简单灵活的Java爬虫框架。基于WebMagic，你可以快速开发出一个高效、易维护的爬虫。
-
-[jenkins](https://www.jenkins.io/zh/) 一个开源自动化服务器
-
-[X Spring File Storage](https://spring-file-storage.xuyanwu.cn/#/) | [github](https://github.com/1171736840/spring-file-storage) 整合市面上所有的OSS对象存储平台
-
-| 库名 | 简介 | 地址|
-| - | - |- | 
-| MyBatis | 一款优秀的持久层框架 | [文档](https://mybatis.org/mybatis-3/zh/index.html)|
-| MyBatis 工具 | 分页插件 PageHelper、通用 Mapper | [文档](https://mybatis.io/) |
-| MyBatis-Plus | 一个 MyBatis 的增强工具 | [文档](https://baomidou.com/) |
-| MyBatis-Flex | 一个优雅的 MyBatis 增强框架 | [文档](https://mybatis-flex.com/) | 
-| Fluent-Mybatis | mybatis语法增强框架 | [文档](https://gitee.com/fluent-mybatis/fluent-mybatis) |
-| Hutool | 一个小而全的Java工具类库 | [文档](https://www.hutool.cn/)  |
-| freemarker | 用 Java 语言编写的模板引擎| [文档](https://freemarker.apache.org/) |
-| Thymeleaf| 一个用于web和独立环境的现代服务器端Java模板引擎 |[文档](https://www.thymeleaf.org/) |
 
 ## JavaFX
 
@@ -143,8 +99,14 @@ https://github.com/halo-dev/halo
 [知乎：为什么大多公司不要培训班培训出来的Java程序员？](https://www.zhihu.com/question/63981591/answer/1774339687)
 
 
+[52 类 110 个常用 Java 组件和框架整理（VIP典藏版）](https://mp.weixin.qq.com/s/wcpTrnsTij8Ql8B22iTP4A)
 
 Java零基础到就业视频课程：https://pan.baidu.com/s/1tilrnPNXiLXg1ebouO2_nQ 提取码：6ruw
 
 
 架构师全套视频课程：https://pan.baidu.com/s/120crv9u9qg3fHK8Sw3Q_aA 提取码: b3rm
+
+
+- [Thymeleaf 入门到吃灰 ](https://www.cnblogs.com/msi-chen/p/10974009.html)
+
+- [在 html 中使用 thymeleaf 编写通用模块](https://www.cnblogs.com/miaoying/p/7804351.html)

@@ -262,7 +262,7 @@ Protobuf || https://github.com/protocolbuffers/protobuf
 | 名称 | 简介 | 地址|
 | - | - |- | 
 POI || https://poi.apache.org/
-
+EasyExcel | 一个基于Java的、快速、简洁、解决大文件内存溢出的Excel处理工具 | [文档](https://easyexcel.opensource.alibaba.com/)、[github](https://github.com/alibaba/easyexcel)
 
 ## PDF 处理
 
@@ -344,7 +344,7 @@ Arthas || https://github.com/alibaba/arthas
 
 | 名称 | 简介 | 地址|
 | - | - |- | 
-JCommander || http://jcommander.org/
+JCommander | 解析命令行参数 | http://jcommander.org/
 
 ## 计算机视觉
 

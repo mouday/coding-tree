@@ -54,7 +54,7 @@ P6Spy [github](https://github.com/p6spy/p6spy)is a framework that enables databa
 
 [MyBatis](https://mybatis.org/mybatis-3/zh/index.html) 一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射
 
-[MyBatis-Plus](https://baomidou.com/): （简称 MP）是一个 MyBatis (opens new window)的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。
+
 
 [MyBatis 工具](https://mybatis.io/): 分页插件 PageHelper、通用 Mapper
 
@@ -65,6 +65,12 @@ P6Spy [github](https://github.com/p6spy/p6spy)is a framework that enables databa
 [jenkins](https://www.jenkins.io/zh/) 一个开源自动化服务器
 
 [X Spring File Storage](https://spring-file-storage.xuyanwu.cn/#/) | [github](https://github.com/1171736840/spring-file-storage) 整合市面上所有的OSS对象存储平台
+
+| 库名 | 简介 | 地址|
+| - | - |- | 
+| MyBatis-Plus | 一个 MyBatis 的增强工具 | [文档](https://baomidou.com/) |
+| MyBatis-Flex | 一个优雅的 MyBatis 增强框架 | [文档](https://mybatis-flex.com/) | 
+| Fluent-Mybatis | mybatis语法增强框架 | [文档](https://gitee.com/fluent-mybatis/fluent-mybatis) |
 
 ## JavaFX
 

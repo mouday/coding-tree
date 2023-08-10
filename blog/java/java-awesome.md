@@ -43,7 +43,7 @@ RabbitMQ || https://www.rabbitmq.com/
 | 名称 | 简介 | 地址|
 | - | - |- | 
 LVS || http://www.linuxvirtualserver.org/
-NGINX || https://www.nginx.com/
+Nginx | 高级负载均衡器、Web服务器、反向代理| https://www.nginx.com/
 
 ## 分布式存储
 
@@ -387,17 +387,18 @@ Open JDK || https://openjdk.java.net/、
 
 | 名称 | 简介 | 地址|
 | - | - |- | 
-jenv || https://github.com/jenv/jenv
+jenv | Java多版本管理工具 | https://github.com/jenv/jenv
 
 
 ## 爬虫相关
 
 | 名称 | 简介 | 地址|
 | - | - |- | 
-Nutch || https://nutch.apache.org/
+Nutch | | https://nutch.apache.org/
 Crawler4j || https://github.com/yasserg/crawler4j
-jsoup || https://jsoup.org/
-webmagic || https://github.com/code4craft/webmagic
+jsoup | Java HTML解析器 | https://jsoup.org/
+WebMagic | 一个简单灵活的Java爬虫框架 | [文档](http://webmagic.io/)、[github](https://github.com/code4craft/webmagic)
+
 
 ## 其他
 
@@ -409,16 +410,12 @@ search.maven [https://search.maven.org/](https://search.maven.org/)
 
 [Spring Initializr](https://start.spring.io/)
 
-[jsoup](https://jsoup.org/):  Java HTML Parser
-
 [JFinal 极速开发](https://jfinal.com/)
 
 P6Spy [github](https://github.com/p6spy/p6spy)is a framework that enables database data to be seamlessly intercepted and logged with no code changes to the application.
 
 
 [JavaLite](https://javalite.io/) - Java, light as a feather
-
-[WebMagic](http://webmagic.io/)是一个简单灵活的Java爬虫框架。基于WebMagic，你可以快速开发出一个高效、易维护的爬虫。
 
 [jenkins](https://www.jenkins.io/zh/) 一个开源自动化服务器
 

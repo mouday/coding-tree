@@ -1882,6 +1882,3 @@ index作为key可能会引发问题：对数据的逆序添加、逆序删除等
 
 - 最好使用数据的唯一值作为key: 数据id、学号、手机号、身份证号
 - 如果仅做简单展示，也可以使用index作为key
-
-
-https://www.bilibili.com/video/BV1wy4y1D7JT/?p=49&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -424,13 +424,13 @@ export default function Demo() {
 
 ## TodoList案例
 
+代码：[https://github.com/mouday/todo-list/tree/master/todo-list-client/todo-list-client-react](https://github.com/mouday/todo-list/tree/master/todo-list-client/todo-list-client-react)
+
 使用到的库
 
-uuid：[]
+- nanoid [https://github.com/ai/nanoid](https://github.com/ai/nanoid)
 
-nanoid [https://github.com/ai/nanoid](https://github.com/ai/nanoid)
-
-prop-types
+- prop-types
 
 
 todoList案例相关知识点
@@ -446,4 +446,22 @@ todoList案例相关知识点
 4. 注意 defaultChecked 和 checked的区别，类似的还有: defaultValue 和 value
 5. 状态在哪里，操作状态的方法就在哪里
 
-https://www.bilibili.com/video/BV1wy4y1D7JT/?p=65&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+## React Ajax
+
+常用的ajax
+
+- jQuery
+- axios（推荐）
+
+浏览器插件FeHelper，可以自动格式化json数据
+
+配置跨域代理 package.json
+
+```json
+{
+  "proxy": "http://127.0.0.1:8888"
+}
+```
+
+https://www.bilibili.com/video/BV1wy4y1D7JT/?p=66&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

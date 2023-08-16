@@ -1,4 +1,4 @@
-# React 进阶篇-基于npm
+# React 进阶篇-基于 npm
 
 ## 1、React 脚手架
 
@@ -16,6 +16,7 @@ pnpx create-react-app hello-react
 ```
 
 启动项目
+
 ```bash
 cd hello-react
 
@@ -23,7 +24,6 @@ npm start
 ```
 
 访问地址：[http://localhost:3000/](http://localhost:3000/)
-
 
 生成的项目结构
 
@@ -88,10 +88,8 @@ index.html
 
     <!-- 容器 -->
     <div id="root"></div>
-    
   </body>
 </html>
-
 ```
 
 ### 1.2、最小项目
@@ -154,17 +152,10 @@ package.json
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": ["react-app", "react-app/jest"]
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -172,7 +163,6 @@ package.json
     ]
   }
 }
-
 ```
 
 index.html
@@ -191,7 +181,6 @@ index.html
     <div id="root"></div>
   </body>
 </html>
-
 ```
 
 index.js
@@ -208,26 +197,24 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
 ```
 
 App.jsx
 
 ```js
-import Welcome from "./components/Welcome/Welcome.jsx"
-import Hello from "./components/Hello/Hello.jsx"
+import Welcome from "./components/Welcome/Welcome.jsx";
+import Hello from "./components/Hello/Hello.jsx";
 
 function App() {
   return (
     <div className="App">
-      <Hello/>
-      <Welcome/>
+      <Hello />
+      <Welcome />
     </div>
   );
 }
 
 export default App;
-
 ```
 
 components/Hello/Hello.jsx
@@ -241,7 +228,6 @@ export default class Hello extends Component {
     return <h1 className="title">Hello</h1>;
   }
 }
-
 ```
 
 components/Hello/Hello.css
@@ -250,10 +236,10 @@ components/Hello/Hello.css
 .title {
   background-color: orange;
 }
-
 ```
 
 components/Welcome/Welcome.jsx
+
 ```js
 import { Component } from "react";
 import "./Welcome.css";
@@ -263,15 +249,14 @@ export default class Welcome extends Component {
     return <h1 className="welcome">Welcome to React</h1>;
   }
 }
-
 ```
 
 components/Welcome/Welcome.css
+
 ```css
 .welcome {
   background-color: skyblue;
 }
-
 ```
 
 渲染结果
@@ -295,7 +280,6 @@ Hello.css
 .title {
   background-color: skyblue;
 }
-
 ```
 
 Welcome.css
@@ -304,7 +288,6 @@ Welcome.css
 .title {
   background-color: orange;
 }
-
 ```
 
 解决办法
@@ -324,7 +307,6 @@ export default class Hello extends Component {
     return <h1 className={hello.title}>Hello</h1>;
   }
 }
-
 ```
 
 修改`Welcome.jsx` 中的样式文件引入方式
@@ -340,7 +322,6 @@ export default class Welcome extends Component {
     return <h1 className={welcome.title}>Welcome to React</h1>;
   }
 }
-
 ```
 
 渲染结果
@@ -354,7 +335,7 @@ export default class Welcome extends Component {
 </div>
 ```
 
-方案二：使用less
+方案二：使用 less
 
 Hello.less
 
@@ -382,10 +363,9 @@ export default class Hello extends Component {
     );
   }
 }
-
 ```
 
-## VS Code插件
+## VS Code 插件
 
 [ES7+ React/Redux/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
 
@@ -396,33 +376,26 @@ export default class Hello extends Component {
 输入`rcc`
 
 ```js
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export default class Demo extends Component {
   render() {
-    return (
-      <div>Demo</div>
-    )
+    return <div>Demo</div>;
   }
 }
-
 ```
 
 输入`rfc`
 
 ```js
-import React from 'react'
+import React from "react";
 
 export default function Demo() {
-  return (
-    <div>Demo</div>
-  )
+  return <div>Demo</div>;
 }
-
 ```
 
-
-## TodoList案例
+## TodoList 案例
 
 代码：[https://github.com/mouday/todo-list/tree/master/todo-list-client/todo-list-client-react](https://github.com/mouday/todo-list/tree/master/todo-list-client/todo-list-client-react)
 
@@ -432,29 +405,149 @@ export default function Demo() {
 
 - prop-types
 
+todoList 案例相关知识点
 
-todoList案例相关知识点
+1. 拆分组件、实现静态组件，注意: className、style 的写法
+2. 动态初始化列表，如何确定将数据放在哪个组件的 state 中?
 
-1. 拆分组件、实现静态组件，注意: className、style的写法
-2. 动态初始化列表，如何确定将数据放在哪个组件的state中?
-  - 某个组件使用: 放在其自身的state中
-  - 某些组件使用: 放在他们共同的父组件state中(官方称此操作为: 状态提升)
+- 某个组件使用: 放在其自身的 state 中
+- 某些组件使用: 放在他们共同的父组件 state 中(官方称此操作为: 状态提升)
+
 3. 关于父了之间通信:
-  - [父组件] 给[子组件] 传递数据:通过props传递
-  - [子组件]给[父组件] 传递数据: 通过props传递，要求父提前给子传递一个函数
-  
-4. 注意 defaultChecked 和 checked的区别，类似的还有: defaultValue 和 value
-5. 状态在哪里，操作状态的方法就在哪里
 
+- [父组件] 给[子组件] 传递数据:通过 props 传递
+- [子组件]给[父组件] 传递数据: 通过 props 传递，要求父提前给子传递一个函数
+
+4. 注意 defaultChecked 和 checked 的区别，类似的还有: defaultValue 和 value
+5. 状态在哪里，操作状态的方法就在哪里
 
 ## React Ajax
 
-常用的ajax
+常用的 ajax
 
 - jQuery
 - axios（推荐）
 
-浏览器插件FeHelper，可以自动格式化json数据
+浏览器插件 FeHelper，可以自动格式化 json 数据
+
+## 代理 Proxy
+
+项目结构
+
+```
+$ tree -I node_modules/
+.
+├── package.json
+├── pnpm-lock.yaml
+├── public
+│   ├── favicon.ico
+│   └── index.html
+├── server
+│   ├── server-student.js
+│   └── server-car.js
+└── src
+    ├── App.jsx
+    └── index.js
+```
+
+index.js
+
+```js
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+### 配置单个代理
+
+学生服务 server/server-student.js
+
+```js
+const express = require("express");
+
+const app = express();
+
+app.get("/students", (request, response) => {
+  const data = [
+    { id: "001", name: "Tom", age: 18 },
+    { id: "002", name: "Jerry", age: 20 },
+    { id: "003", name: "Jack", age: 22 },
+  ];
+  response.json(data);
+});
+
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+  console.log(`Server runing on http://127.0.0.1:${port}`);
+});
+```
+
+启动学生服务，端口：5000
+
+```bash
+node server/server-student.js
+```
+
+访问地址：http://127.0.0.1:5000/students
+
+```json
+[
+  {
+    "id": "001",
+    "name": "Tom",
+    "age": 18
+  },
+  {
+    "id": "002",
+    "name": "Jerry",
+    "age": 20
+  },
+  {
+    "id": "003",
+    "name": "Jack",
+    "age": 22
+  }
+]
+```
+
+启动 react 开发环境，默认端口：3000
+
+```bash
+npm run start
+```
+
+App.jsx
+
+```js
+import axios from "axios";
+
+function App() {
+  axios.get("http://127.0.0.1:5000/students").then((res) => {
+    console.log(res);
+  });
+
+  return <div className="App">app</div>;
+}
+
+export default App;
+```
+
+出现跨域问题
+
+```
+Access to XMLHttpRequest at 'http://127.0.0.1:5000/students'
+from origin 'http://localhost:3000' has been blocked by CORS policy:
+No 'Access-Control-Allow-Origin' header is present on the requested resource.
+```
 
 配置跨域代理 package.json
 
@@ -464,4 +557,230 @@ todoList案例相关知识点
 }
 ```
 
-https://www.bilibili.com/video/BV1wy4y1D7JT/?p=66&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+修改请求地址
+
+```js
+import axios from "axios";
+
+function App() {
+  axios.get("/students").then((res) => {
+    console.log(res);
+  });
+
+  return <div className="App">app</div>;
+}
+
+export default App;
+```
+
+可以看到，能正常获取到接口数据了
+
+### 配置多个代理
+
+增加汽车服务 server/server-car.js
+
+```js
+const express = require("express");
+
+const app = express();
+
+app.get("/cars", (request, response) => {
+  const data = [
+    { id: "001", name: "大众", price: 20 },
+    { id: "002", name: "奥迪", age: 40 },
+    { id: "003", name: "奔驰", age: 80 },
+  ];
+  response.json(data);
+});
+
+const port = process.env.PORT || 5001;
+
+app.listen(port, () => {
+  console.log(`Server runing on http://127.0.0.1:${port}`);
+});
+```
+
+启动汽车服务，端口：5001
+
+```bash
+node server/server-car.js
+```
+
+请求地址：[http://127.0.0.1:5001/cars](http://127.0.0.1:5001/cars)
+
+返回数据
+
+```json
+[
+  {
+    "id": "001",
+    "name": "大众",
+    "price": 20
+  },
+  {
+    "id": "002",
+    "name": "奥迪",
+    "age": 40
+  },
+  {
+    "id": "003",
+    "name": "奔驰",
+    "age": 80
+  }
+]
+```
+
+项目根目录下新增配置文件 `setupProxy.js`
+
+setupProxy.js 旧版本配置
+
+```js
+// 默认已经安装：http-proxy-middleware
+const proxy = require("http-proxy-middleware");
+
+module.exports = function (app) {
+  app.use(
+    proxy("/api-student", {
+      // 触发代理的请求前缀
+      target: "http://127.0.0.1:5000", // 转发目标地址
+      changeOrigin: true, // 修改请求头中的Host字段
+      pathRewrite: {
+        "^/api-student": "", // 重写请求路径
+      },
+    }),
+    proxy("/api-car", {
+      target: "http://127.0.0.1:5001",
+      changeOrigin: true,
+      pathRewrite: {
+        "^/api-car": "",
+      },
+    })
+  );
+};
+```
+
+setupProxy.js 新版本配置
+
+```js
+const { createProxyMiddleware } = require("http-proxy-middleware");
+
+module.exports = function (app) {
+  app.use(
+    "/api-student",
+    createProxyMiddleware({
+      // 触发代理的请求前缀
+      target: "http://127.0.0.1:5000", // 转发目标地址
+      changeOrigin: true, // 修改请求头中的Host字段
+      pathRewrite: {
+        "^/api-student": "", // 重写请求路径
+      },
+    })
+  );
+
+  app.use(
+    "/api-car",
+    createProxyMiddleware({
+      target: "http://127.0.0.1:5001",
+      changeOrigin: true,
+      pathRewrite: {
+        "^/api-car": "",
+      },
+    })
+  );
+};
+```
+
+App.jsx 修改请求路径
+
+```js
+import axios from "axios";
+
+function App() {
+  axios.get("/api-student/students").then((res) => {
+    console.log(res.data);
+  });
+
+  axios.get("/api-car/cars").then((res) => {
+    console.log(res.data);
+  });
+
+  return <div className="App">app</div>;
+}
+
+export default App;
+```
+
+请求代理转发
+
+```
+http://localhost:3000/api-student/students
+=> http://127.0.0.1:5000/students
+
+http://localhost:3000/api-car/cars
+=> http://127.0.0.1:5001/cars
+```
+
+复习：js 连续解构赋值
+
+```js
+const obj = { a: { b: { c: "1" } } };
+
+const {
+  a: {
+    b: { c },
+  },
+} = obj;
+
+console.log(c); // 1
+```
+
+复习：js 连续解构赋值重命名
+
+```js
+const obj = { a: { b: { c: "1" } } };
+
+const {
+  a: {
+    b: { c: data },
+  },
+} = obj;
+
+console.log(data); // 1
+```
+
+github用户搜索接口
+```
+https://api.github.com/search/users?q=mouday
+```
+返回数据
+
+```json
+{
+    "total_count": 3,
+    "incomplete_results": false,
+    "items": [
+        {
+            "login": "mouday",
+            "id": 24365682,
+            "node_id": "MDQ6VXNlcjI0MzY1Njgy",
+            "avatar_url": "https://avatars.githubusercontent.com/u/24365682?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/mouday",
+            "html_url": "https://github.com/mouday",
+            "followers_url": "https://api.github.com/users/mouday/followers",
+            "following_url": "https://api.github.com/users/mouday/following{/other_user}",
+            "gists_url": "https://api.github.com/users/mouday/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/mouday/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/mouday/subscriptions",
+            "organizations_url": "https://api.github.com/users/mouday/orgs",
+            "repos_url": "https://api.github.com/users/mouday/repos",
+            "events_url": "https://api.github.com/users/mouday/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/mouday/received_events",
+            "type": "User",
+            "site_admin": false,
+            "score": 1
+        }
+    ]
+}
+```
+https://www.bilibili.com/video/BV1wy4y1D7JT/?p=67&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

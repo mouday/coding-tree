@@ -118,6 +118,9 @@ Swiper | 移动端网页触摸内容滑动 | [官网](https://www.swiper.com.cn/
 | naming-style | 变量命名风格转化 | [github](https://github.com/parksben/naming-style) [npm](https://www.npmjs.com/package/naming-style) [中文 doc](https://github.com/parksben/naming-style/blob/HEAD/DOC_ZH.md) | 
 | throttle-debounce | Throttle and debounce functions. | [github](https://github.com/niksy/throttle-debounce) [npm](https://www.npmjs.com/package/throttle-debounce) | 
 | Resize Observer |Polyfills the ResizeObserver API |  [github](https://github.com/juggle/resize-observer)
+| PubSubJS | 消息发布订阅库 | [npmjs](https://www.npmjs.com/package/pubsub-js)、[github](https://github.com/mroderick/PubSubJS)
+| nanoid | 唯一ID生成器 | [github](https://github.com/ai/nanoid)、[npmjs](https://www.npmjs.com/package/nanoid)
+| prop-types| React运行时参数类型检查 | [npmjs](https://www.npmjs.com/package/prop-types)
 
 ## CDN
 

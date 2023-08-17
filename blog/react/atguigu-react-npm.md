@@ -748,39 +748,76 @@ const {
 console.log(data); // 1
 ```
 
-github用户搜索接口
+## 案例 github 用户搜索
+
+github 用户搜索接口
+
 ```
 https://api.github.com/search/users?q=mouday
 ```
+
 返回数据
 
 ```json
 {
-    "total_count": 3,
-    "incomplete_results": false,
-    "items": [
-        {
-            "login": "mouday",
-            "id": 24365682,
-            "node_id": "MDQ6VXNlcjI0MzY1Njgy",
-            "avatar_url": "https://avatars.githubusercontent.com/u/24365682?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/mouday",
-            "html_url": "https://github.com/mouday",
-            "followers_url": "https://api.github.com/users/mouday/followers",
-            "following_url": "https://api.github.com/users/mouday/following{/other_user}",
-            "gists_url": "https://api.github.com/users/mouday/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/mouday/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/mouday/subscriptions",
-            "organizations_url": "https://api.github.com/users/mouday/orgs",
-            "repos_url": "https://api.github.com/users/mouday/repos",
-            "events_url": "https://api.github.com/users/mouday/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/mouday/received_events",
-            "type": "User",
-            "site_admin": false,
-            "score": 1
-        }
-    ]
+  "total_count": 3,
+  "incomplete_results": false,
+  "items": [
+    {
+      "login": "mouday",
+      "id": 24365682,
+      "node_id": "MDQ6VXNlcjI0MzY1Njgy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24365682?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/mouday",
+      "html_url": "https://github.com/mouday",
+      "followers_url": "https://api.github.com/users/mouday/followers",
+      "following_url": "https://api.github.com/users/mouday/following{/other_user}",
+      "gists_url": "https://api.github.com/users/mouday/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/mouday/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/mouday/subscriptions",
+      "organizations_url": "https://api.github.com/users/mouday/orgs",
+      "repos_url": "https://api.github.com/users/mouday/repos",
+      "events_url": "https://api.github.com/users/mouday/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/mouday/received_events",
+      "type": "User",
+      "site_admin": false,
+      "score": 1
+    }
+  ]
 }
 ```
-https://www.bilibili.com/video/BV1wy4y1D7JT/?p=67&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+案例代码：[https://github.com/mouday/learn-react](https://github.com/mouday/learn-react)
+
+## PubSubJS 消息订阅发布
+
+```js
+import PubSub from "pubsub-js";
+import React, { Component } from "react";
+
+export default class App extends Component {
+  componentDidMount() {
+    // 订阅消息
+    this.token = PubSub.subscribe("msg", (msg, data) => {
+      console.log(msg, data);
+    });
+  }
+
+  componentWillUnmount() {
+    // 取消订阅消息
+    PubSub.unsubscribe(this.token);
+  }
+
+  handleClick = () => {
+    // 发布消息
+    PubSub.publish("msg", "hello");
+  };
+
+  render() {
+    return <div className="app">APP</div>;
+  }
+}
+```
+
+https://www.bilibili.com/video/BV1wy4y1D7JT/?p=72&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -270,7 +270,7 @@ components/Welcome/Welcome.css
 </div>
 ```
 
-### 样式模块化
+### 1.3、样式模块化
 
 如果两个组件同时写了`.title` 这个类名，那么谁后引入谁就生效
 
@@ -365,7 +365,7 @@ export default class Hello extends Component {
 }
 ```
 
-## VS Code 插件
+### 1.4、VS Code 插件
 
 [ES7+ React/Redux/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
 
@@ -395,7 +395,7 @@ export default function Demo() {
 }
 ```
 
-## TodoList 案例
+## 2、TodoList 案例
 
 代码：[https://github.com/mouday/todo-list/tree/master/todo-list-client/todo-list-client-react](https://github.com/mouday/todo-list/tree/master/todo-list-client/todo-list-client-react)
 
@@ -421,16 +421,20 @@ todoList 案例相关知识点
 4. 注意 defaultChecked 和 checked 的区别，类似的还有: defaultValue 和 value
 5. 状态在哪里，操作状态的方法就在哪里
 
-## React Ajax
+## 3、React Ajax
 
 常用的 ajax
 
-- jQuery
-- axios（推荐）
+- 基于xhr
+  - jQuery
+  - axios（推荐）
+
+- 基于fetch
+  - fetch
 
 浏览器插件 FeHelper，可以自动格式化 json 数据
 
-## 代理 Proxy
+### 3.1、代理 Proxy
 
 项目结构
 
@@ -466,7 +470,7 @@ root.render(
 );
 ```
 
-### 配置单个代理
+### 3.2、配置单个代理
 
 学生服务 server/server-student.js
 
@@ -575,7 +579,7 @@ export default App;
 
 可以看到，能正常获取到接口数据了
 
-### 配置多个代理
+### 3.3、配置多个代理
 
 增加汽车服务 server/server-car.js
 
@@ -748,7 +752,7 @@ const {
 console.log(data); // 1
 ```
 
-## 案例 github 用户搜索
+### 3.4、案例 github 用户搜索
 
 github 用户搜索接口
 
@@ -790,7 +794,7 @@ https://api.github.com/search/users?q=mouday
 
 案例代码：[https://github.com/mouday/learn-react](https://github.com/mouday/learn-react)
 
-## PubSubJS 消息订阅发布
+### 3.5、PubSubJS 消息订阅发布
 
 ```js
 import PubSub from "pubsub-js";
@@ -820,4 +824,69 @@ export default class App extends Component {
 }
 ```
 
-https://www.bilibili.com/video/BV1wy4y1D7JT/?p=72&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+### 3.6、Fetch
+
+https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch
+
+- 原生函数
+- 兼容性存在问题
+
+```js
+(async function () {
+  const res = await fetch("http://httpbin.org/get");
+  const data = await res.json();
+  console.log(data);
+})();
+```
+
+## 4、React Route路由
+
+### 4.1、SPA
+
+SPA：Single Page Web Application 单页面Web应用
+
+- 整个应用只有一个完整的页面
+- 局部刷新
+- 单页面，多组件
+
+
+路由：映射关系（key-value）
+
+| 路由分类 | value |
+| - | -  |
+| 后端路由 | function |
+| 前端路由 | component |
+
+### 4.2、history
+
+- [https://www.npmjs.com/package/history](https://www.npmjs.com/package/history)
+- [https://github.com/remix-run/history](https://github.com/remix-run/history)
+
+两种模式
+
+- createBrowserHistory H5 history模式
+- createHashHistory hash模式（锚点）
+
+示例
+
+```html
+<button id="push" onclick="handlePush('/about')">push about</button>
+<button id="push" onclick="handlePush('/home')">push home</button>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/history/5.3.0/history.production.min.js"></script>
+<script>
+  const history = HistoryLibrary.createBrowserHistory();
+  // const history = HistoryLibrary.createHashHistory();
+
+  function handlePush(value) {
+    history.push(value);
+  }
+
+  // 监听路由变化
+  history.listen(({ location, action }) => {
+    console.log(action, location);
+  });
+</script>
+```
+
+https://www.bilibili.com/video/BV1wy4y1D7JT/?p=77&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

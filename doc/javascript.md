@@ -11,13 +11,8 @@
 
 [Vue.js](/doc/vue.md)
 
-[React.js](https://reactjs.org/): A JavaScript library for building user interfaces
-
-- [Ant Design](https://ant.design/index-cn): 一套企业级 UI 设计语言和 React 组件库
-
 [alasql](http://alasql.org/)
 
-[xijs](http://h5.dooring.cn/xijs/): 一款面向复杂业务场景的 javascript 工具库
 
 [jQuery](https://jquery.com/)
 
@@ -78,7 +73,6 @@
 
 [deepmerge](https://github.com/TehShrike/deepmerge) | [npm](https://www.npmjs.com/package/deepmerge) : A library for deep (recursive) merging of Javascript objects
 
-
 [async-validator](https://github.com/yiminghe/async-validator) | [npm](https://www.npmjs.com/package/async-validator) : Validate form asynchronous
 
 [portal-vue](https://github.com/linusborg/portal-vue): A Portal Component for Vuejs, to render DOM outside of a component, anywhere in the document.
@@ -99,6 +93,7 @@
 
 [mavon-editor](https://github.com/hinesboy/mavonEditor) | [npm](https://www.npmjs.com/package/mavon-editor) A markdown editor based on Vue that supports a variety of personalized features
 
+## 通用第三方库
 
 | 库名 | 简介 | 地址|
 | - | - |- | 
@@ -106,11 +101,8 @@
 | vconsole | 移动端打印日志 | [npm](https://www.npmjs.com/package/vconsole) | 
 | Eruda | 手机网页前端调试面板 | [官网](https://eruda.liriliri.io/)、[github](https://github.com/liriliri/eruda)
 Swiper | 移动端网页触摸内容滑动 | [官网](https://www.swiper.com.cn/)
-| vue | - | - |
-| vuex | - | - |
 | axios | - | - |
 | lodash | - | - |
-| vue-router | - | - |
 | composition-api | - | - |
 | echarts | - | - |
 | vue-echarts | - | - |
@@ -120,8 +112,29 @@ Swiper | 移动端网页触摸内容滑动 | [官网](https://www.swiper.com.cn/
 | Resize Observer |Polyfills the ResizeObserver API |  [github](https://github.com/juggle/resize-observer)
 | PubSubJS | 消息发布订阅库 | [npmjs](https://www.npmjs.com/package/pubsub-js)、[github](https://github.com/mroderick/PubSubJS)
 | nanoid | 唯一ID生成器 | [github](https://github.com/ai/nanoid)、[npmjs](https://www.npmjs.com/package/nanoid)
-| prop-types| React运行时参数类型检查 | [npmjs](https://www.npmjs.com/package/prop-types)
 | history | 管理浏览器路由历史 | [github](https://github.com/remix-run/history)、[npmjs](https://www.npmjs.com/package/history)
+| query-string | 解析和序列化url查询参数 | [npmjs](https://www.npmjs.com/package/query-string)
+| qs | 解析和序列化url查询参数 | [npmjs](https://www.npmjs.com/package/qs)
+| xijs | 一款面向复杂业务场景的 javascript 工具库 | [doc](http://h5.dooring.cn/xijs/): 
+
+
+## vue
+
+| 库名 | 简介 | 地址|
+| - | - |- | 
+| vue | - | - |
+| vuex | - | - |
+| vue-router | - | - |
+
+## react
+
+| 库名 | 简介 | 地址|
+| - | - |- | 
+| React.js | 构建用户界面的 JavaScript 库 | [官网](https://reactjs.org/)
+| Ant Design | 一套企业级 UI 设计语言和 React 组件库 | [doc](https://ant.design/index-cn): 
+| prop-types| React运行时参数类型检查 | [npmjs](https://www.npmjs.com/package/prop-types)
+| react-router | React 官方维护的路由库 | [doc](https://v5.reactrouter.com/)
+| Redux | 状态管理 | [zh-doc](https://www.redux.org.cn/)
 
 ## CDN
 
@@ -230,3 +243,6 @@ pNpm：速度快、节省磁盘空间的软件包管理器
 Android富文本编辑器 [https://github.com/wasabeef/richeditor-android](https://github.com/wasabeef/richeditor-android)
 
 iOS富文本编辑器[https://github.com/cjwirth/RichEditorView](https://github.com/cjwirth/RichEditorView)
+
+
+[https://docschina.org/](https://docschina.org/)

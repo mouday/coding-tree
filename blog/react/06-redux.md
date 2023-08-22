@@ -1,6 +1,8 @@
 # 6、Redux状态管理
 
-中文文档: https://www.redux.org.cn/
+文档: 
+- 中文文档: https://www.redux.org.cn/
+- npm: [https://www.npmjs.com/package/redux](https://www.npmjs.com/package/redux)
 
 - 用于：状态管理
 - 作用：集中式管理react应用中多个组件`共享`的状态

@@ -35,7 +35,7 @@
 
 [uView UI](https://www.uviewui.com/) | [github](https://github.com/umicro/uView2.0) ![](https://img.shields.io/github/stars/umicro/uView2.0.svg?style=social)是全面兼容 nvue 的 uni-app 生态框架，全面的组件和便捷的工具会让您信手拈来，如鱼得水
 
-
+[weui-wxss](https://github.com/Tencent/weui-wxss) : WeUI for 小程序 为微信小程序量身设计
 
 ## 开发资源
 
@@ -78,3 +78,13 @@
 [weapp-library](https://github.com/imageslr/weapp-library) ![](https://img.shields.io/github/stars/imageslr/weapp-library.svg?style=social) 一个在线借书平台微信小程序
 
 [Garbage](https://github.com/qi19901212/Garbage) ![](https://img.shields.io/github/stars/qi19901212/Garbage.svg?style=social) 一个使用小程序云开发的垃圾分类小程序
+
+## 学习资料
+
+阮一峰-微信小程序教程库 :
+
+- [微信小程序入门教程之一：初次上手](http://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html)
+- [微信小程序入门教程之二：页面样式](http://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-two.html)
+- [微信小程序入门教程之三：脚本编程](http://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-three.html)
+- [微信小程序入门教程之四：API 使用](http://www.ruanyifeng.com/blog/2020/11/wechat-miniprogram-tutorial-part-four.html)
+- 配套代码：[https://github.com/ruanyf/wechat-miniprogram-demos/tree/master](https://github.com/ruanyf/wechat-miniprogram-demos/tree/master)

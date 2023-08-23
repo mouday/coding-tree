@@ -36,62 +36,16 @@
 
 [UIkit](https://getuikit.com/): A lightweight and modular front-end framework for developing fast and powerful web interfaces.
 
-[html2canvas](http://html2canvas.hertzen.com/): Screenshots with JavaScript
+
 
 [Uni API](https://universal-api.js.org/): 小程序容器和 Web 容器的跨端 API 解决方案
 
-[Pinia](https://pinia.vuejs.org/): The Vue Store that you will enjoy using
 
-[Sails.js](https://sailsjs.com/)The MVC framework for Node.js
-
-[iView UI](https://iviewui.com/docs/guide/install): 一套基于 Vue.js 的高质量 UI 组件库
-
-[Vant 2](https://vant-contrib.gitee.io/vant/v2/#/zh-CN/) 轻量、可靠的移动端 Vue 组件库
-
-
-[Moment.js](http://momentjs.cn/) JavaScript 日期处理类库
-
-[Lodash](https://www.lodashjs.com/)一个一致性、模块化、高性能的 JavaScript 实用工具库。
 
 [rollup.js 中文文档](https://www.rollupjs.com/) 一个 JavaScript 模块打包器
 
-[CKEditor](https://ckeditor.com/docs/index.html) Smart rich text editor components with collaborative editing.
 
-[wangEditor 5](https://www.wangeditor.com/)|[github](https://github.com/wangeditor-team/wangEditor): 开源 Web 富文本编辑器，开箱即用，配置简单
 
-[ScrollReveal](https://scrollrevealjs.org/)
-
-[preactjs](https://preactjs.com/)Fast 3kB alternative to React with the same modern API.
-
-[node-qrcode](https://github.com/soldair/node-qrcode) QR code/2d barcode generator.
-
-[QRCode.js](https://github.com/davidshimjs/qrcodejs): Cross-browser QRCode generator for javascript
-
-[vue-qriously](https://github.com/theomessin/vue-qriously)：A Vue.js 2 component to draw QR codes on an HTML Canvas using qrious.
-
-[qrious](https://github.com/neocotic/qrious): Pure JavaScript library for QR code generation using canvas
-
-[deepmerge](https://github.com/TehShrike/deepmerge) | [npm](https://www.npmjs.com/package/deepmerge) : A library for deep (recursive) merging of Javascript objects
-
-[async-validator](https://github.com/yiminghe/async-validator) | [npm](https://www.npmjs.com/package/async-validator) : Validate form asynchronous
-
-[portal-vue](https://github.com/linusborg/portal-vue): A Portal Component for Vuejs, to render DOM outside of a component, anywhere in the document.
-
-[V-Calendar](https://vcalendar.io/) An elegant calendar and datepicker plugin for Vuejs.
-
-[Draft.js](https://draftjs.org/) Rich Text Editor Framework for React
-
-[vue-codemirror](https://github.com/surmon-china/vue-codemirror) @codemirror code editor component for @vuejs
-
-[vue-local-storage](https://github.com/pinguinjkeke/vue-local-storage) Vue.js localStorage plugin with types support
-
-[vue-js-modal](http://vue-js-modal.yev.io/) | [github](https://github.com/euvl/vue-js-modal): Easy to use, highly customizable Vue.js modal library.
-
-[typeahead.js](https://typeahead.js.org/) a flexible JavaScript library that provides a strong foundation for building robust typeaheads
-
-[EJS](https://ejs.bootcss.com/) 高效的嵌入式 JavaScript 模板引擎。
-
-[mavon-editor](https://github.com/hinesboy/mavonEditor) | [npm](https://www.npmjs.com/package/mavon-editor) A markdown editor based on Vue that supports a variety of personalized features
 
 ## 通用第三方库
 
@@ -106,7 +60,7 @@ Swiper | 移动端网页触摸内容滑动 | [官网](https://www.swiper.com.cn/
 | composition-api | - | - |
 | echarts | - | - |
 | vue-echarts | - | - |
-| html2canvas | - | - |
+| html2canvas | Screenshots with JavaScript | [html2canvas](http://html2canvas.hertzen.com/)|
 | naming-style | 变量命名风格转化 | [github](https://github.com/parksben/naming-style) [npm](https://www.npmjs.com/package/naming-style) [中文 doc](https://github.com/parksben/naming-style/blob/HEAD/DOC_ZH.md) | 
 | throttle-debounce | Throttle and debounce functions. | [github](https://github.com/niksy/throttle-debounce) [npm](https://www.npmjs.com/package/throttle-debounce) | 
 | Resize Observer |Polyfills the ResizeObserver API |  [github](https://github.com/juggle/resize-observer)
@@ -116,6 +70,30 @@ Swiper | 移动端网页触摸内容滑动 | [官网](https://www.swiper.com.cn/
 | query-string | 解析和序列化url查询参数 | [npmjs](https://www.npmjs.com/package/query-string)
 | qs | 解析和序列化url查询参数 | [npmjs](https://www.npmjs.com/package/qs)
 | xijs | 一款面向复杂业务场景的 javascript 工具库 | [doc](http://h5.dooring.cn/xijs/): 
+| Moment.js | 日期处理类库 | [doc](http://momentjs.cn/)  |
+| Lodash | 实用工具库 | [doc](https://www.lodashjs.com/) |
+
+[mavon-editor](https://github.com/hinesboy/mavonEditor) | [npm](https://www.npmjs.com/package/mavon-editor) A markdown editor based on Vue that supports a variety of personalized features
+
+[node-qrcode](https://github.com/soldair/node-qrcode) QR code/2d barcode generator.
+[QRCode.js](https://github.com/davidshimjs/qrcodejs): Cross-browser QRCode generator for javascript
+[qrious](https://github.com/neocotic/qrious): Pure JavaScript library for QR code generation using canvas
+[EJS](https://ejs.bootcss.com/) 高效的嵌入式 JavaScript 模板引擎。
+
+[typeahead.js](https://typeahead.js.org/) a flexible JavaScript library that provides a strong foundation for building robust typeaheads
+
+[CKEditor](https://ckeditor.com/docs/index.html) Smart rich text editor components with collaborative editing.
+
+[wangEditor 5](https://www.wangeditor.com/)|[github](https://github.com/wangeditor-team/wangEditor): 开源 Web 富文本编辑器，开箱即用，配置简单
+
+[ScrollReveal](https://scrollrevealjs.org/)
+
+
+[deepmerge](https://github.com/TehShrike/deepmerge) | [npm](https://www.npmjs.com/package/deepmerge) : A library for deep (recursive) merging of Javascript objects
+
+[async-validator](https://github.com/yiminghe/async-validator) | [npm](https://www.npmjs.com/package/async-validator) : Validate form asynchronous
+
+[Sails.js](https://sailsjs.com/)The MVC framework for Node.js
 
 
 ## vue
@@ -125,6 +103,24 @@ Swiper | 移动端网页触摸内容滑动 | [官网](https://www.swiper.com.cn/
 | vue | - | - |
 | vuex | - | - |
 | vue-router | - | - |
+| Pinia | Vue.js 状态管理库 | [doc](https://pinia.vuejs.org/zh/) |
+
+[vue-qriously](https://github.com/theomessin/vue-qriously)：A Vue.js 2 component to draw QR codes on an HTML Canvas using qrious.
+
+[vue-codemirror](https://github.com/surmon-china/vue-codemirror) @codemirror code editor component for @vuejs
+
+[vue-local-storage](https://github.com/pinguinjkeke/vue-local-storage) Vue.js localStorage plugin with types support
+
+[vue-js-modal](http://vue-js-modal.yev.io/) | [github](https://github.com/euvl/vue-js-modal): Easy to use, highly customizable Vue.js modal library.
+
+[portal-vue](https://github.com/linusborg/portal-vue): A Portal Component for Vuejs, to render DOM outside of a component, anywhere in the document.
+
+[V-Calendar](https://vcalendar.io/) An elegant calendar and datepicker plugin for Vuejs.
+
+[Vant 2](https://vant-contrib.gitee.io/vant/v2/#/zh-CN/) 轻量、可靠的移动端 Vue 组件库
+
+[iView UI](https://iviewui.com/docs/guide/install): 一套基于 Vue.js 的高质量 UI 组件库
+
 
 ## react
 
@@ -135,6 +131,12 @@ Swiper | 移动端网页触摸内容滑动 | [官网](https://www.swiper.com.cn/
 | prop-types| React运行时参数类型检查 | [npmjs](https://www.npmjs.com/package/prop-types)
 | react-router | React 官方维护的路由库 | [doc](https://v5.reactrouter.com/)
 | Redux | 状态管理 | [zh-doc](https://www.redux.org.cn/)
+| redux-thunk | Redux 异步 action 中间件 | [github](https://github.com/reduxjs/redux-thunk)
+| react-redux | Official React bindings for Redux | [github](https://github.com/reduxjs/react-redux)
+| preactjs |  Fast 3kB alternative to React with the same modern API. | [doc](https://preactjs.com/) |
+
+[Draft.js](https://draftjs.org/) Rich Text Editor Framework for React
+
 
 ## CDN
 

@@ -22,7 +22,9 @@ npm install --save redux
 
 示例
 
-定义 store
+定义 store 
+
+store.js
 
 ```js
 import { createStore } from "redux";
@@ -80,4 +82,170 @@ export default class App extends Component {
 }
 
 ```
+
 ### 求和案例
+
+优化
+
+- 新建 constant.js 常量文件，放置常量
+- 新建 actions.js 文件，放置action
+
+异步action
+
+需要用到 中间件 `redux-thunk`
+
+```
+npm i redux-thunk
+```
+
+项目结构
+
+```bash
+$ tree src
+src
+├── App.jsx
+├── index.js
+└── store
+    ├── actions.js
+    ├── constants.js
+    ├── index.js
+    └── reducers.js
+```
+
+index.js
+```js
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+```
+
+App.jsx
+```js
+import React, { Component } from "react";
+import store from "./store/index.js";
+import { increment, decrement, incrementAsync } from "./store/actions.js";
+
+export default class App extends Component {
+  handleIncrement = () => {
+    store.dispatch(increment());
+  };
+
+  handleDecrement = () => {
+    store.dispatch(decrement());
+  };
+
+  handleIncrementAsync = () => {
+    store.dispatch(incrementAsync(500));
+  };
+
+  componentDidMount() {
+    store.subscribe(() => {
+      this.forceUpdate();
+    });
+  }
+
+  render() {
+    return (
+      <div className="app">
+        <div>{store.getState()}</div>
+        <button onClick={this.handleIncrement}>increment</button>
+        <button onClick={this.handleDecrement}>decrement</button>
+        <button onClick={this.handleIncrementAsync}>异步increment</button>
+      </div>
+    );
+  }
+}
+
+```
+store/constants.js
+```js
+/**
+ * constants
+ */
+export const INCREMENT = 'INCREMENT'
+
+export const DECREMENT = 'DECREMENT'
+
+export const INCREMENT_ASYNC = 'INCREMENT_async'
+```
+
+store/actions.js
+
+```js
+/**
+ * actions
+ */
+import { INCREMENT, DECREMENT, INCREMENT_ASYNC } from "./constants.js";
+
+// 同步action
+export function increment(data) {
+  return { type: INCREMENT, data };
+}
+
+export function decrement(data) {
+  return { type: DECREMENT, data };
+}
+
+// 异步action
+export function incrementAsync(data, time) {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(increment(data));
+    }, time);
+  };
+}
+
+```
+store/reducers.js
+```js
+/**
+ * reducers
+ */
+
+import { INCREMENT, DECREMENT } from "./constants.js";
+
+export function counter(state = 0, action) {
+  const { type, data } = action;
+  console.log(type, data);
+
+  switch (type) {
+    case INCREMENT:
+      return state + 1;
+    case DECREMENT:
+      return state - 1;
+    default:
+      return state;
+  }
+}
+
+```
+
+store/index.js
+
+```js
+import { createStore, applyMiddleware } from "redux";
+import thunkMiddleware from "redux-thunk";
+import { counter } from "./reducers.js";
+
+const store = createStore(counter, applyMiddleware(thunkMiddleware));
+
+export default store;
+
+```
+
+### react-redux
+
+- 容器组件
+- UI组件
+
+
+https://www.bilibili.com/video/BV1wy4y1D7JT?p=105&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

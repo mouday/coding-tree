@@ -11,7 +11,5 @@
     - [5、React UI组件库](/blog/react/05-react-ui.md)
     - [6、Redux状态管理](/blog/react/06-redux.md)
 
-https://www.bilibili.com/video/BV1wy4y1D7JT/?p=49&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
 
 https://www.bilibili.com/video/BV1wy4y1D7JT?p=101&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

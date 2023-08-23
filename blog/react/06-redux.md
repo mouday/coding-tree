@@ -247,3 +247,122 @@ export default store;
 - 容器组件
 - UI组件
 
+- [https://github.com/reduxjs/react-redux](https://github.com/reduxjs/react-redux)
+- [https://react-redux.js.org](https://react-redux.js.org/introduction/getting-started)
+
+```bash
+pnpm i react-redux
+```
+
+示例
+
+使用 Provider 提供 store
+
+index.js 
+
+```js
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+import App from "./App";
+import store from "./store/index.js";
+import { Provider } from "react-redux";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);
+
+// 如果store数据改变，重新渲染组件
+// store.subscribe(() => {
+//   root.render(
+//     <React.StrictMode>
+//       <App />
+//     </React.StrictMode>
+//   );
+// });
+
+```
+
+App.jsx
+
+```js
+import React, { Component } from "react";
+
+import { connect } from "react-redux";
+// import store from "./store/index.js";
+import { increment, decrement, incrementAsync } from "./store/actions.js";
+
+class App extends Component {
+  handleIncrement = () => {
+    // store.dispatch(increment());
+    this.props.increment();
+  };
+
+  handleDecrement = () => {
+    // store.dispatch(decrement());
+    this.props.decrement();
+  };
+
+  handleIncrementAsync = () => {
+    // store.dispatch(incrementAsync(500));
+    this.props.incrementAsync(500);
+  };
+
+  // componentDidMount() {
+  //   store.subscribe(() => {
+  //     this.forceUpdate();
+  //   });
+  // }
+
+  render() {
+    console.log(this.props);
+    const { value } = this.props;
+
+    return (
+      <div className="app">
+        {/* <div>{store.getState()}</div> */}
+        <div>{value}</div>
+        <button onClick={this.handleIncrement}>increment</button>
+        <button onClick={this.handleDecrement}>decrement</button>
+        <button onClick={this.handleIncrementAsync}>异步increment</button>
+      </div>
+    );
+  }
+}
+
+// 映射状态
+function mapStateToProps(state) {
+  return {
+    value: state,
+  };
+}
+
+// 映射方法
+function mapDispatchToProps(dispatch) {
+  return {
+    // dispatching plain actions
+    increment: (data) => dispatch(increment(data)),
+    decrement: (data) => dispatch(decrement(data)),
+    incrementAsync: (time) => dispatch(incrementAsync(null, time)),
+  };
+}
+// 映射方法的简写形式 {functionName: action}
+// const mapDispatchToProps = {
+//   // dispatching plain actions
+//   increment: increment,
+//   decrement: decrement,
+//   incrementAsync: incrementAsync,
+// };
+
+// 创建容器
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+```
+
+使用 `combineReducers` 拆分多个 reducer 函数 

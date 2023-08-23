@@ -61,6 +61,8 @@
 
 [echarts-map](https://github.com/mouday/echarts-map) ![](https://img.shields.io/github/stars/mouday/echarts-map.svg?style=social) 包含 echarts 用到的 map 地图文件
 
+[微信小程序UI组件库合集](https://developers.weixin.qq.com/community/develop/article/doc/000ecc775a86807f7ba9b7dc956c13)
+
 ## 开源项目
 
 [wechat-app-mall](https://github.com/EastWorld/wechat-app-mall) ![](https://img.shields.io/github/stars/EastWorld/wechat-app-mall.svg?style=social) 微信小程序商城

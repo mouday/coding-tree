@@ -4,6 +4,14 @@
 
 [Java常用组件和框架](blog/java/java-awesome.md)
 
+Java 要掌握的技术点 [https://javacn.site/java/java.html](https://javacn.site/java/java.html)
+
+[https://www.nowcoder.com/tutorial/10001/cc241fab426c4b5aa743cfad5791d385](https://www.nowcoder.com/tutorial/10001/cc241fab426c4b5aa743cfad5791d385)
+
+编程入门教程 [https://www.nowcoder.com/library](https://www.nowcoder.com/library)
+
+[2.5w字+36张图+1周时间：爆肝操作系统核心知识点！](https://mp.weixin.qq.com/s/G9ZqwEMxjrG5LbgYwM5ACQ)
+
 ## 在线文档
 
 [鱼皮编程学习路线](https://luxian.yupi.icu/)

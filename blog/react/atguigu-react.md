@@ -10,9 +10,8 @@
     - [4、React Route路由](/blog/react/04-react-route.md)
     - [5、React UI组件库](/blog/react/05-react-ui.md)
     - [6、Redux状态管理](/blog/react/06-redux.md)
+    - [7、React项目打包](/blog/react/07-react-build.md)
+    - [8、React补充内容](/blog/react/08-react-append.md)
 
 
-https://www.bilibili.com/video/BV1wy4y1D7JT?p=105&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
-
-https://www.bilibili.com/video/BV1wy4y1D7JT/?p=111&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1wy4y1D7JT/?p=118&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

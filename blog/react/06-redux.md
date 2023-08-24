@@ -366,3 +366,29 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 ```
 
 使用 `combineReducers` 拆分多个 reducer 函数 
+
+纯函数约束
+
+1. 不能修改参数值
+2. 没有任何副作用，例如网络请求，输入和输出
+3. 补鞥呢调用Date.now() 或者Math.random()等不纯函数
+
+redux 的 reducer必须是一个纯函数
+
+
+## Redux DevTools
+
+开发者工具 Redux DevTools 配合 npm包redux-devtools-extension 使用
+
+```
+npm i redux-devtools-extension
+```
+
+配置
+
+```js
+import { composeWithDevTools } from 'redux-devtools-extension'
+
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))
+
+```

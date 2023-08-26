@@ -226,4 +226,46 @@ A: <>{this.props.render(value)}</>
 
 ## 错误边界
 
+Error boundary 用来捕获后代组件错误
 
+```js
+state = {
+    error: null
+}
+
+// 获取子组件生命周期产生的错误，不能捕获足自己组件产生的错误
+static getDerivedStateFromError(error){
+    return {error}
+}
+
+// 组件错误
+componentDidCatch(error, info){
+    
+}
+```
+
+## 组件通信方式总结
+
+组件间关系
+
+- 父子
+- 兄弟
+- 祖孙
+
+通信方式
+
+- props
+    - children props
+    - render props
+- 消息订阅-发布
+    - pub-sub、event
+- 集中式管理
+    - redux、dva
+- context
+    - 生产者-消费者模式
+
+搭配方式
+
+- 父子：props
+- 兄弟：消息订阅-发布、集中式管理
+- 祖孙：消息订阅-发布、集中式管理、context

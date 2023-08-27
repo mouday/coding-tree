@@ -147,7 +147,126 @@ export default function App() {
 
 ## Outlet
 
+类似vue的`router-view`
+
 ```js
 // 指定路由呈现位置
 <Outlet>
+```
+
+路由参数
+
+params参数
+
+```
+1、定义参数占位
+path: '/detail/:id'
+
+2、传递参数
+/detail/001
+
+3、接收参数
+import {useParams} from "react-router-dom"
+
+const {id} = useParams()
+```
+
+search参数
+
+```
+1、无需定义占位
+path: '/detail'
+
+2、传递参数
+/detail?id=001
+
+3、接收参数
+import {useSearchParams} from "react-router-dom"
+
+const {search, setSearch} = useSearchParams()
+const id = search.get('id')
+
+```
+
+state参数
+
+```
+1、无需定义占位
+path: '/detail'
+
+2、传递参数
+<Link 
+    to="/detail" 
+    state={{id: '001'}}></Link>
+
+3、接收参数
+import {useLocation} from "react-router-dom"
+
+const {state} = useLocation()
+const {id} = state
+```
+
+编程式路由导航
+
+```js
+import {useNavigate} from "react-router-dom"
+
+const navigate = useNavigate()
+
+// 跳转， params和search参数，直接写在路径
+navigate('/detail', {
+    replace: false,
+    state: {id: '001'}
+})
+
+// 前进
+navigate(1)
+
+// 后退
+navigate(-1)
+```
+
+## useInRouterContext
+
+是否被路由器BroserRouter包裹
+
+```js
+import {useInRouterContext} from "react-router-dom"
+
+// 返回布尔值
+useInRouterContext()
+```
+
+## useNavigationType
+
+路由打开方式
+
+- POP 刷新页面，浏览器直接打开
+- PUSH
+- REPLACE
+
+## useOutlet
+
+用来呈现当前组件中渲染的嵌套组件
+
+- 如果没有挂载，返回null
+- 已经挂载，返回路由对象
+
+```js
+import {useOutlet} from "react-router-dom"
+
+const outlet = useOutlet()
+```
+
+## useResolvedPath
+
+给定一个URL值，解析其中的参数
+- path
+- search
+- hash
+
+```js
+import {useResolvedPath} from "react-router-dom"
+
+useResolvedPath('/detail?id=001')
 ```

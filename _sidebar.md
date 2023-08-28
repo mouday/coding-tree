@@ -3,6 +3,18 @@
   - [知识博主](/doc/nav.md)
   - [开源库](/doc/open.md)
 
+- 后端
+
+  - [Java](doc/java.md)
+  - [Python](doc/python.md)
+  - [PHP](doc/php.md)
+  - [Golang](doc/go.md)
+  - [C#](doc/csharp.md)
+  - [Visual Basic](doc/visual-basic.md)
+  - [C 语言](doc/c.md)
+  - [Ruby](doc/ruby.md)
+  - [区块链（blockchain）](doc/blockchain.md)
+
 - 前端
 
   - [Html](doc/html.md)
@@ -17,17 +29,6 @@
   - [webpack](doc/webpack.md)
   - [Rust](doc/rust.md)
 
-- 后端
-
-  - [Java](doc/java.md)
-  - [Python](doc/python.md)
-  - [PHP](doc/php.md)
-  - [Golang](doc/go.md)
-  - [C#](doc/csharp.md)
-  - [Visual Basic](doc/visual-basic.md)
-  - [C 语言](doc/c.md)
-  - [Ruby](doc/ruby.md)
-  - [区块链（blockchain）](doc/blockchain.md)
 
 - 通用技能
   - [Linux](doc/linux.md)

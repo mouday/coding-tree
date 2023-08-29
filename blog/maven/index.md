@@ -22,13 +22,9 @@
     - [第一节 创建工程，引入依赖](/blog/maven/maven-principle-1.md)
     - [第二节 搭建环境：持久化层](/blog/maven/maven-principle-2.md)
     - [第三节 搭建环境：事务控制](/blog/maven/maven-principle-3.md)
-
-    
-    ## 第四节 搭建环境：表述层
-
-    ## 第五节 搭建环境：辅助功能
-
-    ## 第六节 业务功能：登录
+    - [第四节 搭建环境：表述层](/blog/maven/maven-principle-4.md)
+    - [第五节 搭建环境：辅助功能](/blog/maven/maven-principle-5.md)
+    - [第六节 业务功能：登录](/blog/maven/maven-principle-6.md)
 
 - [Maven 实战篇](/blog/maven/maven-practice.md)
 
@@ -42,4 +38,5 @@
 
 http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/chapter07/
 
-https://www.bilibili.com/video/BV12q4y147e4?p=115&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV12q4y147e4/?p=120&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

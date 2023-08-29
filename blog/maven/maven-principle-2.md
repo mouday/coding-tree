@@ -2,7 +2,9 @@
 
 # 2、第二节 搭建环境：持久化层
 
-数据库文件 database.sql
+## 1、数据库文件 
+
+database.sql
 
 ```sql
 create database db_imperial_court;
@@ -60,7 +62,7 @@ values ('浙江巡抚奏钱塘堤决口疏', '皇上啊，不好啦！钱塘江�
        ;
 ```
 
-2、Mybatis 逆向工程
+## 2、Mybatis 逆向工程
 
 demo-module06-generate/src/main/resources/generatorConfig.xml
 
@@ -109,4 +111,181 @@ demo-module06-generate/src/main/resources/generatorConfig.xml
 ```bash
 # 执行代码生成
 $ mvn mybatis-generator:generate
+```
+
+自动根据表结构生成实体类和Mapper类
+
+实体类可自行添加无参构造器、toString() 方法。
+
+移动到对应的文件夹内
+- 实体类：demo-module03-entity/src/main/java/com/atguigu/imperial/court/entity
+- Mapper类：demo-module02-component/src/main/java/com/atguigu/imperial/court/mapper
+- xml文件：demo-module02-component/src/main/java/com/atguigu/imperial/court/mapper/xml
+
+配置 demo-module02-component 模块的 pom.xml
+
+```xml
+<build>
+    <resources>
+        <!--编译src/main/java目录下的xml文件-->
+        <resource>
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.xml</include>
+            </includes>
+            <filtering>true</filtering>
+        </resource>
+    </resources>
+</build>
+```
+## 3、建立数据库连接
+
+数据库配置 
+
+demo-module01-web/src/main/resources/jdbc.properties
+
+```bash
+dev.driverClassName=com.mysql.cj.jdbc.Driver
+dev.url=jdbc:mysql://127.0.0.1:3306/db_imperial_court
+dev.username=root
+dev.password=123456
+dev.initialSize=10
+dev.maxActive=20
+dev.maxWait=10000
+
+```
+
+配置数据源
+
+demo-module01-web/src/main/resources/spring-persist.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xmlns:mybatis="http://www.springframework.org/schema/p"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+    <!-- 加载外部属性配置文件（jdbc.properties）-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!-- 配置数据源-->
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="username" value="${dev.username}"/>
+        <property name="password" value="${dev.password}"/>
+        <property name="url" value="${dev.url}"/>
+        <property name="driverClassName" value="${dev.driverClassName}"/>
+        <property name="initialSize" value="${dev.initialSize}"/>
+        <property name="maxActive" value="${dev.maxActive}"/>
+        <property name="maxWait" value="${dev.maxWait}"/>
+    </bean>
+</beans>
+```
+
+数据源测试
+
+```java
+package com.atguigu.imperial.court.test;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(value = {"classpath:spring-persist.xml"})
+public class DataSourceTest {
+    @Autowired
+    private DataSource dataSource;
+
+    private Logger logger = LoggerFactory.getLogger(DataSourceTest.class);
+
+    @Test
+    public void testConnection() throws SQLException {
+        Connection connection = dataSource.getConnection();
+        logger.debug(connection.toString());
+        // 09:55:12.544 [main] DEBUG com.atguigu.imperial.court.test.DataSourceTest - com.mysql.cj.jdbc.ConnectionImpl@770d0ea6
+    }
+
+}
+
+```
+
+## 4、Spring 整合 Mybatis
+
+demo-module01-web/src/main/resources/spring-persist.xml
+
+```xml
+<!-- 配置 SqlSessionFactoryBean -->
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+    <!-- 装配数据源 -->
+    <property name="dataSource" ref="druidDataSource"/>
+
+    <!-- 指定 Mapper 配置文件的位置 -->
+    <property name="mapperLocations" value="classpath:com/atguigu/imperial/court/mapper/xml/*Mapper.xml"/>
+</bean>
+
+<!--https://blog.csdn.net/qq_43842093/article/details/129019078-->
+<mybatis-spring:scan base-package="com.atguigu.imperial.court.mapper"/>
+```
+
+Mapper测试
+
+```java
+package com.atguigu.imperial.court.test;
+
+import com.atguigu.imperial.court.entity.Emp;
+import com.atguigu.imperial.court.entity.EmpExample;
+import com.atguigu.imperial.court.mapper.EmpMapper;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
+
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(value = {"classpath:spring-persist.xml"})
+public class EmpMappderTest {
+    @Autowired
+    private DataSource dataSource;
+
+    private Logger logger = LoggerFactory.getLogger(EmpMappderTest.class);
+
+    @Test
+    public void testConnection() throws SQLException {
+        Connection connection = dataSource.getConnection();
+        logger.debug(connection.toString());
+    }
+    @Autowired
+    private EmpMapper empMapper;
+
+    @Test
+    public void testEmpMapper() {
+        List<Emp> empList = empMapper.selectByExample(new EmpExample());
+        for (Emp emp : empList) {
+            System.out.println("emp = " + emp);
+        }
+    }
+}
+
 ```

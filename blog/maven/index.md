@@ -21,9 +21,9 @@
 - Maven 原理篇（SSM 整合伪分布式案例）
     - [第一节 创建工程，引入依赖](/blog/maven/maven-principle-1.md)
     - [第二节 搭建环境：持久化层](/blog/maven/maven-principle-2.md)
+    - [第三节 搭建环境：事务控制](/blog/maven/maven-principle-3.md)
 
-    ## 第三节 搭建环境：事务控制
-
+    
     ## 第四节 搭建环境：表述层
 
     ## 第五节 搭建环境：辅助功能

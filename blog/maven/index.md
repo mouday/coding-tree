@@ -10,7 +10,7 @@
 
 目录
 
-- [Maven 入门篇](/blog/maven/maven-introduction.md)
+- Maven 入门篇
     - [第一章 Maven 概述](/blog/maven/maven-introduction-1.md)
     - [第二章 Maven 核心程序解压和配置](/blog/maven/maven-introduction-2.md)
     - [第三章 使用 Maven：命令行环境](/blog/maven/maven-introduction-3.md)

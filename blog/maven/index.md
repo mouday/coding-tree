@@ -26,7 +26,9 @@
     - [第五节 搭建环境：辅助功能](/blog/maven/maven-principle-5.md)
     - [第六节 业务功能：登录](/blog/maven/maven-principle-6.md)
 
-- [Maven 实战篇](/blog/maven/maven-practice.md)
+- Maven 实战篇
+    - 第八章 微服务架构案例
+        - [第一节 创建工程](/blog/maven/maven-microservices-1.md)
 
 
 老师笔记：http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/
@@ -39,4 +41,4 @@
 http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/chapter07/
 
 
-https://www.bilibili.com/video/BV12q4y147e4/?p=120&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV12q4y147e4/?p=124&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -72,6 +72,7 @@ Swiper | 移动端网页触摸内容滑动 | [官网](https://www.swiper.com.cn/
 | xijs | 一款面向复杂业务场景的 javascript 工具库 | [doc](http://h5.dooring.cn/xijs/): 
 | Moment.js | 日期处理类库 | [doc](http://momentjs.cn/)  |
 | Lodash | 实用工具库 | [doc](https://www.lodashjs.com/) |
+| vxe-table | 表格 | [doc](https://vxetable.cn/) |
 
 [mavon-editor](https://github.com/hinesboy/mavonEditor) | [npm](https://www.npmjs.com/package/mavon-editor) A markdown editor based on Vue that supports a variety of personalized features
 

@@ -40,6 +40,8 @@
 - 服务开发框架Spring
 - Web开发框架SpringMVC
 - 持久层开发框架MyBatis
+    - [尚硅谷MyBatis零基础入门教程](/blog/mybatis/index.md)
+
 - 持久层开发框架MyBatis Plus
 - 服务快速开发技术SpringBoot
 - 版本控制Git

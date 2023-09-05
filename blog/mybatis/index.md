@@ -7,7 +7,9 @@
 
 学习时间：2023-09-04 ~ 待定
 
-学员笔记：https://blog.csdn.net/qq_19387933/article/details/123256034
+学员笔记：
+- https://blog.csdn.net/qq_19387933/article/details/123256034
+- https://blog.csdn.net/CherryChenieth/article/details/123237754
 
 学习笔记相关代码：https://github.com/mouday/mybatis-note
 

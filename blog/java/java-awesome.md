@@ -137,7 +137,7 @@ Spring Boot || https://spring.io/projects/spring-boot
 
 | 名称 | 简介 | 地址|
 | - | - |- | 
-| MyBatis | 一款优秀的持久层框架 | [文档](https://mybatis.org/mybatis-3/zh/index.html)|
+| MyBatis | 一款优秀的持久层框架 | [文档](https://mybatis.org/mybatis-3/zh/index.html)、[github](https://github.com/mybatis/mybatis-3)|
 | MyBatis 工具 | 分页插件 PageHelper、通用 Mapper | [文档](https://mybatis.io/) |
 | MyBatis-Plus | 一个 MyBatis 的增强工具 | [文档](https://baomidou.com/) |
 | MyBatis-Flex | 一个优雅的 MyBatis 增强框架 | [文档](https://mybatis-flex.com/) | 

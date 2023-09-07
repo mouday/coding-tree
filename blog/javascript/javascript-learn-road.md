@@ -1,7 +1,5 @@
 # Web前端学习路线图
 
-参考: 
-- [黑马程序员前端学习路线图（2023官方完整版）](http://yun.itheima.com/subject/webmap/index.html)
 
 ## 一、基础入门
 
@@ -155,6 +153,7 @@
 ## 六、React.js
 1. React.js 核心技术
     - [React.js](https://react.docschina.org/)
+        - [《尚硅谷 React 教程》笔记](/blog/react/atguigu-react)
     - JSX
     - 组件及组件通讯
     - 虚拟 DOM
@@ -191,3 +190,6 @@
 - 浏览器原理
 - Vue 原理
 - React 原理
+
+参考: 
+- [黑马程序员前端学习路线图（2023官方完整版）](http://yun.itheima.com/subject/webmap/index.html)

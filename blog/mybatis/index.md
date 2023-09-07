@@ -48,7 +48,7 @@ DAO（Data Access Objects）
 - JDK 1.8
 - IDEA 2019.2
 - Maven 3.5.4
-- MySQL 5.7
+- MySQL 8.0
 - Mybatis 3.5.7
 
 
@@ -96,10 +96,166 @@ DAO（Data Access Objects）
 </project>
 ```
 
+3、核心配置文件
 
-基础功能
-    核心配置文件
-    映射文件
+文件位置：src/main/resources/mybatis-config.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration  
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>  
+	<!--设置连接数据库的环境-->  
+	<environments default="development">  
+		<environment id="development">  
+			<transactionManager type="JDBC"/>  
+			<dataSource type="POOLED">  
+				<property name="driver" value="com.mysql.cj.jdbc.Driver"/>  
+				<property name="url" value="jdbc:mysql://localhost:3306/MyBatis"/>  
+				<property name="username" value="root"/>  
+				<property name="password" value="123456"/>  
+			</dataSource>  
+		</environment>  
+	</environments>  
+	
+    <!--引入映射文件-->  
+	<mappers>  
+		<mapper resource="mappers/UserMapper.xml"/>  
+	</mappers>  
+</configuration>
+```
+
+创建表结构
+
+```sql
+create table t_user(
+    id int primary key auto_increment,
+    username varchar(20),
+    password varchar(20),
+    age int,
+    sex char,
+    email varchar(20)
+);
+```
+
+创建实体类 User 
+
+```java
+package com.atguigu.mybatis.pojo;
+
+/**
+ * 实体类
+ */
+public class User {
+    private Integer id;
+
+    private String username;
+
+    private String password;
+
+    private Integer age;
+
+    private String gender;
+
+    private  String email;
+
+    // 省略setter/getter/constructor
+}
+
+```
+
+创建mapper接口
+
+```java
+package com.atguigu.mybatis.mapper;  
+  
+public interface UserMapper {  
+	/**  
+	* 添加用户信息  
+	*/  
+	int insertUser();  
+}
+```
+
+6、创建MyBatis的映射文件
+
+相关概念:ORM(Object Relationship Mapping)对象关系映射。
+
+- 对象: Java的实体类对象
+- 关系: 关系型数据库
+- 映射: 二者之间的对应关系
+
+| Java概念 | 数据库概念 |
+| - | - |
+| 类 |表 |
+| 属性 | 字段/列 |
+| 对象 |记录/行 |
+
+MyBatis面向接口编程的两个一致：
+
+1. 映射文件namespace和Mapper接口的全类名一致
+2. 映射文件中sql语句的id和mapper接口中的方法一致
+
+映射文件
+
+/src/main/java/com/atguigu/mybatis/mapper/xml/UserMapper.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.mybatis.mapper.UserMapper">
+
+    <insert id="insertUser">
+        insert into t_user
+            (username, password, age, sex, email)
+        values
+            ('admin','123456',23,'男', "123456@qq.com")
+    </insert>
+</mapper>
+```
+
+配置xml编译方式：
+
+pom.xml
+
+```xml
+<build>
+    <resources>
+        <!--编译src/main/java目录下的xml文件-->
+        <resource>
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.xml</include>
+            </includes>
+            <filtering>true</filtering>
+        </resource>
+    </resources>
+</build>
+```
+
+引入映射文件 mybatis-config.xml
+
+```xml
+<configuration>
+    <!--引入映射文件-->
+    <mappers>
+        <!-- 使用相对于类路径的资源引用 -->
+        <!--<mapper resource="mappers/UserMapper.xml"/>-->
+
+        <!-- 使用映射器接口实现类的完全限定类名 -->
+        <mapper class="com.atguigu.mybatis.mapper.UserMapper"/>
+    </mappers>
+</configuration>
+```
+
+
+## 基础功能
+
+
+    
     实现增删改查
     获取参数值的两种方式
     各种查询功能
@@ -111,4 +267,4 @@ DAO（Data Access Objects）
 
 
 
-https://www.bilibili.com/video/BV1VP4y1c7j7?p=8&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1VP4y1c7j7/?p=11&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -381,7 +381,7 @@ JNA || https://github.com/java-native-access/jna
 | - | - |- | 
 Adopt Open JDK || https://adoptopenjdk.net/
 Graal || https://github.com/oracle/graal
-Open JDK || https://openjdk.java.net/、
+Open JDK || https://openjdk.java.net/
 
 ## 多版本 Java 支持
 

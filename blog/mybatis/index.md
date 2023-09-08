@@ -270,7 +270,209 @@ import java.io.InputStream;
 
 public class UserMapperTest {
     /**
-     * sqlsession默认不自动提交事务，如果需要自动提交事务，可以使用SqlSessionFactory.openSession(true)
+     * @throws IOException
+     */
+    @Test
+    public void testInsertUser() throws IOException {
+        //加载核心配置文件
+        InputStream is = Resources.getResourceAsStream("mybatis-config.xml");
+        //获取sqlsessionfactorybuilder
+        SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+        //获取factory
+        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(is);
+        //获取sqlsession
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        //获取mapper接口对象
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class); //代理模式
+
+        //测试功能
+        int result = mapper.insertUser();
+
+        // 提交事务
+        // sqlSession.commit();
+
+        System.out.println("result: " + result);
+        // result: 1
+    }
+}
+```
+
+sqlsession默认不自动提交事务，如果需要自动提交事务，可以使用
+
+```java
+SqlSessionFactory.openSession(true)
+```
+
+log4j日志
+
+```xml
+<!-- log4j日志 -->
+<dependency>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.2.17</version>
+</dependency>
+```
+
+配置文件 src/main/resources/log4j.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <param name="Encoding" value="UTF-8" />
+        <layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p %d{MM-dd HH:mm:ss,SSS} %m (%F:%L) \n" />
+        </layout>
+    </appender>
+    <logger name="java.sql">
+        <level value="debug" />
+    </logger>
+    <logger name="org.apache.ibatis">
+        <level value="info" />
+    </logger>
+    <root>
+        <level value="debug" />
+        <appender-ref ref="STDOUT" />
+    </root>
+</log4j:configuration>
+
+```
+
+日志的级别：
+
+- FATAL(致命)
+- ERROR(错误)
+- WARN(警告)
+- INFO(信息)
+- DEBUG(调试) 
+
+从上到下打印的内容越来越详细
+
+实现增删改查
+
+UserMapper.class
+
+```java
+package com.atguigu.mybatis.mapper;
+
+import com.atguigu.mybatis.pojo.User;
+
+import java.util.List;
+
+public interface UserMapper {
+    /**
+     * 添加用户信息
+     */
+    int insertUser();
+
+    /**
+     * 更新用户信息
+     * @return
+     */
+    int updateUser();
+
+    /**
+     * 删除用户数据
+     * @return
+     */
+    int deleteUser();
+
+    /**
+     * 查询单个用户
+     * @return
+     */
+    User getUserById();
+
+    /**
+     * 查询所有用户
+     * @return
+     */
+    List<User> getAllUser();
+}
+
+```
+
+UserMapper.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.mybatis.mapper.UserMapper">
+
+    <!-- 添加用户信息 -->
+    <insert id="insertUser">
+        insert into
+            t_user
+            (username, password, age, sex, email)
+        values
+            ('admin','123456',23,'男', "123456@qq.com")
+    </insert>
+
+    <!-- 更新用户信息 -->
+    <update id="updateUser">
+        update
+            t_user
+        set
+            username = "张三"
+        where
+            id = 1
+    </update>
+
+
+    <!-- 删除用户数据 -->
+    <delete id="deleteUser">
+        delete from
+            t_user
+        where
+            id = 1
+    </delete>
+
+    <!-- 查询单个用户 -->
+    <select id="getUserById" resultType="com.atguigu.mybatis.pojo.User">
+        select
+            *
+        from
+            t_user
+        where
+            id = 3
+    </select>
+
+    <!--查询所有用户-->
+    <select id="getAllUser" resultType="com.atguigu.mybatis.pojo.User">
+        select * from t_user
+    </select>
+</mapper>
+```
+
+查询功能的标签必须设置resultType或者resultMap
+
+- resultType：设置默认的映射关系
+- resultMap：设置自定义的映射关系（字段名和表头不一样）
+
+
+测试类
+
+```java
+package com.atguigu.mybatis.mapper;
+
+import com.atguigu.mybatis.pojo.User;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+public class UserMapperTest {
+    /**
+     * 添加用户信息
      * @throws IOException
      */
     @Test
@@ -292,14 +494,79 @@ public class UserMapperTest {
         System.out.println("result: " + result);
         // result: 1
     }
+
+    /**
+     * 更新用户信息
+     * @throws IOException
+     */
+    @Test
+    public void testUpdate() throws IOException {
+        InputStream resourceAsStream = Resources.getResourceAsStream("mybatis-config.xml");
+
+        SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(resourceAsStream);
+
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        mapper.updateUser();
+
+    }
+
+    /**
+     * 删除用户数据
+     * @throws IOException
+     */
+    @Test
+    public void testDelete() throws IOException {
+        InputStream resourceAsStream = Resources.getResourceAsStream("mybatis-config.xml");
+        SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(resourceAsStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        mapper.deleteUser();
+    }
+
+    /**
+     * 查询单个用户
+     * @throws IOException
+     */
+    @Test
+    public void testGetUserById() throws IOException {
+        InputStream resourceAsStream = Resources.getResourceAsStream("mybatis-config.xml");
+        SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(resourceAsStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = mapper.getUserById();
+        System.out.println(user);
+    }
+
+    /**
+     * 查询所有用户
+     * @throws IOException
+     */
+    @Test
+    public void testGetAllUser() throws IOException {
+        InputStream resourceAsStream = Resources.getResourceAsStream("mybatis-config.xml");
+        SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(resourceAsStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        List<User> allUser = mapper.getAllUser();
+
+        allUser.forEach(System.out::println);
+    }
+
 }
 ```
+
+
 
 ## 基础功能
 
 
     
-    实现增删改查
+    
     获取参数值的两种方式
     各种查询功能
     自定义映射resultMap

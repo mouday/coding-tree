@@ -92,7 +92,7 @@ UserMapper.xml
     <insert id="insertUser">
         insert into
             t_user
-            (username, password, age, sex, email)
+            (username, password, age, gender, email)
         values
             ('admin','123456',23,'男', "123456@qq.com")
     </insert>

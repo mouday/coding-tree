@@ -95,7 +95,7 @@ create table t_user(
     username varchar(20),
     password varchar(20),
     age int,
-    sex char,
+    gender char,
     email varchar(20)
 );
 ```
@@ -171,7 +171,7 @@ MyBatis面向接口编程的两个一致：
 
     <insert id="insertUser">
         insert into t_user
-            (username, password, age, sex, email)
+            (username, password, age, gender, email)
         values
             ('admin','123456',23,'男', "123456@qq.com")
     </insert>

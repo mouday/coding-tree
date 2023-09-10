@@ -63,6 +63,10 @@
 
 [微信小程序UI组件库合集](https://developers.weixin.qq.com/community/develop/article/doc/000ecc775a86807f7ba9b7dc956c13)
 
+[Westore](https://github.com/Tencent/westore) 小程序项目分层架构
+ 
+[mini-stores](https://github.com/linjc/mini-stores)小程序全局多状态管理库，解决小程序跨页面跨组件通信
+
 ## 开源项目
 
 [wechat-app-mall](https://github.com/EastWorld/wechat-app-mall) ![](https://img.shields.io/github/stars/EastWorld/wechat-app-mall.svg?style=social) 微信小程序商城

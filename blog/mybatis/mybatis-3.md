@@ -2,7 +2,7 @@
 
 # 三、核心配置文件参数详解
 
-## environments
+## 1、environments
 
 1、environments：设置多个连接数据库的环境
 
@@ -109,6 +109,7 @@ jdbc.password=123456
 typeAlias：设置某个具体的类型的别名
 
 属性：
+
 - type：需要设置别名的类型的全类名
 - alias：设置此类型的别名，且别名不区分大小写。若不设置此属性，该类型拥有默认的别名，即类名
     
@@ -116,7 +117,6 @@ typeAlias：设置某个具体的类型的别名
 <typeAliases>
     <typeAlias type="com.atguigu.mybatis.pojo.User" alias="User"></typeAlias>
 </typeAliases>
-
 ```
 
 UserMapper.xml 中可以简写类名

@@ -142,11 +142,33 @@
 
     <!-- 下载地址 -->
     <!-- https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js -->
-    
+
     <!-- <script src="https://unpkg.com/browse/prismjs@1.29.0/components/prism-jsx.min.js"></script> -->
     <script src="static/js/prism-jsx.min.js"></script>
 
     <link rel="stylesheet" href="static/js/toc.css" />
     <script src="static/js/toc.js"></script>
+
+    <!-- Gitalk -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css"
+    />
+
+    <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+
+    <script>
+      const gitalk = new Gitalk({
+        clientID: '0a511401c60a9036b0ee',
+        clientSecret: '62d60878b658599a260c364491c7aa5629b0ea10',
+        repo: 'coding-tree',
+        owner: 'mouday',
+        id: location.pathname,
+        admin: ['mouday'],
+        // facebook-like distraction free mode
+        distractionFreeMode: false
+      })
+    </script>
   </body>
 </html>

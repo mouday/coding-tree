@@ -84,6 +84,7 @@ aside.nav.nothing {
     content: "- ";
   }
   .nav {
+    position: unset;
     margin: 0 auto;
     width: 800px;
   }

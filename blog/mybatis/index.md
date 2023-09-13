@@ -18,13 +18,14 @@
 6. [六、MyBatis的各种查询功能](/blog/mybatis/mybatis-6.md)
 7. [七、特殊SQL的执行](/blog/mybatis/mybatis-7.md)
 8. [八、自定义映射resultMap](/blog/mybatis/mybatis-8.md)
+9. [九、动态SQL](/blog/mybatis/mybatis-9.md)
 
 开发技巧
 
 - [IDEA文件模板](/blog/mybatis/mybatis-template.md)
 
 
-动态SQL
+
 分页插件
 逆向工程
 缓存
@@ -51,8 +52,4 @@
 - [二十二图、八千字、二十问，彻底搞定MyBatis！](https://mp.weixin.qq.com/s/W2oKuOpVRDmWIatm58JUvA)
 
 
-https://www.bilibili.com/video/BV1VP4y1c7j7/?p=38&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
-
-
-https://www.bilibili.com/video/BV1VP4y1c7j7/?p=41&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1VP4y1c7j7/?p=48&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

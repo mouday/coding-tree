@@ -13,6 +13,7 @@
   width: var(--toc-width, 200px);
   align-self: flex-start;
   flex: 0 0 auto;
+  z-index: 1;
 }
 aside.nav.nothing {
   width: 0;

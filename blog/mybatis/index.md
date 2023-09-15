@@ -19,6 +19,7 @@
 7. [七、特殊SQL的执行](/blog/mybatis/mybatis-7.md)
 8. [八、自定义映射resultMap](/blog/mybatis/mybatis-8.md)
 9. [九、动态SQL](/blog/mybatis/mybatis-9.md)
+10. [十、MyBatis逆向工程](/blog/mybatis/mybatis-10.md)
 
 开发技巧
 
@@ -53,3 +54,6 @@
 
 
 https://www.bilibili.com/video/BV1VP4y1c7j7/?p=48&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+
+https://www.bilibili.com/video/BV1VP4y1c7j7/?p=56&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

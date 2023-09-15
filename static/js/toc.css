@@ -1,3 +1,7 @@
+:root {
+  --toc-width: 280px;
+}
+
 .content {
   /* display: flex;
     flex-direction: row-reverse;
@@ -6,7 +10,9 @@
 .markdown-section {
   flex: 1 1 0%;
   margin: 0 48px;
+  padding-right: 100px;
 }
+
 .nav {
   position: absolute;
   right: 0;
@@ -71,6 +77,9 @@ aside.nav.nothing {
   line-height: 1.6em;
 }
 
+.content {
+  left: 220px;
+}
 @media screen and (max-width: 1300px) {
   .page_toc {
     position: relative;
@@ -107,6 +116,6 @@ aside.nav.nothing {
   padding-left: 10px;
 }
 
-#gitalk-container{
+#gitalk-container {
   padding-bottom: 20px;
 }

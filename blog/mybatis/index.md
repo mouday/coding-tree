@@ -5,7 +5,7 @@
 
 视频地址：https://www.bilibili.com/video/BV1VP4y1c7j7
 
-学习时间：2023-09-04 ~ 待定
+学习时间：2023-09-04 ~ 2023-09-17
 
 ## 目录
 
@@ -19,17 +19,14 @@
 7. [七、特殊SQL的执行](/blog/mybatis/mybatis-7.md)
 8. [八、自定义映射resultMap](/blog/mybatis/mybatis-8.md)
 9. [九、动态SQL](/blog/mybatis/mybatis-9.md)
-10. [十、MyBatis逆向工程](/blog/mybatis/mybatis-10.md)
+10. [十、MyBatis的缓存](/blog/mybatis/mybatis-10.md)
+11. [十一、MyBatis的逆向工程](/blog/mybatis/mybatis-11.md)
+12. [十二、MyBatis的分页插件](/blog/mybatis/mybatis-12.md)
 
 开发技巧
 
 - [IDEA文件模板](/blog/mybatis/mybatis-template.md)
 
-
-
-分页插件
-逆向工程
-缓存
 
 ## 学习资料
 
@@ -51,9 +48,3 @@
 其他资料
 
 - [二十二图、八千字、二十问，彻底搞定MyBatis！](https://mp.weixin.qq.com/s/W2oKuOpVRDmWIatm58JUvA)
-
-
-https://www.bilibili.com/video/BV1VP4y1c7j7/?p=48&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
-
-https://www.bilibili.com/video/BV1VP4y1c7j7/?p=56&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

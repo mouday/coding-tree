@@ -14,6 +14,10 @@
 
 - [DownGit](https://zhoudaxiaa.gitee.io/downgit/): 创建 GitHub 资源下载链接
 
+https://www.easeconvert.com/markdown-to-word/
+
+https://cloudconvert.com/md-to-docx
+
 ## 图片处理
 
 - [favicon 在线制作](https://tool.lu/favicon/)

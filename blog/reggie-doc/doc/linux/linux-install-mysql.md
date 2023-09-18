@@ -23,6 +23,7 @@ rpm -e --nodeps mariadb
 
 - 官网 [https://downloads.mysql.com/archives/community/](https://downloads.mysql.com/archives/community/)
 - 阿里云镜像 [https://mirrors.aliyun.com/mysql/](https://mirrors.aliyun.com/mysql/)
+- 华为云镜像 [https://repo.huaweicloud.com/mysql/Downloads/](https://repo.huaweicloud.com/mysql/Downloads/)
 
 查看系统版本
 

@@ -23,5 +23,6 @@
 
 百度网盘：https://pan.baidu.com/s/1qSYxccn15hVOj4D0_oHFUw?pwd=yyds 
 
+课程笔记: https://mouday.github.io/atguigu-spring6/
 
 https://www.bilibili.com/video/BV1kR4y1b7Qc/?p=18&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

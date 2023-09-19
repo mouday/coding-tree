@@ -27,3 +27,11 @@ https://cloudconvert.com/md-to-docx
 ## 视频解析
 
 - [玩的嗨-vip 视频在线解析](https://tv.wandhi.com/go.html)
+
+
+## 其他
+
+| 名称 | 简介 | 连接 |
+| - | - | - |
+| 宝塔Linux面板 | 简单好用的服务器运维面板 | [官网](https://www.bt.cn/)、[github](https://github.com/aaPanel/BaoTa) |
+| 1Panel | 现代化、开源的 Linux 服务器运维管理面板。 | [官网](https://1panel.cn/)、[github](https://github.com/1Panel-dev/1Panel) |

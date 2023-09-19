@@ -1,13 +1,16 @@
 # Java常用组件和框架
 
-## WEB 容器
+## 数据层框架
 
 | 名称 | 简介 | 地址|
 | - | - |- | 
-Tomcat | | https://tomcat.apache.org/
-Jetty | | https://www.jetty.com/
-JBoss| | https://www.jboss.org/
-Resin | | https://caucho.com/products/resin
+| MyBatis | 一款优秀的持久层框架 | [文档](https://mybatis.org/mybatis-3/zh/index.html)、[github](https://github.com/mybatis/mybatis-3)|
+| MyBatis 工具 | 分页插件 PageHelper、通用 Mapper | [文档](https://mybatis.io/) |
+| MyBatis-Plus | 一个 MyBatis 的增强工具 | [文档](https://baomidou.com/)、[github](https://github.com/baomidou/mybatis-plus) |
+| MyBatis-Flex | 一个优雅的 MyBatis 增强框架 | [文档](https://mybatis-flex.com/) | 
+| Fluent-Mybatis | mybatis语法增强框架 | [文档](https://gitee.com/fluent-mybatis/fluent-mybatis) |
+Hibernate || http://hibernate.org/orm/
+
 
 ## 数据库
 
@@ -132,17 +135,6 @@ Netty || https://netty.io/
 | - | - |- | 
 Spring Framework || https://spring.io/projects/spring-framework
 Spring Boot || https://spring.io/projects/spring-boot
-
-## 数据层框架
-
-| 名称 | 简介 | 地址|
-| - | - |- | 
-| MyBatis | 一款优秀的持久层框架 | [文档](https://mybatis.org/mybatis-3/zh/index.html)、[github](https://github.com/mybatis/mybatis-3)|
-| MyBatis 工具 | 分页插件 PageHelper、通用 Mapper | [文档](https://mybatis.io/) |
-| MyBatis-Plus | 一个 MyBatis 的增强工具 | [文档](https://baomidou.com/) |
-| MyBatis-Flex | 一个优雅的 MyBatis 增强框架 | [文档](https://mybatis-flex.com/) | 
-| Fluent-Mybatis | mybatis语法增强框架 | [文档](https://gitee.com/fluent-mybatis/fluent-mybatis) |
-Hibernate || http://hibernate.org/orm/
 
 
 ## 数据库连接池
@@ -398,6 +390,16 @@ Nutch | | https://nutch.apache.org/
 Crawler4j || https://github.com/yasserg/crawler4j
 jsoup | Java HTML解析器 | https://jsoup.org/
 WebMagic | 一个简单灵活的Java爬虫框架 | [文档](http://webmagic.io/)、[github](https://github.com/code4craft/webmagic)
+
+
+## WEB 容器
+
+| 名称 | 简介 | 地址|
+| - | - |- | 
+Tomcat | | https://tomcat.apache.org/
+Jetty | | https://www.jetty.com/
+JBoss| | https://www.jboss.org/
+Resin | | https://caucho.com/products/resin
 
 
 ## 其他

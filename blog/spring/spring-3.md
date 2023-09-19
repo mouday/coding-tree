@@ -88,7 +88,7 @@ public class User {
 
 ```
 
-获取bean
+### 获取bean
 
 ```java
 package com.atguigu.spring6;
@@ -142,5 +142,112 @@ class UserTest {
 java中，instanceof运算符用于判断前面的对象是否是后面的类，或其子类、实现类的实例。如果是返回true，否则返回false。也就是说：用instanceof关键字做判断时， instanceof 操作符的左右操作必须有继承或实现关系
 
 
+### 依赖注入
+
+
+手动注入的示例
+
+```java
+package com.atguigu.spring6;
+
+public class Student {
+    private String name;
+
+    private Integer age;
+
+    public Student() {
+    }
+
+    public Student(String name, Integer age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
+    public static void main(String[] args) {
+        // 通过set对属性赋值
+        Student student1 = new Student();
+        student1.setAge(18);
+        student1.setName("Tom");
+
+        // 通过构造器对属性赋值
+        Student student2 = new Student("Jack", 23);
+    }
+}
+
+```
+
+
+### 依赖注入之setter注入
+
+bean-student.xml
+
+```xml
+<!--通过set注入-->
+<bean id="student" class="com.atguigu.spring6.Student">
+    <property name="age" value="20"></property>
+    <property name="name" value="Tom"></property>
+</bean>
+```
+
+测试
+
+```java
+class StudentTest {
+    @Test
+    public void testSetter(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("bean-student.xml");
+        Student student = context.getBean("student", Student.class);
+        System.out.println(student);
+        // Student{name='Tom', age=20}
+    }
+}
+```
+
+### 依赖注入之构造器注入
+
+```xml
+<!-- 通过构造器注入   -->
+<bean id="studentConstructor" class="com.atguigu.spring6.Student">
+    <constructor-arg name="age" value="23"></constructor-arg>
+    <constructor-arg name="name" value="Jack"></constructor-arg>
+</bean>
+```
+
+```java
+
+class StudentTest {
+    @Test
+    public void testConstructor(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("bean-student.xml");
+        Student student = context.getBean("studentConstructor", Student.class);
+        System.out.println(student);
+        // Student{name='Jack', age=23}
+    }
+}
+```
 ## 基于注解管理Bean
 

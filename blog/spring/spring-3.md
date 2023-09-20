@@ -249,5 +249,205 @@ class StudentTest {
     }
 }
 ```
+
+### 特殊值处理
+
+1、字面量赋值
+
+```xml
+<property name="name" value="张三"/>
+```
+
+2、null值
+
+```xml
+<property name="name">
+    <null />
+</property>
+```
+
+3、xml实体
+
+```xml
+<!-- 小于号在XML文档中用来定义标签的开始，不能随便使用 -->
+<!-- 解决方案一：使用XML实体来代替 -->
+<property name="expression" value="a &lt; b"/>
+```
+
+4、CDATA节
+
+```xml
+<property name="expression">
+    <!-- 解决方案二：使用CDATA节 -->
+    <!-- CDATA中的C代表Character，是文本、字符的含义，CDATA就表示纯文本数据 -->
+    <!-- XML解析器看到CDATA节就知道这里是纯文本，就不会当作XML标签或属性来解析 -->
+    <!-- 所以CDATA节中写什么符号都随意 -->
+    <value><![CDATA[a < b]]></value>
+</property>
+```
+
+
+### 对象类型属性赋值
+
+部门员工案例
+
+部门和员工关系：一对多
+
+```java
+package com.atguigu.spring6.company;
+
+/**
+ * 部门
+ */
+public class Dept {
+    private String dname;
+
+    public String getDname() {
+        return dname;
+    }
+
+    public void setDname(String dname) {
+        this.dname = dname;
+    }
+
+    public void info(){
+        System.out.println("info: " + this.dname);
+    }
+
+    @Override
+    public String toString() {
+        return "Dept{" +
+                "dname='" + dname + '\'' +
+                '}';
+    }
+}
+
+```
+
+
+```java
+package com.atguigu.spring6.company;
+
+/**
+ * 员工
+ */
+public class Emp {
+    private String ename;
+    private Integer age;
+
+    private Dept dept;
+
+    public String getEname() {
+        return ename;
+    }
+
+    public void setEname(String ename) {
+        this.ename = ename;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
+
+    public void work(){
+        System.out.println(this.ename + " work... "  + this.age);
+        this.dept.info();
+    }
+
+    @Override
+    public String toString() {
+        return "Emp{" +
+                "ename='" + ename + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+```
+
+配置文件 bean-emp.xml
+
+1、引用外部bean
+
+```xml
+<bean id="dept" class="com.atguigu.spring6.company.Dept">
+    <property name="dname" value="财务部"></property>
+</bean>
+
+<bean id="emp" class="com.atguigu.spring6.company.Emp">
+    <property name="ename" value="Tom"></property>
+    <property name="age" value="20"></property>
+    <property name="dept" ref="dept"></property>
+</bean>
+```
+
+ref属性：引用IOC容器中某个bean的id，将所对应的bean为属性赋值
+
+2、内部bean
+
+```xml
+<bean id="emp2" class="com.atguigu.spring6.company.Emp">
+    <property name="ename" value="Tom"></property>
+    <property name="age" value="20"></property>
+    <property name="dept">
+        <bean id="dept2" class="com.atguigu.spring6.company.Dept">
+            <property name="dname" value="财务部"></property>
+        </bean>
+    </property>
+</bean>    
+```
+
+在一个bean中再声明一个bean就是内部bean
+
+内部bean只能用于给属性赋值，不能在外部通过IOC容器获取，因此可以省略id属性
+
+
+3、级联属性赋值
+
+```xml
+<bean id="dept3" class="com.atguigu.spring6.company.Dept">
+    <property name="dname" value="财务部"></property>
+</bean>
+
+<bean id="emp3" class="com.atguigu.spring6.company.Emp">
+    <property name="ename" value="Tom"></property>
+    <property name="age" value="20"></property>
+    <property name="dept" ref="dept3"></property>
+    <property name="dept.dname" value="研发部"></property>
+</bean>
+```
+测试类
+
+```java
+package com.atguigu.spring6;
+
+import com.atguigu.spring6.company.Emp;
+import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class EmpTest {
+    @Test
+    public void test() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("bean-emp.xml");
+        Emp emp = context.getBean("emp", Emp.class);
+        emp.work();
+        // Tom work... 20
+        // info: 财务部
+    }
+}
+
+```
 ## 基于注解管理Bean
 

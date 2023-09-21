@@ -460,5 +460,198 @@ public class EmpTest {
 }
 
 ```
+
+为数组类型属性赋值
+
+增加属性
+
+```java
+private String[] hobbies;
+
+public String[] getHobbies() {
+    return hobbies;
+}
+
+public void setHobbies(String[] hobbies) {
+    this.hobbies = hobbies;
+}
+```
+```xml
+<bean id="emp" class="com.atguigu.spring6.company.Emp">
+    <property name="hobbies">
+        <array>
+            <value>抽烟</value>
+            <value>喝酒</value>
+            <value>烫头</value>
+        </array>
+    </property>
+</bean>
+```
+
+测试类
+```java
+@Test
+public void testArray() {
+    ApplicationContext context = new ClassPathXmlApplicationContext("bean-array.xml");
+    Emp emp = context.getBean("emp", Emp.class);
+    System.out.println(Arrays.toString(emp.getHobbies()));
+    // [抽烟, 喝酒, 烫头]
+}
+```
+
+为List集合类型属性赋值
+
+```java
+private List<Emp> empList;
+```
+
+```xml
+<bean id="emp1" class="com.atguigu.spring6.company.Emp">
+    <property name="ename" value="Tom"></property>
+    <property name="age" value="20"></property>
+</bean>
+
+<bean id="emp2" class="com.atguigu.spring6.company.Emp">
+    <property name="ename" value="Jack"></property>
+    <property name="age" value="30"></property>
+</bean>
+
+<bean id="dept" class="com.atguigu.spring6.company.Dept">
+    <property name="empList">
+        <list>
+            <ref bean="emp1"></ref>
+            <ref bean="emp2"></ref>
+        </list>
+    </property>
+</bean>
+```
+
+> 若为Set集合类型属性赋值，只需要将其中的list标签改为set标签即可
+
+
+为Map集合类型属性赋值
+
+```java
+public class Teacher {
+
+    private Integer teacherId;
+
+    private String teacherName;
+
+}
+
+public class Student{
+    private Map<String, Teacher> teacherMap;
+}
+```
+
+```xml
+<bean id="teacherOne" class="com.atguigu.spring6.bean.Teacher">
+    <property name="teacherId" value="10010"></property>
+    <property name="teacherName" value="大宝"></property>
+</bean>
+
+<bean id="teacherTwo" class="com.atguigu.spring6.bean.Teacher">
+    <property name="teacherId" value="10086"></property>
+    <property name="teacherName" value="二宝"></property>
+</bean>
+
+<bean id="studentFour" class="com.atguigu.spring6.bean.Student">
+    <property name="id" value="1004"></property>
+    <property name="name" value="赵六"></property>
+    <property name="age" value="26"></property>
+    <property name="sex" value="女"></property>
+    <!-- ref属性：引用IOC容器中某个bean的id，将所对应的bean为属性赋值 -->
+    <property name="clazz" ref="clazzOne"></property>
+    <property name="hobbies">
+        <array>
+            <value>抽烟</value>
+            <value>喝酒</value>
+            <value>烫头</value>
+        </array>
+    </property>
+    <property name="teacherMap">
+        <map>
+            <entry>
+                <key>
+                    <value>10010</value>
+                </key>
+                <ref bean="teacherOne"></ref>
+            </entry>
+            <entry>
+                <key>
+                    <value>10086</value>
+                </key>
+                <ref bean="teacherTwo"></ref>
+            </entry>
+        </map>
+    </property>
+</bean>
+```
+
+引用集合类型的bean
+
+```xml
+<!--list集合类型的bean-->
+<util:list id="students">
+    <ref bean="studentOne"></ref>
+    <ref bean="studentTwo"></ref>
+    <ref bean="studentThree"></ref>
+</util:list>
+<!--map集合类型的bean-->
+<util:map id="teacherMap">
+    <entry>
+        <key>
+            <value>10010</value>
+        </key>
+        <ref bean="teacherOne"></ref>
+    </entry>
+    <entry>
+        <key>
+            <value>10086</value>
+        </key>
+        <ref bean="teacherTwo"></ref>
+    </entry>
+</util:map>
+
+<bean id="clazzTwo" class="com.atguigu.spring6.bean.Clazz">
+    <property name="clazzId" value="4444"></property>
+    <property name="clazzName" value="Javaee0222"></property>
+    <property name="students" ref="students"></property>
+</bean>
+
+<bean id="studentFour" class="com.atguigu.spring6.bean.Student">
+    <property name="id" value="1004"></property>
+    <property name="name" value="赵六"></property>
+    <property name="age" value="26"></property>
+    <property name="sex" value="女"></property>
+    <!-- ref属性：引用IOC容器中某个bean的id，将所对应的bean为属性赋值 -->
+    <property name="clazz" ref="clazzOne"></property>
+    <property name="hobbies">
+        <array>
+            <value>抽烟</value>
+            <value>喝酒</value>
+            <value>烫头</value>
+        </array>
+    </property>
+    <property name="teacherMap" ref="teacherMap"></property>
+</bean>
+```
+
+使用util:list、util:map标签必须引入相应的命名空间
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+</beans>
+```
+
+
 ## 基于注解管理Bean
 

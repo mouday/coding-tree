@@ -652,6 +652,173 @@ public class Student{
 </beans>
 ```
 
+### p命名空间
+
+引入p命名空间
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+</beans>
+```
+
+引入p命名空间后，可以通过以下方式为bean的各个属性赋值
+
+```xml
+<bean id="studentSix" 
+    class="com.atguigu.spring6.bean.Student"
+    p:id="1006" 
+    p:name="小明" 
+    p:clazz-ref="clazzOne" 
+    p:teacherMap-ref="teacherMap"
+></bean>
+```
+
+
+### 引入外部属性文件
+
+①加入依赖
+
+```xml
+ <!-- MySQL驱动 -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.30</version>
+</dependency>
+
+<!-- 数据源 -->
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>druid</artifactId>
+    <version>1.2.15</version>
+</dependency>
+```
+
+②创建外部属性文件
+
+jdbc.properties
+
+```bash
+jdbc.user=root
+jdbc.password=atguigu
+jdbc.url=jdbc:mysql://localhost:3306/ssm?serverTimezone=UTC
+jdbc.driver=com.mysql.cj.jdbc.Driver
+```
+
+③引入属性文件
+
+引入context 名称空间
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+</beans>
+```
+
+```xml
+<!-- 引入外部属性文件 -->
+<context:property-placeholder location="classpath:jdbc.properties"/>
+```
+
+注意：在使用 `<context:property-placeholder>` 元素加载外包配置文件功能前，首先需要在 XML 配置的一级标签 `<beans>` 中添加 context 相关的约束。
+
+
+④配置bean
+
+```xml
+<bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+    <property name="url" value="${jdbc.url}"/>
+    <property name="driverClassName" value="${jdbc.driver}"/>
+    <property name="username" value="${jdbc.user}"/>
+    <property name="password" value="${jdbc.password}"/>
+</bean>
+```
+
+⑤测试
+
+```java
+@Test
+public void testDataSource() throws SQLException {
+    ApplicationContext ac = new ClassPathXmlApplicationContext("spring-datasource.xml");
+    DataSource dataSource = ac.getBean(DataSource.class);
+    Connection connection = dataSource.getConnection();
+    System.out.println(connection);
+}
+```
+
+### bean的作用域
+
+①概念
+
+在Spring中可以通过配置bean标签的scope属性来指定bean的作用域范围，各取值含义参加下表：
+
+| 取值 | 含义 | 创建对象的时机  |
+| -| - | - |
+| singleton（默认） | 在IOC容器中，这个bean的对象始终为单实例 | IOC容器初始化时 |
+| prototype   | 这个bean在IOC容器中有多个实例   | 获取bean时 |
+
+如果是在WebApplicationContext环境下还会有另外几个作用域（但不常用）：
+
+| 取值    | 含义     |
+| ------- | -------------------- |
+| request | 在一个请求范围内有效 |
+| session | 在一个会话范围内有效 |
+
+②创建类User
+
+
+```java
+package com.atguigu.spring6.bean;
+
+public class User {
+
+    private Integer id;
+
+    private String username;
+
+    private String password;
+
+    private Integer age;
+
+    // getset方法省略
+}
+```
+
+③配置bean
+
+```xml
+<!-- scope属性：取值singleton（默认值），bean在IOC容器中只有一个实例，IOC容器初始化时创建对象 -->
+<!-- scope属性：取值prototype，bean在IOC容器中可以有多个实例，getBean()时创建对象 -->
+<bean class="com.atguigu.spring6.bean.User" scope="prototype"></bean>
+```
+
+④测试
+
+```java
+@Test
+public void testBeanScope(){
+    ApplicationContext ac = new ClassPathXmlApplicationContext("spring-scope.xml");
+    User user1 = ac.getBean(User.class);
+    User user2 = ac.getBean(User.class);
+    System.out.println(user1==user2);
+}
+```
+
 
 ## 基于注解管理Bean
 

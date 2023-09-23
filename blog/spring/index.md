@@ -26,7 +26,4 @@
 课程笔记: https://mouday.github.io/atguigu-spring6/
 
 
-https://www.bilibili.com/video/BV1kR4y1b7Qc/?p=26&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
-
-https://www.bilibili.com/video/BV1kR4y1b7Qc/?p=30&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1kR4y1b7Qc/?p=33&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

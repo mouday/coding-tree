@@ -26,12 +26,14 @@ Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjava
 
 [JavaGuide](https://javaguide.cn/) JavaGuide 在线阅读网站（新版，推荐👍）
 
-[Java 全栈知识体系](https://pdai.tech/) 包含: Java 基础, Java 部分源码, JVM, Spring, Spring Boot, Spring Cloud, 数据库原理, MySQL, ElasticSearch, MongoDB, Docker, k8s, CI&CD, Linux, DevOps, 分布式, 中间件, 开发工具, Git, IDE, 源码阅读，读书笔记, 开源项目...
+[Java 全栈知识体系](https://pdai.tech/)
 
 [CS-Notes](https://github.com/CyC2018/CS-Notes) 技术面试必备基础知识、Leetcode、计算机操作系统、计算机网络、系统设计
  - [http://www.cyc2018.xyz/](http://www.cyc2018.xyz/)
 
-[ Java1234](http://www.java1234.vip/)
+[Java1234](http://www.java1234.vip/)
+
+[小林 x 图解计算机基础](https://www.xiaolincoding.com/)
 
 ## JavaFX
 

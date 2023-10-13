@@ -35,6 +35,11 @@ Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjava
 
 [小林 x 图解计算机基础](https://www.xiaolincoding.com/)
 
+[牛客题库](https://www.nowcoder.com/exam/intelligent)
+
+[Alibaba Java 技术图谱](https://developer.aliyun.com/graph/java)
+
+
 ## JavaFX
 
 [JavaFX 快速入门](https://www.yiibai.com/javafx/javafx-tutorial-for-beginners.html)

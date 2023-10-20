@@ -499,3 +499,33 @@ public class UserServiceImpl implements UserService {
 **总结：**
 
 @Resource注解：默认byName注入，没有指定name时把属性名当做name，根据name找不到时，才会byType注入。byType注入时，某种类型的Bean只能有一个
+
+
+## 3.3.6、Spring全注解开发
+
+全注解开发就是不再使用spring配置文件了，写一个配置类来代替配置文件。
+
+```java
+package com.atguigu.spring6.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+//@ComponentScan({"com.atguigu.spring6.controller", "com.atguigu.spring6.service","com.atguigu.spring6.dao"})
+@ComponentScan("com.atguigu.spring6")
+public class Spring6Config {
+}
+```
+
+测试类
+
+```java
+@Test
+public void testAllAnnotation(){
+    ApplicationContext context = new AnnotationConfigApplicationContext(Spring6Config.class);
+    UserController userController = context.getBean("userController", UserController.class);
+    userController.out();
+    logger.info("执行成功");
+}
+```

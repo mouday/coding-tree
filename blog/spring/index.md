@@ -15,6 +15,7 @@
 - [四、容器IoC-基于XML管理Bean](/blog/spring/spring-4.md)
 - [五、容器IoC-基于注解管理Bean](/blog/spring/spring-5.md)
 - [六、原理-手写IoC](/blog/spring/spring-6.md)
+- [七、面向切面：AOP](/blog/spring/spring-7.md)
 
 
 ## 课程资料 
@@ -28,4 +29,4 @@
 课程笔记: https://mouday.github.io/atguigu-spring6/
 
 
-https://www.bilibili.com/video/BV1kR4y1b7Qc/?p=45&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1kR4y1b7Qc/?p=49&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

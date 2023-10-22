@@ -110,9 +110,10 @@ public class TestCar {
     public void test02() throws Exception {
         Class clazz = Car.class;
         // 获取所有构造
-        // getConstructors()获取所有public的构造方法
+        // getConstructors() 获取所有public的构造方法
         // Constructor[] constructors = clazz.getConstructors();
-        // getDeclaredConstructors()获取所有的构造方法public  private
+        
+        // getDeclaredConstructors() 获取所有的构造方法public  private
         Constructor[] constructors = clazz.getDeclaredConstructors();
         for (Constructor c:constructors) {
             System.out.println("方法名称："+c.getName()+" 参数个数："+c.getParameterCount());

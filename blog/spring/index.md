@@ -17,7 +17,8 @@
 - [六、原理-手写IoC](/blog/spring/spring-6.md)
 - [七、面向切面：AOP](/blog/spring/spring-7.md)
 - [八、单元测试：JUnit](/blog/spring/spring-8.md)
-- [九、事务](/blog/spring/spring-9.md)
+- [九、事务 @Transactional](/blog/spring/spring-9.md)
+- [十、资源操作：Resources](/blog/spring/spring-10.md)
 
 
 ## 课程资料 
@@ -31,4 +32,5 @@
 课程笔记: https://mouday.github.io/atguigu-spring6/
 
 
-https://www.bilibili.com/video/BV1kR4y1b7Qc/?p=71&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV1kR4y1b7Qc/?p=78&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

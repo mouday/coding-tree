@@ -1,6 +1,6 @@
 [返回目录](/blog/spring/index.md)
 
-# 九、事务
+# 九、事务 @Transactional
 
 ### 7.1、JdbcTemplate
 
@@ -503,7 +503,7 @@ public class TxByAnnotationTest {
 
 <!--
     开启事务的注解驱动
-    通过注解@Transactional所标识的方法或标识的类中所有的方法，都会被事务管理器管理事务
+    通过注解@Transactional 所标识的方法或标识的类中所有的方法，都会被事务管理器管理事务
 -->
 <!-- transaction-manager属性的默认值是transactionManager，如果事务管理器bean的id正好就是这个默认值，则可以省略这个属性 -->
 <tx:annotation-driven transaction-manager="transactionManager" />

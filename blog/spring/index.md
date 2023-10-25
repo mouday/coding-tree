@@ -19,6 +19,9 @@
 - [八、单元测试：JUnit](/blog/spring/spring-8.md)
 - [九、事务 @Transactional](/blog/spring/spring-9.md)
 - [十、资源操作：Resources](/blog/spring/spring-10.md)
+- [十一、国际化：i18n](/blog/spring/spring-11.md)
+- [十二、数据校验：Validation](/blog/spring/spring-12.md)
+- [十三、提前编译：AOT](/blog/spring/spring-13.md)
 
 
 ## 课程资料 
@@ -33,4 +36,5 @@
 
 
 
-https://www.bilibili.com/video/BV1kR4y1b7Qc/?p=78&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV1kR4y1b7Qc/?p=84&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -33,3 +33,11 @@ http://simmon_page.gitee.io/react-antd-admin/
 https://gitee.com/panjiachen/vue-admin-template
 
 https://panjiachen.github.io/vue-admin-template/
+
+
+react-dev-inspector： 点击页面上的组件自动定位到对应文件
+
+https://react-dev-inspector.zthxxx.me/
+
+https://github.com/zthxxx/react-dev-inspector
+

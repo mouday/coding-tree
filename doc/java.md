@@ -125,3 +125,6 @@ Java零基础到就业视频课程：https://pan.baidu.com/s/1tilrnPNXiLXg1ebouO
 - [Thymeleaf 入门到吃灰 ](https://www.cnblogs.com/msi-chen/p/10974009.html)
 
 - [在 html 中使用 thymeleaf 编写通用模块](https://www.cnblogs.com/miaoying/p/7804351.html)
+
+
+[GraalVM](https://www.graalvm.org/)

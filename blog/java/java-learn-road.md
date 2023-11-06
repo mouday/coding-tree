@@ -42,7 +42,12 @@
     - [尚硅谷MyBatis零基础入门教程](/blog/mybatis/index.md)
 
 - 持久层开发框架MyBatis Plus
+    - [MyBatis-Plus 入门](https://mouday.github.io/LearningNote/Java/MyBatis-Plus%E5%85%A5%E9%97%A8/)
+    - [MyBatis-Plus 进阶](https://mouday.github.io/LearningNote/Java/MyBatis-Plus%E8%BF%9B%E9%98%B6/)
+
 - 服务快速开发技术SpringBoot
+    - [SpringBoot学习笔记](https://mouday.github.io/LearningNote/Java/SpringBoot/)
+
 - 版本控制Git
     - [Git 教程 | 菜鸟教程](https://www.runoob.com/git/git-tutorial.html)
 - 项目构建Maven

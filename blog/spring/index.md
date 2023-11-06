@@ -5,7 +5,7 @@
 
 视频地址：[https://www.bilibili.com/video/BV1kR4y1b7Qc](https://www.bilibili.com/video/BV1kR4y1b7Qc)
 
-学习时间：2023-09-17~待定
+学习时间：2023-09-17~2023-11-06
 
 ## 目录
 
@@ -33,8 +33,3 @@
 百度网盘：https://pan.baidu.com/s/1qSYxccn15hVOj4D0_oHFUw?pwd=yyds 
 
 课程笔记: https://mouday.github.io/atguigu-spring6/
-
-
-
-
-https://www.bilibili.com/video/BV1kR4y1b7Qc/?p=84&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

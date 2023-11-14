@@ -2,7 +2,9 @@
 
 视频地址：https://www.bilibili.com/video/BV1wy4y1D7JT
 
-- [React 基础篇-基于 CDN](/blog/react/atguigu-react-basic.md)
+- React 基础篇-基于 CDN
+  - [React 基础篇-基于 CDN](/blog/react/atguigu-react-basic.md)
+
 - React 进阶篇-基于 npm
   - [1、React 脚手架](/blog/react/01-create-react-app.md)
   - [2、TodoList 案例](/blog/react/02-todo-list.md)

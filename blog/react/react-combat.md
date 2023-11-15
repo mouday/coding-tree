@@ -1,6 +1,6 @@
 [返回目录](/blog/react/index.md)
 
-# React项目实战(React后台管理系统、TypeScript+React18)
+# React 项目实战(React 后台管理系统、TypeScript+React18)
 
 ## 创建项目
 
@@ -10,24 +10,23 @@
 pnpm create vite react-ts-app --template react-ts
 ```
 
+## 项目依赖
 
-## 项目依赖 
+- vite
+- react 18 https://react.docschina.org/learn
+- react-dom
+- react-router https://reactrouter.com/
+- react-router-dom
+- redux
+- react-redux
+- reset-css // 样式初始化
+- antd https://ant.design/index-cn
 
 ```
 pnpm i react-router-dom redux react-redux reset-css
 ```
 
 package.json
-
-```
-vite
-react 18
-react-dom
-react-router-dom
-react-redux
-redux
-reset-css // 样式初始化
-```
 
 ## 样式初始化
 
@@ -48,7 +47,7 @@ UI框架样式
 组件样式
 ```
 
-## css模块化
+## css 模块化
 
 ```js
 // css
@@ -63,8 +62,7 @@ import styles from './name.module.css'
 <div className={styles.className}></div>
 ```
 
-
-常用的css属性
+常用的 css 属性
 
 ```css
 /* 禁用文字选中 */
@@ -77,20 +75,20 @@ vite.config.js
 
 ```js
 // import path from 'path'
-import * as path from 'path'
+import * as path from "path";
 
 export default defineConfig({
-    plugins: [react()],
-    
-    resolve: {
-        alias: {
-            "@": path.resolve(__dirname, './src')
-        }
-    }
-})
+  plugins: [react()],
+
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+});
 ```
 
-提示path
+提示 path
 
 ```bash
 pnpm i @types/node
@@ -112,8 +110,7 @@ tsconfig.json
 }
 ```
 
-
-## 引入Ant Design
+## 引入 Ant Design
 
 组件和图标
 
@@ -121,7 +118,7 @@ tsconfig.json
 pnpm install antd @ant-design/icons --save
 ```
 
-使用antd组件
+使用 antd 组件
 
 ```js
 import { Button } from "antd";
@@ -131,19 +128,17 @@ export default function Foo() {
 }
 ```
 
-使用icon
+使用 icon
 
 ```js
 import { PlayCircleOutlined } from "@ant-design/icons";
-
 
 export default function Foo() {
   return <PlayCircleOutlined />;
 }
 ```
 
-
-按需引入（新版本的vite默认支持，无需单独引入插件）
+按需引入（新版本的 vite 默认支持，无需单独引入插件）
 
 ```
 pnpm install vite-plugin-style-import less consola  -D
@@ -181,7 +176,6 @@ export default function Router() {
     </BrowserRouter>
   );
 }
-
 ```
 
 src/main.tsx
@@ -202,7 +196,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
 ```
 
-
 src/App.tsx
 
 ```js
@@ -219,11 +212,163 @@ function App() {
 }
 
 export default App;
+```
+
+`Outlet` 相当于 vue 里边的 `router-view`
+
+## 路由跳转
+
+```js
+import { Link } from "react-router-dom";
+
+<Link to="/home">Home</Link>
+```
+
+渲染结果
+
+```html
+<a href="/home">Home</a>
+```
+
+## 路由重定向
+
+```js
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import App from "../App";
+import Home from "../views/Home/Home";
+import About from "../views/About/About";
+
+// BrowserRouter history模式
+// HashRouter hash模式
+
+export default function Router() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          {/* 配置重定向 */}
+          <Route path="/" element={<Navigate to="/home"/>}></Route>
+          <Route path="/home" element={<Home />}></Route>
+          <Route path="/about" element={<About />}></Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
 ```
 
-`Outlet` 相当于vue里边的 `router-view`
+## 路由表的写法
+
+router/index.tsx
+
+```js
+// 路由写法二
+import React from "react";
+import { Navigate } from "react-router-dom";
+
+import Home from "../views/Home/Home";
+import About from "../views/About/About";
+
+export const routes = [
+  {
+    path: "/",
+    // 重定向
+    element: <Navigate to="/home" />,
+  },
+  {
+    path: "/home",
+    element: <Home />,
+  },
+  {
+    path: "/about",
+    element: <About />,
+  },
+];
+```
+
+App.tsx
+```js
+import { Link, useRoutes } from "react-router-dom";
+import { routes } from "./router/index";
+
+function App() {
+  const route = useRoutes(routes);
+
+  return (
+    <div className="app">
+      <div>
+        <Link to="/home">Home</Link>
+        <Link to="/about">About</Link>
+      </div>
+
+      {route}
+    </div>
+  );
+}
+
+export default App;
+```
+main.tsx
+
+```js
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "reset-css";
+import { BrowserRouter } from "react-router-dom";
+// 引入路由对象
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
+```
+
+## 路由懒加载
+
+```js
+// 路由写法二
+import React from "react";
+import { Navigate } from "react-router-dom";
+
+// import Home from "../views/Home/Home";
+// import About from "../views/About/About";
+
+const Home = React.lazy(() => import("../views/Home/Home"));
+const About = React.lazy(() => import("../views/About/About"));
+
+const withLoadingComponent = (component) => (
+  <React.Suspense fallback={<div>Loading...</div>}>{component}</React.Suspense>
+);
+
+export const routes = [
+  {
+    path: "/",
+    // 重定向
+    element: <Navigate to="/home" />,
+  },
+  {
+    path: "/home",
+    element: withLoadingComponent(<Home />),
+  },
+  {
+    path: "/about",
+    element: withLoadingComponent(<About />),
+  },
+];
+
+```
+
+## 路由懒加载
 
 
+https://www.bilibili.com/video/BV1FV4y157Zx/?p=22&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
-https://www.bilibili.com/video/BV1FV4y157Zx/?p=14&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV1FV4y157Zx/?p=24&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -126,5 +126,8 @@ Java零基础到就业视频课程：https://pan.baidu.com/s/1tilrnPNXiLXg1ebouO
 
 - [在 html 中使用 thymeleaf 编写通用模块](https://www.cnblogs.com/miaoying/p/7804351.html)
 
-
 [GraalVM](https://www.graalvm.org/)
+
+[一文彻底搞懂Raft算法，看这篇就够了！！！](https://zhuanlan.zhihu.com/p/619977311)
+
+[左右值编码树形结构数据存储方案（树形算法）](https://www.cnblogs.com/zouhao/p/14775587.html)

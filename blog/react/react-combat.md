@@ -373,7 +373,4 @@ export const routes = [
 const Home = React.lazy(() => import("../views/Home/Home"));
 ```
 
-https://www.bilibili.com/video/BV1FV4y157Zx?p=35&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
-
-https://www.bilibili.com/video/BV1FV4y157Zx?p=36&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1FV4y157Zx?p=48&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

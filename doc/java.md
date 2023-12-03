@@ -131,3 +131,5 @@ Java零基础到就业视频课程：https://pan.baidu.com/s/1tilrnPNXiLXg1ebouO
 [一文彻底搞懂Raft算法，看这篇就够了！！！](https://zhuanlan.zhihu.com/p/619977311)
 
 [左右值编码树形结构数据存储方案（树形算法）](https://www.cnblogs.com/zouhao/p/14775587.html)
+
+[数据库技术】缓存穿透，缓存雪崩，缓存击穿的超详解](https://zhuanlan.zhihu.com/p/597741192)

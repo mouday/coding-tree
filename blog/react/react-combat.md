@@ -2,6 +2,8 @@
 
 # React 项目实战(React 后台管理系统、TypeScript+React18)
 
+项目代码：https://github.com/mouday/vite-react-ts-template
+
 ## 创建项目
 
 [https://cn.vitejs.dev/guide/](https://cn.vitejs.dev/guide/)
@@ -367,8 +369,11 @@ export const routes = [
 
 ## 路由懒加载
 
+```js
+const Home = React.lazy(() => import("../views/Home/Home"));
+```
 
-https://www.bilibili.com/video/BV1FV4y157Zx/?p=22&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1FV4y157Zx?p=35&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 
-https://www.bilibili.com/video/BV1FV4y157Zx/?p=24&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1FV4y157Zx?p=36&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

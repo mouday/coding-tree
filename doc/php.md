@@ -19,25 +19,6 @@ php-awesome
 
 [Laravel 学习笔记](/blog/laravel/index.md)
 
-## 文章
-
-[PHP 手册](https://www.php.net/manual/zh/index.php)
-
-Composer: A Dependency Manager for PHP
-- [https://getcomposer.org/](https://getcomposer.org/)
-- [Composer 中文文档](https://www.w3cschool.cn/composer/)
-- [Composer 中文网 / Packagist 中国全量镜像](https://www.phpcomposer.com/)
-- [阿里云 Composer 全量镜像](https://developer.aliyun.com/composer)
-
-[Packagist](https://packagist.org/) The PHP Package Repository
-
-
-[PHP 零基础入门到精通教程（P3 核心编程技术）](https://www.bilibili.com/video/BV1jx411M7B7)
-
-[php-fpm 比 php 成为 apache 模块好在哪](https://zhidao.baidu.com/question/1499077795467724779.html)
-
-[PHP 运行模式与运行原理](https://segmentfault.com/a/1190000014913877)
-
 ## 框架
 
 [ThinkPHP](https://www.thinkphp.cn/): MVC 结构的开源 PHP 框架
@@ -86,3 +67,24 @@ Composer: A Dependency Manager for PHP
 screw-plus [github](https://github.com/del-xiong/screw-plus) 开源php加密运行扩展，基于screw二次开发，暂时只能在linux下运行
 
 phpdotenv [github](https://github.com/vlucas/phpdotenv) Loads environment variables from .env to getenv(), $_ENV and $_SERVER automagically.
+
+
+
+## 文章
+
+[PHP 手册](https://www.php.net/manual/zh/index.php)
+
+Composer: A Dependency Manager for PHP
+- [https://getcomposer.org/](https://getcomposer.org/)
+- [Composer 中文文档](https://www.w3cschool.cn/composer/)
+- [Composer 中文网 / Packagist 中国全量镜像](https://www.phpcomposer.com/)
+- [阿里云 Composer 全量镜像](https://developer.aliyun.com/composer)
+
+[Packagist](https://packagist.org/) The PHP Package Repository
+
+
+[PHP 零基础入门到精通教程（P3 核心编程技术）](https://www.bilibili.com/video/BV1jx411M7B7)
+
+[php-fpm 比 php 成为 apache 模块好在哪](https://zhidao.baidu.com/question/1499077795467724779.html)
+
+[PHP 运行模式与运行原理](https://segmentfault.com/a/1190000014913877)

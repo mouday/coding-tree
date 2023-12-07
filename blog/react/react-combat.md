@@ -2,6 +2,9 @@
 
 # React 项目实战(React 后台管理系统、TypeScript+React18)
 
+
+视频地址：https://www.bilibili.com/video/BV1FV4y157Zx
+
 项目代码：https://github.com/mouday/vite-react-ts-template
 
 ## 创建项目
@@ -375,4 +378,4 @@ const Home = React.lazy(() => import("../views/Home/Home"));
 
 ## redux状态管理
 
-https://www.bilibili.com/video/BV1FV4y157Zx?p=48&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+## axios网络请求

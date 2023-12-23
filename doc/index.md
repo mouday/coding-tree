@@ -67,7 +67,6 @@ Logo：https://www.logoly.pro/
 
 [JSON:API](https://jsonapi.org/): A SPECIFICATION FOR BUILDING APIS IN JSON
 
-[OneinStack](https://oneinstack.com/)一键PHP/JAVA安装工具
 
 
 [FeHelper ( 浏览器插件 )](https://www.baidufe.com/fehelper/index/index.html) Web开发者助手 FeHelper

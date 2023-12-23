@@ -43,9 +43,6 @@ php-awesome
 
 [Lumen](https://lumen.laravel.com/): The stunningly fast micro-framework by Laravel.
 
-[oneinstack](https://oneinstack.com/) 一键PHP/JAVA安装工具
-
-- [oneinstack 镜像说明](https://oneinstack.com/docs/lnmpstack-image-guide/)
 
 [catchadmin](https://www.catchadmin.com/): 基于 Thinkphp & Vue 开发的后台管理框架
 

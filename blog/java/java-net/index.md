@@ -1,5 +1,10 @@
 # Java 网络多线程专题-韩顺平
 
+《韩顺平零基础30天学会java》链接:
+https://pan.baidu.com/s/1sjxQbHuKSh5D53Q5edqe5Q 
+
+提取码: cchc
+
 包括 TCP UDP Socket编程 多线程 并发处理 文件传输 新闻推送 游戏 io 线程 网络 等内容
 
 相关Java包：java.net
@@ -178,4 +183,274 @@ public class JavaNet {
 }
 ```
 
-https://www.bilibili.com/video/BV1j54y1b7qv/?p=5&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+## Socket 套接字
+
+- 服务端 等待连接
+- 客户端 发起连接
+
+TCP网络通信编程
+
+应用案例1（使用字节流）
+
+1. 编写一个服务端和一个客户端
+2. 服务端监听9999端口，等待客户端连接
+3. 客户端连接到服务端发送：hello
+4. 服务端接收到数据，打印输出
+
+
+实现代码
+
+服务端
+
+```java
+package io.github.mouday.socket;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class TCP01Server {
+    public static void main(String[] args) throws IOException {
+
+        // 监听
+        ServerSocket serverSocket = new ServerSocket(9999);
+
+        // 阻塞等待客户端连接
+        Socket socket = serverSocket.accept();
+
+        // IO读取
+        InputStream inputStream = socket.getInputStream();
+        byte[] buf = new byte[1024];
+        int len;
+
+        while ((len = inputStream.read(buf)) != -1) {
+            System.out.println(new String(buf, 0, len));
+        }
+
+        // 关闭
+        inputStream.close();
+        socket.close();
+        serverSocket.close();
+    }
+}
+```
+
+客户端
+
+```java
+package io.github.mouday.socket;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
+
+public class TCP01Client {
+    public static void main(String[] args) throws IOException {
+        // 连接
+        Socket socket = new Socket("127.0.0.1", 9999);
+
+        // 写入
+        OutputStream outputStream = socket.getOutputStream();
+        outputStream.write("Hello".getBytes());
+
+        // 关闭
+        outputStream.close();
+        socket.close();
+
+    }
+}
+```
+
+
+应用案例2（使用字节流）
+
+1. 编写一个服务端和一个客户端
+2. 服务端监听9999端口，等待客户端连接
+3. 客户端连接到服务端发送：hello Server，并接收服务端返回的消息
+4. 服务端接收到数据，打印输出，并给客户端发送：hello Client
+
+服务端
+
+```java
+package io.github.mouday.socket;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class TCP02Server {
+    public static void main(String[] args) throws IOException {
+
+        // 监听
+        ServerSocket serverSocket = new ServerSocket(9999);
+
+        // 连接
+        Socket socket = serverSocket.accept();
+
+        // IO读取
+        InputStream inputStream = socket.getInputStream();
+        byte[] buf = new byte[1024];
+        int len;
+
+        while ((len = inputStream.read(buf)) != -1) {
+            System.out.println(new String(buf, 0, len));
+        }
+
+        // IO写入
+        OutputStream outputStream = socket.getOutputStream();
+        outputStream.write("Hello Client".getBytes());
+
+        // 结束写入
+        socket.shutdownOutput();
+
+        // 关闭
+        outputStream.close();
+        inputStream.close();
+        socket.close();
+        serverSocket.close();
+    }
+}
+
+```
+
+客户端
+
+```java
+package io.github.mouday.socket;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+
+public class TCP02Client {
+    public static void main(String[] args) throws IOException {
+        // 连接
+        Socket socket = new Socket("127.0.0.1", 9999);
+
+        // 写入
+        OutputStream outputStream = socket.getOutputStream();
+        outputStream.write("Hello Server".getBytes());
+
+        // 结束写入
+        socket.shutdownOutput();
+
+        // 读取
+        InputStream inputStream = socket.getInputStream();
+        byte[] buf = new byte[1024];
+        int len;
+
+        while ((len = inputStream.read(buf)) != -1) {
+            System.out.println(new String(buf, 0, len));
+        }
+
+        // 关闭
+        inputStream.close();
+        outputStream.close();
+        socket.close();
+
+    }
+}
+
+```
+
+
+应用案例3（使用字符流）
+
+1. 编写一个服务端和一个客户端
+2. 服务端监听9999端口，等待客户端连接
+3. 客户端连接到服务端发送：hello Server，并接收服务端返回的消息
+4. 服务端接收到数据，打印输出，并给客户端发送：hello Client
+
+服务端
+
+```java
+package io.github.mouday.socket;
+
+import java.io.*;
+import java.net.Socket;
+
+public class TCP03Client {
+    public static void main(String[] args) throws IOException {
+        // 连接
+        Socket socket = new Socket("127.0.0.1", 9999);
+
+        // 写入
+        OutputStream outputStream = socket.getOutputStream();
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+        bufferedWriter.write("Hello Server");
+        // 换行结束
+        bufferedWriter.newLine();
+        // 手动刷入数据
+        bufferedWriter.flush();
+
+
+        // 读取
+        InputStream inputStream = socket.getInputStream();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        String message = bufferedReader.readLine();
+        System.out.println(message);
+
+        // 关闭外层流
+        bufferedReader.close();
+        bufferedWriter.close();
+        socket.close();
+
+    }
+}
+
+```
+客户端
+
+```java
+package io.github.mouday.socket;
+
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class TCP03Server {
+    public static void main(String[] args) throws IOException {
+
+        // 监听
+        ServerSocket serverSocket = new ServerSocket(9999);
+
+        // 连接
+        Socket socket = serverSocket.accept();
+
+        // IO读取
+        InputStream inputStream = socket.getInputStream();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        String message = bufferedReader.readLine();
+        System.out.println(message);
+
+        // IO写入
+        OutputStream outputStream = socket.getOutputStream();
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+        bufferedWriter.write("Hello Client");
+        bufferedWriter.newLine();
+        bufferedWriter.flush();
+
+        // 关闭流
+        bufferedWriter.close();
+        bufferedReader.close();
+        socket.close();
+        serverSocket.close();
+    }
+}
+
+```
+
+应用案例4
+
+1. 编写一个服务端和一个客户端
+2. 服务端监听8888端口，等待客户端连接
+3. 客户端连接到服务端发送图片，并接收服务端返回的文本消息：收到图片
+4. 服务端接收到图片数据，保存到服务端，并给客户端发送：收到图片
+
+
+
+https://www.bilibili.com/video/BV1j54y1b7qv?p=13&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

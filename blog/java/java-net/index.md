@@ -190,7 +190,7 @@ public class JavaNet {
 
 TCP网络通信编程
 
-应用案例1（使用字节流）
+### 应用案例1（使用字节流）
 
 1. 编写一个服务端和一个客户端
 2. 服务端监听9999端口，等待客户端连接
@@ -367,43 +367,6 @@ public class TCP02Client {
 
 服务端
 
-```java
-package io.github.mouday.socket;
-
-import java.io.*;
-import java.net.Socket;
-
-public class TCP03Client {
-    public static void main(String[] args) throws IOException {
-        // 连接
-        Socket socket = new Socket("127.0.0.1", 9999);
-
-        // 写入
-        OutputStream outputStream = socket.getOutputStream();
-        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
-        bufferedWriter.write("Hello Server");
-        // 换行结束
-        bufferedWriter.newLine();
-        // 手动刷入数据
-        bufferedWriter.flush();
-
-
-        // 读取
-        InputStream inputStream = socket.getInputStream();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        String message = bufferedReader.readLine();
-        System.out.println(message);
-
-        // 关闭外层流
-        bufferedReader.close();
-        bufferedWriter.close();
-        socket.close();
-
-    }
-}
-
-```
-客户端
 
 ```java
 package io.github.mouday.socket;
@@ -443,6 +406,46 @@ public class TCP03Server {
 }
 
 ```
+
+客户端
+
+```java
+package io.github.mouday.socket;
+
+import java.io.*;
+import java.net.Socket;
+
+public class TCP03Client {
+    public static void main(String[] args) throws IOException {
+        // 连接
+        Socket socket = new Socket("127.0.0.1", 9999);
+
+        // 写入
+        OutputStream outputStream = socket.getOutputStream();
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+        bufferedWriter.write("Hello Server");
+        // 换行结束
+        bufferedWriter.newLine();
+        // 手动刷入数据
+        bufferedWriter.flush();
+
+
+        // 读取
+        InputStream inputStream = socket.getInputStream();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        String message = bufferedReader.readLine();
+        System.out.println(message);
+
+        // 关闭外层流
+        bufferedReader.close();
+        bufferedWriter.close();
+        socket.close();
+
+    }
+}
+
+```
+
 
 应用案例4
 

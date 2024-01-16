@@ -47,6 +47,7 @@
 
 - 服务快速开发技术SpringBoot
     - [SpringBoot学习笔记](https://mouday.github.io/LearningNote/Java/SpringBoot/)
+    - [笔记：黑马程序员SpringBoot2全套视频教程](/blog/java/spring-boot/index.md)
 
 - 版本控制Git
     - [Git 教程 | 菜鸟教程](https://www.runoob.com/git/git-tutorial.html)

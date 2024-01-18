@@ -6,8 +6,10 @@
 [Spring Boot 文档](https://felord.cn/_doc/_springboot/2.1.5.RELEASE/_book/pages/boot-documentation.html)
 
 
-Maven 3.6.1
-SpringBoot 2.5.4 （稳定版）
+## 开发环境
+
+- Maven 3.6.1
+- SpringBoot 2.5.4 （稳定版）
 
 ## SpringBoot入门案例
 

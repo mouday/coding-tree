@@ -17,7 +17,8 @@
 - [1、SpringBoot入门案例](/blog/java/spring-boot/1-create-spring-boot.md)
 - [2、SpringBoot项目解析](/blog/java/spring-boot/2-spring-boot-learn.md)
 - [3、REST开发](/blog/java/spring-boot/3-restful.md)
-- [4、SpringBoot配置管理](/blog/java/spring-boot/4-configuration.md)
+- [4、SpringBoot配置管理-application.yml](/blog/java/spring-boot/4-configuration.md)
+- [5、SpringBoot整合第三方技术](/blog/java/spring-boot/5-spring-boot-integration.md)
 
 
 

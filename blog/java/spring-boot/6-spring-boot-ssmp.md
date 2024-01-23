@@ -152,7 +152,7 @@ public class Book {
 
 ## 数据层开发
 
-数据表和数据
+### 数据表和数据
 
 ```sql
 create table tb_book
@@ -168,7 +168,7 @@ insert into tb_book (id, title, author) values (3, '三国演义', '罗贯中');
 insert into tb_book (id, title, author) values (4, '西游记', '吴承恩');
 ```
 
-定义Mapper
+### 定义Mapper
 
 ```java
 package com.demo.mapper;
@@ -183,10 +183,75 @@ public interface BookMapper extends BaseMapper<Book> {
 
 ```
 
+### 测试类
 
 
+```java
+package com.demo.mapper;
 
-报错
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.demo.domain.Book;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+
+@SpringBootTest
+class BookMapperTest {
+    @Autowired
+    private BookMapper bookMapper;
+
+    @Test
+    public void getById(){
+        Book book = bookMapper.selectById(1);
+        System.out.println(book);
+    }
+
+    @Test
+    public void save(){
+        Book book = new Book();
+        book.setTitle("明朝那些事");
+        book.setAuthor("当年明月");
+
+        int ret = bookMapper.insert(book);
+        System.out.println(ret);
+    }
+
+    @Test
+    public void delete(){
+        int ret = bookMapper.deleteById(1);
+        System.out.println(ret);
+    }
+
+    @Test
+    public void update(){
+        Book book = new Book();
+        book.setId(2L);
+        book.setTitle("水浒传2");
+
+        int ret = bookMapper.updateById(book);
+        System.out.println(ret);
+    }
+
+    @Test
+    public void getAll(){
+        List<Book> books = bookMapper.selectList(null);
+        System.out.println(books);
+    }
+
+    @Test
+    public void getBy(){
+        LambdaQueryWrapper<Book> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Book::getTitle, "三国演义");
+
+        List<Book> books = bookMapper.selectList(queryWrapper);
+        System.out.println(books);
+    }
+}
+```
+
+### 报错
 ```
 nested exception is com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: 
 Data truncation: Out of range value for column 'id' at row 1
@@ -200,4 +265,238 @@ mybatis-plus:
     db-config:
       id-type: AUTO # 数据库ID自增
 
+```
+
+### MP开启日志输出
+
+将日志输出到控制台
+
+```yaml
+mybatis-plus:
+  configuration:
+    # 开启SQL语句打印
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+```
+
+### 分页功能
+
+配置分页拦截器
+
+```java
+package com.demo.config;
+
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * MybatisPlus配置
+ */
+@Configuration
+public class MPConfig {
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        // 添加分页拦截器
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
+        return interceptor;
+    }
+}
+
+```
+
+
+使用分页对象IPage
+
+```java
+// 两个参数：current, size
+IPage<Book> page = Page.of(2, 3);
+
+bookMapper.selectPage(page, null);
+System.out.println(page);
+```
+
+### 条件查询
+
+```java
+String name = "三国演义";
+
+LambdaQueryWrapper<Book> queryWrapper = new LambdaQueryWrapper<>();
+
+// 按照条件拼装
+queryWrapper.like(StringUtils.hasText(name), Book::getTitle, name);
+
+List<Book> books = bookMapper.selectList(queryWrapper);
+System.out.println(books);
+```
+
+## 业务层开发
+
+定义接口
+
+```java
+package com.demo.service;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.demo.domain.Book;
+
+import java.util.List;
+
+public interface BookService {
+    boolean save(Book book);
+
+    boolean update(Book book);
+
+    boolean delete(Integer id);
+
+    Book getById(Integer id);
+
+    List<Book> getAll();
+
+    IPage<Book> getByPage(int currentPage, int pageSize);
+}
+
+```
+
+实现接口
+
+```java
+package com.demo.service.impl;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.demo.domain.Book;
+import com.demo.mapper.BookMapper;
+import com.demo.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class BookServiceImpl implements BookService {
+    @Autowired
+    private BookMapper bookMapper;
+
+
+    @Override
+    public boolean save(Book book) {
+        return bookMapper.insert(book) > 0;
+    }
+
+    @Override
+    public boolean update(Book book) {
+        return bookMapper.updateById(book) > 0;
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        return bookMapper.deleteById(id) > 0;
+    }
+
+    @Override
+    public Book getById(Integer id) {
+        return bookMapper.selectById(id);
+    }
+
+    @Override
+    public List<Book> getAll() {
+        return bookMapper.selectList(null);
+    }
+
+    @Override
+    public IPage<Book> getByPage(int currentPage, int pageSize) {
+        IPage<Book> page = Page.of(currentPage, pageSize);
+        return bookMapper.selectPage(page, null);
+    }
+}
+
+```
+
+测试接口
+
+```java
+package com.demo.service;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.demo.domain.Book;
+import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Primary;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+class BookServiceTest {
+    @Autowired
+    private BookService bookService;
+
+    @Test
+    void save() {
+        Book book = new Book();
+        book.setTitle("明朝那些事");
+        book.setAuthor("当年明月");
+
+        boolean ret = bookService.save(book);
+        System.out.println(ret);
+    }
+
+    @Test
+    void update() {
+        Book book = new Book();
+        book.setId(2L);
+        book.setTitle("水浒传2");
+
+        boolean ret = bookService.update(book);
+        System.out.println(ret);
+    }
+
+    @Test
+    void delete() {
+        boolean ret = bookService.delete(1);
+        System.out.println(ret);
+    }
+
+    @Test
+    void getById() {
+        Book book = bookService.getById(1);
+        System.out.println(book);
+    }
+
+    @Test
+    void getAll() {
+        List<Book> list = bookService.getAll();
+        System.out.println(list);
+    }
+
+    @Test
+    void getByPage() {
+        IPage<Book> page = bookService.getByPage(1, 2);
+
+        System.out.println(page.getCurrent());
+        System.out.println(page.getSize());
+        System.out.println(page.getTotal());
+        System.out.println(page.getPages());
+        System.out.println(page.getRecords());
+    }
+}
+```
+
+通用接口和实现类
+
+```java
+// 通用接口
+public interface BookService 
+  extends IService<Book> {}
+
+// 实现类
+@Service
+public class BookServiceImpl 
+  extends ServiceImpl<BookMapper, Book> 
+  implements BookService {}
 ```

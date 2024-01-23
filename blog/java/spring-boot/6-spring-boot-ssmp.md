@@ -122,6 +122,9 @@ spring:
       password: 123456
 
 mybatis-plus:
+  configuration:
+    # 开启SQL语句打印
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
       id-type: AUTO # 数据库ID自增

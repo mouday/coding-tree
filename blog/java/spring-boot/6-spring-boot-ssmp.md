@@ -500,3 +500,278 @@ public class BookServiceImpl
   extends ServiceImpl<BookMapper, Book> 
   implements BookService {}
 ```
+
+## 表现层开发
+
+基于Restful开发表现层接口
+
+- 新增 POST
+- 删除 DELETE
+- 修改 PUT
+- 查询 GET
+
+接收参数
+
+- 实体数据 @RequestBody
+- 路径变量 @PathVariable
+
+
+```java
+package com.demo.controller;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.demo.domain.Book;
+import com.demo.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/books")
+public class BookController {
+    @Autowired
+    private BookService bookService;
+
+    @GetMapping
+    public List<Book> getAll() {
+        return bookService.list();
+    }
+
+    @PostMapping
+    public boolean save(@RequestBody Book book) {
+        return bookService.save(book);
+    }
+
+    @PutMapping
+    public boolean update(@RequestBody Book book) {
+        return bookService.update(book);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable Integer id) {
+        return bookService.delete(id);
+    }
+
+    @GetMapping("/{id}")
+    public Book getById(@PathVariable Integer id) {
+        return bookService.getById(id);
+    }
+
+    @GetMapping("/{currentPage}/{pageSize}")
+    public IPage<Book> getPage(@PathVariable Integer currentPage, @PathVariable Integer pageSize) {
+        return bookService.getByPage(currentPage, pageSize);
+    }
+}
+
+```
+
+测试
+
+```json
+GET http://localhost:8080/books
+
+
+返回值：
+[
+  {
+    "id": 2,
+    "title": "水浒传",
+    "author": "施耐庵"
+  },
+  {
+    "id": 3,
+    "title": "三国演义",
+    "author": "罗贯中"
+  }
+]
+###
+
+GET http://localhost:8080/books/8
+
+
+返回值
+{
+  "id": 9,
+  "title": "三国演义2",
+  "author": "罗贯中2"
+}
+###
+
+GET http://localhost:8080/books/1/3
+
+
+返回值
+{
+  "records": [
+    {
+      "id": 2,
+      "title": "水浒传2",
+      "author": "施耐庵"
+    }
+  ],
+  "total": 7,
+  "size": 3,
+  "current": 1,
+  "orders": [],
+  "optimizeCountSql": true,
+  "searchCount": true,
+  "countId": null,
+  "maxLimit": null,
+  "pages": 3
+}
+###
+
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "title": "三国演义2",
+   "author": "罗贯中2"
+}
+
+
+返回值
+true
+###
+
+PUT http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "id": 8,
+  "title": "三国演义3",
+   "author": "罗贯中3"
+}
+
+
+返回值
+true
+###
+
+DELETE http://localhost:8080/books/8
+
+
+返回值
+true
+```
+
+## 统一返回值结果
+
+设计表现层返回结果的模型类，用于后端与前端进行数据格式统一，也称为`前后端数据协议`
+
+
+```java
+package com.demo.vo;
+
+
+import lombok.Data;
+
+/**
+ * 统一的返回结果对象
+ *
+ * @param <T>
+ */
+@Data
+public class ResultVO<T> {
+
+    /**
+     * read only
+     */
+    private Boolean ok;
+
+    private Integer code;
+
+    private T data;
+
+    private String message;
+
+    public static ResultVO of(boolean ok) {
+        if (ok) {
+            return ResultVO.success();
+        } else {
+            return ResultVO.error();
+        }
+    }
+
+    public Boolean getOk() {
+        return this.code == 0;
+    }
+
+    public static <T> ResultVO<T> success() {
+        return ResultVO.success(null);
+    }
+
+    public static <T> ResultVO<T> success(T data) {
+        ResultVO<T> resultVO = new ResultVO<>();
+        resultVO.setData(data);
+        resultVO.setCode(0);
+        resultVO.setMessage("success");
+        return resultVO;
+    }
+
+    public static <T> ResultVO<T> error() {
+        return ResultVO.error("error");
+    }
+
+    public static <T> ResultVO<T> error(String message) {
+        ResultVO<T> resultVO = new ResultVO<>();
+        resultVO.setCode(-1);
+        resultVO.setMessage(message);
+        return resultVO;
+    }
+}
+
+```
+
+返回结果为
+```json
+{
+  "ok": false,
+  "code": -1,
+  "data": null,
+  "message": "error"
+}
+
+{
+  "ok": true,
+  "code": 0,
+  "data": null,
+  "message": "success"
+}
+
+{
+  "ok": true,
+  "code": 0,
+  "data": {
+    "id": 9,
+    "title": "三国演义2",
+    "author": "罗贯中2"
+  },
+  "message": "success"
+}
+
+
+{
+  "ok": true,
+  "code": 0,
+  "data": [
+    {
+      "id": 3,
+      "title": "三国演义",
+      "author": "罗贯中"
+    }
+  ],
+  "message": "success"
+}
+```
+
+## 前后端联调
+
+使用axios发送异步请求
+
+```js
+axios.get('/books').then(res=>{
+    console.log(res)
+})
+```

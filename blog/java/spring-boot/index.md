@@ -22,5 +22,4 @@
 - [6、基于SpringBoot的SSMP整合案例](/blog/java/spring-boot/6-spring-boot-ssmp.md)
 
 
-
-https://www.bilibili.com/video/BV15b4y1a7yG?p=46&spm_id_from=pageDriver
+https://www.bilibili.com/video/BV15b4y1a7yG/?p=50&spm_id_from=pageDriver

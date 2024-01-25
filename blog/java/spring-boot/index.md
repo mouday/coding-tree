@@ -21,7 +21,6 @@
 - [5、SpringBoot整合第三方技术](/blog/java/spring-boot/5-spring-boot-integration.md)
 - [6、基于SpringBoot的SSMP整合案例](/blog/java/spring-boot/6-spring-boot-ssmp.md)
 
-https://www.bilibili.com/video/BV15b4y1a7yG/?p=41&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 
 https://www.bilibili.com/video/BV15b4y1a7yG?p=46&spm_id_from=pageDriver

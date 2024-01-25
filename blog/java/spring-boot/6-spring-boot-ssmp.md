@@ -775,3 +775,29 @@ axios.get('/books').then(res=>{
     console.log(res)
 })
 ```
+
+删除操作防抖，避免误操作
+
+## 全局异常统一处理
+
+```java
+package com.demo.advice;
+
+import com.demo.vo.ResultVO;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+/**
+ * 全局异常处理器
+ */
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler
+    public ResultVO handle(Exception ex) {
+        ex.printStackTrace();
+        return ResultVO.error(ex.getMessage());
+    }
+}
+
+```

@@ -801,3 +801,28 @@ public class GlobalExceptionHandler {
 }
 
 ```
+
+## 总结
+
+pom.xml
+
+application.yml
+
+dao （BaseMapper）
+
+dao测试类
+
+service (MyBatis-Plus)
+
+service 测试类
+
+contorller Restful
+
+页面
+
+整合的技术
+
+- JUnit
+- MyBatis
+- MyBatis-Plus
+- Druid

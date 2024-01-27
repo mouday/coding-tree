@@ -14,6 +14,8 @@
 
 ## 目录
 
+### 基础篇
+
 - [1、SpringBoot入门案例](/blog/java/spring-boot/1-create-spring-boot.md)
 - [2、SpringBoot项目解析](/blog/java/spring-boot/2-spring-boot-learn.md)
 - [3、SpringBoot实现REST开发](/blog/java/spring-boot/3-restful.md)
@@ -21,5 +23,16 @@
 - [5、SpringBoot整合第三方技术](/blog/java/spring-boot/5-spring-boot-integration.md)
 - [6、基于SpringBoot的SSMP整合案例](/blog/java/spring-boot/6-spring-boot-ssmp.md)
 
+### 运维篇
 
-https://www.bilibili.com/video/BV15b4y1a7yG/?p=50&spm_id_from=pageDriver
+- [7、SpringBoot打包与运行](/blog/java/spring-boot/7-spring-boot-package.md)
+
+- [8、SpringBoot配置高级](/blog/java/spring-boot/8-spring-boot-config.md)
+
+
+多环境开发
+
+日志
+
+
+https://www.bilibili.com/video/BV15b4y1a7yG/?p=57&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

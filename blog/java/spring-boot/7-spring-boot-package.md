@@ -77,7 +77,9 @@ Main-Class: org.springframework.boot.loader.JarLauncher
 </build>
 ```
 
-## 问题3：Windows端口被占用
+## 问题3：端口被占用
+
+Windows端口被占用
 
 ```bash
 # 查询端口
@@ -95,6 +97,17 @@ taskkill /F /PID "进程PID号"
 # 根据进程名称杀死任务
 taskkill -f -t -im "进程名称"
 ```
+
+Linux  端口被占用
+
+```bash
+# 查找占用端口的进程
+lsof -i:<端口号>
+
+# 杀死进程
+kill -9 <PID>
+```
+
 
 ## Linux  
 

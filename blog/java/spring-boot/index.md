@@ -29,10 +29,11 @@
 
 - [8、SpringBoot配置高级](/blog/java/spring-boot/8-spring-boot-config.md)
 
+- [9、SpringBoot多环境开发](/blog/java/spring-boot/9-spring-boot-env.md)
 
-多环境开发
+
+
 
 日志
 
-
-https://www.bilibili.com/video/BV15b4y1a7yG/?p=57&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV15b4y1a7yG/?p=61&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

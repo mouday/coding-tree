@@ -31,10 +31,9 @@
 
 - [9、SpringBoot多环境开发](/blog/java/spring-boot/9-spring-boot-env.md)
 
+- [10、SpringBoot日志](/blog/java/spring-boot/10-spring-boot-log.md)
 
 
 
-日志
 
-
-https://www.bilibili.com/video/BV15b4y1a7yG/?p=64&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV15b4y1a7yG/?p=66&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

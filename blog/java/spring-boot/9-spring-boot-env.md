@@ -2,9 +2,9 @@
 
 # 9、SpringBoot多环境开发
 
-多环境开发yaml
-多环境开发properties
-多环境开发控制
+- 多环境开发yaml
+- 多环境开发properties
+- 多环境开发控制
 
 ## 多环境开发yaml
 
@@ -150,7 +150,102 @@ application-pro.properties
 server.port=8080
 ```
 
+## 多环境分组管理
 
+根据`功能`对配置文件中的信息进行拆分，并制作成独立的配置文件，命名规则如下
+
+```
+application.yml
+application-dev.yml
+application-devDB.yml
+application-devMVC.yml
+application-devRedis.yml
+```
+
+使用`include`加载多个配置
+
+```yaml
+# application.yml
+spring:
+  profiles:
+    active: dev
+    include: devMVC, devDB
+```
+
+顺序：后加载覆盖先加载，主文件最后加载
+
+使用`group`替代`include`设置配置文件分组
+
+```yaml
+# application.yml
+spring:
+  profiles:
+    active: dev
+    group: 
+        dev: devMVC, devDB
+        pro: proMVC, proDB
+        test: testMVC, testDB
+```
 
 
 ## 多环境开发控制
+
+Maven与SpringBoot多环境兼容
+
+maven配置多环境属性
+
+```yaml
+<profiles>
+    <!--开发环境-->
+    <profile>
+        <id>development</id>
+
+        <properties>
+            <profile.active>dev</profile.active>
+        </properties>
+
+        <!--默认激活-->
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+
+    </profile>
+
+    <!--生产环境-->
+    <profile>
+        <id>production</id>
+        <properties>
+            <profile.active>dev</profile.active>
+        </properties>
+    </profile>
+
+    <!--测试环境-->
+    <profile>
+        <id>test</id>
+        <properties>
+            <profile.active>test</profile.active>
+        </properties>
+    </profile>
+</profiles>
+```
+
+application.yml引入Maven属性
+
+```yaml
+spring:
+  profiles:
+    active: @profile.active@ # 引入Maven属性
+```
+
+maven打包后会替换为具体的环境配置名
+
+```yaml
+spring:
+  profiles:
+    active: dev
+```
+
+> 注意：Idea如果不能识别pom.xml配置，可以尝试执行compile，或者刷新maven
+
+
+

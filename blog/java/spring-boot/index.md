@@ -36,4 +36,16 @@
 
 ### 开发篇
 
-https://www.bilibili.com/video/BV15b4y1a7yG/?p=70&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+- [11、SpringBoot热部署](/blog/java/spring-boot/11-spring-boot-hot-deploy.md)
+
+- [12、SpringBoot配置高级](/blog/java/spring-boot/12-spring-boot-config.md)
+
+
+
+测试
+数据层解决方案
+整合第三方技术
+监控
+
+
+https://www.bilibili.com/video/BV15b4y1a7yG/?p=78&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

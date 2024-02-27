@@ -40,12 +40,12 @@
 
 - [12、SpringBoot配置高级](/blog/java/spring-boot/12-spring-boot-config.md)
 
+- [13、SpringBoot测试](/blog/java/spring-boot/13-spring-boot-test.md)
 
 
-测试
 数据层解决方案
 整合第三方技术
 监控
 
 
-https://www.bilibili.com/video/BV15b4y1a7yG/?p=78&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV15b4y1a7yG/?p=81&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

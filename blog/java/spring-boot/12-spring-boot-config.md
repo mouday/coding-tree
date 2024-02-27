@@ -108,9 +108,10 @@ public class Application {
 
 
 ## 宽松绑定/松散绑定
+
 `@ConfigurationProperties`绑定属性大小写不敏感，自动忽略中划线和下划线
 
-```
+```java
 @Data
 @Component
 @ConfigurationProperties(prefix = "person")
@@ -188,3 +189,11 @@ public class Config {
 
 }
 ```
+
+## 进制数据转换规则
+
+- 二进制：`0b0101`
+- 八进制：`0(0-7)`
+- 十六进制：`0x(0-9,a-f)`
+
+如果表示字符串，需要使用引号

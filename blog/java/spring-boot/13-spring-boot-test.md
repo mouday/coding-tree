@@ -220,6 +220,380 @@ public class ConfigurationTest {
 ```
 
 
-Web环境模拟测试
-数据层测试回滚
+## Web环境模拟测试
+
+添加依赖
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+```
+
+### 启动web环境
+
+```java
+package com.example.demo;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class ApplicationTest {
+
+	@Test
+	void test() {
+	}
+
+}
+
+```
+
+控制器
+
+```java
+package com.example.demo.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class BookController {
+    @GetMapping("/book")
+    public String getBookById() {
+        return "book";
+    }
+}
+
+```
+
+### 发送虚拟请求
+
+```java
+package com.example.demo;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc // 开启虚拟mvc调用
+public class BookControllerTest {
+
+	// 虚拟mvc调用调用对象
+	@Autowired
+	public MockMvc mockMvc;
+
+	@Test
+	void getBookById() throws Exception {
+		RequestBuilder builder = MockMvcRequestBuilders.get("/book");
+        // 执行请求
+		mockMvc.perform(builder);
+	}
+}
+
+```
+
+### 匹配状态值响应
+
+```java
+package com.example.demo;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.result.StatusResultMatchers;
+
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc // 开启虚拟mvc调用
+public class BookControllerTest {
+
+	// 虚拟mvc调用调用对象
+	@Autowired
+	public MockMvc mockMvc;
+
+	@Test
+	void testStatus() throws Exception {
+		RequestBuilder builder = MockMvcRequestBuilders.get("/book");
+
+		// 执行请求
+		ResultActions perform = mockMvc.perform(builder);
+
+		// 设置预期值
+		StatusResultMatchers status = MockMvcResultMatchers.status();
+		ResultMatcher ok = status.isOk();
+
+		// 预期值和实际执行结果比较
+		perform.andExpect(ok);
+
+	}
+}
+
+```
+
+### 匹配文本响应
+
+```java
+package com.example.demo;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.ContentResultMatchers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.result.StatusResultMatchers;
+
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc // 开启虚拟mvc调用
+public class BookControllerTest {
+
+	// 虚拟mvc调用调用对象
+	@Autowired
+	public MockMvc mockMvc;
+
+	@Test
+	void testContent() throws Exception {
+		RequestBuilder builder = MockMvcRequestBuilders.get("/book");
+
+		// 执行请求
+		ResultActions perform = mockMvc.perform(builder);
+
+		// 设置预期值
+		ContentResultMatchers content = MockMvcResultMatchers.content();
+		ResultMatcher result = content.string("book");
+
+		// 预期值和实际执行结果比较
+		perform.andExpect(result);
+
+	}
+}
+
+```
+### 匹配json响应
+
+引入依赖
+
+```xml
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+</dependency>
+```
+
+```java
+package com.example.demo.domain;
+
+import lombok.Data;
+
+@Data
+public class Book {
+    private Long id;
+
+    private String name;
+}
+
+```
+
+```java
+package com.example.demo.controller;
+
+import com.example.demo.domain.Book;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class BookController {
+    @GetMapping("/book")
+    public Book getBookById() {
+        Book book = new Book();
+        book.setId(3000L);
+        book.setName("水浒传");
+        
+        return book;
+    }
+}
+
+```
+
+
+```java
+package com.example.demo;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.ContentResultMatchers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.result.StatusResultMatchers;
+
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc // 开启虚拟mvc调用
+public class BookControllerTest {
+
+	// 虚拟mvc调用调用对象
+	@Autowired
+	public MockMvc mockMvc;
+
+	@Test
+	void testJsonContent() throws Exception {
+		RequestBuilder builder = MockMvcRequestBuilders.get("/book");
+
+		// 执行请求
+		ResultActions perform = mockMvc.perform(builder);
+
+		// 设置预期值
+		ContentResultMatchers content = MockMvcResultMatchers.content();
+		ResultMatcher result = content.json("{\"name\": \"水浒传\", \"id\": 3000 }");
+
+		// 预期值和实际执行结果比较
+		perform.andExpect(result);
+
+	}
+}
+
+```
+
+匹配响应头
+
+```java
+package com.example.demo;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.ContentResultMatchers;
+import org.springframework.test.web.servlet.result.HeaderResultMatchers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.result.StatusResultMatchers;
+
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc // 开启虚拟mvc调用
+public class BookControllerTest {
+
+	// 虚拟mvc调用调用对象
+	@Autowired
+	public MockMvc mockMvc;
+
+	@Test
+	void testHeader() throws Exception {
+		RequestBuilder builder = MockMvcRequestBuilders.get("/book");
+
+		// 执行请求
+		ResultActions perform = mockMvc.perform(builder);
+
+		// 设置预期值
+		HeaderResultMatchers header = MockMvcResultMatchers.header();
+		ResultMatcher result = header.string("Content-Type", "application/json");
+
+		// 预期值和实际执行结果比较
+		perform.andExpect(result);
+
+	}
+}
+
+```
+
+## 数据层测试回滚
+
+创建SpringBoot项目
+
+可参考：[6、基于SpringBoot的SSMP整合案例](/blog/java/spring-boot/6-spring-boot-ssmp.md)
+
+测试类中使用`@Transactional`可以不提交事务
+
+```java
+package com.example.demo.service;
+
+import com.example.demo.domain.Book;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+@SpringBootTest
+@Transactional
+class BookServiceTest {
+    @Autowired
+    private BookService bookService;
+
+    @Test
+    void save() {
+        Book book = new Book();
+        book.setTitle("明朝那些事");
+        book.setAuthor("当年明月");
+
+        boolean ret = bookService.save(book);
+        System.out.println(ret);
+
+    }
+}
+```
+
+测试类中使用`@Rollback(false)` 可以不回滚事务，提交数据
+
+```java
+package com.example.demo.service;
+
+import com.example.demo.domain.Book;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
+
+@SpringBootTest
+@Transactional
+@Rollback(false)
+class BookServiceTest {
+    @Autowired
+    private BookService bookService;
+
+    @Test
+    void save() {
+        Book book = new Book();
+        book.setTitle("明朝那些事");
+        book.setAuthor("当年明月");
+
+        boolean ret = bookService.save(book);
+        System.out.println(ret);
+
+    }
+}
+```
 测试用例数据设定

@@ -42,10 +42,12 @@
 
 - [13、SpringBoot测试](/blog/java/spring-boot/13-spring-boot-test.md)
 
+- [14、SpringBoot数据层解决方案](/blog/java/spring-boot/14-spring-boot-data.md)
 
-数据层解决方案
+
 整合第三方技术
 监控
 
 
-https://www.bilibili.com/video/BV15b4y1a7yG/?p=88&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV15b4y1a7yG/?p=91&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

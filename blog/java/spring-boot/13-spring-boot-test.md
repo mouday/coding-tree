@@ -596,4 +596,77 @@ class BookServiceTest {
     }
 }
 ```
-测试用例数据设定
+
+
+## 测试用例数据设定
+
+application.yml
+
+```yaml
+# 测试数据
+test-data:
+  id1: ${random.int} # 随机整数
+  id2: ${random.int(10)} # 10以内随机整数
+  id3: ${random.int(10,20)} # 10-20随机整数
+  uuid: ${random.uuid} # 随机uuid
+  name: ${random.value} # 随机字符串，MD5格式32位
+  publish-time: ${random.long} # 随机整数
+```
+
+配置类
+
+```java
+package com.example.demo.domain;
+
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+@Data
+@Configuration
+@ConfigurationProperties(prefix = "test-data")
+public class TestData {
+    private Integer id1;
+    private Integer id2;
+    private Integer id3;
+    private String uuid;
+    private String name;
+    private Long publishTime;
+}
+
+```
+
+```java
+package com.example.demo;
+
+import com.example.demo.domain.TestData;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+
+@SpringBootTest
+public class ConfigurationTest {
+
+    @Autowired
+    private TestData testData;
+
+    @Test
+    public void test() {
+        System.out.println(testData);
+    }
+}
+
+```
+
+输出结果
+```
+TestData(
+    id1=-824302633, 
+    id2=6, 
+    id3=14, 
+    uuid=ff0d6c1a-6a94-4d92-8fa5-081191a987e6, 
+    name=b63eaf6e0b4ed33efdaaeeb91fa029f6, 
+    publishTime=2838981901088658555
+)
+```

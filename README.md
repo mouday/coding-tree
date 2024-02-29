@@ -28,8 +28,6 @@
 
 整理学习资源及笔记
 
-- [www.pengshiyu.com](https://www.pengshiyu.com/): 个人博客,基本没啥文章
-
 - [CSDN](https://blog.csdn.net/mouday)
 
 - [程序员导航](https://mouday.github.io/hao123/)

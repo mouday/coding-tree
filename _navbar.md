@@ -2,6 +2,8 @@
 
 * [学习笔记](https://mouday.github.io/LearningNote/)
 
+* [软考笔记](/blog/ruankao/index.md)
+
 * 代码Demo
     * [前端 Demo](https://mouday.github.io/front-end-demo/)
     * [Vue Demo](https://mouday.github.io/vue-demo/)

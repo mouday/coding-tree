@@ -13,7 +13,7 @@
     <link rel="icon" href="img/logo-icon.png" />
 
     <link rel="stylesheet" href="static/js/vue@4.12.2.min.css" />
-
+    <link rel="stylesheet" href="static/js/toc.css" />
     <style>
       /* 文字大小 */
       body {
@@ -81,7 +81,25 @@
         vertical-align: middle;
       }
 
-   
+      @media screen and (max-width: 768px) {
+        .markdown-section {
+          padding: 0;
+          max-width: 90%;
+        }
+
+        .app-nav {
+          position: unset;
+          display: none;
+        }
+        .app-nav ul {
+          padding: 0;
+          display: block;
+        }
+        .app-nav ul li {
+          display: block;
+          text-align: center;
+        }
+      }
     </style>
   </head>
 
@@ -148,7 +166,6 @@
     <!-- <script src="https://unpkg.com/browse/prismjs@1.29.0/components/prism-jsx.min.js"></script> -->
     <script src="static/js/prism-jsx.min.js"></script>
 
-    <link rel="stylesheet" href="static/js/toc.css" />
     <script src="static/js/toc.js"></script>
 
     <!-- Gitalk -->

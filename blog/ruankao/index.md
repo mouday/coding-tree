@@ -36,7 +36,8 @@
 - 系统实施（编码、 测试）
 - 系统运行和维护
 
-![](img/1-2.png)
+![](https://cdn.jsdelivr.net/gh/mouday/img/2024/03/18/e7iauna.png)
+
 
 6、信息化内涵主要包括：
 - 信息网络体系

@@ -159,3 +159,5 @@ https://www.bilibili.com/video/BV1wh4y1M74f/?p=9&spm_id_from=pageDriver&vd_sourc
     - 提高个人和团队生产率，振奋团队精神，促进团队合作:
     - 促进团队成员之间的交叉培训和辅导，以分享知识和经验
 
+
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=10&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

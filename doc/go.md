@@ -87,3 +87,5 @@ flosch/pongo2 [pkg](https://pkg.go.dev/github.com/flosch/pongo2/v6) | [github](h
 | mimetype | 一个支持172种MIME类型检测的包 | [github](https://github.com/gabriel-vasile/mimetype) |
 | Sonic | 快速的开源博客平台 | [github](https://github.com/go-sonic/sonic) |
 | gocron | 定时任务管理系统 | [github](https://github.com/ouqiang/gocron) | 
+
+mayfly-go: web版linux(终端 文件 脚本 进程)、数据库(mysql pgsql oracle sqlserver 高斯 达梦 sqlite)、数据同步、redis(单机 哨兵 集群)、mongo统一管理操作平台。 [github](https://github.com/dromara/mayfly-go)

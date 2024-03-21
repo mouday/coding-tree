@@ -82,6 +82,9 @@ BPR遵循的原则:
 - `群体决策`具有包容性的特点，包容性可增加对决策的承诺，可以利用群体广泛的知识，让人们参与决策，使他们对成果更加认同.
 
 
+### 4.1.2 规划和组织
+
+信息系统战略三角突出了`业务战略`、`信息系统`和`组织机制`之间的必要一致性
 
 
 
@@ -103,4 +106,5 @@ BPR遵循的原则:
 
 https://www.bilibili.com/video/BV1wh4y1M74f/
 
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=10&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=12&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

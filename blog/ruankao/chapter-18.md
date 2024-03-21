@@ -2,17 +2,6 @@
 
 ## 第18章 项目绩效域
 
-促进干系人参与的步骤（V4-P520）：
-
-- 识别
-- 理解
-- 分析
-- 优先级排序
-- 参与
-- 监督
-
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/03/18/7jvqokq.png)
-
 执行效果检查
 
 ![](https://cdn.jsdelivr.net/gh/mouday/img/2024/03/18/fh3ergn.png)

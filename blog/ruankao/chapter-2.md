@@ -25,7 +25,7 @@
 - 数据链路层
 - 网络层
 - 传输层
-- 会话层
+- 会话层：
 - 表示层
 - 应用层
 
@@ -72,6 +72,8 @@ TCP/IP四层:
 - IGMP （intemet Group Management Protocol，网际组管理协议）
 - ARP ( Address Resolution Protocol，地址解析协议)
 - RARP (Reverse Address Resolution Protocol，反向地址解析协议)
+
+会话层: 负责在网络中的两节点之间建立和维持通信，以及提供交互会话的管理功能。如三种数据流方向的控制即一路交互、两路交替和两路同时会话模式。常见的协议有：RPC、SQL、NFS。
 
 ![](https://cdn.jsdelivr.net/gh/mouday/img/2024/03/19/gzgtk1s.png)
 
@@ -168,9 +170,10 @@ TCP/IP四层:
 - 完整性( Integrity) : 信息是正确 的 、真实 的 、未被篡改 的、 完整无缺的属性 。
 - 可用性( Availability) : 信息可 以随时正常使用 的属性 。
 
-12、 信息系统安全可以划分为四个层次：
+
+信息系统安全划分为四个层次:
 - 设备安全
-- 数据安全
+- 数据安全（即是传统的信息安全）
 - 内容安全
 - 行为安全
 
@@ -339,3 +342,4 @@ TCP/IP四层:
 - 系统集成技术
 
 ![](https://cdn.jsdelivr.net/gh/mouday/img/2024/03/20/h6m724x.png)
+

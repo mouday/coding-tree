@@ -28,7 +28,7 @@
 
 整理学习资源及笔记
 
-- [www.pengshiyu.com](https://www.pengshiyu.com/): 个人博客,基本没啥文章
+<!-- - [www.pengshiyu.com](https://www.pengshiyu.com/): 个人博客,基本没啥文章 -->
 
 - [CSDN](https://blog.csdn.net/mouday)
 
@@ -39,6 +39,8 @@
 - [学习笔记](https://mouday.github.io/LearningNote/)
 
 - [SpringBoot Demo](https://mouday.github.io/spring-boot-demo/#/)
+
+- [软考笔记](/blog/ruankao/index.md)
 
 本地预览
 

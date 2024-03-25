@@ -99,4 +99,5 @@ BPR遵循的原则:
 https://www.bilibili.com/video/BV1wh4y1M74f/
 
 
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=21&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=22&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -46,6 +46,8 @@
 
 - [第24章 法律法规与标准规范](/blog/ruankao/chapter-24.md)
 
+- [知识整合](/blog/ruankao/important.md)
+
 建立过程性能模型( Process Performance Model, PPM)的步骤主要包括: 
 - 识别建模因子
 - 建立过程性能模型
@@ -122,3 +124,12 @@ https://www.bilibili.com/video/BV1wh4y1M74f/?p=22&spm_id_from=pageDriver&vd_sour
 开展IT治理活动的主要任务: 全局统筹、价值导向、机制保障、创新发展、文化助推
 
 `审计流程`一般分为四个阶段: 审计准备、审计实施、审计终结、后续审计
+
+通常情况下，上一个过程的输出是下一个过程的输入
+
+项目管理计划和各子计划互为输入
+
+所有的监控过程组输入都有计划、数据（整合是信息）
+所有的监控过程组输出都有变更、更新、信息（整合是报告）
+
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=23&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

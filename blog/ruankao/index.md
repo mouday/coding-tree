@@ -111,7 +111,7 @@ BPR遵循的原则:
 https://www.bilibili.com/video/BV1wh4y1M74f/
 
 
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=22&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=25&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 `风险概率评估`旨在调查每个具体风险发生的可能性。风险影响评估旨在调查风险对项目目标(如进度、成本、质量或性能)的潜在影响，既包括威胁所造成的`消极影响`，也包括机会所产生的`积极影响`。
 
@@ -134,7 +134,7 @@ https://www.bilibili.com/video/BV1wh4y1M74f/?p=22&spm_id_from=pageDriver&vd_sour
 所有的监控过程组输入都有计划、数据（整合是信息）
 所有的监控过程组输出都有变更、更新、信息（整合是报告）
 
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=23&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
 
 项目范围的完成情况是根据项目管理计划来衡量的。
 

@@ -211,3 +211,7 @@ CSMM模型由4个能力域、20个能力子域、161个能力要求组成:
 2. 
 3. 核实的可交付成果 => 确认范围 => 验收可交付成果
 4. 验收可交付成果 => 结束项目或阶段 => 产品、服务或成果
+
+
+
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=31&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -60,7 +60,7 @@ TCP/IP四层:
 - DHCP (Dynamic Host Configuration Protocol，动态主机配置协议)
 - Telnet (远程登录协议)
 - DNS (Domain Name System，域名系统)
-- SNMP (SimpleNetworkManagementProtocol，简单网络管理协议)
+- SNMP (Simple Network Management Protocol，简单网络管理协议)
 
 传输层主要有两个传输协议：
 - TCP 
@@ -69,7 +69,7 @@ TCP/IP四层:
 网络层中的协议主要有：
 - IP
 - ICMP (Internet Control Message Protocol，网际控制报文协议)
-- IGMP （intemet Group Management Protocol，网际组管理协议）
+- IGMP （internet Group Management Protocol，网际组管理协议）
 - ARP ( Address Resolution Protocol，地址解析协议)
 - RARP (Reverse Address Resolution Protocol，反向地址解析协议)
 

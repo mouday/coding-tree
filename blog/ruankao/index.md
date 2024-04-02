@@ -238,3 +238,6 @@ https://www.bilibili.com/video/BV1wh4y1M74f/?p=31&spm_id_from=pageDriver&vd_sour
 工作绩效报告可以包括项目的整体状况和各方面的信息
 
 项目集效益管理在项目集初期为自上而下的形式，在项目集后期则为自下而上的形式
+
+
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=32&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

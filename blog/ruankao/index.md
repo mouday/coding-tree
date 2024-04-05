@@ -278,3 +278,20 @@ https://www.bilibili.com/video/BV1wh4y1M74f/?p=32&spm_id_from=pageDriver&vd_sour
 
 
 https://www.bilibili.com/video/BV1wh4y1M74f/?p=34&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+
+
+
+
+
+组织战略实施5种类型：
+- 指挥型
+- 变革型
+- 合作型
+- 文化型
+- 增长型
+
+
+
+
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=35&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

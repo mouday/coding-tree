@@ -111,8 +111,6 @@ BPR遵循的原则:
 https://www.bilibili.com/video/BV1wh4y1M74f/
 
 
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=25&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
 `风险概率评估`旨在调查每个具体风险发生的可能性。风险影响评估旨在调查风险对项目目标(如进度、成本、质量或性能)的潜在影响，既包括威胁所造成的`消极影响`，也包括机会所产生的`积极影响`。
 
 `组织文化`是组织发展过程中凸显的精神特质与内涵，是组织区别于其他组织的关键因素
@@ -224,9 +222,6 @@ CSMM模型由4个能力域、20个能力子域、161个能力要求组成:
 
 定义阶段的目标包括待优化信息系统定义、核心流程定义和团队组建
 
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=31&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
-
 中华人民共和国合同法第六十二条当事人就有关合同内容约定不明确，依照本法第六十一条的规定仍不能确定的，适用下列规定:
 1. 质量要求不明确的，按照国家标准、行业标准履行;没有国家标准、行业标准的，按照通常标准或者符合合同目的的特定标准履行。 
 2. 价款或者报酬不明确的，按照订立合同时履行地的市场价格履行:依法应当执行政府定价或者政府指导价的，按照规定履行。
@@ -274,12 +269,6 @@ https://www.bilibili.com/video/BV1wh4y1M74f/?p=31&spm_id_from=pageDriver&vd_sour
 4. 分包方必须具备相应的`资质条件`
 5. 分包方`不能再次分包`
 
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=32&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
-
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=34&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
-
 
 
 
@@ -292,6 +281,4 @@ https://www.bilibili.com/video/BV1wh4y1M74f/?p=34&spm_id_from=pageDriver&vd_sour
 - 增长型
 
 
-
-
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=35&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=40&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

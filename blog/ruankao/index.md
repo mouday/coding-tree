@@ -32,6 +32,8 @@
 
 - [第15章 项目风险管理](/blog/ruankao/chapter-15.md)
 
+- [第16章 项目采购管理](/blog/ruankao/chapter-16.md)
+
 - [第17章 项目干系人管理](/blog/ruankao/chapter-17.md)
 
 - [第18章 项目绩效域](/blog/ruankao/chapter-18.md)

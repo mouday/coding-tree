@@ -388,4 +388,6 @@ IT治理框架包含信息技术顶层设计、管理体系和资源三大治理
 此后若更改配置项，则其状态变为"修改"。
 当配置项修改完毕并重新通过评审时，其状态又变为"正式“
 
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=42&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+
+https://www.bilibili.com/video/BV1wh4y1M74f?p=48&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

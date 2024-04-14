@@ -344,3 +344,8 @@ TCP/IP四层:
 
 ![](https://cdn.jsdelivr.net/gh/mouday/img/2024/03/20/h6m724x.png)
 
+
+相关章节
+
+- 上一章：[第1章 信息化发展](/blog/ruankao/chapter-1.md)
+- 下一章：[第3章 信息系统治理](/blog/ruankao/chapter-3.md)

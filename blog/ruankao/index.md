@@ -444,6 +444,4 @@ CMMI
 - 激励
 - 人际关系技能: 情商、决策、冲突管理
 
-
-
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=50&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=51&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

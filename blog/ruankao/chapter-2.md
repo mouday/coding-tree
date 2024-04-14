@@ -127,8 +127,8 @@ TCP/IP四层:
 - 关系模型
 
 8、 数据库根据存储方式可以分为：
-- 关系型数据库（SQL） 
-- 非关系型数据库(Not Only SQL, NoSQL) 
+- 关系型数据库（SQL）: Oracle、MySQL、SQL Server
+- 非关系型数据库(Not Only SQL, NoSQL) : MongoDB、Redis
 
 9、 关系型数据库支持事务的`ACID原则`：
 - 原子性（Atomicity）

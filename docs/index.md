@@ -12,6 +12,10 @@ hero:
       link: /ruankao/
   
     - theme: alt
+      text: Golang
+      link: /golang/
+  
+    - theme: alt
       text: markdown-examples
       link: /markdown-examples
 

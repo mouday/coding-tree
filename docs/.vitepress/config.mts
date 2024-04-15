@@ -7,7 +7,9 @@ export default defineConfig({
   base: "/coding-tree/",
   lastUpdated: true,
   head: [["link", { rel: "icon", href: "/coding-tree/img/favicon.ico" }]],
-
+  sitemap: {
+    hostname: 'https://mouday.github.io'
+  },
   themeConfig: {
     search: {
       provider: "local",

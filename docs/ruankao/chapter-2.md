@@ -7,8 +7,6 @@ next:
   link: './chapter-3'
 ---
 
-[返回目录](./index)
-
 # 第2章 信息技术发展
 
 ## 2.1 信息技术及其发展
@@ -353,9 +351,3 @@ TCP/IP四层:
 - 系统集成技术
 
 ![](https://cdn.jsdelivr.net/gh/mouday/img/2024/03/20/h6m724x.png)
-
-
-相关章节
-
-- 上一章：[第1章 信息化发展](./chapter-1.md)
-- 下一章：[第3章 信息系统治理](./chapter-3.md)

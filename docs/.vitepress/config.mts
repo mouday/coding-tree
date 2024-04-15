@@ -3,6 +3,7 @@ import ruankaoSidebar from "../ruankao/sidebar.mjs";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  lang: 'zh-CN',
   title: "Coding Tree",
   description: "编程学习路上的笔记与知识整理收集",
   base: "/coding-tree/",

@@ -21,11 +21,11 @@ hero:
       link: /api-examples
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: 编程语言
+    details: 学习编程语言，涉及：Java、Python、Golang、JavaScript
+  - title: 效率工具
+    details: 收集效率工具，网页版、Windows版、macOS版
+  - title: 优质文章
+    details: 收录一些平时阅读过的优质文章
 ---
 

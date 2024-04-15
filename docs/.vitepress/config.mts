@@ -4,6 +4,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "Coding Tree",
   description: "编程学习路上的笔记与知识整理收集",
+  base: '/coding-tree/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

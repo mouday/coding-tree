@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import ruankaoSidebar from "../ruankao/sidebar.mjs";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -31,17 +32,7 @@ export default defineConfig({
         },
       ],
       // 当用户位于 `guide` 目录时，会显示此侧边栏
-      '/ruankao/': [
-        {
-          text: '软考',
-          items: [
-            { text: '第1章 信息化发展', link: '/ruankao/chapter-1' },
-            { text: '第2章 信息技术发展', link: '/ruankao/chapter-2' },
-            { text: '第3章 信息系统治理', link: '/ruankao/chapter-3' },
-            { text: '第4章 信息系统管理', link: '/ruankao/chapter-4' },
-          ]
-        }
-      ],
+      '/ruankao/': ruankaoSidebar,
     },
     
 

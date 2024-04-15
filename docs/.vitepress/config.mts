@@ -62,19 +62,20 @@ export default defineConfig({
     plugins: [
       // https://github.com/QC2168/vite-plugin-vitepress-auto-sidebar
       AutoSidebar({
-        ignoreList: ['.DS_Store'],
+        ignoreList: [".DS_Store"],
         titleFromFile: true,
 
         // 侧边栏排序
         beforeCreateSideBarItems: (data) => {
-          console.log(data);
+          // console.log(data);
 
           function getOrder(item: string): number {
             let res = item.match(/(?<order>\d+)/);
             if (res) {
               return parseInt(res.groups.order);
+            } else {
+              return 0;
             }
-            return 0;
           }
 
           data.sort((a, b) => {

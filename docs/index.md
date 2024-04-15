@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Coding Tree"
   text: "编程学习路上的笔记与知识整理收集"
-  tagline: My great project tagline
+  tagline: 工作中分享、分享中学习
   actions:
     - theme: brand
       text: 软考

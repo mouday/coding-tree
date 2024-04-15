@@ -10,7 +10,10 @@
     "build:cli": "node ./cli/build.js",
     "dev": "~/.nvm/versions/node/v12.22.6/bin/docsify serve --open ./",
     "live": "live-server",
-    "start": "http-server -o / -c-1"
+    "start": "http-server -o / -c-1",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "repository": {
     "type": "git",
@@ -26,13 +29,12 @@
   "devDependencies": {
     "docsify": "^4.12.2",
     "http-server": "^14.1.0",
-    "vitepress": "1.0.0-beta.7"
+    "vitepress": "^1.1.0"
   },
   "dependencies": {
     "express": "^4.18.2",
     "marked": "^7.0.1",
     "nodemon": "^3.0.1",
-    "nunjucks": "^3.2.4",
-    "vuepress": "^1.9.9"
+    "nunjucks": "^3.2.4"
   }
 }

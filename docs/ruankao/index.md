@@ -2,7 +2,7 @@
 
 ## 目录
 
-- [第1章 信息化发展](/blog/ruankao/chapter-1.md)
+- [第1章 信息化发展](./chapter-1)
 
 - [第2章 信息技术发展](/blog/ruankao/chapter-2.md)
 

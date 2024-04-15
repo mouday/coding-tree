@@ -1,16 +1,16 @@
 import { defineConfig } from "vitepress";
-import ruankaoSidebar from "../ruankao/sidebar.mjs";
+import AutoSidebar from "vite-plugin-vitepress-auto-sidebar";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  lang: 'zh-CN',
+  lang: "zh-CN",
   title: "Coding Tree",
   description: "编程学习路上的笔记与知识整理收集",
   base: "/coding-tree/",
   lastUpdated: true,
   head: [["link", { rel: "icon", href: "/coding-tree/img/favicon.ico" }]],
   sitemap: {
-    hostname: 'https://mouday.github.io/coding-tree'
+    hostname: "https://mouday.github.io/coding-tree",
   },
   themeConfig: {
     search: {
@@ -22,20 +22,19 @@ export default defineConfig({
       { text: "Examples", link: "/markdown-examples" },
     ],
 
-    sidebar: {
-      '/': [
-        {
-          text: "Examples",
-          items: [
-            { text: "Markdown Examples", link: "/markdown-examples" },
-            { text: "Runtime API Examples", link: "/api-examples" },
-          ],
-        },
-      ],
-      // 当用户位于 `ruankao` 目录时，会显示此侧边栏
-      '/ruankao/': ruankaoSidebar,
-    },
-    
+    // sidebar: {
+    //   "/": [
+    //     {
+    //       text: "Examples",
+    //       items: [
+    //         { text: "Markdown Examples", link: "/markdown-examples" },
+    //         { text: "Runtime API Examples", link: "/api-examples" },
+    //       ],
+    //     },
+    //   ],
+    //   // 当用户位于 `ruankao` 目录时，会显示此侧边栏
+    //   // "/ruankao/": ruankaoSidebar,
+    // },
 
     socialLinks: [
       { icon: "github", link: "https://github.com/mouday/coding-tree" },
@@ -58,5 +57,33 @@ export default defineConfig({
        */
       label: "大纲",
     },
+  },
+  vite: {
+    plugins: [
+      // https://github.com/QC2168/vite-plugin-vitepress-auto-sidebar
+      AutoSidebar({
+        ignoreList: ['.DS_Store'],
+        titleFromFile: true,
+
+        // 侧边栏排序
+        beforeCreateSideBarItems: (data) => {
+          console.log(data);
+
+          function getOrder(item: string): number {
+            let res = item.match(/(?<order>\d+)/);
+            if (res) {
+              return parseInt(res.groups.order);
+            }
+            return 0;
+          }
+
+          data.sort((a, b) => {
+            return getOrder(a) - getOrder(b);
+          });
+
+          return data;
+        },
+      }),
+    ],
   },
 });

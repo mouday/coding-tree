@@ -31,7 +31,7 @@ export default defineConfig({
           ],
         },
       ],
-      // 当用户位于 `guide` 目录时，会显示此侧边栏
+      // 当用户位于 `ruankao` 目录时，会显示此侧边栏
       '/ruankao/': ruankaoSidebar,
     },
     

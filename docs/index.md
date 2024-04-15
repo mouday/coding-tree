@@ -19,14 +19,13 @@ hero:
       text: markdown-examples
       link: /markdown-examples
 
-      
     - theme: alt
       text: API Examples
       link: /api-examples
 
 features:
   - title: 编程语言
-    details: 学习编程语言，涉及：Java、Python、Golang、JavaScript
+    details: 学习编程语言：Java、Python、Golang、JavaScript
   - title: 效率工具
     details: 收集效率工具，网页版、Windows版、macOS版
   - title: 优质文章

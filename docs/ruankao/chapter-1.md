@@ -1,12 +1,3 @@
----
-prev:
-  text: '返回目录'
-  link: './index'
-next:
-  text: '第2章 信息技术发展'
-  link: './chapter-2'
----
-
 # 第1章 信息化发展
 
 ## 1.1 信息与信息化

@@ -1,11 +1,3 @@
----
-prev:
-  text: '第1章 信息化发展'
-  link: './chapter-1'
-next:
-  text: '第3章 信息系统治理'
-  link: './chapter-3'
----
 
 # 第2章 信息技术发展
 

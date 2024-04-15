@@ -8,7 +8,7 @@ export default defineConfig({
   lastUpdated: true,
   head: [["link", { rel: "icon", href: "/coding-tree/img/favicon.ico" }]],
   sitemap: {
-    hostname: 'https://mouday.github.io'
+    hostname: 'https://mouday.github.io/coding-tree'
   },
   themeConfig: {
     search: {

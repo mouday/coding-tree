@@ -16,6 +16,8 @@ Java 要掌握的技术点 [https://javacn.site/java/java.html](https://javacn.s
 
 [2.5w字+36张图+1周时间：爆肝操作系统核心知识点！](https://mp.weixin.qq.com/s/G9ZqwEMxjrG5LbgYwM5ACQ)
 
+[Hello 算法](https://www.hello-algo.com/chapter_hello_algo/)
+
 ## 在线文档
 
 [鱼皮编程学习路线](https://luxian.yupi.icu/)

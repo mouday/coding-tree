@@ -1,4 +1,4 @@
-[返回目录](/blog/ruankao/index.md)
+[返回目录](./index)
 
 # 第20章 高级项目管理
 

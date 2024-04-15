@@ -1,4 +1,4 @@
-[返回目录](/blog/ruankao/index.md)
+[返回目录](./index)
 
 # 第1章 信息化发展
 
@@ -464,4 +464,4 @@
 
 相关章节
 
-- 下一章：[第2章 信息技术发展](/blog/ruankao/chapter-2.md)
+- 下一章：[第2章 信息技术发展](./chapter-2.md)

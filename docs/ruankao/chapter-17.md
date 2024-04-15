@@ -1,4 +1,4 @@
-[返回目录](/blog/ruankao/index.md)
+[返回目录](./index)
 
 # 第17章 项目干系人管理
 

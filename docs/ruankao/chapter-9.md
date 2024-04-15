@@ -1,4 +1,4 @@
-[返回目录](/blog/ruankao/index.md)
+[返回目录](./index)
 
 # 第9章 项目范围管理
 

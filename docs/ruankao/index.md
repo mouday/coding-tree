@@ -4,53 +4,53 @@
 
 - [第1章 信息化发展](./chapter-1)
 
-- [第2章 信息技术发展](/blog/ruankao/chapter-2.md)
+- [第2章 信息技术发展](./chapter-2.md)
 
-- [第3章 信息系统治理](/blog/ruankao/chapter-3.md)
+- [第3章 信息系统治理](./chapter-3.md)
 
-- [第4章 信息系统管理](/blog/ruankao/chapter-4.md)
+- [第4章 信息系统管理](./chapter-4.md)
 
-- [第5章 信息系统工程](/blog/ruankao/chapter-5.md)
+- [第5章 信息系统工程](./chapter-5.md)
 
-- [第6章 项目管理概论](/blog/ruankao/chapter-6.md)
+- [第6章 项目管理概论](./chapter-6.md)
 
-- [第7章 项目立项管理](/blog/ruankao/chapter-7.md)
+- [第7章 项目立项管理](./chapter-7.md)
 
-- [第8章 项目整合管理](/blog/ruankao/chapter-8.md)
+- [第8章 项目整合管理](./chapter-8.md)
 
-- [第9章 项目范围管理](/blog/ruankao/chapter-9.md)
+- [第9章 项目范围管理](./chapter-9.md)
 
-- [第10章 项目进度管理](/blog/ruankao/chapter-10.md)
+- [第10章 项目进度管理](./chapter-10.md)
 
-- [第11章 项目成本管理](/blog/ruankao/chapter-11.md)
+- [第11章 项目成本管理](./chapter-11.md)
 
-- [第12章 项目质量管理](/blog/ruankao/chapter-12.md)
+- [第12章 项目质量管理](./chapter-12.md)
 
-- [第13章 项目资源管理](/blog/ruankao/chapter-13.md)
+- [第13章 项目资源管理](./chapter-13.md)
 
-- [第14章 项目沟通管理](/blog/ruankao/chapter-14.md)
+- [第14章 项目沟通管理](./chapter-14.md)
 
-- [第15章 项目风险管理](/blog/ruankao/chapter-15.md)
+- [第15章 项目风险管理](./chapter-15.md)
 
-- [第16章 项目采购管理](/blog/ruankao/chapter-16.md)
+- [第16章 项目采购管理](./chapter-16.md)
 
-- [第17章 项目干系人管理](/blog/ruankao/chapter-17.md)
+- [第17章 项目干系人管理](./chapter-17.md)
 
-- [第18章 项目绩效域](/blog/ruankao/chapter-18.md)
+- [第18章 项目绩效域](./chapter-18.md)
 
-- [第19章 配置与变更管理](/blog/ruankao/chapter-19.md)
+- [第19章 配置与变更管理](./chapter-19.md)
 
-- [第20章 高级项目管理](/blog/ruankao/chapter-20.md)
+- [第20章 高级项目管理](./chapter-20.md)
 
-- [第21章 项目管理科学基础](/blog/ruankao/chapter-21.md)
+- [第21章 项目管理科学基础](./chapter-21.md)
 
-- [第22章 组织通用治理](/blog/ruankao/chapter-22.md)
+- [第22章 组织通用治理](./chapter-22.md)
 
-- [第23章 组织通用管理](/blog/ruankao/chapter-23.md)
+- [第23章 组织通用管理](./chapter-23.md)
 
-- [第24章 法律法规与标准规范](/blog/ruankao/chapter-24.md)
+- [第24章 法律法规与标准规范](./chapter-24.md)
 
-- [知识整合](/blog/ruankao/important.md)
+- [知识整合](./important.md)
 
 建立过程性能模型( Process Performance Model, PPM)的步骤主要包括: 
 - 识别建模因子

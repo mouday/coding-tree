@@ -1,4 +1,4 @@
-[返回目录](/blog/ruankao/index.md)
+[返回目录](./index)
 
 # 第2章 信息技术发展
 
@@ -348,5 +348,5 @@ TCP/IP四层:
 
 相关章节
 
-- 上一章：[第1章 信息化发展](/blog/ruankao/chapter-1.md)
-- 下一章：[第3章 信息系统治理](/blog/ruankao/chapter-3.md)
+- 上一章：[第1章 信息化发展](./chapter-1.md)
+- 下一章：[第3章 信息系统治理](./chapter-3.md)

@@ -4,9 +4,14 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "Coding Tree",
   description: "编程学习路上的笔记与知识整理收集",
-  base: '/coding-tree/',
-  head: [['link', { rel: 'icon', href: '/coding-tree/img/favicon.ico' }]],
+  base: "/coding-tree/",
+  lastUpdated: true,
+  head: [["link", { rel: "icon", href: "/coding-tree/img/favicon.ico" }]],
+
   themeConfig: {
+    search: {
+      provider: "local",
+    },
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "Home", link: "/" },

@@ -12,6 +12,11 @@ export default defineConfig({
   sitemap: {
     hostname: "https://mouday.github.io/coding-tree",
   },
+  locales: {
+    '/': {
+      lang: 'zh-CN', // 设置为中文
+    },
+  },
   themeConfig: {
     search: {
       provider: "local",
@@ -20,6 +25,7 @@ export default defineConfig({
     nav: [
       { text: "Home", link: "/" },
       { text: "Examples", link: "/markdown-examples" },
+      { text: "在线工具箱", link: "https://mouday.github.io/tools/" },
     ],
 
     socialLinks: [

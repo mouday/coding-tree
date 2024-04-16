@@ -13,13 +13,31 @@ export default defineConfig({
     hostname: "https://mouday.github.io/coding-tree",
   },
   locales: {
-    '/': {
-      lang: 'zh-CN', // 设置为中文
+    "/": {
+      lang: "zh-CN", // 设置为中文
     },
   },
   themeConfig: {
     search: {
       provider: "local",
+      options: {
+        translations: {
+          button: {
+            buttonText: "搜索文档",
+            buttonAriaLabel: "搜索文档",
+          },
+          modal: {
+            noResultsText: "无法找到相关结果",
+            resetButtonTitle: "清除查询条件",
+            displayDetails: "显示详细列表",
+            footer: {
+              navigateText: "切换",
+              selectText: "选择",
+              closeText: "关闭",
+            },
+          },
+        },
+      },
     },
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -32,6 +50,11 @@ export default defineConfig({
       { icon: "github", link: "https://github.com/mouday/coding-tree" },
     ],
 
+    outlineTitle: "导航目录",
+    darkModeSwitchLabel: "外观",
+    sidebarMenuLabel: "菜单",
+    returnToTopLabel: "返回顶部",
+    lastUpdatedText: "上次更新",
     outline: {
       /**
        * outline 中要显示的标题级别。
@@ -54,7 +77,7 @@ export default defineConfig({
     plugins: [
       // https://github.com/QC2168/vite-plugin-vitepress-auto-sidebar
       AutoSidebar({
-        ignoreList: [".DS_Store"],
+        ignoreList: ["/public/"],
         titleFromFile: true,
         // 侧边栏排序
         beforeCreateSideBarItems: (data: string[]): string[] => {
@@ -63,7 +86,7 @@ export default defineConfig({
           // 通过正则提取文件名中的数字
           function getOrder(item: string): number {
             let res = item.match(/(?<order>\d+)/);
-            
+
             if (res && res.groups) {
               return parseInt(res.groups.order);
             } else {
@@ -79,5 +102,9 @@ export default defineConfig({
         },
       }),
     ],
+  },
+  docFooter: {
+    prev: '上一页',
+    next: '下一页',
   },
 });

@@ -22,20 +22,6 @@ export default defineConfig({
       { text: "Examples", link: "/markdown-examples" },
     ],
 
-    // sidebar: {
-    //   "/": [
-    //     {
-    //       text: "Examples",
-    //       items: [
-    //         { text: "Markdown Examples", link: "/markdown-examples" },
-    //         { text: "Runtime API Examples", link: "/api-examples" },
-    //       ],
-    //     },
-    //   ],
-    //   // 当用户位于 `ruankao` 目录时，会显示此侧边栏
-    //   // "/ruankao/": ruankaoSidebar,
-    // },
-
     socialLinks: [
       { icon: "github", link: "https://github.com/mouday/coding-tree" },
     ],
@@ -64,14 +50,15 @@ export default defineConfig({
       AutoSidebar({
         ignoreList: [".DS_Store"],
         titleFromFile: true,
-
         // 侧边栏排序
-        beforeCreateSideBarItems: (data) => {
+        beforeCreateSideBarItems: (data: string[]): string[] => {
           // console.log(data);
 
+          // 通过正则提取文件名中的数字
           function getOrder(item: string): number {
             let res = item.match(/(?<order>\d+)/);
-            if (res) {
+            
+            if (res && res.groups) {
               return parseInt(res.groups.order);
             } else {
               return 0;

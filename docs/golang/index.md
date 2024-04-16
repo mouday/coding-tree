@@ -10,19 +10,19 @@
 
 ### 第一章 语言基础
 
-- [1.1、Golang 概述](./golang-start.md)
+- [1.1、Golang 概述](./101-golang-start.md)
 
-- [1.2、Golang 环境安装](./golang-install.md)
+- [1.2、Golang 环境安装](./102-golang-install.md)
 
-- [1.3、Golang 运行代码](./golang-run.md)
+- [1.3、Golang 运行代码](./103-golang-run.md)
 
-- [1.4、Golang 项目管理](./golang-project.md)
+- [1.4、Golang 项目管理](./104-golang-project.md)
 
 ### 第二章 基本语法
 
-- [2.1、Golang 标识符、关键字、命名规则](./golang-identifier.md)
+- [2.1、Golang 标识符、关键字、命名规则](./201-golang-identifier.md)
 
-- [2.2、Golang 变量](./golang-variable.md)
+- [2.2、Golang 变量](./202-golang-variable.md)
 
 - [2.3、Golang 常量](./golang-constant.md)
 
@@ -102,17 +102,17 @@
 
 ### 第六章 Golang 操作数据库
 
-- [Golang 操作 MySQL 数据库](./golang-mysql.md)
+- [6.1、Golang 操作 MySQL 数据库](./601-golang-mysql.md)
 
-- [Golang 操作 MongoDB 数据库](./golang-mongo.md)
+- [6.2、Golang 操作 MongoDB 数据库](./602-golang-mongo.md)
 
-- [Golang操作redis数据库](./golang-database-redis.md)
+- [6.3、Golang操作redis数据库](./603-golang-database-redis.md)
 
-- [Golang ORM 库 gorm](./golang-gorm.md)
+- [6.4、Golang ORM 库 gorm](./604-golang-gorm.md)
 
 ### 第七章 Go 语言 Web 框架
 
-- [Go 语言 Web 框架之 gin](./golang-gin.md)
+- [7.1、Go 语言 Web 框架之 gin](./701-golang-gin.md)
 
 https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 

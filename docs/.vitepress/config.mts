@@ -2,6 +2,7 @@ import { defineConfig } from "vitepress";
 import AutoSidebar from "vite-plugin-vitepress-auto-sidebar";
 
 // https://vitepress.dev/reference/site-config
+// ref: https://gitee.com/zhontai/zhontai-admin-doc/blob/master/docs/.vitepress/config.ts
 export default defineConfig({
   lang: "zh-CN",
   title: "Coding Tree",

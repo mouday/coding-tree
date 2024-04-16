@@ -15,7 +15,7 @@ hero:
       text: Golang
       link: /golang/
   
-   - theme: alt
+    - theme: alt
       text: 编程语言
       link: /doc/
 

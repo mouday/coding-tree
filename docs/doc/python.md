@@ -24,6 +24,11 @@
 
 ## 第三方库
 
+| 库名 | 简介 | 地址|
+| - | - |- | 
+scikit-learn | 机器学习 | [官网](https://scikit-learn.org/stable/)、[github](https://github.com/scikit-learn/scikit-learn)
+Pillow | 图片处理 | [doc](https://pillow.readthedocs.io/en/stable/)
+
 [NumPy 中文](https://www.numpy.org.cn/) | [NumPys](http://www.numpy.org/)
 
 [peewee](http://docs.peewee-orm.com/en/latest/index.html)
@@ -112,4 +117,36 @@ Celery
 
 ## 文章
 
+### 机器学习
+
+[机器学习个人笔记-目录](http://www.ai-start.com/ml2014/)
+[深度学习笔记-目录](http://www.ai-start.com/dl2017/)
+[莫烦Python](https://morvanzhou.github.io/)
+[TensorFlow 教程](http://www.tensorflownews.com/)
+[深度学习500问](https://github.com/scutan90/DeepLearning-500-questions)
+
 [机器学习各种相似性度量及Python实现](https://blog.csdn.net/u010412858/article/details/60467382)
+
+[方差、协方差、标准差、均方差、均方根值、均方误差、均方根误差对比分析](https://blog.csdn.net/cqfdcw/article/details/78173839)
+
+[opencv-python中的腐蚀与膨胀函数](https://blog.csdn.net/hjxu2016/article/details/77837765)
+
+[如何用Python和深度神经网络识别图像？](https://juejin.im/post/5b349d55e51d45589b1a90a4)
+
+[图像处理专业术语中英文对照（不断补充中）](https://blog.csdn.net/houguofei123/article/details/69100862)
+
+[十分钟看懂图像语义分割技术](https://www.leiphone.com/news/201705/YbRHBVIjhqVBP0X5.html)
+
+[直接可以用的Python和OpenCV检测及分割图像的目标区域例子](https://blog.csdn.net/sinat_36458870/article/details/78825571)
+
+[图片的存储原理](https://blog.csdn.net/sscout/article/details/82314908)
+
+[PIL 中的 Image 模块](http://www.cnblogs.com/way_testlife/archive/2011/04/20/2022997.html)
+
+[Python图像处理PIL各模块详细介绍](https://blog.csdn.net/zhangziju/article/details/79123275)
+
+[一文读懂机器学习，大数据/自然语言处理/算法全有了](https://www.cnblogs.com/gavanwanggw/p/7399577.html)
+
+[图像处理算法其实都很简单](https://blog.csdn.net/weixin_42026802/article/details/80181627)
+
+[自然语言处理怎么最快入门？](https://www.zhihu.com/question/19895141)

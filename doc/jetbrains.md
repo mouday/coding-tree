@@ -6,5 +6,5 @@ https://www.jetbrains.com/phpstorm/
 
 激活工具和激活码
 
-- [jetbrains-2022](/blog/jetbrains/jetbrains-2022.md)
-- [jetbrains-2019](/blog/jetbrains/jetbrains-2019.md)
+- [jetbrains-2022](../jetbrains/jetbrains-2022.md)
+- [jetbrains-2019](../jetbrains/jetbrains-2019.md)

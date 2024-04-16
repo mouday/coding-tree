@@ -42,8 +42,8 @@ export default defineConfig({
     },
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: "Home", link: "/" },
-      { text: "Examples", link: "/markdown-examples" },
+      // { text: "Home", link: "/" },
+      { text: "软考", link: "/ruankao/" },
       { text: "在线工具箱", link: "https://mouday.github.io/tools/" },
     ],
 

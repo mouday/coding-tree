@@ -15,6 +15,10 @@ hero:
       text: Golang
       link: /golang/
   
+   - theme: alt
+      text: 编程语言
+      link: /doc/
+
     - theme: alt
       text: markdown-examples
       link: /markdown-examples

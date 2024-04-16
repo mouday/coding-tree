@@ -50,7 +50,7 @@
 
 - [第24章 法律法规与标准规范](./chapter-24.md)
 
-- [知识整合](./important.md)
+- [知识整合](./important-999.md)
 
 建立过程性能模型( Process Performance Model, PPM)的步骤主要包括: 
 - 识别建模因子

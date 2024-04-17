@@ -9,7 +9,7 @@ export default defineConfig({
   description: "编程学习路上的笔记与知识整理收集",
   base: "/coding-tree/",
   lastUpdated: true,
-  head: [["link", { rel: "icon", href: "/coding-tree/img/favicon.ico" }]],
+  head: [["link", { rel: "icon", href: "/coding-tree/favicon.ico" }]],
   sitemap: {
     hostname: "https://mouday.github.io/coding-tree",
   },

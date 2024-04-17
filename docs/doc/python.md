@@ -1,7 +1,5 @@
 # Python
 
-[The New Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
-
 ## 语言基础
 
 [Python 2.7.18 文档 » 标准库](https://docs.python.org/zh-cn/2/library/index.html)
@@ -28,48 +26,22 @@
 | - | - |- | 
 scikit-learn | 机器学习 | [官网](https://scikit-learn.org/stable/)、[github](https://github.com/scikit-learn/scikit-learn)
 Pillow | 图片处理 | [doc](https://pillow.readthedocs.io/en/stable/)
+NumPy | 科学计算基础软件包 | [中文](https://www.numpy.org.cn/) | [英文](http://www.numpy.org/)
+peewee | 简单小巧的ORM | [doc](http://docs.peewee-orm.com/en/latest/index.html)
+PyMongo | MongoDB驱动 | [doc](https://docs.mongodb.com/drivers/pymongo/)
+authlib | 构建OAuth 和 OpenID服务 | [doc](https://docs.authlib.org/en/latest/)
+pyjwt | JWT编码解码 | [doc](https://pyjwt.readthedocs.io/en/latest/)
+jieba | 中文分词 | [github](https://github.com/fxsjy/jieba)
+pyhanlp  | 中文分词 | [github](https://github.com/hankcs/pyhanlp)
+Celery | 异步任务 | 
+scrapy | 网站爬虫框架| [doc](https://scrapy.org/)
+scrapyd | scrapy 的运行服务 | [doc](https://scrapyd.readthedocs.io/en/stable/index.html)
+apscheduler | 定时任务 | [doc](https://apscheduler.readthedocs.io/en/latest/index.html)
+six | Python2/3兼容 | [doc](https://six.readthedocs.io/)
+virtualenvwrapper | 虚拟环境 | [doc](https://virtualenvwrapper.readthedocs.io/)
+supervisord | 进程管理 | [doc](http://www.supervisord.org/index.html)
+flask | 轻量级 Web 应用框架 |  [doc](https://flask.palletsprojects.com/)
 
-[NumPy 中文](https://www.numpy.org.cn/) | [NumPys](http://www.numpy.org/)
-
-[peewee](http://docs.peewee-orm.com/en/latest/index.html)
-
-[PyMongo](https://docs.mongodb.com/drivers/pymongo/)
-
-[authlib](https://docs.authlib.org/en/latest/)
-
-[pyjwt](https://pyjwt.readthedocs.io/en/latest/)
-
-[jieba](https://github.com/fxsjy/jieba)
-
-- [简明 jieba 中文分词教程](https://www.jianshu.com/p/883c2171cdb5)
-- [NLP 第 2 课：中文分词利器 jieba 和 HanLP](https://www.jianshu.com/p/009671e56027)
-
-[pyhanlp](https://github.com/hankcs/pyhanlp)
-
-- [hanlp 的基本使用--python(自然语言处理)](https://www.cnblogs.com/ybf-yyj/p/7801429.html)
-- [自然语言处理之 hanlp，Python 调用与构建，分词、关键词提取、命名主体识别](https://blog.csdn.net/HHTNAN/article/details/81908451)
-
-Celery
-
-- [异步任务（Celery）详解 ](https://www.cnblogs.com/skyflask/p/9865378.html)
-
-[scrapy](https://scrapy.org/)  An open source and collaborative framework for extracting the data you need from websites.
-
-[scrapyd](https://scrapyd.readthedocs.io/en/stable/index.html)
-
-[apscheduler](https://apscheduler.readthedocs.io/en/latest/index.html)
-
-[six](https://six.readthedocs.io/)
-
-[virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/)
-
-[supervisord](http://www.supervisord.org/index.html)
-
-[flask](https://flask.palletsprojects.com/): 使用 Python 编写的轻量级 Web 应用框架
-- [Flask 快速入门](http://docs.jinkan.org/docs/flask/quickstart.html)
-- [欢迎进入Flask大型教程项目！](http://www.pythondoc.com/flask-mega-tutorial/)
-- [吐血推荐珍藏的Flask资源](https://blog.csdn.net/zV3e189oS5c0tSknrBCL/article/details/82112854)
-- [Flask补充系列–将应用部署在Heroku上](http://www.bjhee.com/flask-heroku.html)
 - [flask-paginate](https://pythonhosted.org/Flask-paginate/)  is a simple paginate extension for flask which is reference to will_paginate, and use bootstrap as css framework.
 
 [jinja](https://jinja.palletsprojects.com/): a fast, expressive, extensible templating engine
@@ -150,3 +122,23 @@ Celery
 [图像处理算法其实都很简单](https://blog.csdn.net/weixin_42026802/article/details/80181627)
 
 [自然语言处理怎么最快入门？](https://www.zhihu.com/question/19895141)
+
+[简明 jieba 中文分词教程](https://www.jianshu.com/p/883c2171cdb5)
+
+[NLP 第 2 课：中文分词利器 jieba 和 HanLP](https://www.jianshu.com/p/009671e56027)
+
+
+[hanlp 的基本使用--python(自然语言处理)](https://www.cnblogs.com/ybf-yyj/p/7801429.html)
+
+[自然语言处理之 hanlp，Python 调用与构建，分词、关键词提取、命名主体识别](https://blog.csdn.net/HHTNAN/article/details/81908451)
+
+- [异步任务（Celery）详解 ](https://www.cnblogs.com/skyflask/p/9865378.html)
+
+
+[Flask 快速入门](http://docs.jinkan.org/docs/flask/quickstart.html)
+
+[欢迎进入Flask大型教程项目！](http://www.pythondoc.com/flask-mega-tutorial/)
+
+[吐血推荐珍藏的Flask资源](https://blog.csdn.net/zV3e189oS5c0tSknrBCL/article/details/82112854)
+
+[Flask补充系列–将应用部署在Heroku上](http://www.bjhee.com/flask-heroku.html)

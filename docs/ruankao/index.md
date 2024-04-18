@@ -106,6 +106,10 @@ BPR遵循的原则:
 
 链接: https://pan.baidu.com/s/1Z3boKX9U2IO0sab5jM27Tw?pwd=nks2
 
+2024年5月软考高项百度网盘
+https://pan.baidu.com/s/1Kl_FpJ1R9fvYpeR5c-YmiA?pwd=52pj
+提取码：
+
 ![](https://cdn.jsdelivr.net/gh/mouday/img/2024/03/19/m6kqkh2.png)
 
 
@@ -488,5 +492,14 @@ MapReduce是大规模数据集的并行计算框架
 
 基线设立审批是`配置控制委员会`的工作职责
 
+商业智能涉及数据量大，运作复杂，要实现`数据仓库`、`ETL`、`数据统计`、`数据分析`。
+
+数据ETL (Extract-Transform-Load) ，用来描述将数据从来源端经过抽取 (extract) 、交互转换(transform) 、加载 (load) 至目的端的过程。
+
+联机事务处理OLTP (online transaction processing) 主要是执行基本日常的事务处理，数据库记录的增删改查比如记录银行的一笔记录，就是一个事务
+
+《中华人民共和国数据安全法》第二十一条 国家建立数据`分类分级`保护制度，根据数据在经济社会发展中的重要程度，以及一旦遭到篡改、破坏、泄露或者非法获取非法利用，对国家安全、公共利益或者个人、组织合法权益造成的危害程度，对数据实行分类分级保护。国家数据安全工作协调机制统筹协调有关部门制定重要数据目录，加强对重要数据的保护.
+
 
 https://www.bilibili.com/video/BV1wh4y1M74f/?p=53&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+

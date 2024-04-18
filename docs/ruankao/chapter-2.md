@@ -228,9 +228,9 @@ TCP/IP四层:
 
 20、 按照云计算服务提供的资源层次， 可以分为三种服务类型：
 
-- 础设施即服务( Infrastructure as a Service, IaaS)
-- 平台即服务( Platform as a Service, PaaS)
-- 软件即服务( Software as a Service, SaaS)
+- 础设施即服务( Infrastructure as a Service, IaaS): 向用户提供计算机能力、存储空间等基础设施方面的服务。
+- 平台即服务( Platform as a Service, PaaS): 向用户提供虚拟的操作系统、数据库管理系统Web应用等平台化的服务。
+- 软件即服务( Software as a Service, SaaS): 向用户提供应用软件(如CRM、办公软件等)、组件、工作流等虚拟化软件的服务
 
 21、 云计算的关键技术主要涉及:
 - 虚拟化技术：Docker容器(Container)
@@ -303,6 +303,8 @@ TCP/IP四层:
 3. 共识机制: 常用的共识机制主要有 Pow、 PoS、 DPoS、 Paxos、 PBFT 等
 
 区块链的典型应用: 数字货币
+
+区块链系统中的加密算法一般分为散列(哈希)算法和非对称加密算法。
 
 ### 2.2.5 人工智能
 

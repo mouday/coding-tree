@@ -1,6 +1,12 @@
 # 英文词汇
 
+Virtual Reality 虚拟现实 
 
+Cloud computing 云计算 
+
+Big data 大数据
+
+Internet+ 互联网+
 
 
 ## 第19章 配置与变更管理

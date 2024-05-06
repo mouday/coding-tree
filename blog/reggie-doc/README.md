@@ -24,30 +24,30 @@
 
 ## 目录
 
-- [软件开发整体介绍](/blog/reggie-doc/doc/introduction.md)
+- [软件开发整体介绍](../blog/reggie-doc/doc/introduction.md)
 
 - 管理端
-    - [开发环境搭建](/blog/reggie-doc/doc/development-env.md)
-    - [登录、退出功能](/blog/reggie-doc/doc/login-and-logout.md)
-    - [员工管理功能(新增、分页、更新、查询)](/blog/reggie-doc/doc/day2.md)
-    - [分类管理(新增、分页、更新、查询)](/blog/reggie-doc/doc/day3.md)
-    - [菜品管理(新增、分页、更新、查询)](/blog/reggie-doc/doc/day4.md)
-    - [套餐管理业务开发](/blog/reggie-doc/doc/day5.md)
+    - [开发环境搭建](../blog/reggie-doc/doc/development-env.md)
+    - [登录、退出功能](../blog/reggie-doc/doc/login-and-logout.md)
+    - [员工管理功能(新增、分页、更新、查询)](../blog/reggie-doc/doc/day2.md)
+    - [分类管理(新增、分页、更新、查询)](../blog/reggie-doc/doc/day3.md)
+    - [菜品管理(新增、分页、更新、查询)](../blog/reggie-doc/doc/day4.md)
+    - [套餐管理业务开发](../blog/reggie-doc/doc/day5.md)
 
 - 移动端
-    - [手机验证码登录](/blog/reggie-doc/doc/h5-sms.md)
-    - [菜品展示](/blog/reggie-doc/doc/h5-index.md)
-    - [购物车](/blog/reggie-doc/doc/h5-shopping-cart.md)
-    - [订单](/blog/reggie-doc/doc/h5-order.md)
+    - [手机验证码登录](../blog/reggie-doc/doc/h5-sms.md)
+    - [菜品展示](../blog/reggie-doc/doc/h5-index.md)
+    - [购物车](../blog/reggie-doc/doc/h5-shopping-cart.md)
+    - [订单](../blog/reggie-doc/doc/h5-order.md)
 
 
-- [git笔记](/blog/reggie-doc/doc/reggie-git.md)
-- [linux笔记](/blog/reggie-doc/doc/linux/index.md)
-- [redis笔记](/blog/reggie-doc/doc/redis/index.md)
+- [git笔记](../blog/reggie-doc/doc/reggie-git.md)
+- [linux笔记](../blog/reggie-doc/doc/linux/index.md)
+- [redis笔记](../blog/reggie-doc/doc/redis/index.md)
 - 代码优化
-    - [Spring Cache](/blog/reggie-doc/doc/spring-cache.md)
-    - [MySQL读写分离](/blog/reggie-doc/doc/mysql/mysql-masterto-slave.md)
-    - [前后端分离开发](/blog/reggie-doc/doc/client-server-dev.md)
+    - [Spring Cache](../blog/reggie-doc/doc/spring-cache.md)
+    - [MySQL读写分离](../blog/reggie-doc/doc/mysql/mysql-masterto-slave.md)
+    - [前后端分离开发](../blog/reggie-doc/doc/client-server-dev.md)
 
 ## 学员笔记
 

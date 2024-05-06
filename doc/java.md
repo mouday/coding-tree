@@ -1,12 +1,12 @@
 # Java
 
-[笔记：Java 网络多线程专题-韩顺平](/blog/java/java-net/index.md)
+[笔记：Java 网络多线程专题-韩顺平](../blog/java/java-net/index.md)
 
 [韩顺平 bilibili](https://space.bilibili.com/651245581)
 
-[Java学习路线图（2023黑马程序员）](/blog/java/java-learn-road.md)
+[Java学习路线图（2023黑马程序员）](../blog/java/java-learn-road.md)
 
-[Java常用组件和框架](blog/java/java-awesome.md)
+[Java常用组件和框架](../blog/java/java-awesome.md)
 
 Java 要掌握的技术点 [https://javacn.site/java/java.html](https://javacn.site/java/java.html)
 

@@ -4,4 +4,4 @@
 
 [RDM.dev](https://rdm.dev/): Cross-platform open source GUI for Redis
 
-[《瑞吉外卖》Redis笔记](/blog/reggie-doc/doc/redis/index.md)
+[《瑞吉外卖》Redis笔记](../blog/reggie-doc/doc/redis/index.md)

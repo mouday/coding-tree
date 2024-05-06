@@ -54,6 +54,7 @@ export default defineConfig({
           { text: "前端Demo", link: "https://mouday.github.io/front-end-demo/" },
           { text: "学习笔记", link: "https://mouday.github.io/LearningNote/" },
           { text: "SpringBoot Demo", link: "https://mouday.github.io/spring-boot-demo/" },
+          { text: "全栈爱好者周刊", link: "/weekly/" },
         ],
       },
     ],

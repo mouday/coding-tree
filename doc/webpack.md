@@ -2,13 +2,13 @@
 
 学习笔记
 
-- [Webpack4实战教程](/blog/webpack/index.md)
+- [Webpack4实战教程](../blog/webpack/index.md)
 
-- [Webpack5实战教程](blog/webpack/webpack5.md)
+- [Webpack5实战教程](../blog/webpack/webpack5.md)
 
-- [webpack-loader](blog/webpack/webpack-loader.md)
+- [webpack-loader](../blog/webpack/webpack-loader.md)
 
-- [webpack-plugin](blog/webpack/webpack-plugin.md)
+- [webpack-plugin](../blog/webpack/webpack-plugin.md)
 
 中文文档：
 

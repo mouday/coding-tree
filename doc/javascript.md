@@ -1,6 +1,6 @@
 # JavaScript
 
-[前端学习路线图](/blog/javascript/javascript-learn-road.md)
+[前端学习路线图](../blog/javascript/javascript-learn-road.md)
 
 ## 通用第三方库
 

@@ -44,7 +44,18 @@ export default defineConfig({
     nav: [
       // { text: "Home", link: "/" },
       { text: "软考", link: "/ruankao/" },
+
       { text: "在线工具箱", link: "https://mouday.github.io/tools/" },
+      {
+        text: "其他",
+        items: [
+          { text: "CSDN", link: "https://blog.csdn.net/mouday" },
+          { text: "程序员导航", link: "https://mouday.github.io/hao123/" },
+          { text: "前端Demo", link: "https://mouday.github.io/front-end-demo/" },
+          { text: "学习笔记", link: "https://mouday.github.io/LearningNote/" },
+          { text: "SpringBoot Demo", link: "https://mouday.github.io/spring-boot-demo/" },
+        ],
+      },
     ],
 
     socialLinks: [
@@ -105,7 +116,7 @@ export default defineConfig({
     ],
   },
   docFooter: {
-    prev: '上一页',
-    next: '下一页',
+    prev: "上一页",
+    next: "下一页",
   },
 });

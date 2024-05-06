@@ -8,6 +8,7 @@ export default defineConfig({
   title: "Coding Tree",
   description: "编程学习路上的笔记与知识整理收集",
   base: "/coding-tree/",
+  ignoreDeadLinks: true,
   lastUpdated: true,
   head: [["link", { rel: "icon", href: "/coding-tree/favicon.ico" }]],
   sitemap: {

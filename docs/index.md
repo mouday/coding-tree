@@ -19,14 +19,6 @@ hero:
       text: 编程语言
       link: /doc/
 
-    - theme: alt
-      text: markdown-examples
-      link: /markdown-examples
-
-    - theme: alt
-      text: API Examples
-      link: /api-examples
-
 features:
   - title: 编程语言
     details: 学习编程语言：Java、Python、Golang、JavaScript

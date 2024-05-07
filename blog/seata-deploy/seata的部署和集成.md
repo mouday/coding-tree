@@ -133,7 +133,7 @@ metrics.exporterPrometheusPort=9898
 
 这些表主要记录全局事务、分支事务、全局锁信息：
 
-```mysql
+```sql
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;

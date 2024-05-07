@@ -296,3 +296,5 @@ Network security 网络安全
 Information security 信息安全
 
 Content security 内容安全
+
+feasibility 可行性

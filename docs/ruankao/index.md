@@ -1,7 +1,5 @@
 # 软考笔记（2024年5月）
 
-
-
 | 目录 | 选择题 | 案例分析题 | 论文写作 | 合计 |
 | - | - | - | - | - |
 | [第1章 信息化发展](./chapter-1) | | | | |
@@ -893,3 +891,7 @@ CCB决定是否变更项目基准
 
 
 https://www.bilibili.com/video/BV1wh4y1M74f/?p=62&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+
+
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=63&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

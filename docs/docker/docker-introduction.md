@@ -7,7 +7,8 @@
 - Docker允许开发中将应用、Deps依赖、Libs函数库、配置一起`打包`，形成可移植`镜像`
 - Docker应用运行在`容器`中，使用沙箱机制，相互`隔离`
 
-![](img/docker.png)
+
+![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/08/huwuwkg.png)
 
 ## 2、Docker和虚拟机的区别
 
@@ -16,7 +17,7 @@ Docker和虚拟机的差异：
 - docker是一个系统进程；虚拟机是在操作系统中的操作系统
 - docker体积小、启动速度快、性能好；虚拟机体积大、启动速度慢、性能一般
 
-![](img/docker-compare-vm.png)
+![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/08/j4fu2ih.png)
 
 ## 3、Docker架构
 
@@ -35,4 +36,4 @@ Docker是一个CS架构的程序：
 - 服务端(server)：Docker守护进程，负责处理Docker指令，管理镜像、容器等
 - 客户端(client)：通过命令或RestAPI向Docker服务端发送指令。可以在本地或远程向服务端发送指令。
 
-![](img/docker-cs.png)
+![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/08/2ra0905.png)

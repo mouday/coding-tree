@@ -581,13 +581,6 @@ CMMI连续式分组：
 2. 凸显模式：（权利、紧迫度、合法性）
 3. 相关方立方体 （三维标准）
 
-三点估算正态分布：
-
-- 34.13% 
-- 13.59%
-- 2.14%
-
-口诀：三世一生，一生无酒，情人节
 
 项目集要分为 3 个主要阶段来实施:
 1. 项目集定义阶段 。 为达成预期成果构建和批准项目集，制定项目集线路图，制定项目 评估和`项目集章程` 。 上述内容批准后，则要制订项目集管理计划 。
@@ -915,6 +908,8 @@ critical path  关键路径
 - 效益移交
 - 效益维持
 
+
+
 https://www.bilibili.com/video/BV1wh4y1M74f/?p=62&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 
@@ -922,3 +917,6 @@ https://www.bilibili.com/video/BV1wh4y1M74f/?p=62&spm_id_from=pageDriver&vd_sour
 https://www.bilibili.com/video/BV1wh4y1M74f/?p=63&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
 
 
+
+
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=65&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

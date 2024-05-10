@@ -297,4 +297,14 @@ Information security 信息安全
 
 Content security 内容安全
 
-feasibility 可行性
+Feasibility 可行性
+
+Critical Path  关键路径
+
+Schedule management 进度管理
+
+Procurement Management 采购管理
+
+Change management 变更管理
+
+Knowledge management 知识管理

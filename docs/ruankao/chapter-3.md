@@ -137,7 +137,7 @@ IT 治理标准 ISO/IEC 38500 规定治理机构应通过评估、指导和监�
 
 ![](https://cdn.jsdelivr.net/gh/mouday/img/2024/03/21/shoom2k.png)
 
-10、 IT审计风险主要包括:
+10、 `IT审计风险`主要包括:
 - 固有风险
 - 控制风险
 - 检查风险

@@ -899,13 +899,4 @@ CCB决定是否变更项目基准
 - 在传统项目中，质量管理通常是特定团队成员的职责。
 
 
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=62&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
-
-
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=63&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
-
-
-
-https://www.bilibili.com/video/BV1wh4y1M74f/?p=65&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=66&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

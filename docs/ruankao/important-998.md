@@ -1619,3 +1619,4 @@ V模型的对应关系
 
 软考高级-信息项目管理师【10大管理、5个过程组、49个过程】概括性知识点整理
 https://mp.weixin.qq.com/s/N29Y3Oi2nwbPUEpDMUxcLA
+

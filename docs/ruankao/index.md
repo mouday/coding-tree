@@ -28,6 +28,7 @@
 - [第24章 法律法规与标准规范](./chapter-24.md) 
 - [知识整合](./important-998.md)
 - [英文词汇](./english-999.md)
+- [论文](./paper-25.md)
 
 ![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/10/wlbd137.png)
 
@@ -898,5 +899,15 @@ CCB决定是否变更项目基准
 - 在敏捷型项目中，整个项目期间的质量管理由所有团队成员执行:
 - 在传统项目中，质量管理通常是特定团队成员的职责。
 
+组织文化是组织最为本质的体现之一，是组织发展的原动力
 
 https://www.bilibili.com/video/BV1wh4y1M74f/?p=66&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+
+https://www.bilibili.com/video/BV1wh4y1M74f/?p=75&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+项目建议书内容
+1. 项目的必要性
+2. 项目的市场预测
+3. 项目预期成果的市场预测
+4. 项目建设必需的条件

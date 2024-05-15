@@ -3,6 +3,8 @@
 信息系统项目管理师历年真题解析汇总
 https://zhuanlan.zhihu.com/p/553080329
 
+![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/15/od5p7ej.png)
+
 |时间 | 题目 | 子题目
 |- |- | -
 2023年05月 | 风险管理 | 风险识别和风险应对、风险登记册

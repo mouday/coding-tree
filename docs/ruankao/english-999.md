@@ -308,3 +308,5 @@ Procurement Management 采购管理
 Change management 变更管理
 
 Knowledge management 知识管理
+
+PMBOK 项目管理知识体系 Project Management Body Of Knowledge

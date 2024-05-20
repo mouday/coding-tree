@@ -49,8 +49,8 @@ PMBOK 项目管理知识体系( Project Management Body Of Knowledge, PMBOK)
 
 1. 项目超过时限
 2. 项目成本超支
-3. 项目质 量低劣
-4. 返 工
+3. 项目质量低劣
+4. 返工
 5. 项目范围失控
 6. 组织声誉受损
 7. 干系人不满意

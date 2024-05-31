@@ -48,13 +48,26 @@ export default defineConfig({
 
       { text: "在线工具箱", link: "https://mouday.github.io/tools/" },
       {
+        text: "Java",
+        items: [
+          { text: "Dubbo", link: "/dubbo/" },
+          { text: "Zookeeper", link: "/zookeeper/" },
+        ],
+      },
+      {
         text: "其他",
         items: [
           { text: "CSDN", link: "https://blog.csdn.net/mouday" },
           { text: "程序员导航", link: "https://mouday.github.io/hao123/" },
-          { text: "前端Demo", link: "https://mouday.github.io/front-end-demo/" },
+          {
+            text: "前端Demo",
+            link: "https://mouday.github.io/front-end-demo/",
+          },
           { text: "学习笔记", link: "https://mouday.github.io/LearningNote/" },
-          { text: "SpringBoot Demo", link: "https://mouday.github.io/spring-boot-demo/" },
+          {
+            text: "SpringBoot Demo",
+            link: "https://mouday.github.io/spring-boot-demo/",
+          },
           { text: "全栈爱好者周刊", link: "/weekly/" },
         ],
       },

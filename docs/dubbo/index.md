@@ -187,6 +187,8 @@ Dubbo官方推荐使用Zookeeper作为注册中心
 
 ![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/30/xr88yl8.png)
 
+[docs/zookeeper/install.md]
+
 2、Dubbo快速入门
 
 ## Dubbo 高级特性

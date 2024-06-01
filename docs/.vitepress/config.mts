@@ -112,12 +112,16 @@ export default defineConfig({
 
           // 通过正则提取文件名中的数字
           function getOrder(item: string): number {
+            if(item == 'index.md'){
+              return 0;
+            }
+
             let res = item.match(/(?<order>\d+)/);
 
             if (res && res.groups) {
               return parseInt(res.groups.order);
             } else {
-              return 0;
+              return 999;
             }
           }
 

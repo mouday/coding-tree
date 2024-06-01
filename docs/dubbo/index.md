@@ -362,4 +362,16 @@ $ mvn tomcat7:run
 
 [dubbo-admin](./dubbo-admin.md)
 
+
+目前用到的端口汇总
+- zookeeper：2181
+- 服务提供方dubbo-service tomcat：9000
+- 服务提供方dubbo-service dubbo：20880
+- 服务提供方dubbo-service qos.port：22222
+- 服务调用方dubbo-web tomcat：8000
+- 服务调用方dubbo-web qos.port：33333
+- Dubbo Admin：8080
+
+2、dubbo 常用高级配置
+
 https://www.bilibili.com/video/BV1VE411q7dX?p=8&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

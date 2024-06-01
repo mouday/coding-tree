@@ -191,7 +191,175 @@ Dubbo官方推荐使用Zookeeper作为注册中心
 
 2、Dubbo快速入门
 
+实现步骤：
+
+1. 创建服务提供者Provider模块
+2. 创建服务消费者Consumer模块
+3. 在服务提供者模块编写 UserServiceImpl 提供服务
+4. 在服务消费者中的 UserController 远程调用UserServiceImpl 提供的服务
+5. 分别启动两个服务，测试
+
+![](https://cdn.jsdelivr.net/gh/mouday/img/2024/06/01/bj2548d.png)
+
+(1) spring和springmvc整合后代码
+
+项目结构
+
+```bash
+$ tree -I target
+.
+├── dubbo-service
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── com
+│       │   │       └── itheima
+│       │   │           └── service
+│       │   │               ├── UserService.java
+│       │   │               └── impl
+│       │   │                   └── UserServiceImpl.java
+│       │   └── resources
+│       │       ├── log4j.properties
+│       │       └── spring
+│       │           └── applicationContext.xml
+│       └── test
+│           └── java
+├── dubbo-web
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── com
+│       │   │       └── itheima
+│       │   │           └── controller
+│       │   │               └── UserController.java
+│       │   ├── resources
+│       │   │   ├── log4j.properties
+│       │   │   └── spring
+│       │   │       └── springmvc.xml
+│       │   └── webapp
+│       │       └── WEB-INF
+│       │           └── web.xml
+│       └── test
+│           └── java
+└── logs
+
+```
+
+安装service模块
+
+```bash
+$ cd dubbo-service
+
+$ mvn install
+```
+
+启动web服务
+
+```bash
+$ cd dubbo-web
+
+$ mvn tomcat7:run
+```
+
+接口请求测试
+
+```
+GET http://localhost:8000/user/sayHello.do
+
+hello dubbo!~
+```
+
+
+（2）dubbo快速入门
+
+项目结构
+
+```
+$ tree -I target
+.
+├── dubbo-interface
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── com
+│       │   │       └── itheima
+│       │   │           └── service
+│       │   │               └── UserService.java
+│       │   └── resources
+│       └── test
+│           └── java
+├── dubbo-service
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── com
+│       │   │       └── itheima
+│       │   │           └── service
+│       │   │               └── impl
+│       │   │                   └── UserServiceImpl.java
+│       │   ├── resources
+│       │   │   ├── log4j.properties
+│       │   │   └── spring
+│       │   │       └── applicationContext.xml
+│       │   └── webapp
+│       │       └── WEB-INF
+│       │           └── web.xml
+│       └── test
+│           └── java
+├── dubbo-web
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── com
+│       │   │       └── itheima
+│       │   │           └── controller
+│       │   │               └── UserController.java
+│       │   ├── resources
+│       │   │   ├── log4j.properties
+│       │   │   └── spring
+│       │   │       └── springmvc.xml
+│       │   └── webapp
+│       │       └── WEB-INF
+│       │           └── web.xml
+│       └── test
+│           └── java
+└── logs
+
+```
+
+启动项目
+
+```bash
+# 1、安装共同的依赖
+cd dubbo-interface
+mvn install
+
+
+# 2、启动service服务
+$ cd dubbo-service
+
+$ mvn tomcat7:run
+
+
+# 3、启动web服务
+$ cd dubbo-web
+
+$ mvn tomcat7:run
+```
+
+
 ## Dubbo 高级特性
 
+- dubbo-admin管理平台
+- dubbo 常用高级配置
+
+1、dubbo-admin管理平台
+
+[dubbo-admin](./dubbo-admin.md)
 
 https://www.bilibili.com/video/BV1VE411q7dX?p=8&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -130,7 +130,7 @@ server.port=8082
 
 ![](https://cdn.jsdelivr.net/gh/mouday/img/2024/06/01/u8uengw.png)
 
-A:输入的查询条件com.itheima.service.UserService
+A:输入的查询条件 `com.itheima.service.UserService`
 
 B:搜索类型，主要分为【按服务名】【按IP地址】【按应用】三种类型查询
 
@@ -138,7 +138,7 @@ C:搜索结果
 
 **3.1.4 dubo-admin查看详情**
 
-我们查看com.itheima.service.UserService （服务提供者）的具体详细信息，包含【元数据信息】
+我们查看`com.itheima.service.UserService` （服务提供者）的具体详细信息，包含【元数据信息】
 
 **1）点击详情**
 
@@ -159,7 +159,7 @@ B区域：主要包含了生产者、消费者一些基本信息
 <dubbo:protocol port="20880"/>
 
 <!-- 元数据配置 -->
-<dubbo:metadata-report address="zookeeper://192.168.149.135:2181" />
+<dubbo:metadata-report address="zookeeper://127.0.0.1:2181" />
 ```
 
 重新启动生产者，再次打开Dubbo-Admin

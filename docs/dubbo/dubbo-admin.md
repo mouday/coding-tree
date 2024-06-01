@@ -35,7 +35,7 @@ https://github.com/apache/dubbo-admin
 
 **4、修改配置文件**
 
-解压后我们进入…\dubbo-admin-develop\dubbo-admin-server\src\main\resources目录，找到 **application.properties** 配置文件 进行配置修改
+解压后我们进入目录，找到 **application.properties** 配置文件 进行配置修改
 
 ```
 dubbo-admin-server/src/main/resources/application.properties
@@ -56,7 +56,7 @@ admin.metadata-report.address=zookeeper://127.0.0.1:2181
 - `admin.config-center` 配置中心
 - `admin.metadata-report.address` 元数据中心
 
-**5、打包前端代码**
+**5、先打包前端代码**
 
 dubbo-admin-ui 目录下执行命令
 
@@ -71,7 +71,7 @@ npm install
 npm run build
 ```
 
-**6、打包项目**
+**6、再打包后端代码**
 
 在 dubbo-admin-develop 目录执行打包命令
 

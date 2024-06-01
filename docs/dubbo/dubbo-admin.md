@@ -99,10 +99,16 @@ java -jar  dubbo-admin-server/target/dubbo-admin-server-0.1.jar
 
 **8、访问**
 
-浏览器输入。用户名密码都是root
+浏览器输入。用户名密码都是`root`
 
 ```
 http://localhost:8081/
+```
+如果端口被占用，可以修改端口号
+
+```bash
+# application.properties
+server.port=8082
 ```
 
 ![](https://cdn.jsdelivr.net/gh/mouday/img/2024/06/01/27x3ehs.png)

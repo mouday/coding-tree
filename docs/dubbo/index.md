@@ -360,6 +360,13 @@ $ mvn tomcat7:run
 
 1、dubbo-admin管理平台
 
+dubbo-admin 管理平台，是图形化的服务管理页面
+从注册中心中获取到所有的提供者 / 消费者进行配置管理
+路由规则、动态配置、服务降级、访问控制、权重调整、负载均衡等管理功能
+dubbo-admin 是一个前后端分离的项目。前端使用vue，后端使用springboot
+安装 dubbo-admin 其实就是部署该项目
+
+
 [dubbo-admin](./dubbo-admin.md)
 
 
@@ -373,5 +380,142 @@ $ mvn tomcat7:run
 - Dubbo Admin：8080
 
 2、dubbo 常用高级配置
+
+- 序列化
+
+
+（1）序列化
+
+两个机器传输数据，如何传输Java对象？
+
+![](https://mouday.github.io/img/2024/06/01/qtez0sf.png)
+
+dubbo 内部已经将序列化和反序列化的过程内部封装了
+我们只需要在定义pojo类时实现Serializable接口即可
+一般会定义一个公共的pojo模块，让生产者和消费者都依赖该模块。
+
+实体对象要传输，需要实现`Serializable`接口
+
+```java
+public class User implements Serializable {
+    private int id;
+    private String username;
+    private String password;
+}
+```
+
+项目结构
+
+```
+$ tree -I target
+.
+├── dubbo-interface
+│   ├── dubbo-interface.iml
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── com
+│       │   │       └── itheima
+│       │   │           └── service
+│       │   │               └── UserService.java
+│       │   └── resources
+│       └── test
+│           └── java
+├── dubbo-pojo
+│   ├── [Help
+│   ├── dubbo-pojo.iml
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── com
+│       │   │       └── itheima
+│       │   │           └── pojo
+│       │   │               └── User.java
+│       │   └── resources
+│       └── test
+│           └── java
+├── dubbo-service
+│   ├── dubbo-service.iml
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── com
+│       │   │       └── itheima
+│       │   │           └── service
+│       │   │               └── impl
+│       │   │                   └── UserServiceImpl.java
+│       │   ├── resources
+│       │   │   ├── log4j.properties
+│       │   │   └── spring
+│       │   │       └── applicationContext.xml
+│       │   └── webapp
+│       │       └── WEB-INF
+│       │           └── web.xml
+│       └── test
+│           └── java
+├── dubbo-web
+│   ├── dubbo-web.iml
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── com
+│       │   │       └── itheima
+│       │   │           └── controller
+│       │   │               └── UserController.java
+│       │   ├── resources
+│       │   │   ├── log4j.properties
+│       │   │   └── spring
+│       │   │       └── springmvc.xml
+│       │   └── webapp
+│       │       └── WEB-INF
+│       │           └── web.xml
+│       └── test
+│           └── java
+└── logs
+```
+
+启动项目
+
+
+```bash
+
+# 1、安装实体模块
+cd dubbo-pojo
+
+mvn install
+
+# 2、安装接口模块
+cd dubbo-interface
+mvn install
+
+# 3、启动服务模块 端口：9000
+cd dubbo-service
+mvn tomcat7:run
+
+# 4、启动web模块 端口：8000
+cd dubbo-web
+mvn tomcat7:run
+```
+
+请求测试
+
+```
+GET http://127.0.0.1:8000/user/find.do?id=666
+```
+
+返回数据
+
+```json
+{
+    "id":1,
+    "username":"zhangsan",
+    "password":"123"
+}
+```
+
 
 https://www.bilibili.com/video/BV1VE411q7dX?p=8&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

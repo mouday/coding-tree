@@ -1,12 +1,14 @@
 # dubbo-admin
 
+github: https://github.com/apache/dubbo-admin
+
 ## 一、dubbo-admin安装
 
 **1、环境准备**
 
 dubbo-admin 是一个前后端分离的项目。前端使用vue，后端使用springboot，安装 dubbo-admin 其实就是部署该项目。我们将dubbo-admin安装到开发环境上。要保证开发环境有jdk，maven，nodejs
 
-安装node**(如果当前机器已经安装请忽略)**
+安装node **(如果当前机器已经安装请忽略)**
 
 因为前端工程是用vue开发的，所以需要安装node.js，node.js中自带了npm，后面我们会通过npm启动
 
@@ -15,10 +17,6 @@ dubbo-admin 是一个前后端分离的项目。前端使用vue，后端使用sp
 ```
 https://nodejs.org/en/
 ```
-
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/06/01/2iyxg2r.png)
-
-
 
 **2、下载 Dubbo-Admin**
 
@@ -81,13 +79,14 @@ mvn --projects dubbo-admin-server clean package -Dmaven.test.skip=true
 
 输出结果
 ```bash
-[INFO] ------------------------------------------------------------------------
+[INFO] ----------------------------------------------
 [INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
+[INFO] ----------------------------------------------
 [INFO] Total time:  8.200 s
 [INFO] Finished at: 2024-06-01T17:02:06+08:00
-[INFO] ------------------------------------------------------------------------
+[INFO] ----------------------------------------------
 ```
+
 **7、启动后端**
 
 

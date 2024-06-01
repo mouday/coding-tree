@@ -73,14 +73,14 @@ QPS >= 并发连接数 >= TPS
 
 3、架构演进
 
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/30/d1ozq37.png)
+![](https://mouday.github.io//img/2024/05/30/d1ozq37.png)
 
 Dubbo 是 SOA时代的产物，SpringCloud 是微服务时代的产物
 
 
 (1) 单体架构
 
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/30/jyicqlv.png)
+![](https://mouday.github.io//img/2024/05/30/jyicqlv.png)
 
 优点：
 - 简单：开发部署都很方便，小型项目首选
@@ -94,7 +94,7 @@ Dubbo 是 SOA时代的产物，SpringCloud 是微服务时代的产物
 
 (2) 垂直架构
 
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/30/91rlpe8.png)
+![](https://mouday.github.io//img/2024/05/30/91rlpe8.png)
 
 垂直架构是指将单体架构中的多个模块拆分为多个独立的项目。形成多个独立的单体架构。
 
@@ -110,7 +110,7 @@ Dubbo 是 SOA时代的产物，SpringCloud 是微服务时代的产物
 
 （3）分布式架构
 
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/30/deauyho.png)
+![](https://mouday.github.io//img/2024/05/30/deauyho.png)
 
 分布式架构是指在垂直架构的基础上，将公共业务模块抽取出来，作为独立的服务，供其他调用者消费，以实现服务的共享和重用。
 
@@ -124,7 +124,7 @@ Dubbo 是 SOA时代的产物，SpringCloud 是微服务时代的产物
 
 (4)SOA架构
 
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/30/ozjs1bk.png)
+![](https://mouday.github.io//img/2024/05/30/ozjs1bk.png)
 
 - SOA：（Service-Oriented Architecture，面向服务的架构）是一个组件模型，它将应用程序的不同功能单元（称为服务）进行拆分，并通过这些服务之间定义良好的接口和契约联系起来。
 - ESB：(Enterparise Servce Bus) 企业服务总线，服务中介。主要是提供了一个服务于服务之间的交互。ESB 包含的功能如：负载均衡，流量控制，加密处理，服务的监控，异常处理，监控告急等等。
@@ -134,7 +134,7 @@ Dubbo 是 SOA时代的产物，SpringCloud 是微服务时代的产物
 
 (5)微服务架构
 
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/30/24mxoq1.png)
+![](https://mouday.github.io//img/2024/05/30/24mxoq1.png)
 
 微服务架构是在 SOA 上做的升华，微服务架构强调的一个重点是“业务需要彻底的组件化和服务化”，原有的单个业务系统会拆分为多个可以独立开发、设计、运行的小应用。这些小应用之间通过服务完成交互和集成。
 
@@ -165,7 +165,7 @@ Dubbo是`阿里巴巴`公司开源的一个高性能、轻量级的 Java RPC 框
 
 2、Dubbo架构
 
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/30/2q36soc.png)
+![](https://mouday.github.io//img/2024/05/30/2q36soc.png)
 
 节点角色说明：
 
@@ -185,7 +185,7 @@ Dubbo是`阿里巴巴`公司开源的一个高性能、轻量级的 Java RPC 框
 
 Dubbo官方推荐使用Zookeeper作为注册中心
 
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/05/30/xr88yl8.png)
+![](https://mouday.github.io//img/2024/05/30/xr88yl8.png)
 
 [Zookeeper安装](../zookeeper/install.md)
 
@@ -199,7 +199,7 @@ Dubbo官方推荐使用Zookeeper作为注册中心
 4. 在服务消费者中的 UserController 远程调用UserServiceImpl 提供的服务
 5. 分别启动两个服务，测试
 
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/06/01/bj2548d.png)
+![](https://mouday.github.io//img/2024/06/01/bj2548d.png)
 
 (1) spring和springmvc整合后代码
 

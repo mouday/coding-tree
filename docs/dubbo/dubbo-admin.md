@@ -115,7 +115,7 @@ admin.root.user.password=root
 server.port=8082
 ```
 
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/06/01/27x3ehs.png)
+![](https://mouday.github.io/img/2024/06/01/27x3ehs.png)
 
 ## 二、dubbo-admin简单使用
 
@@ -128,7 +128,7 @@ server.port=8082
 
 **2、查询结果**
 
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/06/01/u8uengw.png)
+![](https://mouday.github.io/img/2024/06/01/u8uengw.png)
 
 A:输入的查询条件 `com.itheima.service.UserService`
 
@@ -167,4 +167,4 @@ B区域：主要包含了生产者、消费者一些基本信息
 这样我们的元数据信息就出来了
 
 
-![](https://cdn.jsdelivr.net/gh/mouday/img/2024/06/01/bdsj1dr.png)
+![](https://mouday.github.io/img/2024/06/01/bdsj1dr.png)

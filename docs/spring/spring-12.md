@@ -1,7 +1,3 @@
-[返回目录](/blog/spring/index.md)
-
-
-
 # 十二、数据校验：Validation
 
 

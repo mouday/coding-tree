@@ -1,4 +1,3 @@
-[返回目录](/blog/spring/index.md)
 
 # 十一、国际化：i18n
 

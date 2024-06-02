@@ -1,5 +1,3 @@
-[返回目录](/blog/spring/index.md)
-
 # 五、容器 IoC-基于注解管理 Bean
 
 从 Java 5 开始，Java 增加了对注解（Annotation）的支持，它是代码中的一种特殊标记，可以在编译、类加载和运行时被读取，执行相应的处理。开发人员可以通过注解在不改变原有代码和逻辑的情况下，在源代码中嵌入补充信息。
@@ -59,23 +57,22 @@ spring6-ioc-annotation
 
 ## 2、开启组件扫描
 
-Spring 默认不使用注解装配 Bean，因此我们需要在 Spring 的 XML 配置中，通过 <context:component-scan> 元素开启 Spring Beans 的自动扫描功能。开启此功能后，Spring 会自动从扫描指定的包（base-package 属性设置）及其子包下的所有类，如果类上使用了 @Component 注解，就将该类装配到容器中。
+Spring 默认不使用注解装配 Bean，因此我们需要在 Spring 的 XML 配置中，通过 `context:component-scan` 元素开启 Spring Beans 的自动扫描功能。开启此功能后，Spring 会自动从扫描指定的包（base-package 属性设置）及其子包下的所有类，如果类上使用了 `@Component` 注解，就将该类装配到容器中。
+
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
+
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-    http://www.springframework.org/schema/context
-            http://www.springframework.org/schema/context/spring-context.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <!--开启组件扫描功能-->
     <context:component-scan base-package="com.atguigu.spring6"></context:component-scan>
 </beans>
 ```
 
-注意：在使用 <context:component-scan> 元素开启自动扫描功能前，首先需要在 XML 配置的一级标签 <beans> 中添加 context 相关的约束。
+注意：在使用 `<context:component-scan/>` 元素开启自动扫描功能前，首先需要在 XML 配置的一级标签 `<beans/>` 中添加 context 相关的约束。
 
 **情况一：最基本的扫描方式**
 

@@ -1,4 +1,3 @@
-[返回目录](/blog/spring/index.md)
 
 # 六、原理-手写IoC
 

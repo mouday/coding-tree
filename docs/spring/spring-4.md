@@ -1,4 +1,3 @@
-[返回目录](/blog/spring/index.md)
 
 # 四、容器IoC-基于XML管理Bean
 

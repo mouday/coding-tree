@@ -1,5 +1,3 @@
-[返回目录](/blog/spring/index.md)
-
 # 十三、提前编译：AOT
 
 ### 11.1、AOT概述

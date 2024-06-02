@@ -50,6 +50,7 @@ export default defineConfig({
       {
         text: "Java",
         items: [
+          { text: "Spring", link: "/spring/" },
           { text: "Dubbo", link: "/dubbo/" },
           { text: "Zookeeper", link: "/zookeeper/" },
         ],

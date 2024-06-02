@@ -1,4 +1,3 @@
-[返回目录](/blog/spring/index.md)
 
 # 十、资源操作：Resources
 

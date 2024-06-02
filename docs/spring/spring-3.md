@@ -1,5 +1,3 @@
-[返回目录](/blog/spring/index.md)
-
 # 三、容器IoC
 
 IoC Inversion of Control 控制反转

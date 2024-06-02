@@ -1,6 +1,4 @@
-[返回目录](/blog/java/spring-boot/index.md)
-
-## 1、SpringBoot入门案例
+# 1、SpringBoot入门案例
 
 创建项目
 

@@ -91,8 +91,6 @@ file: ------该前缀用于从文件系统中读取资源
 
 **创建一个maven子模块spring6-resources，配置Spring依赖（参考前面）**
 
-![image-20221207102315185](images\spring6\image-20221207102315185.png)
-
 ```java
 package com.atguigu.spring6.resources;
 
@@ -148,7 +146,6 @@ ClassPathResource 用来访问类加载路径下的资源，相对于其他的 R
 
 **实验：在类路径下创建文件atguigu.txt，使用ClassPathResource 访问**
 
-![image-20221207103020854](images\spring6\image-20221207103020854.png)
 
 ```java
 package com.atguigu.spring6.resources;
@@ -246,8 +243,6 @@ InputStreamResource 是给定的输入流(InputStream)的Resource实现。它的
 ### 8.4、Resource类图
 
 上述Resource实现类与Resource顶级接口之间的关系可以用下面的UML关系模型来表示
-
-![image-20221206232920494](images\spring6\image-20221206232920494.png)
 
 
 

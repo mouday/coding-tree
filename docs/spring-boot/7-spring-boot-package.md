@@ -1,6 +1,6 @@
 [返回目录](/blog/java/spring-boot/index.md)
 
-# 打包与运行
+# 7、打包与运行
 
 ```bash
 # 打包

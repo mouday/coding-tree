@@ -1,5 +1,3 @@
-[返回目录](/blog/react/atguigu-react)
-
 # React 基础篇-基于CDN
 
 ## 1、React 入门
@@ -14,9 +12,9 @@
 - 英文官网 [https://react.dev/](https://react.dev/)
 - 中文官网 [https://react.docschina.org/](https://react.docschina.org/)
 
-### 1.2、js 回顾
+### 1.2、`js` 回顾
 
-直接使用 js 操作 DOM 的示例
+直接使用 `js` 操作 DOM 的示例
 
 ```html
 <ul id="list"></ul>
@@ -96,7 +94,7 @@
 </div>
 ```
 
-为了开发环境加载依赖更快，将 js 文件下载到本地，统一采用本地加载的方式
+为了开发环境加载依赖更快，将 `js` 文件下载到本地，统一采用本地加载的方式
 
 ```html
 <!-- react 核心库 -->
@@ -114,7 +112,8 @@
 
 ### 2.2、创建虚拟 DOM
 
-方式一：babel + jsx
+
+方式一：`babel + jsx`
 
 ```html
 <!-- React 容器 -->
@@ -133,10 +132,13 @@
 渲染结果
 
 ```html
-<div id="root"><h1 id="title">Hello World!</h1></div>
+<div id="root">
+  <h1 id="title">Hello World!</h1>
+</div>
 ```
 
-方式二：js
+方式二：`js`
+
 
 ```html
 <!-- React 容器 -->
@@ -158,7 +160,9 @@
 渲染结果
 
 ```html
-<div id="root"><h1 id="title">Hello World!</h1></div>
+<div id="root">
+  <h1 id="title">Hello World!</h1>
+</div>
 ```
 
 ### 2.3、虚拟 DOM 与真实 DOM
@@ -167,7 +171,7 @@
 2. 虚拟 DOM 较为轻量，真实 DOM 比较重，因为真实 DOM 上存在很多属性
 3. 虚拟 DOM 最终会被 React 转换为真实 DOM，呈现在页面上
 
-可以借助以下方式查看 js 对象
+可以借助以下方式查看 `js` 对象
 
 ```js
 // 方式一
@@ -181,18 +185,20 @@ debugger;
 
 ### 3.1、JSX
 
-JSX 全称：JavaScript XML
+JSX 全称：`JavaScript XML`
 
 JSX 语法规则：
 
+```
 1. 不需要引号，可以用小括号`()`包裹
-2. js 表达式用`{}`
+2. `js` 表达式用`{}`
 3. 类名不要用`class`，要用`className`
 4. 内联样式要用对象表达式 `style={{key: value}}`
-5. 内联样式的 key 需要使用小驼峰命名规则：需要使用`fontSize`表示`font-size`
+5. 内联样式的 `key` 需要使用小驼峰命名规则：需要使用`fontSize`表示`font-size`
 6. 只有一个根标签
 7. 标签必须闭合
-8. 标签首字母小写是 html 元素; 标签首字母大写是 React 组件
+8. 标签首字母小写是 `html` 元素; 标签首字母大写是 React 组件
+```
 
 示例
 
@@ -282,12 +288,12 @@ JSX 语法规则：
 
 ### 4.1、模块和组件
 
-- 模块：一个 js 文件
+- 模块：一个 `js` 文件
 - 组件：代码和资源的集合
 
 ### 4.2、开发者工具
 
-安装浏览器插件`React Developer Tools`
+安装浏览器插件 `React Developer Tools`
 
 ## 5、组件
 
@@ -401,7 +407,7 @@ s.study();
 
 ### 6.1、使用 state
 
-复习：js 原生事件绑定的 3 种方式
+复习：`js` 原生事件绑定的 3 种方式
 
 ```html
 <button id="btn1">按钮1</button>
@@ -1320,7 +1326,8 @@ console.log(currySum(1)(2)(3)); // 6
 
 react16生命周期
 
-![](img/react-component-life.png)
+
+![](https://mouday.github.io/img/2024/06/02/ewe5wg8.png)
 
 ```js
 class LifeComponent extends React.Component {
@@ -1547,10 +1554,10 @@ componentDidUpdate
 componentWillUnmount
 ```
 
-## 11、react18生命周期
+# 11、react18生命周期
 
-![](img/react-component-life-new.png)
 
+![](https://mouday.github.io/img/2024/06/02/pq8spx5.png)
 
 示例
 
@@ -1722,16 +1729,16 @@ root.render(<MyComponent age={19} />);
 
 挂载时
 
-```
+```js
 constructor
 getDerivedStateFromProps
-render            -- 重要，初始化渲染
-componentDidMount -- 重要，开启监听，发送ajax请求
+render            // 重要，初始化渲染
+componentDidMount // 重要，开启监听，发送ajax请求
 ```
 
 更新时
 
-```
+```js
 getDerivedStateFromProps
 shouldComponentUpdate
 render
@@ -1740,13 +1747,13 @@ componentDidUpdate
 ```
 
 卸载时
-```
-componentWillUnmount  -- 重要，收尾工作，如：清理定时器
+```js
+componentWillUnmount  // 重要，收尾工作，如：清理定时器
 ```
 
 即将废弃的钩子
 
-```
+```js
 componentWillMount
 componentWillReceiveProps
 componentWillUpdate

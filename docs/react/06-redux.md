@@ -14,8 +14,8 @@
 - 共享：某个组件的状态，需要让其他组件可以随时拿到
 - 通信：一个组件需要改变另一个组件的状态
 
-![](img/redux-flow.jpg)
 
+![](https://mouday.github.io/img/2024/06/02/1qb65ac.jpg)
 
 安装
 ```

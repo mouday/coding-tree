@@ -44,15 +44,19 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       // { text: "Home", link: "/" },
-      { text: "软考", link: "/ruankao/" },
+      { text: "前端", items: [{ text: "React", link: "/react/" }] },
 
       { text: "在线工具箱", link: "https://mouday.github.io/tools/" },
       {
         text: "Java",
         items: [
+          { text: "Java", link: "/java/" },
           { text: "Spring", link: "/spring/" },
+          { text: "SpringBoot", link: "/spring-boot/" },
+          { text: "MyBatis", link: "/mybatis/" },
           { text: "Dubbo", link: "/dubbo/" },
           { text: "Zookeeper", link: "/zookeeper/" },
+          { text: "Rabbitmq", link: "/rabbitmq/" },
         ],
       },
       {
@@ -70,6 +74,7 @@ export default defineConfig({
             link: "https://mouday.github.io/spring-boot-demo/",
           },
           { text: "全栈爱好者周刊", link: "/weekly/" },
+          { text: "软考", link: "/ruankao/" },
         ],
       },
     ],
@@ -113,7 +118,7 @@ export default defineConfig({
 
           // 通过正则提取文件名中的数字
           function getOrder(item: string): number {
-            if(item == 'index.md'){
+            if (item == "index.md") {
               return 0;
             }
 

@@ -1,6 +1,4 @@
-[返回目录](/blog/java/spring-boot/index.md)
-
-## 2、SpringBoot项目解析
+# 2、SpringBoot项目解析
 
 - parent
 - starter

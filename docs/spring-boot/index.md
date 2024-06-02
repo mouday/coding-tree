@@ -1,6 +1,6 @@
 [返回目录](/blog/java/java-learn-road.md)
 
-# spring-boot
+# SpringBoot
 
 [黑马程序员SpringBoot2全套视频教程](https://www.bilibili.com/video/BV15b4y1a7yG/)
 

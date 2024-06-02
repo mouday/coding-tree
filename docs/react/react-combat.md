@@ -1,6 +1,8 @@
 [返回目录](/blog/react/index.md)
 
-# React 项目实战(React 后台管理系统、TypeScript+React18)
+# React 项目实战
+
+(React 后台管理系统、TypeScript+React18)
 
 
 视频地址：https://www.bilibili.com/video/BV1FV4y157Zx

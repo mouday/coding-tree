@@ -10,13 +10,13 @@ RabbitMQ中的一些角色：
 - queue：队列，存储消息
 - virtualHost：虚拟主机，隔离不同租户的exchange、queue、消息的隔离
 
-![](img/rabbitmq.png)
+![](https://mouday.github.io/img/2024/06/02/zb7oih6.png)
 
 ## 2.2.RabbitMQ消息模型
 
 官方示例：https://www.rabbitmq.com/getstarted.html
 
-![](img/rabbitmq-demo.png)
+![](https://mouday.github.io/img/2024/06/02/zo24l4t.png)
 
 
 - 简单类型
@@ -33,7 +33,7 @@ RabbitMQ中的一些角色：
 
 简单队列模式的模型图：
 
-![](img/rabbitmq-hello-world.png)
+![](https://mouday.github.io/img/2024/06/02/ym0137k.png)
 
 官方的HelloWorld是基于最基础的消息队列模型来实现的，只包括三个角色：
 

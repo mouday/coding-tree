@@ -1,5 +1,3 @@
-[返回目录](/blog/rabbitmq/index)
-
 # SpringAMQP
 
 - Basic Queue 简单队列模型
@@ -30,8 +28,6 @@ SpringAMQP提供了三个功能：
 - queue：消息队列，负责接受并缓存消息
 - consumer：订阅队列，处理队列中的消息
 
-
-![](img/rabbitmq-hello-world.png)
 
 在父工程mq-demo中引入依赖
 
@@ -133,7 +129,7 @@ Work queues，也被称为（Task queues），任务模型。简单来说就是�
 
 可以提高消息处理速度，避免队列消息堆积
 
-![](img/rabbitmq-work-queue.png)
+![](https://mouday.github.io/img/2024/06/02/61ryg7y.png)
 
 ### 3.1、消息发送
 
@@ -213,7 +209,7 @@ Work模型的使用：
 
 发布订阅的模型如图：
 
-![](img/rabbitmq-publish-subscribe.png)
+![](https://mouday.github.io/img/2024/06/02/pfrkjxs.png)
 
 
 可以看到，在订阅模型中，多了一个exchange角色，而且过程略有变化：
@@ -237,7 +233,8 @@ Fanout，英文翻译是扇出，我觉得在MQ中叫广播更合适。
 Fanout Exchange 会将接收到的消息广播到每一个跟其绑定的queue
 
 
-![](img/rabbitmq-fanout.png)
+
+![](https://mouday.github.io/img/2024/06/02/jstt12n.png)
 
 在广播模式下，消息发送流程是这样的：
 
@@ -251,8 +248,8 @@ Fanout Exchange 会将接收到的消息广播到每一个跟其绑定的queue
 
 Spring提供了一个接口Exchange，来表示所有不同类型的交换机：
 
-![](img/rabbitmq-fanout-exchange.png)
 
+![](https://mouday.github.io/img/2024/06/02/e2s6tpf.png)
 
 在consumer中创建一个类，声明队列和交换机：
 
@@ -371,9 +368,10 @@ public void listenFanoutQueue2(String msg) {
 
 Direct Exchange 会将接收到的消息根据规则路由到指定的Queue，因此称为路由模式（routes）。
 
-![](img/rabbimq-direct.png)
 
- 在Direct模型下：
+![](https://mouday.github.io/img/2024/06/02/e9chpp2.png)
+
+在Direct模型下：
 
 - 队列与交换机的绑定，不能是任意绑定了，而是要指定一个`RoutingKey`（路由key）
 - 消息的发送方在 向 Exchange发送消息时，也必须指定消息的 `RoutingKey`。
@@ -473,7 +471,8 @@ public void testSendDirectExchange() {
 
 图示：
 
- ![](img/rabbitmq-topic.png)
+
+![](https://mouday.github.io/img/2024/06/02/qbxx60l.png)
 
 解释：
 

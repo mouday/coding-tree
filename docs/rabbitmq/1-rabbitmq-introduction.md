@@ -1,5 +1,3 @@
-[返回目录](/blog/rabbitmq/index)
-
 # 认识RabbitMQ
 
 ## 1、同步和异步通讯

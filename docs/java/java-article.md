@@ -1,5 +1,7 @@
 # Java相关文章
 
+[2.5w字+36张图+1周时间：爆肝操作系统核心知识点！](https://mp.weixin.qq.com/s/G9ZqwEMxjrG5LbgYwM5ACQ)
+
 
 - [Thymeleaf 入门到吃灰 ](https://www.cnblogs.com/msi-chen/p/10974009.html)
 

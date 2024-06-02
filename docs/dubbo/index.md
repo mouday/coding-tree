@@ -191,6 +191,39 @@ Dubbo官方推荐使用Zookeeper作为注册中心
 
 2、Dubbo快速入门
 
+主要依赖
+
+```xml
+<properties>
+    <spring.version>5.1.9.RELEASE</spring.version>
+    <dubbo.version>2.7.4.1</dubbo.version>
+    <zookeeper.version>4.0.0</zookeeper.version>
+</properties>
+
+<dependencies>
+    <!--Dubbo的起步依赖，版本2.7之后统一为rg.apache.dubb -->
+    <dependency>
+        <groupId>org.apache.dubbo</groupId>
+        <artifactId>dubbo</artifactId>
+        <version>${dubbo.version}</version>
+    </dependency>
+
+    <!--ZooKeeper客户端实现 -->
+    <dependency>
+        <groupId>org.apache.curator</groupId>
+        <artifactId>curator-framework</artifactId>
+        <version>${zookeeper.version}</version>
+    </dependency>
+
+    <!--ZooKeeper客户端实现 -->
+    <dependency>
+        <groupId>org.apache.curator</groupId>
+        <artifactId>curator-recipes</artifactId>
+        <version>${zookeeper.version}</version>
+    </dependency>
+</dependencies>
+```
+
 实现步骤：
 
 1. 创建服务提供者Provider模块
@@ -382,7 +415,12 @@ dubbo-admin 是一个前后端分离的项目。前端使用vue，后端使用sp
 2、dubbo 常用高级配置
 
 - 序列化
-
+- 地址缓存
+- 超时与重试
+- 多版本
+- 负载均衡
+- 集群容错
+- 服务降级
 
 （1）序列化
 
@@ -517,5 +555,89 @@ GET http://127.0.0.1:8000/user/find.do?id=666
 }
 ```
 
+（2）地址缓存
 
-https://www.bilibili.com/video/BV1VE411q7dX?p=8&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+注册中心挂了，服务是否可以正常访问？
+
+可以，因为dubbo服务消费者在第一次调用时，会将服务提供方地址缓存到本地，以后在调用则不会访问注册中心。
+当服务提供者地址发生变化时，注册中心会通知服务消费者。
+
+（3）超时与重试
+
+![](https://mouday.github.io/img/2024/06/02/5k372zk.png)
+
+服务消费者在调用服务提供者的时候发生了阻塞、等待的情形，这个时候，服务消费者会一直等待下去。
+在某个峰值时刻，大量的请求都在同时请求服务消费者，会造成线程的大量堆积，势必会造成雪崩。
+
+
+服务消费者在调用服务提供者的时候发生了阻塞、等待的情形，这个时候，服务消费者会一直等待下去。
+在某个峰值时刻，大量的请求都在同时请求服务消费者，会造成线程的大量堆积，势必会造成雪崩。
+dubbo 利用超时机制来解决这个问题，设置一个超时时间，在这个时间段内，无法完成服务访问，则自动断开连接。
+使用`timeout`属性配置超时时间，默认值`1000`，单位毫秒。
+
+设置了超时时间，在这个时间段内，无法完成服务访问，则自动断开连接。
+如果出现网络抖动，则这一次请求就会失败。
+Dubbo 提供重试机制来避免类似问题的发生。
+通过 `retries`  属性来设置重试次数。默认为 2 次。
+
+```java
+// 当前服务3秒超时,重试2次，一共3次
+@Service(timeout = 3000, retries = 2)
+public class UserServiceImpl implements UserService {}
+```
+
+(4)多版本
+
+![](https://mouday.github.io/img/2024/06/02/558maem.png)
+
+灰度发布：当出现新功能时，会让一部分用户先使用新功能，用户反馈没问题时，再将所有用户迁移到新功能。
+dubbo 中使用`version` 属性来设置和调用同一个接口的不同版本
+
+
+```java
+@Service(version = "v1.0")
+public class UserServiceImpl implements UserService {}
+
+@Service(version = "v2.0")
+public class UserServiceImpl2 implements UserService {}
+
+@Reference(version = "v2.0")//远程注入
+private UserService userService;
+```
+
+(5)负载均衡
+
+![](https://mouday.github.io/img/2024/06/02/6krf51p.png)
+
+负载均衡策略（4种）：
+- Random ：按权重随机，默认值。按权重设置随机概率。
+- RoundRobin ：按权重轮询。
+- LeastActive：最少活跃调用数，相同活跃数的随机。
+- ConsistentHash：一致性 Hash，相同参数的请求总是发到同一提供者。
+
+```java
+@Reference(loadbalance = "random")
+private UserService userService;
+```
+
+（6）集群容错
+
+集群容错模式：
+
+- Failover Cluster：失败重试。默认值。当出现失败，重试其它服务器 ，默认重试2次，使用 retries 配置。一般用于读操作
+- Failfast Cluster ：快速失败，只发起一次调用，失败立即报错。通常用于写操作。
+- Failsafe Cluster ：失败安全，出现异常时，直接忽略。返回一个空结果。
+- Failback Cluster ：失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作。
+- Forking Cluster ：并行调用多个服务器，只要一个成功即返回。
+- Broadcast  Cluster ：广播调用所有提供者，逐个调用，任意一台报错则报错。
+
+（7）服务降级
+
+服务降级方式：
+- `mock=force:return null` 表示消费方对该服务的方法调用都直接返回null值，不发起远程调用。用来屏蔽不重要服务不可用时对调用方的影响。
+- `mock=fail:return null` 表示消费方对该服务的方法调用在失败后，再返回null值，不抛异常。用来容忍不重要服务不稳定时对调用方的影响。
+
+```java
+@Reference(mock = "fail:return null")
+private UserService userService;
+```

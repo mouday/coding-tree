@@ -27,3 +27,5 @@ features:
   - title: 优质文章
     details: 收录一些平时阅读过的优质文章
 ---
+
+![](https://mouday.github.io/img/2024/06/02/r2wiaed.jpg)

@@ -28,4 +28,6 @@ features:
     details: 收录一些平时阅读过的优质文章
 ---
 
+获取更多学习资料，可以关注我
+
 ![](https://mouday.github.io/img/2024/06/02/r2wiaed.jpg)

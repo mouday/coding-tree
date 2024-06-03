@@ -58,6 +58,10 @@ export default defineConfig({
           { text: "Linux", link: "/linux/" },
           { text: "MySQL", link: "/mysql/" },
           { text: "Redis", link: "/redis/" },
+          { text: "Laravel", link: "/laravel/" },
+          { text: "Websocket", link: "/websocket/" },
+          { text: "Python", link: "/python/" },
+          { text: "PHP", link: "/php/" },
         ],
       },
 
@@ -65,6 +69,7 @@ export default defineConfig({
         text: "Java",
         items: [
           { text: "Java", link: "/java/" },
+          { text: "Maven", link: "/maven/" },
           { text: "Spring", link: "/spring/" },
           { text: "SpringBoot", link: "/spring-boot/" },
           { text: "MyBatis", link: "/mybatis/" },
@@ -131,7 +136,7 @@ export default defineConfig({
     plugins: [
       // https://github.com/QC2168/vite-plugin-vitepress-auto-sidebar
       AutoSidebar({
-        ignoreList: ["/public/", "assets"],
+        ignoreList: ["/public/", "assets", "img"],
         titleFromFile: true,
         // 侧边栏排序
         beforeCreateSideBarItems: (data: string[]): string[] => {
@@ -156,7 +161,7 @@ export default defineConfig({
             return getOrder(a) - getOrder(b);
           });
 
-          return data;
+          return data.filter((n) => n != ".DS_Store");
         },
       }),
     ],

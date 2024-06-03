@@ -54,7 +54,8 @@ mysql> show tables;
 11 rows in set (0.02 sec)
 ```
 
-![](image/数据表.png)
+
+![](https://mouday.github.io/img/2024/06/03/aa5m49f.png)
 
 Maven 项目搭建
 

@@ -1,5 +1,3 @@
-[返回目录](/blog/maven/index.md)
-
 # 第六章 单一架构案例
 
 http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/chapter06/
@@ -39,11 +37,11 @@ $ tree  -L 3
 
 ①搜索依赖信息的网站
 
-[1]到哪儿找？
+1、到哪儿找？
 
 - https://mvnrepository.com/
 
-[2]怎么选择？
+2、怎么选择？
 
 - 确定技术选型：确定我们项目中要使用哪些技术
 - 到 mvnrepository 网站搜索具体技术对应的具体依赖信息
@@ -140,20 +138,20 @@ $ tree  -L 3
 
 ### 4、建包
 
-| package功能	| package 名称 |
-| -	| - |
-| 主包	| com.atguigu.imperial.court |
-| 子包[实体类]	| com.atguigu.imperial.court.entity |
-| 子包[Servlet基类包]	| com.atguigu.imperial.court.servlet.base |
-| 子包[Servlet模块包]	| com.atguigu.imperial.court.servlet.module |
-| 子包[Service接口包]	| com.atguigu.imperial.court.service.api |
+| package功能 | package 名称 |
+| - | - |
+| 主包    | com.atguigu.imperial.court |
+| 子包[实体类]   | com.atguigu.imperial.court.entity |
+| 子包[Servlet基类包]    | com.atguigu.imperial.court.servlet.base |
+| 子包[Servlet模块包]    | com.atguigu.imperial.court.servlet.module |
+| 子包[Service接口包]    | com.atguigu.imperial.court.service.api |
 | 子包[Service实现类包] | com.atguigu.imperial.court.service.impl |
-| 子包[Dao接口包]	| com.atguigu.imperial.court.dao.api |
-| 子包[Dao实现类包]	| com.atguigu.imperial.court.dao.impl |
-| 子包[Filter]	| com.atguigu.imperial.court.filter |
-| 子包[异常类包]  |	com.atguigu.imperial.court.exception |
+| 子包[Dao接口包]    | com.atguigu.imperial.court.dao.api |
+| 子包[Dao实现类包]   | com.atguigu.imperial.court.dao.impl |
+| 子包[Filter]    | com.atguigu.imperial.court.filter |
+| 子包[异常类包]  |   com.atguigu.imperial.court.exception |
 | 子包[工具类] | com.atguigu.imperial.court.util |
-| 子包[测试类]	| com.atguigu.imperial.court.test |
+| 子包[测试类]   | com.atguigu.imperial.court.test |
 
 ```
 $ tree -d
@@ -258,7 +256,7 @@ values ('浙江巡抚奏钱塘堤决口疏', '皇上啊，不好啦！钱塘江�
 
 ②逻辑建模
 
-[1] Emp 实体类
+1、Emp 实体类
 
 ```java
 public class Emp {
@@ -271,7 +269,7 @@ public class Emp {
 }
 ```
 
-[2] Memorials 实体类
+2、Memorials 实体类
 
 ```java
 public class Memorials {
@@ -298,7 +296,9 @@ public class Memorials {
 
 说明：这是我们第一次用到 Maven 约定目录结构中的 resources 目录，这个目录存放各种配置文件。
 
+```
 /src/main/resources/jdbc.properties
+```
 
 ```bash
 driverClassName=com.mysql.jdbc.Driver
@@ -314,7 +314,9 @@ maxWait=10000
 
 ①创建 JDBCUtils 工具类
 
+```
 src/main/java/com/atguigu/imperial/court/util/JDBCUtils.java
+```
 
 ②创建 javax.sql.DataSource 对象
 
@@ -347,7 +349,7 @@ static {
 
 ③创建 ThreadLocal 对象
 
-[1]提出需求
+1、提出需求
 
 (1)在一个方法内控制事务
 
@@ -357,65 +359,65 @@ static {
 ```java
 try{
 
-	// 1、获取数据库连接
-	// 重要：要保证参与事务的多个数据库操作（SQL 语句）使用的是同一个数据库连接
-	Connection conn = JDBCUtils.getConnection();
-	
-	// 2、核心操作
-	// ...
-	
-	// 3、核心操作成功结束，可以提交事务
-	conn.commit();
+    // 1、获取数据库连接
+    // 重要：要保证参与事务的多个数据库操作（SQL 语句）使用的是同一个数据库连接
+    Connection conn = JDBCUtils.getConnection();
+    
+    // 2、核心操作
+    // ...
+    
+    // 3、核心操作成功结束，可以提交事务
+    conn.commit();
 
 }catch(Exception e){
 
-	// 4、核心操作抛出异常，必须回滚事务
-	conn.rollBack();
+    // 4、核心操作抛出异常，必须回滚事务
+    conn.rollBack();
 
 }finally{
 
-	// 5、释放数据库连接
-	JDBCUtils.releaseConnection(conn);
-	
+    // 5、释放数据库连接
+    JDBCUtils.releaseConnection(conn);
+    
 }
 ```
 
 (2)将重复代码抽取到 Filter
 
-所谓『当前请求覆盖的 Servlet 方法、Service 方法、Dao 方法』其实就是 chain.doFilter(request, response) 间接调用的方法。
+所谓“当前请求覆盖的 Servlet 方法、Service 方法、Dao 方法"其实就是 `chain.doFilter(request, response)`间接调用的方法。
 
 ```java
 public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain){
 
-	try{
+    try{
 
-		// 1、获取数据库连接
-		// 重要：要保证参与事务的多个数据库操作（SQL 语句）使用的是同一个数据库连接
-		Connection conn = JDBCUtils.getConnection();
+        // 1、获取数据库连接
+        // 重要：要保证参与事务的多个数据库操作（SQL 语句）使用的是同一个数据库连接
+        Connection conn = JDBCUtils.getConnection();
         
         // 重要操作：关闭自动提交功能
         connection.setAutoCommit(false);
-		
-		// 2、核心操作：通过 chain 对象放行当前请求
-		// 这样就可以保证当前请求覆盖的 Servlet 方法、Service 方法、Dao 方法都在同一个事务中。
-		// 同时各个请求都经过这个 Filter，所以当前事务控制的代码在这里只写一遍就行了，
-		// 避免了代码的冗余。
-		chain.doFilter(request, response);
-		
-		// 3、核心操作成功结束，可以提交事务
-		conn.commit();
+        
+        // 2、核心操作：通过 chain 对象放行当前请求
+        // 这样就可以保证当前请求覆盖的 Servlet 方法、Service 方法、Dao 方法都在同一个事务中。
+        // 同时各个请求都经过这个 Filter，所以当前事务控制的代码在这里只写一遍就行了，
+        // 避免了代码的冗余。
+        chain.doFilter(request, response);
+        
+        // 3、核心操作成功结束，可以提交事务
+        conn.commit();
 
-	}catch(Exception e){
+    }catch(Exception e){
 
-		// 4、核心操作抛出异常，必须回滚事务
-		conn.rollBack();
+        // 4、核心操作抛出异常，必须回滚事务
+        conn.rollBack();
 
-	}finally{
+    }finally{
 
-		// 5、释放数据库连接
-		JDBCUtils.releaseConnection(conn);
-		
-	}
+        // 5、释放数据库连接
+        JDBCUtils.releaseConnection(conn);
+        
+    }
 
 }
 ```
@@ -428,21 +430,21 @@ public void doFilter(ServletRequest request, ServletResponse response, FilterCha
 
 所以从获取到 Connection 对象到使用 Connection 对象中间隔着很多不是我们自己声明的方法——我们无法决定它们的参数。
 
-[2] ThreadLocal 对象的功能
+2、 ThreadLocal 对象的功能
 
 ![](img/img012.png)
 
-- 全类名：java.lang.ThreadLocal<T>
+- 全类名：`java.lang.ThreadLocal<T>`
 - 泛型 T：要绑定到当前线程的数据的类型
 - 具体三个主要的方法：
 
-| 方法名	| 功能 |
-| -	| - |
-| set(T value)	将数据绑定到当前线程 |
-| get()	从当前线程获取已绑定的数据 |
-| remove()	将数据从当前线程移除 |
+| 方法名   | 功能 |
+| - | - |
+| set(T value)  将数据绑定到当前线程 |
+| get() 从当前线程获取已绑定的数据 |
+| remove()  将数据从当前线程移除 |
 
-[3] Java 代码
+3、 Java 代码
 
 ```java
 // 由于 ThreadLocal 对象需要作为绑定数据时 k-v 对中的 key，所以要保证唯一性
@@ -1275,7 +1277,7 @@ public class MD5Util {
 
 ## 第六节 业务功能：登录
 
-1、显示首页
+### 1、显示首页
 
 ①流程图
 
@@ -1362,7 +1364,7 @@ src/main/
 </html>
 ```
 
-## 2、登录操作
+### 2、登录操作
 
 ①流程图
 
@@ -1389,10 +1391,10 @@ public class EmpServiceImpl implements EmpService {
 
         // 3、检查 Emp 对象是否为 null
         if (emp != null) {
-            //	①不为 null：返回 Emp
+            //  ①不为 null：返回 Emp
             return emp;
         } else {
-            //	②为 null：抛登录失败异常
+            //  ②为 null：抛登录失败异常
             throw new LoginFailedException(ImperialCourtConst.LOGIN_FAILED_MESSAGE);
         }
     }

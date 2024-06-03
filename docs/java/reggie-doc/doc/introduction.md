@@ -51,7 +51,8 @@
 - 数据层 MySQL MyBatis MyBatisPlus Redis
 - 工具 git Maven Junit
 
-![](image/技术选型.png)
+
+![](https://mouday.github.io/img/2024/06/03/nuqau5v.png)
 
 4、功能架构
 
@@ -84,4 +85,5 @@
 - 后台系统普通员工（菜品、套餐、订单管理）
 - C端用户（浏览菜品，下单）
 
-![](image/瑞吉外卖功能清单.png)
+
+![](https://mouday.github.io/img/2024/06/03/mrbvqyl.png)

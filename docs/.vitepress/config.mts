@@ -44,10 +44,14 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       // { text: "Home", link: "/" },
-      { text: "前端", items: [
-        { text: "React", link: "/react/" },
-        { text: "JavaScript", link: "/javascript/" }
-      ] },
+      {
+        text: "前端",
+        items: [
+          { text: "React", link: "/react/" },
+          { text: "JavaScript", link: "/javascript/" },
+          { text: "Webpack", link: "/webpack/" },
+        ],
+      },
       {
         text: "服务器",
         items: [
@@ -72,6 +76,7 @@ export default defineConfig({
           { text: "ElasticSearch", link: "/elasticsearch/" },
           { text: "SpringCloud", link: "/microservices/" },
           { text: "Docker", link: "/docker/" },
+          { text: "Jmeter", link: "/jmeter/" },
         ],
       },
       {

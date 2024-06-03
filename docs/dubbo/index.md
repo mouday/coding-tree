@@ -11,6 +11,8 @@ Dubbo 是一款高性能、轻量级的开源Java RPC框架，提供面向接口
 
 - github代码：https://github.com/mouday/dubbo-demo
 
+学习时间：2024年5月30日 ~ 2024年6月2日
+
 目录
 
 - 分布式系统中的相关概念

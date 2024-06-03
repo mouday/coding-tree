@@ -19,6 +19,6 @@ https://github.com/medcl
 
 ## 课程学习
 
-- [【马士兵教育】2022版Elasticsearch教程入门到精通](/blog/elasticsearch/elasticsearch-learn/index.md)
+- [2022版Elasticsearch教程入门到精通](/blog/elasticsearch/elasticsearch-learn/index.md)
 
 - [SpringCloud-Elasticsearch](/blog/elasticsearch/springcloud-elasticsearch/index.md)

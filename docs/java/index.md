@@ -6,6 +6,8 @@
 
 [韩顺平 bilibili](https://space.bilibili.com/651245581)
 
+[Java 网络多线程专题-韩顺平](../java-net/index.md)
+
 [Java学习路线图（2023黑马程序员）](../blog/java/java-learn-road.md)
 
 [Java常用组件和框架](../blog/java/java-awesome.md)

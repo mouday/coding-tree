@@ -45,8 +45,15 @@ export default defineConfig({
     nav: [
       // { text: "Home", link: "/" },
       { text: "前端", items: [{ text: "React", link: "/react/" }] },
+      {
+        text: "服务器",
+        items: [
+          { text: "Linux", link: "/linux/" },
+          { text: "MySQL", link: "/mysql/" },
+          { text: "Redis", link: "/redis/" },
+        ],
+      },
 
-      { text: "在线工具箱", link: "https://mouday.github.io/tools/" },
       {
         text: "Java",
         items: [
@@ -75,6 +82,7 @@ export default defineConfig({
           },
           { text: "全栈爱好者周刊", link: "/weekly/" },
           { text: "软考", link: "/ruankao/" },
+          { text: "在线工具箱", link: "https://mouday.github.io/tools/" },
         ],
       },
     ],

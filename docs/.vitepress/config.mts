@@ -44,7 +44,10 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       // { text: "Home", link: "/" },
-      { text: "前端", items: [{ text: "React", link: "/react/" }] },
+      { text: "前端", items: [
+        { text: "React", link: "/react/" },
+        { text: "JavaScript", link: "/javascript/" }
+      ] },
       {
         text: "服务器",
         items: [
@@ -64,6 +67,11 @@ export default defineConfig({
           { text: "Dubbo", link: "/dubbo/" },
           { text: "Zookeeper", link: "/zookeeper/" },
           { text: "Rabbitmq", link: "/rabbitmq/" },
+          { text: "Sentinel", link: "/sentinel/" },
+          { text: "Seata", link: "/seata/" },
+          { text: "ElasticSearch", link: "/elasticsearch/" },
+          { text: "SpringCloud", link: "/microservices/" },
+          { text: "Docker", link: "/docker/" },
         ],
       },
       {
@@ -118,7 +126,7 @@ export default defineConfig({
     plugins: [
       // https://github.com/QC2168/vite-plugin-vitepress-auto-sidebar
       AutoSidebar({
-        ignoreList: ["/public/"],
+        ignoreList: ["/public/", "assets"],
         titleFromFile: true,
         // 侧边栏排序
         beforeCreateSideBarItems: (data: string[]): string[] => {

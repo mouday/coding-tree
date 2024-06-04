@@ -10,7 +10,21 @@ export default defineConfig({
   base: "/coding-tree/",
   ignoreDeadLinks: true,
   lastUpdated: true,
-  head: [["link", { rel: "icon", href: "/coding-tree/favicon.ico" }]],
+  head: [
+    ["link", { rel: "icon", href: "/coding-tree/favicon.ico" }],
+
+    // 百度统计
+    ["script", {}, `
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ce35049a96e3792e78a3814397e25fbb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+`]
+  ],
   sitemap: {
     hostname: "https://mouday.github.io/coding-tree",
   },

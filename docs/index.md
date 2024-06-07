@@ -31,3 +31,5 @@ features:
 获取更多学习资料，可以关注我
 
 ![](https://mouday.github.io/img/2024/06/02/r2wiaed.jpg)
+
+[站点地图](https://mouday.github.io/coding-tree/sitemap.xml)

@@ -14,7 +14,10 @@ export default defineConfig({
     ["link", { rel: "icon", href: "/coding-tree/favicon.ico" }],
 
     // 百度统计
-    ["script", {}, `
+    [
+      "script",
+      {},
+      `
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
@@ -22,7 +25,8 @@ var _hmt = _hmt || [];
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
-`]
+`,
+    ],
   ],
   sitemap: {
     hostname: "https://mouday.github.io/coding-tree",
@@ -58,15 +62,16 @@ var _hmt = _hmt || [];
     nav: [
       // { text: "Home", link: "/" },
       {
-        text: "前端",
+        text: "客户端",
         items: [
-          { text: "React", link: "/react/" },
           { text: "JavaScript", link: "/javascript/" },
+          { text: "Vue", link: "/vue/" },
+          { text: "React", link: "/react/" },
           { text: "Webpack", link: "/webpack/" },
         ],
       },
       {
-        text: "服务器",
+        text: "服务端",
         items: [
           { text: "Linux", link: "/linux/" },
           { text: "MySQL", link: "/mysql/" },
@@ -86,6 +91,7 @@ var _hmt = _hmt || [];
           { text: "Spring", link: "/spring/" },
           { text: "SpringBoot", link: "/spring-boot/" },
           { text: "MyBatis", link: "/mybatis/" },
+          { text: "MyBatis-Plus", link: "/mybatis-plus/" },
           { text: "Dubbo", link: "/dubbo/" },
           { text: "Zookeeper", link: "/zookeeper/" },
           { text: "Rabbitmq", link: "/rabbitmq/" },

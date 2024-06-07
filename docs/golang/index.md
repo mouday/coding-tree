@@ -1,119 +1,57 @@
-# 笔记: Golang 核心编程
+# Go语言
 
-学习资料
 
-- 视频适合零基础（1.9.2）：[【尚硅谷】Golang 入门到实战教程](https://www.bilibili.com/video/BV1ME411Y71o)
+Go 语言: [官网​](https://go.dev/​) | [github​](https://github.com/golang/go​)
 
-- 视频适合有基础（1.19）：[golang 入门到项目实战](https://www.bilibili.com/video/BV1zR4y1t7Wj)
+## 学习笔记
 
-## 目录
+[笔记: Golang 核心编程](../golang-start/index.md)
 
-### 第一章 语言基础
+## 学习资料
 
-- [1.1、Golang 概述](./101-golang-start.md)
+- 官网：[https://golang.org/](https://golang.org/)
+- 官网中文：[https://go-zh.org/](https://go-zh.org/)
+- Go Packages：[https://pkg.go.dev/](https://pkg.go.dev/)
+- 官网中文：[https://golang.google.cn/](https://golang.google.cn/)
+- Golang标准库文档 [https://studygolang.com/pkgdoc](https://studygolang.com/pkgdoc)
+- Go 语言教程 | 菜鸟教程 [https://www.runoob.com/go/go-tutorial.html](https://www.runoob.com/go/go-tutorial.html)
+- TIOBE [https://www.tiobe.com/tiobe-index/](https://www.tiobe.com/tiobe-index/)
+- Go网址导航 [https://hao.studygolang.com/](https://hao.studygolang.com/)
+- Go语言中文文档 [https://www.topgoer.com/](https://www.topgoer.com/)
 
-- [1.2、Golang 环境安装](./102-golang-install.md)
 
-- [1.3、Golang 运行代码](./103-golang-run.md)
+## 开源图书
 
-- [1.4、Golang 项目管理](./104-golang-project.md)
+- [Go语言圣经（中文版）](https://books.studygolang.com/gopl-zh/)
+- [Go语言标准库](https://books.studygolang.com/The-Golang-Standard-Library-by-Example/)
+- [Go入门指南](https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/preface.md)
+- [Go 程序设计](https://www.yuque.com/qyuhen/go)
+- [Go语言高级编程(Advanced Go Programming)](https://chai2010.cn/advanced-go-programming-book/)
+- [Go by Example 中文](https://books.studygolang.com/gobyexample/)
+- [Go 语言原本](https://golang.design/under-the-hood/)
+- [Go 语言高性能编程](https://geektutu.com/post/high-performance-go.html)
 
-### 第二章 基本语法
 
-- [2.1、Golang 标识符、关键字、命名规则](./201-golang-identifier.md)
+- LeetCode Cookbook (Go)
+    - [LeetCode Cookbook (Go)](https://books.halfrost.com/leetcode/) 
+    - [github](​https://github.com/halfrost/LeetCode-Go​)
 
-- [2.2、Golang 变量](./202-golang-variable.md)
+awesome-go: 
+- [官网​](https://awesome-go.com)
+- [github](https://github.com/avelino/awesome-go)
 
-- [2.3、Golang 常量](./203-golang-constant.md)
 
-- [2.4、Golang 数据类型](./204-golang-type.md)
+TheAlgorithms/Go
+- [TheAlgorithms/Go​](​https://the-algorithms.com/)
+- [github](​https://github.com/TheAlgorithms/Go​)
 
-- [2.5、Golang 格式化输出](./205-golang-format.md)
+Data Science Masters 
+- [官网](​http://datasciencemasters.org/​​) | 
+- [github](​https://github.com/datasciencemasters/go​) 开源项目带你学习数据科学的开源课程
 
-- [2.6、Golang 运算符](./206-golang-operator.md)
+[李文周的博客](https://www.liwenzhou.com/) 总结Go语言学习之路，提供免费的Go语言学习教程
 
-- [2.7、Golang 流程控制](./207-golang-process.md)
 
-### 第三章 数据结构
 
-- [3.1、Golang 数组 array](./301-golang-array.md)
 
-- [3.2、Golang 切片 slice](./302-golang-slice.md)
-
-- [3.3、Golang map](./303-golang-map.md)
-
-- [3.4、Golang 函数 func](./304-golang-function.md)
-
-- [3.5、Golang 指针 pointer ](./305-golang-pointer.md)
-
-- [3.6、Golang 结构体 struct](./306-golang-struct.md)
-
-- [3.7、Golang 接口 interface](./307-golang-interface.md)
-
-- [3.8、Golang 包 package](./308-golang-package.md)
-
-### 第四章 Golang 并发编程
-
-- [4.1、Golang 并发编程-协程](./401-golang-concurrency-goroutines.md)
-
-- [4.2、Golang 并发编程-channel](./402-golang-concurrency-channel.md)
-
-- [4.3、Golang 并发编程-WaitGroup 实现同步](./403-golang-concurrency-WaitGroup.md)
-
-- [4.4、Golang 并发编程-runtime 包](./404-golang-concurrency-runtime.md)
-
-- [4.5、Golang 并发编程-Mutex 互斥锁实现同步](./405-golang-concurrency-Mutex.md)
-
-- [4.6、Golang 并发编程-atomic 原子操作](./406-golang-concurrency-atomic.md)
-
-- [4.7、Golang 并发编程-select switch](./407-golang-concurrency-select-switch.md)
-
-- [4.8、Golang 并发编程-Timer 定时器](./408-golang-concurrency-Timer.md)
-
-- [4.9、Golang 并发编程-Ticker 周期执行](./409-golang-concurrency-Ticker.md)
-
-### 第五章 Golang 标准库
-
-- [5.1、Golang 标准库-os](./501-golang-standard-os.md)
-
-- [5.2、Golang 标准库-io 输入输出](./502-golang-standard-io.md)
-
-- [5.3、Golang 标准库-ioutil](./503-golang-standard-ioutil.md)
-
-- [5.4、Golang 标准库-bufio](./504-golang-standard-bufio.md)
-
-- [5.5、Golang 标准库-log](./505-golang-standard-log.md)
-
-- [5.6、Golang 标准库-builtin](./506-golang-standard-builtin.md)
-
-- [5.7、Golang 标准库-bytes](./507-golang-standard-bytes.md)
-
-- [5.8、Golang 标准库-errors](./508-golang-standard-errors.md)
-
-- [5.9、Golang 标准库-sort](./509-golang-standard-sort.md)
-
-- [5.10、Golang 标准库-time](./510-golang-standard-time.md)
-
-- [5.11、Golang 标准库-json](./511-golang-standard-json.md)
-
-- [5.12、Golang 标准库-xml](./512-golang-standard-xml.md)
-
-- [5.13、Golang 标准库-math](./513-golang-standard-math.md)
-
-### 第六章 Golang 操作数据库
-
-- [6.1、Golang 操作 MySQL 数据库](./601-golang-mysql.md)
-
-- [6.2、Golang 操作 MongoDB 数据库](./602-golang-mongo.md)
-
-- [6.3、Golang操作redis数据库](./603-golang-database-redis.md)
-
-- [6.4、Golang ORM 库 gorm](./604-golang-gorm.md)
-
-### 第七章 Go 语言 Web 框架
-
-- [7.1、Go 语言 Web 框架之 gin](./701-golang-gin.md)
-
-https://www.bilibili.com/video/BV1ME411Y71o?p=27&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
-
-https://www.bilibili.com/video/BV1zR4y1t7Wj?p=119&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+mayfly-go: web版linux(终端 文件 脚本 进程)、数据库(mysql pgsql oracle sqlserver 高斯 达梦 sqlite)、数据同步、redis(单机 哨兵 集群)、mongo统一管理操作平台。 [github](https://github.com/dromara/mayfly-go)

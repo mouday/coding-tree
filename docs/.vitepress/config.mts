@@ -10,6 +10,12 @@ export default defineConfig({
   base: "/coding-tree/",
   ignoreDeadLinks: true,
   lastUpdated: true,
+  markdown: {
+    image: {
+      // 默认禁用图片懒加载
+      lazyLoading: true
+    }
+  },
   head: [
     ["link", { rel: "icon", href: "/coding-tree/favicon.ico" }],
 

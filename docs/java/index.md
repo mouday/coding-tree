@@ -1,6 +1,6 @@
 # Java
 
-[Java学习路线图（2023黑马程序员）](../blog/java/java-learn-road.md)
+[Java学习路线图（2023黑马程序员）](./java-learn-road.md)
 
 [笔记：Spring零基础入门到进阶](../spring/index.md)
 

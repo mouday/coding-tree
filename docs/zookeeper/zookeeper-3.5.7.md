@@ -355,7 +355,7 @@ JMX enabled by default
 Using config: /opt/module/zookeeper-3.5.7/bin/../conf/zoo.cfg Mode: follower
 ```
 
-### 3.1.2 选举机制(面试重点)
+#### 3.1.2 选举机制(面试重点)
 
 `SID`:服务器ID。用来唯一标识一台 ZooKeeper集群中的机器，每台机器不能重 复，和myid一致。
 
@@ -408,7 +408,7 @@ SID为1、2、4的机器投票情况:
 2. EPOCH相同，事务id大的胜出 
 3. 事务id相同，服务器id大的胜出
 
-### 3.1.3 ZK 集群启动停止脚本
+#### 3.1.3 ZK 集群启动停止脚本
 
 1)在 hadoop102 的/home/atguigu/bin 目录下创建脚本 
 
@@ -457,9 +457,9 @@ esac
 [atguigu@hadoop102 module]$ zk.sh stop
 ```
 
-## 3.2 客户端命令行操作 
+### 3.2 客户端命令行操作 
 
-### 3.2.1 命令行语法
+#### 3.2.1 命令行语法
 
 | 命令基本语法 | 功能描述 | 
 | --- | --- |
@@ -484,7 +484,7 @@ $ bin/zkCli.sh -server hadoop102:2181
 [zk: hadoop102:2181(CONNECTED) 1] help
 ```
 
-### 3.2.2 znode 节点数据信息
+#### 3.2.2 znode 节点数据信息
 
 1)查看当前znode中所包含的内容
 
@@ -519,7 +519,7 @@ numChildren = 1
 - (10)`dataLength`:znode 的数据长度 
 - (11)`numChildren`:znode 子节点数量
 
-### 3.2.3 节点类型
+#### 3.2.3 节点类型
 
 持久/短暂/有序号/无序号
 
@@ -650,7 +650,7 @@ ls /sanguo
 set /sanguo/weiguo "simayi"
 ```
 
-### 3.2.4 监听器原理
+#### 3.2.4 监听器原理
 
 客户端注册监听它关心的目录节点，当目录节点发生变化(数据改变、节点删除、子目 录节点增加删除)时，ZooKeeper 会通知客户端。监听机制保证 ZooKeeper 保存的任何的数 据的任何改变都能快速的响应到监听了该节点的应用程序。
 
@@ -731,7 +731,7 @@ WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/sanguo
 
 注意:节点的路径变化，也是注册一次，生效一次。想多次生效，就需要多次注册。
 
-### 3.2.5 节点删除与查看 
+#### 3.2.5 节点删除与查看 
 
 1)删除节点
 
@@ -761,11 +761,11 @@ dataLength = 4
 numChildren = 1
 ```
 
-## 3.3 客户端 API 操作
+### 3.3 客户端 API 操作
 
 前提:保证 hadoop102、hadoop103、hadoop104 服务器上 Zookeeper 集群服务端启动。
 
-### 3.3.1 IDEA 环境搭建 
+#### 3.3.1 IDEA 环境搭建 
 
 1)创建一个工程:zookeeper
 
@@ -808,7 +808,7 @@ log4j.appender.logfile.layout.ConversionPattern=%d %p [%c] - %m%n
 
 5)创建类名称zkClient
 
-### 3.3.2 创建 ZooKeeper 客户端
+#### 3.3.2 创建 ZooKeeper 客户端
 
 
 ```java
@@ -831,7 +831,7 @@ public class zkClient {
 
 ```
 
-### 3.3.3 创建子节点
+#### 3.3.3 创建子节点
 
 ```java
 
@@ -854,7 +854,7 @@ public class zkClient {
 [zk: localhost:2181(CONNECTED) 16] get -s /atguigu shuaige
 ```
 
-### 3.3.4 获取子节点并监听节点变化
+#### 3.3.4 获取子节点并监听节点变化
 
 ```java
 public class zkClient {
@@ -893,7 +893,7 @@ atguigu
 [zk: localhost:2181(CONNECTED) 4] delete /atguigu1
 ```
 
-### 3.3.5 判断 Znode 是否存在
+#### 3.3.5 判断 Znode 是否存在
 
 
 ```java
@@ -984,7 +984,7 @@ public class zkClient {
 
 ```
 
-## 3.4 客户端向服务端写数据流程
+### 3.4 客户端向服务端写数据流程
 
 写流程之写入请求直接发送给Leader节点
 
@@ -997,17 +997,17 @@ public class zkClient {
 
 ## 第 4 章 服务器动态上下线监听案例
 
-## 4.1 需求
+### 4.1 需求
 
 某分布式系统中，主节点可以有多台，可以动态上下线，任意一台客户端都能实时感知 到主节点服务器的上下线。
 
-## 4.2 需求分析
+### 4.2 需求分析
 
 服务器动态上下线：客户端能实时洞察到服务器上下线的变化
 
 ![](https://mouday.github.io/img/2024/06/09/h39xdwk.png)
 
-## 4.3 具体实现
+### 4.3 具体实现
 
 (1)先在集群上创建/servers 节点
 
@@ -1020,3 +1020,546 @@ Created /servers
 
 (3)服务器端向 Zookeeper 注册代码
 
+```java
+package com.atguigu.case1;
+
+import org.apache.zookeeper.*;
+
+import java.io.IOException;
+
+public class DistributeServer {
+
+    private String connectString = "127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183";
+    private int sessionTimeout = 2000;
+    private ZooKeeper zk;
+
+    public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
+        
+        DistributeServer server = new DistributeServer();
+        // 1 获取zk连接
+        server.getConnect();
+
+        // 2 注册服务器到zk集群
+        server.regist(args[0]);
+
+        // 3 启动业务逻辑（睡觉）
+        server.business();
+
+    }
+
+    // 业务功能
+    private void business() throws InterruptedException {
+        Thread.sleep(Long.MAX_VALUE);
+    }
+    
+    // 注册服务器
+    private void regist(String hostname) throws KeeperException, InterruptedException {
+        String create = zk.create("/servers/" + hostname, hostname.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+
+        System.out.println(hostname + " is online");
+    }
+
+    // 创建到 zk 的客户端连接
+    private void getConnect() throws IOException {
+
+        zk = new ZooKeeper(connectString, sessionTimeout, new Watcher() {
+            @Override
+            public void process(WatchedEvent watchedEvent) {
+
+            }
+        });
+    }
+}
+
+```
+
+(4)客户端代码
+
+```java
+package com.atguigu.case1;
+
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.WatchedEvent;
+import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.ZooKeeper;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DistributeClient {
+
+    private String connectString = "127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183";
+    private int sessionTimeout = 2000;
+    private ZooKeeper zk;
+
+    public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
+        DistributeClient client = new DistributeClient();
+
+        // 1 获取zk连接
+        client.getConnect();
+
+        // 2 监听/servers下面子节点的增加和删除
+        client.getServerList();
+
+        // 3 业务逻辑（睡觉）
+        client.business();
+
+    }
+
+    private void business() throws InterruptedException {
+        Thread.sleep(Long.MAX_VALUE);
+    }
+    
+    // 获取服务器列表信息
+    private void getServerList() throws KeeperException, InterruptedException {
+        // 1获取服务器子节点信息，并且对父节点进行监听
+        List<String> children = zk.getChildren("/servers", true);
+
+        // 2存储服务器信息列表
+        ArrayList<String> servers = new ArrayList<>();
+
+        // 3遍历所有节点，获取节点中的主机名称信息
+        for (String child : children) {
+
+            byte[] data = zk.getData("/servers/" + child, false, null);
+
+            servers.add(new String(data));
+        }
+
+        // 4打印服务器列表信息
+        System.out.println(servers);
+    }
+
+    private void getConnect() throws IOException {
+        zk = new ZooKeeper(connectString, sessionTimeout, new Watcher() {
+            @Override
+            public void process(WatchedEvent watchedEvent) {
+
+                try {
+                    getServerList();
+                } catch (KeeperException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+}
+```
+
+### 4.4 测试
+
+1)在 Linux 命令行上操作增加减少服务器
+
+(1)启动 DistributeClient 客户端
+
+(2)在 hadoop102 上 zk 的客户端/servers 目录上创建临时带序号节点
+
+```bash
+[zk: localhost:2181(CONNECTED) 1] create -e -s /servers/hadoop102 "hadoop102"
+[zk: localhost:2181(CONNECTED) 2] create -e -s /servers/hadoop103 "hadoop103"
+```
+
+
+(3)观察 Idea 控制台变化
+```bash
+[hadoop102, hadoop103]
+```
+
+(4)执行删除操作
+
+```bash
+[zk: localhost:2181(CONNECTED) 8] delete /servers/hadoop1020000000000
+```
+
+(5)观察 Idea 控制台变化 
+```bash
+[hadoop103]
+```
+
+2)在 Idea 上操作增加减少服务器
+
+(1)启动 DistributeClient 客户端(如果已经启动过，不需要重启) 
+
+(2)启动 DistributeServer 服务
+
+1点击 Edit Configurations...
+
+2在弹出的窗口中(Program arguments)输入想启动的主机，例如，hadoop102
+
+3回到 DistributeServer 的 main 方法，右键，在弹出的窗口中点击 Run “DistributeServer.main()”
+
+4观察 DistributeServer 控制台，提示 hadoop102 is working 
+
+5观察 DistributeClient 控制台，提示 hadoop102 已经上线
+
+## 第 5 章 ZooKeeper 分布式锁案例
+
+什么叫做分布式锁呢?
+
+比如说"进程 1"在使用该资源的时候，会先去获得锁，"进程 1"获得锁以后会对该资源保持独占，这样其他进程就无法访问该资源，"进程 1"用完该资源以后就将锁释放掉，让其 他进程来获得锁，那么通过这个锁机制，我们就能保证了分布式系统中多个进程能够有序的 访问该临界资源。那么我们把这个分布式环境下的这个锁叫作分布式锁。
+
+![](https://mouday.github.io/img/2024/06/09/g88v78b.png)
+
+### 5.1 原生 Zookeeper 实现分布式锁案例 
+
+1)分布式锁实现
+```java
+package com.atguigu.case2;
+
+import org.apache.zookeeper.*;
+import org.apache.zookeeper.data.Stat;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+
+public class DistributedLock {
+
+    private final String connectString = "hadoop102:2181,hadoop103:2181,hadoop104:2181";
+    private final int sessionTimeout = 2000;
+    private final ZooKeeper zk;
+
+    private CountDownLatch connectLatch = new CountDownLatch(1);
+    private CountDownLatch waitLatch = new CountDownLatch(1);
+
+    private String waitPath;
+    private String currentMode;
+
+    public DistributedLock() throws IOException, InterruptedException, KeeperException {
+
+        // 获取连接
+        zk = new ZooKeeper(connectString, sessionTimeout, new Watcher() {
+            @Override
+            public void process(WatchedEvent watchedEvent) {
+                // connectLatch  如果连接上zk  可以释放
+                if (watchedEvent.getState() == Event.KeeperState.SyncConnected){
+                    connectLatch.countDown();
+                }
+
+                // waitLatch  需要释放
+                if (watchedEvent.getType()== Event.EventType.NodeDeleted && watchedEvent.getPath().equals(waitPath)){
+                    waitLatch.countDown();
+                }
+            }
+        });
+
+        // 等待zk正常连接后，往下走程序
+        connectLatch.await();
+
+        // 判断根节点/locks是否存在
+        Stat stat = zk.exists("/locks", false);
+
+        if (stat == null) {
+            // 创建一下根节点
+            zk.create("/locks", "locks".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+        }
+    }
+
+    // 对zk加锁
+    public void zklock() {
+        // 创建对应的临时带序号节点
+        try {
+            currentMode = zk.create("/locks/" + "seq-", null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+
+            // wait一小会, 让结果更清晰一些
+            Thread.sleep(10);
+
+            // 判断创建的节点是否是最小的序号节点，如果是获取到锁；如果不是，监听他序号前一个节点
+
+            List<String> children = zk.getChildren("/locks", false);
+
+            // 如果children 只有一个值，那就直接获取锁； 如果有多个节点，需要判断，谁最小
+            if (children.size() == 1) {
+                return;
+            } else {
+                Collections.sort(children);
+
+                // 获取节点名称 seq-00000000
+                String thisNode = currentMode.substring("/locks/".length());
+                // 通过seq-00000000获取该节点在children集合的位置
+                int index = children.indexOf(thisNode);
+
+                // 判断
+                if (index == -1) {
+                    System.out.println("数据异常");
+                } else if (index == 0) {
+                    // 就一个节点，可以获取锁了
+                    return;
+                } else {
+                    // 需要监听  他前一个节点变化
+                    waitPath = "/locks/" + children.get(index - 1);
+                    zk.getData(waitPath,true,new Stat());
+
+                    // 等待监听
+                    waitLatch.await();
+
+                    return;
+                }
+            }
+
+
+        } catch (KeeperException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    // 解锁
+    public void unZkLock() {
+
+        // 删除节点
+        try {
+            zk.delete(this.currentMode,-1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (KeeperException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+}
+
+```
+
+2)分布式锁测试
+
+```java
+package com.atguigu.case2;
+
+import org.apache.zookeeper.KeeperException;
+
+import java.io.IOException;
+
+public class DistributedLockTest {
+
+    public static void main(String[] args) throws InterruptedException, IOException, KeeperException {
+
+       final  DistributedLock lock1 = new DistributedLock();
+
+        final  DistributedLock lock2 = new DistributedLock();
+
+       new Thread(new Runnable() {
+           @Override
+           public void run() {
+               try {
+                   lock1.zklock();
+                   System.out.println("线程1 启动，获取到锁");
+                   Thread.sleep(5 * 1000);
+
+                   lock1.unZkLock();
+                   System.out.println("线程1 释放锁");
+               } catch (InterruptedException e) {
+                   e.printStackTrace();
+               }
+           }
+       }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    lock2.zklock();
+                    System.out.println("线程2 启动，获取到锁");
+                    Thread.sleep(5 * 1000);
+
+                    lock2.unZkLock();
+                    System.out.println("线程2 释放锁");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
+}
+
+```
+(1)创建两个线程
+
+(2)观察控制台变化:
+
+```
+线程1获取锁
+线程1释放锁 
+线程2获取锁 
+线程2释放锁
+```
+
+### 5.2 Curator 框架实现分布式锁案例
+
+1)原生的 Java API 开发存在的问题
+
+(1)会话连接是异步的，需要自己去处理。比如使用 CountDownLatch 
+
+(2)Watch 需要重复注册，不然就不能生效 
+
+(3)开发的复杂性还是比较高的 
+
+(4)不支持多节点删除和创建。需要自己去递归
+
+2)Curator 是一个专门解决分布式锁的框架，解决了原生 Java API 开发分布式遇到的问题。 
+
+详情请查看官方文档:https://curator.apache.org/index.html
+
+3)Curator 案例实操 
+
+(1)添加依赖
+
+```xml
+<dependency>
+    <groupId>org.apache.curator</groupId>
+    <artifactId>curator-framework</artifactId>
+    <version>4.3.0</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.curator</groupId>
+    <artifactId>curator-recipes</artifactId>
+    <version>4.3.0</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.curator</groupId>
+    <artifactId>curator-client</artifactId>
+    <version>4.3.0</version>
+</dependency>
+```
+
+(2)代码实现
+
+```java
+package com.atguigu.case3;
+
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.recipes.locks.InterProcessMutex;
+import org.apache.curator.retry.ExponentialBackoffRetry;
+
+public class CuratorLockTest {
+
+    public static void main(String[] args) {
+
+        // 创建分布式锁1
+        InterProcessMutex lock1 = new InterProcessMutex(getCuratorFramework(), "/locks");
+
+        // 创建分布式锁2
+        InterProcessMutex lock2 = new InterProcessMutex(getCuratorFramework(), "/locks");
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    lock1.acquire();
+                    System.out.println("线程1 获取到锁");
+
+                    lock1.acquire();
+                    System.out.println("线程1 再次获取到锁");
+
+                    Thread.sleep(5 * 1000);
+
+                    lock1.release();
+                    System.out.println("线程1 释放锁");
+
+                    lock1.release();
+                    System.out.println("线程1  再次释放锁");
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    lock2.acquire();
+                    System.out.println("线程2 获取到锁");
+
+                    lock2.acquire();
+                    System.out.println("线程2 再次获取到锁");
+
+                    Thread.sleep(5 * 1000);
+
+                    lock2.release();
+                    System.out.println("线程2 释放锁");
+
+                    lock2.release();
+                    System.out.println("线程2  再次释放锁");
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private static CuratorFramework getCuratorFramework() {
+
+        ExponentialBackoffRetry policy = new ExponentialBackoffRetry(3000, 3);
+
+        CuratorFramework client = CuratorFrameworkFactory.builder().connectString("hadoop102:2181,hadoop103:2181,hadoop104:2181")
+                .connectionTimeoutMs(2000)
+                .sessionTimeoutMs(2000)
+                .retryPolicy(policy).build();
+
+        // 启动客户端
+        client.start();
+
+        System.out.println("zookeeper 启动成功");
+        return client;
+    }
+}
+```
+
+(2)观察控制台变化: 
+```
+线程1获取锁
+线程 1 再次获取锁 
+线程1释放锁
+线程 1 再次释放锁 
+线程2获取锁 
+线程 2 再次获取锁 
+线程2释放锁 
+线程 2 再次释放锁
+```
+
+## 第 6 章 企业面试真题(面试重点) 
+
+### 6.1 选举机制
+
+半数机制，超过半数的投票通过，即通过。 
+
+(1)第一次启动选举规则:
+
+投票过半数时，服务器 id 大的胜出 
+
+(2)第二次启动选举规则:
+1. EPOCH 大的直接胜出
+2. EPOCH 相同，事务 id 大的胜出 
+3. 事务 id 相同，服务器 id 大的胜出
+
+### 6.2 生产集群安装多少 zk 合适? 
+
+安装奇数台。
+
+生产经验:
+- 10台服务器:3台zk;
+- 20台服务器:5台zk;
+- 100台服务器:11台zk;
+- 200台服务器:11台zk 
+
+服务器台数多:好处，提高可靠性;坏处:提高通信延时
+
+### 6.3 常用命令
+
+```
+ls、get、create、delete
+```

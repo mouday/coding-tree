@@ -1,8 +1,8 @@
 # React
 
-[《尚硅谷React教程》笔记](/blog/react/atguigu-react.md)
+[《尚硅谷React教程》笔记](../atguigu-react/index.md)
 
-[React项目实战(React后台管理系统、TypeScript+React18)](/blog/react/react-combat.md)
+[React项目实战(React后台管理系统、TypeScript+React18)](./react-combat.md)
 
 
 React 教程

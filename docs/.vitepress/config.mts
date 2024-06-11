@@ -161,7 +161,7 @@ var _hmt = _hmt || [];
     plugins: [
       // https://github.com/QC2168/vite-plugin-vitepress-auto-sidebar
       AutoSidebar({
-        ignoreList: ["/public/", "assets", "img"],
+        ignoreList: ["/public/", "assets", "img", "demo"],
         titleFromFile: true,
         // 侧边栏排序
         beforeCreateSideBarItems: (data: string[]): string[] => {

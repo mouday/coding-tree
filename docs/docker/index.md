@@ -1,9 +1,16 @@
 # Docker
 
-- [一、初识Docker](./docker-introduction.md)
-- [二、安装 Docker](./docker-install.md)
-- [三、Docker的基本操作](./docker-operate.md)
-- [四、Dockerfile自定义镜像](./docker-image.md)
-- [五、安装 DockerCompose](./docker-compose-install.md)
-- [六、Docker-Compose](./docker-compose.md)
-- [七、Docker镜像仓库](./docker-registry.md)
+[笔记: Docker学习](../reggie-docker/index.md)
+
+- [https://www.docker.com/](https://www.docker.com/)
+
+- [https://hub.docker.com/](https://hub.docker.com/)
+
+## 学习资料
+
+Docker — 从入门到实践 [github](https://github.com/yeasy/docker_practice) | [docker-practice](https://vuepress.mirror.docker-practice.com/) | [gitbook](https://yeasy.gitbook.io/docker_practice/)
+
+[Docker 教程 - 菜鸟教程](https://www.runoob.com/docker/docker-tutorial.html)
+
+[求求你了，用Docker吧](https://juejin.cn/post/7021006271818137630)
+

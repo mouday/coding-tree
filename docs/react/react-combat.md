@@ -1,5 +1,3 @@
-[返回目录](/blog/react/index.md)
-
 # React 项目实战
 
 (React 后台管理系统、TypeScript+React18)

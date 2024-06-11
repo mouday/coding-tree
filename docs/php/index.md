@@ -13,9 +13,9 @@ php-awesome
 - https://github.com/shockerli/php-awesome
 - https://github.com/jobbole/awesome-php-cn
 
-[笔记：黑马程序员PHP零基础入门到精通教程（P1基础6天）](blog/php-basic/index.md)
+[笔记：黑马程序员PHP零基础入门到精通教程（P1基础6天）](./php-basic/index.md)
 
-[笔记：PHP 零基础入门到精通教程（P2 mysql 数据库 5 天）](blog/php-mysql/index.md)
+[笔记：PHP 零基础入门到精通教程（P2 mysql 数据库 5 天）](./php-mysql/index.md)
 
 [Laravel 学习笔记](/blog/laravel/index.md)
 

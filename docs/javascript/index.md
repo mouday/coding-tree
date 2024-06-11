@@ -1,6 +1,11 @@
 # JavaScript
 
-[前端学习路线图](../blog/javascript/javascript-learn-road.md)
+[前端学习路线图](./javascript-learn-road.md)
+
+[笔记：web 前端开发入门](../front-end-learn/index.md)
+
+[笔记：web 前端开发进阶 HTML5+CSS3+移动端](../front-end-combat/index.md)
+
 
 ## 通用第三方库
 

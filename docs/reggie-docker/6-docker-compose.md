@@ -1,4 +1,3 @@
-[返回目录](/blog/docker/index)
 
 # 六、Docker-Compose
 
@@ -9,7 +8,7 @@ Docker Compose可以基于Compose文件帮我们快速的部署分布式应用�
 
 Compose文件是一个文本文件，通过指令定义集群中的每个容器如何运行。格式如下：
 
-```json
+```yaml
 version: "3.8"
  services:
   mysql:

@@ -422,3 +422,15 @@ P6Spy [github](https://github.com/p6spy/p6spy)is a framework that enables databa
 [jenkins](https://www.jenkins.io/zh/) 一个开源自动化服务器
 
 [X Spring File Storage](https://spring-file-storage.xuyanwu.cn/#/) | [github](https://github.com/1171736840/spring-file-storage) 整合市面上所有的OSS对象存储平台
+
+
+
+MyBatis官网 "https://mybatis.org/mybatis-3/zh/"
+Spring官网 "https://spring.io"
+Redis官网 "https://redis.io"
+RabbitMQ官网 "https://www.rabbitmq.com"
+Docker官网 "https://www.docker.com"
+ES官网 "https://elasticsearch.cn"
+Maven官网 "https://maven.apache.org/"
+Seata官网 "http://seata.io/zh-cn/"
+Sentinel官网 "https://sentinelguard.io/zh-cn/"

@@ -1,5 +1,7 @@
 # Java
 
+## 学习笔记
+
 [Java学习路线图（2023黑马程序员）](./java-learn-road.md)
 
 [笔记：Spring零基础入门到进阶](../spring/index.md)
@@ -14,9 +16,13 @@
 
 [笔记：《瑞吉外卖》项目学习笔记](../reggie-doc/index.md)
 
+[笔记：《苍穹外卖》项目实战](../java-cqwm/index.md)
+
+
+[Java常用组件和框架](./java-awesome.md)
+
 [韩顺平 bilibili](https://space.bilibili.com/651245581)
 
-[Java常用组件和框架](../blog/java/java-awesome.md)
 
 Java 要掌握的技术点 [https://javacn.site/java/java.html](https://javacn.site/java/java.html)
 

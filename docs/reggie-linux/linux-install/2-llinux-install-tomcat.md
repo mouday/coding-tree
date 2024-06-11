@@ -1,4 +1,4 @@
-# 3、安装tomcat
+# 安装tomcat
 
 开源地址：[https://github.com/apache/tomcat](https://github.com/apache/tomcat)
 

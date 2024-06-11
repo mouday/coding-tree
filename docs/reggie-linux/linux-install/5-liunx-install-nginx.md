@@ -1,4 +1,4 @@
-# Nginx
+# 安装Nginx
 
 - Nginx概述
 - Nginx命令

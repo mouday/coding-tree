@@ -1,4 +1,4 @@
-# lrzsz
+# 安装lrzsz
 
 使用Yum安装lrzsz
 

@@ -1,20 +1,21 @@
-# 《瑞吉外卖》Linux笔记
+# Linux
 
-学习资料
-- [https://www.runoob.com/linux/linux-tutorial.html](https://www.runoob.com/linux/linux-tutorial.html)
+笔记：[《瑞吉外卖》Linux笔记](../reggie-linux/index.md)
 
-## 目录
+| 软件名称 | 简介 | 官网
+| - | - | -
+OneinStack | 一键PHP/JAVA安装工具 | [官网](https://oneinstack.com/)、[镜像说明](https://oneinstack.com/docs/lnmpstack-image-guide/)
+Supervisor| 进程管理 | [官网](http://supervisord.org/index.html)
 
-- [Linux简介](/blog/reggie-doc/doc/linux/linux-introduction.md)
-- [Linux环境搭建](/blog/reggie-doc/doc/linux/linux-env.md)
-- [Linux常用命令](/blog/reggie-doc/doc/linux/linux-command.md)
-- Linux安装软件
-    - [软件安装的方式](/blog/reggie-doc/doc/linux/linux-install-software.md)
-    - [安装jdk](/blog/reggie-doc/doc/linux/linux-install-jdk)
-    - [安装tomcat](/blog/reggie-doc/doc/linux/linux-install-tomcat)
-    - [防火墙](/blog/reggie-doc/doc/linux/linux-firewalld.md)
-    - [安装mysql](/blog/reggie-doc/doc/linux/linux-install-mysql)
-    - [安装lrzsz](/blog/reggie-doc/doc/linux/linux-install-lrzsz)
-    - [安装nginx](/blog/reggie-doc/doc/linux/liunx-install-nginx.md)
 
-- [项目部署](/blog/reggie-doc/doc/linux/linux-project-deploy.md)
+[The Linux Kernel Archives](https://www.kernel.org/)
+
+[curl 的用法指南 阮一峰的网络日志](http://www.ruanyifeng.com/blog/2019/09/curl-reference.html)
+
+[鸟哥的 Linux 私房菜 -- 基础学习篇](http://cn.linux.vbird.org/linux_basic/linux_basic.php)
+
+## 软件
+
+Snapcraft [https://snapcraft.io/](https://snapcraft.io/) Linux 软件包管理工具
+
+Redis [https://redis.io/](https://redis.io/) 一个key-value存储系统

@@ -1,4 +1,4 @@
-# 4、安装mysql
+# 安装mysql
 
 ## 4.1、通过RPM安装mysql
 

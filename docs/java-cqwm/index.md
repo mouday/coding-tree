@@ -7,6 +7,7 @@
 - 视频地址：https://www.bilibili.com/video/BV1TP411v7v6/
 - 网盘链接：https://pan.baidu.com/s/1MNDzXyVlr3mtmLgBjcPJVw?pwd=6633
 - 在线体验：https://pip.itcast.cn/java-cqwm
+- 在线讲义：https://mouday.github.io/java-cqwm/
 
 项目预览
 

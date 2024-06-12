@@ -20,5 +20,10 @@
 3. 掌握外卖行业相关的业务流程和功能架构
 
 
+软件环境
+- 开发环境(development)：开发人员在开发阶段使用的环境，一般外部用户无法访问
+- 测试环境(testing)：专门给测试人员使用的环境，用于测试项目，一般外部用户无法访问
+- 生产环境(production)：即线上环境，正式提供对外服务的环境
+
 
 https://www.bilibili.com/video/BV1TP411v7v6/?p=4&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -85,6 +85,7 @@ var _hmt = _hmt || [];
           { text: "Laravel", link: "/laravel/" },
           { text: "Websocket", link: "/websocket/" },
           { text: "Python", link: "/python/" },
+          { text: "Golang", link: "/golang/" },
           { text: "PHP", link: "/php/" },
         ],
       },

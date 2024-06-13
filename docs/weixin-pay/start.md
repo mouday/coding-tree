@@ -22,6 +22,10 @@
     - Java命令行下载工具： https://github.com/wechatpay-apiv3/CertificateDownloader
     - php命令行下载工具：[https://github.com/wechatpay-apiv3/wechatpay-php/blob/main/bin/README.md](https://github.com/wechatpay-apiv3/wechatpay-php/blob/main/bin/README.md)
 
+6. 支付文档
+    - Native下单（扫码支付）：https://pay.weixin.qq.com/docs/merchant/apis/native-payment/direct-jsons/native-prepay.html
+    - 退款申请: https://pay.weixin.qq.com/docs/merchant/apis/refund/refunds/create.html
+
 > 商户和微信平台进行通信，所以双方都需要有一套证书
 
 ## SDK

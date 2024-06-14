@@ -434,3 +434,5 @@ ES官网 "https://elasticsearch.cn"
 Maven官网 "https://maven.apache.org/"
 Seata官网 "http://seata.io/zh-cn/"
 Sentinel官网 "https://sentinelguard.io/zh-cn/"
+
+YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台 https://github.com/YMFE/yapi

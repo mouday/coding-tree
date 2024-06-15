@@ -1,7 +1,7 @@
 # Go语言
 
+[Golang博客](../golang-blog/index.md)
 
-Go 语言: [官网​](https://go.dev/​) | [github​](https://github.com/golang/go​)
 
 ## 学习笔记
 
@@ -9,6 +9,8 @@ Go 语言: [官网​](https://go.dev/​) | [github​](https://github.com/gola
 
 ## 学习资料
 
+- Go 语言: [https://go.dev/](https://go.dev/​) 
+- github： [https://github.com/golang/go](https://github.com/golang/go​)
 - 官网：[https://golang.org/](https://golang.org/)
 - 官网中文：[https://go-zh.org/](https://go-zh.org/)
 - Go Packages：[https://pkg.go.dev/](https://pkg.go.dev/)

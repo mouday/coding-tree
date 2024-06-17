@@ -7,13 +7,14 @@ hero:
   text: "编程学习路上的笔记与知识整理收集"
   tagline: 工作中分享、分享中学习
   actions:
+
     - theme: brand
-      text: 软考
-      link: /ruankao/
+      text: Github
+      link: https://github.com/mouday/
   
     - theme: alt
-      text: Golang
-      link: /golang/
+      text: CSDN
+      link: https://blog.csdn.net/mouday
   
     - theme: alt
       text: 编程语言

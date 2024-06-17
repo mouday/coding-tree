@@ -2,6 +2,12 @@
 
 ElasticSearch官网： [https://www.elastic.co/](https://www.elastic.co/)
 
+## 学习笔记
+
+- [2022版Elasticsearch教程入门到精通](../elasticsearch-learn/index.md)
+- [Elasticsearch Springcloud](../elasticsearch-springcloud/index.md)
+- [Elasticsearch 学习笔记](../elasticsearch-note/index.md)
+
 
 ## 文档
 
@@ -16,9 +22,3 @@ ElasticSearch官网： [https://www.elastic.co/](https://www.elastic.co/)
 - [ELASTIC 搜索开发实战-github](https://github.com/medcl/book-elastic-search-in-action)
 
 https://github.com/medcl
-
-## 课程学习
-
-- [2022版Elasticsearch教程入门到精通](/blog/elasticsearch/elasticsearch-learn/index.md)
-
-- [SpringCloud-Elasticsearch](/blog/elasticsearch/springcloud-elasticsearch/index.md)

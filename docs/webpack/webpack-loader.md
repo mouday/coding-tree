@@ -255,13 +255,15 @@ module.exports.pitch = function (remainingRequest, precedingRequest, data) {
 
 webpack完整的loader执行顺序
 
-![](./img/loader1.png)
+
+![](https://mouday.github.io/img/2024/06/17/otbeajx.png)
 
 loader提前返回
 
-![](./img/loader2.png)
+![](https://mouday.github.io/img/2024/06/17/egfb4qg.png)
 
 ## loader API
+
 
 |方法名	| 含义	| 用法
 |- | - | - 

@@ -44,7 +44,8 @@ compilation 对象代表一次资源的构建，compilation 实例能够访问�
 
 ### 生命周期简图
 
-![](img/plugin.jpg)
+
+![](https://mouday.github.io/img/2024/06/17/4fy55of.jpg)
 
 ## 第一个插件
 
@@ -446,7 +447,7 @@ webpack 打包生成的 runtime 文件太小了，额外发送请求性能不好
 
 html-webpack-plugin 执行流程
 
-![](img/html-webpack-plugin-flow.png)
+![](https://mouday.github.io/img/2024/06/17/fkqedpo.png)
 
 ```
 pnpm i safe-require -D

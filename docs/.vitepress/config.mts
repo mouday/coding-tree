@@ -75,6 +75,7 @@ var _hmt = _hmt || [];
           { text: "Vue", link: "/vue/" },
           { text: "React", link: "/react/" },
           { text: "Webpack", link: "/webpack/" },
+          { text: "微信小程序", link: "/miniprogram/" },
         ],
       },
       {

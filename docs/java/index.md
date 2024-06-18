@@ -2,6 +2,8 @@
 
 [Java常用代码片段](../java-code/index.md)
 
+[Java常用库](../java-awesome/index.md)
+
 ## 学习笔记
 
 [Java学习路线图（2023黑马程序员）](./java-learn-road.md)

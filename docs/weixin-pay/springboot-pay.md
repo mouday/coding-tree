@@ -523,7 +523,7 @@ await wx.requestPayment({
   timeStamp: '',
   nonceStr: '',
   package: '',
-  signType: 'MD5',
+  signType: '',
   paySign: '',
 })
 ```

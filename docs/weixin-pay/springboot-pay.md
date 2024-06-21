@@ -1,6 +1,6 @@
 # SpringBoot 微信支付
 
-参数配置
+## 参数配置
 
 ```yaml
 # application.yml
@@ -333,6 +333,7 @@ public class WechatPayService implements PayService {
 ```
 
 控制器
+
 ```java
 package com.demo.controller;
 
@@ -457,3 +458,72 @@ public class OrderRefundForm {
 }
 
 ````
+
+## 小程序支付
+
+1、服务端返回支付所需参数
+
+公共的配置参数
+
+```java
+public Config getConfig() {
+        return new RSAConfig.Builder()
+                .merchantId(wxPayConfig.getMerchantId())
+                .privateKeyFromPath(wxPayConfig.getPrivateKeyPath())
+                .merchantSerialNumber(wxPayConfig.getMerchantSerialNumber())
+                .wechatPayCertificatesFromPath(wxPayConfig.getWechatPayCertificatePath())
+                .build();
+}
+```
+
+```java
+import com.wechat.pay.java.service.payments.jsapi.model.PrepayRequest;
+import com.wechat.pay.java.service.payments.jsapi.JsapiServiceExtension;
+import com.wechat.pay.java.service.payments.jsapi.model.Amount;
+import com.wechat.pay.java.service.payments.jsapi.model.Payer;
+import com.wechat.pay.java.service.payments.jsapi.model.PrepayWithRequestPaymentResponse;
+
+JsapiServiceExtension service = new JsapiServiceExtension
+        .Builder()
+        .config(getConfig())
+        .build();
+
+// 设置所需参数，具体参数可见Request定义
+PrepayRequest request = new PrepayRequest();
+
+// 金额
+Amount amount = new Amount();
+amount.setTotal(100);
+amount.setCurrency("CNY");
+request.setAmount(amount);
+
+// 支付人
+Payer payer = new Payer();
+payer.setOpenid("OpenId");
+request.setPayer(payer);
+
+// 商户信息
+request.setDescription("商品名称");
+request.setAppid(wxMaConfig.getAppId());
+request.setMchid(wxPayConfig.getMerchantId());
+request.setNotifyUrl(wxPayConfig.getPayNotifyUrl());
+request.setOutTradeNo("OutTradeNo");
+
+// 调用下单方法，得到应答
+// response包含了调起支付所需的所有参数，可直接用于前端调起支付
+PrepayWithRequestPaymentResponse response = service.prepayWithRequestPayment(request);
+log.debug("{}", response);
+
+```
+
+2、小程序端拉起支付
+
+```js
+await wx.requestPayment({
+  timeStamp: '',
+  nonceStr: '',
+  package: '',
+  signType: 'MD5',
+  paySign: '',
+})
+```

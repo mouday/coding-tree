@@ -1,5 +1,43 @@
 # uni-app常用api
 
+## 条件编译
+
+1、API 的条件编译
+
+```js
+// #ifdef H5
+平台特有的组件
+// #endif
+
+// #ifdef MP-WEIXIN
+平台特有的组件
+// #endif
+```
+
+2、组件的条件编译
+
+```html
+<!--  #ifdef H5 -->
+平台特有的组件
+<!--  #endif -->
+
+<!--  #ifdef MP-WEIXIN -->
+平台特有的组件
+<!--  #endif -->
+```
+
+3、样式的条件编译
+
+```css
+/*  #ifdef  H5  */
+平台特有样式
+/*  #endif  */
+
+/*  #ifdef  MP-WEIXIN  */
+平台特有样式
+/*  #endif  */
+```
+
 ## 页面和路由
 
 https://uniapp.dcloud.net.cn/api/router.html#event-channel

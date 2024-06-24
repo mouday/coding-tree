@@ -68,3 +68,16 @@ uni.switchTab({
     url: '/pages/index/index' // 路径后不能带参数
 });
 ```
+
+## loading 提示框
+
+```js
+// 显示 loading 提示框
+uni.showLoading({
+	title: '加载中'
+    mask: true
+});
+
+// 隐藏 loading 提示框
+uni.hideLoading();
+```

@@ -26,16 +26,14 @@
 
 ## UI 组件库
 
-[Vant Weapp](https://vant-contrib.gitee.io/vant-weapp/) | [github](https://github.com/vant-ui/vant-weapp) ![](https://img.shields.io/github/stars/vant-ui/vant-weapp.svg?style=social) 有赞前端团队开源,轻量、可靠的小程序 UI 组件库
-
-[iView Weapp](https://github.com/TalkingData/iview-weapp) ![](https://img.shields.io/github/stars/TalkingData/iview-weapp.svg?style=social) 一套高质量的微信小程序 UI 组件库
-
-[Lin UI](https://doc.mini.talelin.com/) | [github](https://github.com/TaleLin/lin-ui) ![](https://img.shields.io/github/stars/TaleLin/lin-ui.svg?style=social) Lin UI 是基于 微信小程序原生语法 实现的组件库。遵循简洁，易用的设计规范。
-
-
-[uView UI](https://www.uviewui.com/) | [github](https://github.com/umicro/uView2.0) ![](https://img.shields.io/github/stars/umicro/uView2.0.svg?style=social)是全面兼容 nvue 的 uni-app 生态框架，全面的组件和便捷的工具会让您信手拈来，如鱼得水
-
-[weui-wxss](https://github.com/Tencent/weui-wxss) : WeUI for 小程序 为微信小程序量身设计
+|库名 | 描述 | 地址
+|---|---|---
+Vant Weapp | 有赞前端团队开源,轻量、可靠的小程序 UI 组件库 | [Vant Weapp](https://vant-contrib.gitee.io/vant-weapp/)、[github](https://github.com/vant-ui/vant-weapp)
+iView Weapp | 一套高质量的微信小程序 UI 组件库 | [iView Weapp](https://github.com/TalkingData/iview-weapp)
+Lin UI | 基于 微信小程序原生语法 实现的组件库。遵循简洁，易用的设计规范。 | [Lin UI](https://doc.mini.talelin.com/) 、[github](https://github.com/TaleLin/lin-ui) 
+uView UI | 全面兼容 nvue 的 uni-app 生态框架 [uView UI](https://www.uviewui.com/) | [github](https://github.com/umicro/uView2.0)
+WeUI for 小程序| 为微信小程序量身设计 | [weui-wxss](https://github.com/Tencent/weui-wxss) 
+nutui-uniapp | 京东风格的轻量级移动端组件库 | [文档](https://uniapp-nutui.tech/)
 
 ## 开发资源
 

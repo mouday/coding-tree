@@ -1,10 +1,5 @@
 # Vue.js
 
-```html
-<!-- Production -->
-<script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
-```
-
 [vue.md](blog/vue.md)
 
 [BootstrapVue](https://bootstrap-vue.org/): 一个用于 Vue.js 构建引导接口的开源库。

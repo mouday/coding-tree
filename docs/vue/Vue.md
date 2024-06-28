@@ -84,6 +84,11 @@ $ npm ls -g --depth=0
 
 vueCDN: https://www.bootcdn.cn/
 
+```html
+<!-- Production -->
+<script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+```
+
 代码示例
 ```html
 <html>

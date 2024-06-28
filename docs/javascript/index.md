@@ -87,6 +87,7 @@ styled-components
 | DataV（@jiaminghi/data-view） |  Vue 大屏数据展示组件库 | [doc](http://datav.jiaminghi.com/)
 mavon-editor | 基于Vue的markdown编辑器  | [npm](https://www.npmjs.com/package/mavon-editor)、[github](https://github.com/hinesboy/mavonEditor) 
 | vue-echarts | - | - |
+| element-plus | 基于 Vue 3，面向设计师和开发者的组件库 | [文档](https://element-plus.org/zh-CN/component/overview.html) |
 
 [vue-qriously](https://github.com/theomessin/vue-qriously)：A Vue.js 2 component to draw QR codes on an HTML Canvas using qrious.
 

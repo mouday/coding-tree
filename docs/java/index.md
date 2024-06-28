@@ -38,11 +38,6 @@ Java 要掌握的技术点 [https://javacn.site/java/java.html](https://javacn.s
 
 编程入门教程 [https://www.nowcoder.com/library](https://www.nowcoder.com/library)
 
-[Hello 算法](https://www.hello-algo.com/chapter_hello_algo/)
-
-[鱼皮编程学习路线](https://luxian.yupi.icu/)
-
-[Hello 算法](https://www.hello-algo.com/): [github](https://github.com/krahets/hello-algo) 动画图解、一键运行的数据结构与算法教程
 
 Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjavaer.com/)
 
@@ -50,11 +45,7 @@ Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjava
 
 [Spring Boot 学习/面试指南](https://snailclimb.gitee.io/springboot-guide/)
 
-[JavaGuide](https://snailclimb.gitee.io/javaguide/#/): 「Java学习+面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。
 
-[JavaGuide](https://javaguide.cn/) JavaGuide 在线阅读网站（新版，推荐👍）
-
-[Java 全栈知识体系](https://pdai.tech/)
 
 [CS-Notes](https://github.com/CyC2018/CS-Notes) 技术面试必备基础知识、Leetcode、计算机操作系统、计算机网络、系统设计
  - [http://www.cyc2018.xyz/](http://www.cyc2018.xyz/)
@@ -66,6 +57,16 @@ Java程序员进阶之路 [https://tobebetterjavaer.com/](https://tobebetterjava
 [牛客题库](https://www.nowcoder.com/exam/intelligent)
 
 [Alibaba Java 技术图谱](https://developer.aliyun.com/graph/java)
+
+| 网站 | 简介 | 地址
+| ---|--- | -
+[Java突击队](http://www.susan.net.cn/) | 帮你快速提升Java技术的神奇网站 | [link](http://www.susan.net.cn/)
+JavaGuide | Java学习+面试指南 | [gitee](https://snailclimb.gitee.io/javaguide/#/)、[新版](https://javaguide.cn/)
+Java 全栈知识体系 |  | [Java 全栈知识体系](https://pdai.tech/)
+Hello 算法 | 动画图解、一键运行的数据结构与算法教程 | [Hello 算法](https://www.hello-algo.com/chapter_hello_algo/)、[github](https://github.com/krahets/hello-algo)
+鱼皮编程学习路线 | | [yupi](https://luxian.yupi.icu/)
+
+
 
 
 ## JavaFX

@@ -154,7 +154,7 @@ CALL  batchInsertBigData(10000000);
 
 ```
 
-执行后要等好一会才行 40分钟
+执行后要等好一会才行 40分钟，导入后占用空间：1.63GB
 
 ```
 completed in 39 m 58 s 193 ms

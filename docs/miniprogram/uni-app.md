@@ -117,3 +117,54 @@ export default {
   },
 };
 ```
+
+## 表单组件picker
+
+使用示例
+
+```html
+<template>
+    <picker
+      @change="handleChange"
+      :value="value"
+      :range="options"
+      range-key="label"
+      >{{selectedLabel}}</picker>
+</template>
+
+<script>
+
+export default {
+  data() {
+    return {
+      // picker index
+      value: null,
+
+      options: [
+        {
+          'label': '男性',
+          'value': 'man',
+        },
+        {
+          'label': '女性',
+          'value': 'woman',
+        }
+      ],
+    }
+  },
+
+  computed: {
+    selectedLabel(){
+       return this.options[this.value]?.label
+    }
+  },
+
+  methods: {
+    handleChange(e) {
+      this.value = e.detail.value
+    },
+  }
+}
+</script>
+
+```

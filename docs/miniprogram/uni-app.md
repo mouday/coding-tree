@@ -69,7 +69,7 @@ uni.switchTab({
 });
 ```
 
-## loading 提示框
+## 提示框loading
 
 ```js
 // 显示 loading 提示框

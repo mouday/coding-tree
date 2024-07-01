@@ -41,6 +41,8 @@ six | Python2/3兼容 | [doc](https://six.readthedocs.io/)
 virtualenvwrapper | 虚拟环境 | [doc](https://virtualenvwrapper.readthedocs.io/)
 supervisord | 进程管理 | [doc](http://www.supervisord.org/index.html)
 flask | 轻量级 Web 应用框架 |  [doc](https://flask.palletsprojects.com/)
+Ultralytics YOLOv8 | 深度学习和计算机视觉领域的尖端技术 | [docs](https://docs.ultralytics.com/)
+PyTorch | 深度学习 | [docs](https://pytorch.org/)、[中文文档](https://pytorch.apachecn.org/)
 
 - [flask-paginate](https://pythonhosted.org/Flask-paginate/)  is a simple paginate extension for flask which is reference to will_paginate, and use bootstrap as css framework.
 
@@ -142,3 +144,4 @@ flask | 轻量级 Web 应用框架 |  [doc](https://flask.palletsprojects.com/)
 [吐血推荐珍藏的Flask资源](https://blog.csdn.net/zV3e189oS5c0tSknrBCL/article/details/82112854)
 
 [Flask补充系列–将应用部署在Heroku上](http://www.bjhee.com/flask-heroku.html)
+

@@ -4,6 +4,13 @@
 
 [Java常用库](../java-awesome/index.md)
 
+Java面试八股文
+
+- 黑马程序员2021 https://www.bilibili.com/video/BV15b4y117RJ/
+- 黑马程序员2023 https://www.bilibili.com/video/BV1yT411H7YK/
+- 图灵程序员2024 https://www.bilibili.com/video/BV1wu4m1u7cm/
+- 阿里架构师诸葛 https://www.bilibili.com/video/BV1Nw4m1e7ne/
+
 ## 学习笔记
 
 [Java学习路线图（2023黑马程序员）](./java-learn-road.md)

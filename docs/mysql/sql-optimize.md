@@ -37,8 +37,8 @@ CREATE TABLE `t_orders`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
 
   PRIMARY KEY (`id`) USING BTREE,
-
   INDEX `idx_custnum_status_createtime`(`customer_num` ASC, `status` ASC, `create_time` ASC) USING BTREE,
+  INDEX `idx_create_time`(`create_time` ASC) USING BTREE,
   INDEX `idx_order_id`(`order_id` ASC) USING BTREE
 
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '订单表' ROW_FORMAT = DYNAMIC;
@@ -88,6 +88,7 @@ CREATE TABLE `t_orders_bigdata`  (
   PRIMARY KEY (`id`) USING BTREE,
 
   INDEX `idx_custnum_status_createtime`(`customer_num` ASC, `status` ASC, `create_time` ASC) USING BTREE,
+  INDEX `idx_create_time`(`create_time` ASC) USING BTREE,
   INDEX `idx_order_id`(`order_id` ASC) USING BTREE
 
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '订单表' ROW_FORMAT = DYNAMIC;
@@ -475,283 +476,357 @@ mysql> explain SELECT * FROM t_orders WHERE YEAR(create_time) = 2024;
 
 ```sql
 -- 1、使用索引列的日期范围，type= range ,走索引
-mysql> explain SELECT * FROM t_orders WHERE create_time >= '2024-01-01 00:00:00' AND create_time < '2025-01-01 00:00:00';
-+----+-------------+----------+------------+-------+-----------------+-----------------+---------+------+------+----------+-----------------------+
-| id | select_type | table    | partitions | type  | possible_keys   | key             | key_len | ref  | rows | filtered | Extra                 |
-+----+-------------+----------+------------+-------+-----------------+-----------------+---------+------+------+----------+-----------------------+
-|  1 | SIMPLE      | t_orders | NULL       | range | idx_create_time | idx_create_time | 5       | NULL |   10 |   100.00 | Using index condition |
-+----+-------------+----------+------------+-------+-----------------+-----------------+---------+------+------+----------+-----------------------+
+ysql> explain SELECT * FROM t_orders WHERE create_time >= '2024-01-01 00:00:00' AND create_time < '2025-01-01 00:00:00';
++----+-------------+----------+------------+------+-----------------+------+---------+------+------+----------+-------------+
+| id | select_type | table    | partitions | type | possible_keys   | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+----------+------------+------+-----------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | t_orders | NULL       | ALL  | idx_create_time | NULL | NULL    | NULL |   10 |   100.00 | Using where |
++----+-------------+----------+------------+------+-----------------+------+---------+------+------+----------+-------------+
 1 row in set, 1 warning (0.00 sec)
 ```
 
+4、最佳左前缀法则
+
+建立了联合索引列，如果搜索条件不够全值匹配怎么办？
+
+在我们的搜索语句中也可以不用包含全部联合索引中的列，但要遵守最左前缀法则。指的是查询从索引的最左前列开始并且不跳过索引中的列。即搜索条件中必须出现左边的列才可以使用到这个B+树索引
+
+如图已建立联合索引
+
 ```sql
+mysql> show index from t_orders_bigdata;
++------------------+------------+-------------------------------+--------------+--------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table            | Non_unique | Key_name                      | Seq_in_index | Column_name  | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++------------------+------------+-------------------------------+--------------+--------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| t_orders_bigdata |          0 | PRIMARY                       |            1 | id           | A         |     9056092 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| t_orders_bigdata |          1 | idx_custnum_status_createtime |            1 | customer_num | A         |       19607 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| t_orders_bigdata |          1 | idx_custnum_status_createtime |            2 | status       | A         |       19607 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| t_orders_bigdata |          1 | idx_custnum_status_createtime |            3 | create_time  | A         |     2894619 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| t_orders_bigdata |          1 | idx_order_id                  |            1 | order_id     | A         |     9056264 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++------------------+------------+-------------------------------+--------------+--------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+5 rows in set (0.01 sec)
+
+```
+例如：统计某用户，在某个时间，待付款的订单。
+
+案例说明：
+
+1、跳过开头customer_num，查询联合索引中的部分字段 status
+
+```sql
+-- 跳过开头customer_num，查询联合索引中的部分字段 status,
+-- 结果：type=ALL, 全表扫描，未走索引
+
+mysql> explain select * from t_orders_bigdata t where  t.status = '1';
++----+-------------+-------+------------+------+---------------+------+---------+------+--------+----------+-------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows   | filtered | Extra       |
++----+-------------+-------+------------+------+---------------+------+---------+------+--------+----------+-------------+
+|  1 | SIMPLE      | t     | NULL       | ALL  | NULL          | NULL | NULL    | NULL | 164571 |    10.00 | Using where |
++----+-------------+-------+------------+------+---------------+------+---------+------+--------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+```
+
+2、 跳过开头customer_num，查询其它字段update_time;
+
+```sql
+-- 跳过开头customer_num，查询其它字段update_time;
+-- 结果：type=ALL, 全表扫描，未走索引
+
+mysql> explain select * from t_orders_bigdata t where  t.update_time = '2024-06-22 15:49:11' and t.`status` = '1' ;
++----+-------------+-------+------------+------+---------------+------+---------+------+--------+----------+-------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows   | filtered | Extra       |
++----+-------------+-------+------------+------+---------------+------+---------+------+--------+----------+-------------+
+|  1 | SIMPLE      | t     | NULL       | ALL  | NULL          | NULL | NULL    | NULL | 164571 |     1.00 | Using where |
++----+-------------+-------+------------+------+---------------+------+---------+------+--------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+```
+
+3、全匹配，查询where条件索引字段
+
+```sql
+-- 全匹配场景：ref = const,const,const,代表联合索引生效
+mysql> explain select * from t_orders_bigdata t where  t.customer_num = 'CUST202401' and  t.create_time = '2024-06-22 15:49:11' and t.`status` = '1' ;
++----+-------------+-------+------------+------+-----------------------------------------------+-------------------------------+---------+-------------------+------+----------+-------+
+| id | select_type | table | partitions | type | possible_keys                                 | key                           | key_len | ref               | rows | filtered | Extra |
++----+-------------+-------+------------+------+-----------------------------------------------+-------------------------------+---------+-------------------+------+----------+-------+
+|  1 | SIMPLE      | t     | NULL       | ref  | idx_create_time,idx_custnum_status_createtime | idx_custnum_status_createtime | 1028    | const,const,const |    1 |   100.00 | NULL  |
++----+-------------+-------+------------+------+-----------------------------------------------+-------------------------------+---------+-------------------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+```
+
+4、全匹配，查询where条件非索引字段
+
+```sql
+-- 全匹配场景：ref = const,const,代表联合索引部分生效：customer_num,status
+mysql> explain select * from t_orders_bigdata t where  t.customer_num = 'CUST202401' and  t.`status` = '1' and t.update_time = '2024-06-22 15:49:11';
++----+-------------+-------+------------+------+-------------------------------+-------------------------------+---------+-------------+------+----------+-------------+
+| id | select_type | table | partitions | type | possible_keys                 | key                           | key_len | ref         | rows | filtered | Extra       |
++----+-------------+-------+------------+------+-------------------------------+-------------------------------+---------+-------------+------+----------+-------------+
+|  1 | SIMPLE      | t     | NULL       | ref  | idx_custnum_status_createtime | idx_custnum_status_createtime | 1023    | const,const |    1 |    10.00 | Using where |
++----+-------------+-------+------------+------+-------------------------------+-------------------------------+---------+-------------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
 
 ```
 
+## 左匹配原理
+
+建立联合索引idx(customer_num,status,create_time) ,B+树的数据页和记录先是按照列customer_num的值排序的，在customer_num列的值相同的情况下才使用status列进行排序.
+
+![](https://mouday.github.io/img/2024/07/01/t91ks5q.png)
+
+因此，我们想使用联合索引中尽可能多的列。一个原则，搜索条件中的各个列必须含有联合索引中从最左边索引列。
+
+5、范围条件查询的先后原则
+
+也是针对联合索引来说的，所有记录都是按照索引列的值从小到大的顺序排好序的，而联合索引则是按创建索引时的顺序进行分组排序。
+
+为方便测试，现在只保留联合索引。
+
 ```sql
+mysql> show index from t_orders_bigdata;
++------------------+------------+-------------------------------+--------------+--------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table            | Non_unique | Key_name                      | Seq_in_index | Column_name  | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++------------------+------------+-------------------------------+--------------+--------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| t_orders_bigdata |          0 | PRIMARY                       |            1 | id           | A         |     9056092 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| t_orders_bigdata |          1 | idx_custnum_status_createtime |            1 | customer_num | A         |       19607 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| t_orders_bigdata |          1 | idx_custnum_status_createtime |            2 | status       | A         |       19607 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| t_orders_bigdata |          1 | idx_custnum_status_createtime |            3 | create_time  | A         |     2894619 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| t_orders_bigdata |          1 | idx_order_id                  |            1 | order_id     | A         |     9056264 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++------------------+------------+-------------------------------+--------------+--------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+5 rows in set (0.01 sec)
+```
+
+例如：统计创建时间：2024-05-22 15:49:11，未付款订单。
+
+```sql
+-- create_time 范围查询在前，不满足索引的顺序，导致失效
+mysql> explain select * from t_orders_bigdata t where  t.create_time > '2024-05-22 15:49:11' and t.`status` = '1' ;
++----+-------------+-------+------------+------+---------------+------+---------+------+--------+----------+-------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows   | filtered | Extra       |
++----+-------------+-------+------------+------+---------------+------+---------+------+--------+----------+-------------+
+|  1 | SIMPLE      | t     | NULL       | ALL  | NULL          | NULL | NULL    | NULL | 164571 |     3.33 | Using where |
++----+-------------+-------+------------+------+---------------+------+---------+------+--------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+
+```
+
+而中间有范围查询会导致后面的列全部失效，结果会怎样呢？
+
+```sql
+-- 中间有范围查询会导致后面的列全部失效，无法充分利用这个联合索引
+-- 例如，status 使用范围，导致create_time 索引失效
+mysql> explain select * from t_orders_bigdata t where  t.customer_num= 'CUST202400'  and t.status > '-1'  and t.create_time  =  '2024-06-22 15:49:11';
++----+-------------+-------+------------+-------+-------------------------------+-------------------------------+---------+------+------+----------+-----------------------+
+| id | select_type | table | partitions | type  | possible_keys                 | key                           | key_len | ref  | rows | filtered | Extra                 |
++----+-------------+-------+------------+-------+-------------------------------+-------------------------------+---------+------+------+----------+-----------------------+
+|  1 | SIMPLE      | t     | NULL       | range | idx_custnum_status_createtime | idx_custnum_status_createtime | 1023    | NULL |    1 |    10.00 | Using index condition |
++----+-------------+-------+------------+-------+-------------------------------+-------------------------------+---------+------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)
+```
+
+思考：怎么知道上述 SQL 走了那些索引，我们给一个对比的图。
+
+![](https://mouday.github.io/img/2024/07/01/jn2d2yu.png)
+
+显然，两个查询SQL对应len都是1023，代表status建立的索引都生效。
+
+6、慎用 (!= 或者<>)
+
+如果我们在order_id列上加索引
+
+```sql
+-- 使用(!= 或者<>)
+-- 结果：全表扫描
+
+mysql> explain SELECT * FROM t_orders_bigdata t WHERE t.order_id <> '10001';
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | t     | NULL       | ALL  | idx_order_id  | NULL | NULL    | NULL |   10 |   100.00 | Using where |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+```
+
+7、使用 Null/Not NULL
+
+这里注意：order_id 为空和不为空不太一样。
+
+情景1：order_id不可为空，使用(Null)
+
+```sql
+-- 情景1：order_id不可为空，使用(Null)
+-- 结果：Impossible WHERE，(查询语句的WHERE子句永远为FALSE时将会提示该额外信息)
+
+mysql>  explain SELECT * FROM t_orders t WHERE order_id is null;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+------------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra            |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+------------------+
+|  1 | SIMPLE      | NULL  | NULL       | NULL | NULL          | NULL | NULL    | NULL | NULL |     NULL | Impossible WHERE |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+------------------+
+1 row in set, 1 warning (0.00 sec)
+
+```
+
+情景2：order_id可为空，使用(Null)
+
+```sql
+-- order_id可为空，使用(Null)
+-- is null会走ref类型的索引访问
+mysql>  explain SELECT * FROM t_orders t WHERE order_id is null;
++----+-------------+-------+------------+------+---------------+--------------+---------+-------+------+----------+-----------------------+
+| id | select_type | table | partitions | type | possible_keys | key          | key_len | ref   | rows | filtered | Extra                 |
++----+-------------+-------+------------+------+---------------+--------------+---------+-------+------+----------+-----------------------+
+|  1 | SIMPLE      | t     | NULL       | ref  | idx_order_id  | idx_order_id | 9       | const |    1 |   100.00 | Using index condition |
++----+-------------+-------+------------+------+---------------+--------------+---------+-------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)
+
+```
+
+情景3：order_id不可为空，使用(NOT Null)
+
+```sql
+-- 情景1：order_id不可为空，使用(NOT Null)
+-- 
+mysql>  explain SELECT * FROM t_orders t WHERE order_id is not null;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+|  1 | SIMPLE      | t     | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   10 |   100.00 | NULL  |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+```
+情景4：order_id可为空，使用(NOT Null)
+
+```sql
+-- 情景1：order_id 可为空，使用(NOT Null)
+-- 
+mysql>  explain SELECT * FROM t_orders t WHERE order_id is not null;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+|  1 | SIMPLE      | t     | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   10 |   100.00 | NULL  |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+```
+
+小结
+
+`is not null`容易导致索引失效，`is null`则会区分被检索的列是否为null，如果是null则会走ref类型的索引访问，如果不为null，也是全表扫描。
+
+思考：使用联合索引时，情况如何呢？
+
+8、字符类型加引号转化导致全表扫描
+
+字符串不加单引号索引失效
+
+```sql
+-- 未加单引号，索引失效
+mysql> explain SELECT * FROM t_orders t WHERE order_id  = 10000000000001;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | t     | NULL       | ALL  | idx_order_id  | NULL | NULL    | NULL |   10 |    10.00 | Using where |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 3 warnings (0.00 sec)
+
+```
+
+使用单引号，索引生效
+
+```sql
+-- 使用单引号，索引生效
+mysql> explain SELECT * FROM t_orders t WHERE order_id  = '10000000000001';
++----+-------------+-------+------------+------+---------------+--------------+---------+-------+------+----------+-------+
+| id | select_type | table | partitions | type | possible_keys | key          | key_len | ref   | rows | filtered | Extra |
++----+-------------+-------+------------+------+---------------+--------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | t     | NULL       | ref  | idx_order_id  | idx_order_id | 1023    | const |    1 |   100.00 | NULL  |
++----+-------------+-------+------------+------+---------------+--------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
 
 ```
 
 
+9、使用or关键字时注意点
+
+情境1. 在索引列上使用or
+
 ```sql
+-- 在索引列上使用or, 索引生效
+mysql> explain SELECT * FROM t_orders t WHERE order_id  = '10000000000001' or order_id  = '10000000000002' ;
++----+-------------+-------+------------+-------+---------------+--------------+---------+------+------+----------+-----------------------+
+| id | select_type | table | partitions | type  | possible_keys | key          | key_len | ref  | rows | filtered | Extra                 |
++----+-------------+-------+------------+-------+---------------+--------------+---------+------+------+----------+-----------------------+
+|  1 | SIMPLE      | t     | NULL       | range | idx_order_id  | idx_order_id | 1023    | NULL |    2 |   100.00 | Using index condition |
++----+-------------+-------+------------+-------+---------------+--------------+---------+------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)
+```
+
+情境2. 在非索引列上使用or
+```sql
+-- 在非索引列上使用or, 索引失效。
+mysql> explain SELECT * FROM t_orders t WHERE order_id  = '10000000000001' or t.update_time  = '2024-06-22 15:49:11' ;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | t     | NULL       | ALL  | idx_order_id  | NULL | NULL    | NULL |   10 |    19.00 | Using where |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+```
+
+10、like以通配符开头('%abc...')导致索引失效
+
+这是查询时常用的SQL: like以通配符开头('%abc...')，mysql索引失效会变成全表扫描的操作.
+
+```sql
+-- like以通配符开头('%abc...')导致索引失效, 导致全表扫描
+
+mysql> explain SELECT * FROM t_orders t WHERE t.customer_num like '%CUST';
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | t     | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   10 |    11.11 | Using where |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
 
 ```
 
+11、使用索引扫描来做排序和分组
+
+排序列包含非同一个索引的列
+
+用来排序的多个列不是一个索引里的，这种情况也不能使用索引进行排序
+
 ```sql
+mysql> explain SELECT t.order_id, t.customer_num  FROM t_orders t order by t.order_id, t.customer_num;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra          |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+
+|  1 | SIMPLE      | t     | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   10 |   100.00 | Using filesort |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+
+1 row in set, 1 warning (0.00 sec)
 
 ```
 
-```sql
-
-```
-
-```sql
-
-```
-
-
-
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-
-
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
+MySQL可以使用同一个索引既满足排序，又用于查找行。因此，如果可能，设计索引时应该尽可能地同时满足这两种任务，这样是最好的。
+
+## 总结和思考
+
+本章重点，对于一个假设的`index(a, b, c)` 复合索引的使用情况：
+
+| WHERE语句示例	| 索引使用情况	| 备注
+| - | - | - | 
+where a = 3	|  使用到a	|  只使用索引的第一个列a
+where a = 3 and b = 5	|  使用到a，b	|  使用索引的前两列a和b
+where a = 3 and b = 5 and c = 4	|  使用到a, b, c	| 完全使用索引的所有列a、b、c
+where b = 3 或 where b = 3 and c = 4 或 where c = 4	| 不使用索引	| 没有使用索引的第一个列a，索引不被使用
+where a = 3 and c = 5	| 使用到a	| b列缺失，但可以使用索引的a和c列
+where a = 3 and b > 4 and c = 5	| 使用到a和b	|  使用索引的a和b列，c列因为范围查询不能使用
+where a = 3 and b like 'kk%' and c = 4	|  使用到a, b, c	|  使用索引的a列和b列的模式匹配，以及c列
+where a = 3 and b like '%kk' and c = 4	|  只用到a	|  通配符在开头，b列的索引不能使用，c列同样
+where a = 3 and b like '%kk%' and c = 4	|  只用到a	|  通配符在两边，b列的索引不能使用，c列同样
+where a = 3 and b like 'k%kk%' and c = 4	|  使用到a, b, c	|  尽管有通配符，但b列的索引部分可用，可以使用整个索引
 
 参考文章 
 

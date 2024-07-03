@@ -443,9 +443,14 @@ Survivor = from + to = 1G + 1G = 2G
 
 ### 元空间内存
 
+-XX:CompressedClassSpaceSize
+-XX:MaxMetaspaceSize
+
 ![](https://mouday.github.io/img/2024/07/03/no8wvox.png)
 
 ### 代码缓存区
+
+-XX:ReservedCodeCacheSize
 
 存放JIT编译后的代码
 
@@ -453,4 +458,7 @@ Survivor = from + to = 1G + 1G = 2G
 
 ### 线程
 
+`-Xss`默认1M
+
 ![](https://mouday.github.io/img/2024/07/03/vnad104.png)
+

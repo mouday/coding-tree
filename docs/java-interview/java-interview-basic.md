@@ -45,6 +45,7 @@ public class BinarySearch {
         int middle;
 
         while (left <= right) {
+            // 需要注意：此处可能会发生整数溢出
             middle = (left + right) / 2;
 
             if (array[middle] == target) {

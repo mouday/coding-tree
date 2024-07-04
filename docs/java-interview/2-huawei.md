@@ -177,3 +177,76 @@ public static int foo(int n) {
 
 1. [面试问题 —— 算法题](https://blog.csdn.net/qq_37492806/article/details/105411544)
 2. [每日算法——最全青蛙跳台阶算法问题](https://blog.csdn.net/weixin_48622530/article/details/127311492)
+
+
+## 技术三面：多少match
+
+```
+A=[5,5,1,2,3,3,4]
+B=[3,3,4,5,6,7,8]
+```
+
+设match=0，如果`A[i]==B[j]`那么`match++`，问一共多少match？
+
+要求至少用2种算法实现，算法复杂度`O（N+M）`或`O（nlogn）`，可以利用`O(N^2）`复杂度算法验证结果。
+
+```java
+package com.demo;
+
+import java.util.*;
+
+public class Demo {
+    public static void method1() {
+        int[] A = {5, 5, 1, 2, 3, 3, 4};
+        int[] B = {3, 3, 4, 5, 6, 7, 8};
+        int match = 0;
+
+        for (int i = 0; i < A.length; i++) {
+            for (int j = 0; j < B.length; j++) {
+                if (A[i] == B[j]) {
+                    match++;
+                }
+            }
+        }
+
+        System.out.println(match); // 7
+    }
+
+
+    public static void method2() {
+        int[] A = {5, 5, 1, 2, 3, 3, 4};
+        int[] B = {3, 3, 4, 5, 6, 7, 8};
+        int match = 0;
+
+        // 排序
+        //Arrays.sort(B);
+
+        // [3, 3, 4, 5, 6, 7, 8]
+        System.out.println(Arrays.toString(B));
+
+        // 将B数组放入hash map中，key是数值，value是数量
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < B.length; i++) {
+            if(map.containsKey(B[i])){
+                map.put(B[i], map.get(B[i]) + 1);
+            } else{
+                map.put(B[i], 1);
+            }
+        }
+
+        for (int i = 0; i < A.length; i++) {
+            //int index = 0;
+            if(map.containsKey(A[i])){
+                match+=map.get(A[i]);
+            }
+        }
+
+        System.out.println(match); // 7
+
+    }
+
+    public static void main(String[] args) {
+        method2();
+    }
+}
+```

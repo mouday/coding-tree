@@ -656,6 +656,88 @@ public static void bubbleSort(int[] array) {
 
 优化方式: 每轮冒泡时，最后一次交换索引可以作为下一轮冒泡的比较次数，如果这个值为零，表示整个数组有序，直接退出外层循环即可
 
+## 选择排序
+
+代码实现
+
+```java
+package com.demo;
+
+import java.util.Arrays;
+
+public class SelectionSort {
+    public static void main(String[] args) {
+        int[] array = {5, 7, 4, 1, 3, 2, 8, 9};
+        //int[] array = {1, 2, 3, 4, 5, 7, 8, 9};
+
+        selectionSort(array);
+
+        System.out.println(Arrays.toString(array));
+        // [1, 2, 3, 4, 5, 7, 8, 9]
+
+    }
+
+    public static void selectionSort(int[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            // i代表每一轮选择最小元素要交换到的目标索引
+
+            int min = i; // 代表最小元素的索引
+
+            for (int j = min + 1; j < array.length; j++) {
+                if(array[min] > array[j]){
+                    min = j;
+                }
+            }
+
+            if(min != i){
+                swap(array, min, i);
+            }
+
+            System.out.println(Arrays.toString(array));
+        }
+    }
+
+    public static void swap(int[] array, int i, int j) {
+        int temp = array[j];
+        array[j] = array[i];
+        array[i] = temp;
+    }
+}
+
+```
+
+输出日志
+```
+[1, 7, 4, 5, 3, 2, 8, 9]
+[1, 2, 4, 5, 3, 7, 8, 9]
+[1, 2, 3, 5, 4, 7, 8, 9]
+[1, 2, 3, 4, 5, 7, 8, 9]
+[1, 2, 3, 4, 5, 7, 8, 9]
+[1, 2, 3, 4, 5, 7, 8, 9]
+[1, 2, 3, 4, 5, 7, 8, 9]
+[1, 2, 3, 4, 5, 7, 8, 9]
+```
+
+文字描述(以升序为例)
+
+1. 将数组分为两个子集，排序的和未排序的，每一轮从未排序的子集中选出最小的元素，放入排序子集
+
+2. 重复以上步骤，直到整个数组有序
+
+优化方式
+
+1. 为减少交换次数，每一轮可以先找最小的索引，在每轮最后再交换元素
+
+与冒泡排序比较
+
+1. 二者平均时间复杂度都是 `O(n²)`
+2. 选择排序一般要快于冒泡，因为其交换次数少
+3. 但如果集合有序度高，冒泡优于选择
+4. 冒泡属于稳定排序算法，而选择属于不稳定排序
+
+- 稳定排序：如果a原本在b前面，而a=b，排序后a仍然在b的前面
+- 不稳定排序：如果a原本在b的前面，而a=b，排序后a可能会出现在b的后面
+
 ## JVM内存结构
 
 ### 代码执行流程

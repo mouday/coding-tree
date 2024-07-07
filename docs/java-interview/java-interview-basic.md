@@ -658,7 +658,7 @@ public static void bubbleSort(int[] array) {
 
 ## 选择排序
 
-代码实现
+## 代码实现
 
 ```java
 package com.demo;
@@ -718,6 +718,8 @@ public class SelectionSort {
 [1, 2, 3, 4, 5, 7, 8, 9]
 ```
 
+## 排序思路
+
 文字描述(以升序为例)
 
 1. 将数组分为两个子集，排序的和未排序的，每一轮从未排序的子集中选出最小的元素，放入排序子集
@@ -737,6 +739,72 @@ public class SelectionSort {
 
 - 稳定排序：如果a原本在b前面，而a=b，排序后a仍然在b的前面
 - 不稳定排序：如果a原本在b的前面，而a=b，排序后a可能会出现在b的后面
+
+## 插入排序
+
+代码实现
+```java
+package com.demo;
+
+import java.util.Arrays;
+
+public class InsertSort {
+    public static void main(String[] args) {
+        int[] array = {5, 7, 4, 1, 3, 2, 8, 9};
+        //int[] array = {1, 2, 3, 4, 5, 7, 8, 9};
+
+        insertSort(array);
+
+        System.out.println(Arrays.toString(array));
+        // [1, 2, 3, 4, 5, 7, 8, 9]
+
+    }
+
+    public static void insertSort(int[] array) {
+
+        for (int i = 1; i < array.length; i++) {
+            // i 代表待插入元素索引
+            int t = array[i];
+
+            // 已排序区的元素
+            int j = i - 1;
+            while (j >= 0) {
+                if (array[j] > t) {
+                    array[j + 1] = array[j];
+                } else {
+                    //退出循环，减少比较次数
+                    break;
+                }
+                j--;
+            }
+
+            // 插入元素
+            array[j + 1] = t;
+
+        }
+    }
+}
+```
+
+## 排序思路 
+
+文字描述(以升序为例)
+
+1. 将数组分为两个区域，排序区域和未排序区域，每一轮从未排序区域中取出第一个元素，插入到排序区域(需保证顺序)
+2. 重复以上步骤，直到整个数组有序
+
+优化方式
+
+1. 待插入元素进行比较时，遇到比自己小的元素，就代表找到了插入位置，无需进行后续比较
+2. 插入时可以直接移动元素，而不是交换元素
+
+与选择排序比较
+
+1. 二者平均时间复杂度都是 `0(n^2)`
+2. 大部分情况下，插入都略优于选择
+3. 有序集合插入的时间复杂度为 `0(n)`
+4. 插入属于稳定排序算法，而选择属于不稳定排序
+
 
 ## JVM内存结构
 

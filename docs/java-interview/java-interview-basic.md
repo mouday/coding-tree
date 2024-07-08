@@ -658,7 +658,7 @@ public static void bubbleSort(int[] array) {
 
 ## 选择排序
 
-## 代码实现
+### 代码实现
 
 ```java
 package com.demo;
@@ -718,7 +718,7 @@ public class SelectionSort {
 [1, 2, 3, 4, 5, 7, 8, 9]
 ```
 
-## 排序思路
+### 排序思路
 
 文字描述(以升序为例)
 
@@ -786,7 +786,7 @@ public class InsertSort {
 }
 ```
 
-## 排序思路 
+### 排序思路 
 
 文字描述(以升序为例)
 

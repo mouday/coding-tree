@@ -742,7 +742,8 @@ public class SelectionSort {
 
 ## 插入排序
 
-代码实现
+### 代码实现
+
 ```java
 package com.demo;
 
@@ -805,6 +806,143 @@ public class InsertSort {
 3. 有序集合插入的时间复杂度为 `0(n)`
 4. 插入属于稳定排序算法，而选择属于不稳定排序
 
+## 希尔排序
+
+略
+
+## 插入和选择面试题
+
+1、使用直接插入排序算法对序列18,23,19,9,23,15进行排序，第三趟排序后的结果为:
+
+推演：
+
+```
+插入排序分为有序区和无序区
+
+有序区：18
+无序区：23,19,9,23,15
+
+第1趟：18 23 | 19 9 23 15
+第2趟：18 19 23 | 9 23 15
+第3趟：9 18 19 23 | 23 15
+
+```
+
+答案：9 18 19 23 23 15
+
+
+2、使用直接选择排序算法对序列18,23,19,9,23,15进行排序，第3趟排序后的结果为:
+
+推演：
+
+```
+每次从待排序队列取最小值，放入有序队列
+
+第1趟：9 | 23 19 18 23 15
+第2趟：9 15 | 19 18 23 23
+第3趟：9 15 18 | 19 23 23
+```
+
+答案：9 15 18 19 23 23
+
+## 快速排序
+
+### 文字描述
+
+1、每一轮排序选择一个`基准点(pivot)`进行分区
+
+1. 让小于基准点的元素的进入一个分区，大于基准点的元素的进入另一个分区
+2. 当分区完成时，基准点元素的位置就是其最终位置
+
+2、在子分区内重复以上过程，直至子分区元素个数少于等于 1，这体现的是`分而治之`的思想(divide-and-conguer)
+
+### 实现方式
+
+1、单边循环快排(lomuto 洛穆托分区方案)
+
+1. 选择最右元素作为基准点元素
+2. j指针负责找到比基准点小的元素，一旦找到则与i进行交换
+3. i指针维护小于基准点元素的边界，也是每次交换的目标索引
+4. 最后基准点与i交换，i即为分区位置
+
+2、双边循环快排(并不完全等价于 hoare 霍尔分区方案)
+
+1. 选择最左元素作为基准点元素
+2. j指针负责从右向左找比基准点小的元素，i指针负责从左向右找比基准点大的元素，一旦找到二者交换，直至i,j相交
+3. 最后基准点与i(此时i与j相等)交换，i即为分区位置
+
+### 代码实现
+
+递归版本
+
+```java
+package com.demo;
+
+import java.util.Arrays;
+
+public class QuickSort {
+    public static void main(String[] args) {
+        int[] array = {5, 3, 7, 2, 9, 8, 1, 4};
+
+        quickSort(array);
+
+        System.out.println(Arrays.toString(array));
+        // [1, 2, 3, 4, 5, 7, 8, 9]
+    }
+
+    private static void quickSort(int[] array) {
+        sort(array, 0, array.length - 1);
+    }
+
+    private static void sort(int[] array, int low, int high) {
+        if (low >= high) {
+            return;
+        }
+
+        // 找到中间数的索引值
+        int p = partition(array, low, high);
+
+        // 左边分区排序
+        sort(array, low, p - 1);
+
+        // 右边分区排序
+        sort(array, p + 1, high);
+
+    }
+
+    private static int partition(int[] array, int low, int high) {
+        int pv = array[high]; // 基准点元素
+        int i = low;
+
+        for (int j = low; j < high; j++) {
+            if (array[j] < pv) {
+
+                // 优化：如果索引不一样才需要交换
+                if (i != j) {
+                    swap(array, i, j);
+                }
+
+                i++;
+            }
+        }
+
+        if (i != high) {
+            swap(array, i, high);
+        }
+
+
+        // 返回值是基准点元素的索引值
+        return i;
+    }
+
+
+    public static void swap(int[] array, int i, int j) {
+        int temp = array[j];
+        array[j] = array[i];
+        array[i] = temp;
+    }
+}
+```
 
 ## JVM内存结构
 
@@ -934,3 +1072,11 @@ Survivor = from + to = 1G + 1G = 2G
 
 ![](https://mouday.github.io/img/2024/07/03/vnad104.png)
 
+
+
+# String和StringBuffer、StringBuilder差异
+
+- String 是不可变的，而StringBuffer、StringBuilder属于可变序列字符类，两者只需要扩容底层数组大小即可
+- String 可直接赋值和使用构造函数，而 StringBuffer、StringBuilder 只能使用构造函数
+- StringBuffer 适合多线程下，线程安全的，但是效率低些，因为加了 `synchronized` 关键字
+- StringBuilder适合单线程，线程不安全，但是速度快

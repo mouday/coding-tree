@@ -337,12 +337,17 @@ public class Arrays {
 
 ## 冒泡排序
 
+一文详解十大经典排序算法
+https://mp.weixin.qq.com/s/yNxBG9-Wa52VENggOt0zNw
+
 面试题：排序
 
 目标：
 - 掌握常见排序算法(快排、冒泡、选择、插入等)的实现思路
 - 手写冒泡、快排的代码
 - 了解各个排序算法的特性，如时间复杂度、是否稳定
+
+![](https://mouday.github.io/img/2024/07/11/8pj3ruh.png)
 
 ### 代码实现
 
@@ -658,6 +663,8 @@ public static void bubbleSort(int[] array) {
 
 ## 选择排序
 
+![](https://mouday.github.io/img/2024/07/11/mlurmus.png)
+
 ### 代码实现
 
 ```java
@@ -871,7 +878,16 @@ public class InsertSort {
 2. j指针负责从右向左找比基准点小的元素，i指针负责从左向右找比基准点大的元素，一旦找到二者交换，直至i,j相交
 3. 最后基准点与i(此时i与j相等)交换，i即为分区位置
 
+3、双边循环几个要点
+
+1. 基准点在左边，并且要先j后i
+2. `while(i < j && a[j] > pv ) j--`
+3. `while(i < j && a[i] <= pv ) i++`
+
+
 ### 代码实现
+
+1、单边循环快排(lomuto 洛穆托分区方案)
 
 递归版本
 
@@ -943,6 +959,77 @@ public class QuickSort {
     }
 }
 ```
+
+2、双边循环快排(并不完全等价于 hoare 霍尔分区方案)
+
+```java
+package com.demo;
+
+import java.util.Arrays;
+
+public class QuickSort {
+    public static void main(String[] args) {
+        int[] arr = new int[]{1, 5, 9, 8, 7, 6};
+
+        quickSort(arr);
+
+        System.out.println(Arrays.toString(arr));
+        // [1, 5, 6, 7, 8, 9]
+    }
+
+    private static void quickSort(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return;
+        }
+
+        sort(arr, 0, arr.length - 1);
+    }
+
+    private static void sort(int[] arr, int low, int high) {
+        if (low >= high) {
+            return;
+        }
+
+        int pos = partition(arr, low, high);
+
+        sort(arr, low, pos - 1);
+        sort(arr, pos + 1, high);
+    }
+
+    private static int partition(int[] arr, int low, int high) {
+        int pv = arr[low];
+        int left = low;
+        int right = high;
+
+        while (left < right) {
+            // 从右找小
+            while (left < right && arr[right] > pv) {
+                right--;
+            }
+
+            // 从左找大
+            while (left < right && arr[left] <= pv) {
+                left++;
+            }
+
+            swap(arr, left, right);
+        }
+
+        swap(arr, low, right);
+
+        return right;
+    }
+
+    private static void swap(int[] arr, int i, int pos) {
+        int temp = arr[i];
+        arr[i] = arr[pos];
+        arr[pos] = temp;
+    }
+}
+```
+
+
+![](https://mouday.github.io/img/2024/07/11/aw8k1gc.png)
 
 ## JVM内存结构
 

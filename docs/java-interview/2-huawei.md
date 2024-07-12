@@ -250,3 +250,7 @@ public class Demo {
     }
 }
 ```
+
+如需华为OD内推，可以联系我
+
+![](https://mouday.github.io/img/2024/06/02/r2wiaed.jpg)

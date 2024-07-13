@@ -79,3 +79,26 @@ public class ArrayListTest {
     }
 }
 ```
+
+## 面试题: LinkedList
+
+### 目标
+
+- 掌握 ArrayList 与 LinkedList 的比较
+
+
+### ArrayList vs LinkedList
+
+ArrayList
+
+- 基于数组，需要连续内存
+- 随机访问快(指根据下标访问)
+- 尾部插入、删除性能可以，其它部分插入、删除都会移动数据，因此性能会低
+- 可以利用 cpu 缓存，局部性原理
+
+LinkedList
+
+- 基于双向链表，无需连续内存
+- 随机访问慢(要沿着链表遍历)
+- 头尾插入删除性能高
+- 占用内存多

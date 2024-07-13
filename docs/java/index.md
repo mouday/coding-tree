@@ -1,25 +1,18 @@
 # Java
 
+## 学习笔记
+
 [Java常用代码片段](../java-code/index.md)
 
-[Java常用库](../java-awesome/index.md)
+[Java常用组件和框架](../java-awesome/index.md)
 
-Java面试八股文
-
-- 黑马程序员2021 https://www.bilibili.com/video/BV15b4y117RJ/
-- 黑马程序员2023 https://www.bilibili.com/video/BV1yT411H7YK/
-- 图灵程序员2024 https://www.bilibili.com/video/BV1wu4m1u7cm/
-- 阿里架构师诸葛 https://www.bilibili.com/video/BV1Nw4m1e7ne/
-
-## 学习笔记
+[笔记：Java面试题](../java-interview/index.md)
 
 [Java学习路线图（2023黑马程序员）](./java-learn-road.md)
 
 [笔记：Spring零基础入门到进阶](../spring/index.md)
 
 [笔记：Java 网络多线程专题-韩顺平](../blog/java/java-net/index.md)
-
-[笔记：Java面试题](../java-interview/index.md)
 
 [笔记：微信支付](../weixin-pay/index.md)
 
@@ -29,9 +22,6 @@ Java面试八股文
 
 [笔记：《苍穹外卖》项目实战](../java-cqwm/index.md)
 
-
-[Java常用组件和框架](./java-awesome.md)
-
 [韩顺平 bilibili](https://space.bilibili.com/651245581)
 
 
@@ -40,6 +30,12 @@ Java 要掌握的技术点 [https://javacn.site/java/java.html](https://javacn.s
 [https://www.nowcoder.com/tutorial/10001/cc241fab426c4b5aa743cfad5791d385](https://www.nowcoder.com/tutorial/10001/cc241fab426c4b5aa743cfad5791d385)
 
 
+## Java面试八股文
+
+- 黑马程序员2021 https://www.bilibili.com/video/BV15b4y117RJ/
+- 黑马程序员2023 https://www.bilibili.com/video/BV1yT411H7YK/
+- 图灵程序员2024 https://www.bilibili.com/video/BV1wu4m1u7cm/
+- 阿里架构师诸葛 https://www.bilibili.com/video/BV1Nw4m1e7ne/
 
 ## 在线文档
 
@@ -149,4 +145,3 @@ Java零基础到就业视频课程：https://pan.baidu.com/s/1tilrnPNXiLXg1ebouO
 
 架构师全套视频课程：https://pan.baidu.com/s/120crv9u9qg3fHK8Sw3Q_aA 提取码: b3rm
 
-[GraalVM](https://www.graalvm.org/)

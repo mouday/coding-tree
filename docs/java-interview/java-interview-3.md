@@ -1,6 +1,6 @@
 # Java面试题-String
 
-# String和StringBuffer、StringBuilder差异
+## String和StringBuffer、StringBuilder差异
 
 - String 是不可变的，而StringBuffer、StringBuilder属于可变序列字符类，两者只需要扩容底层数组大小即可
 - String 可直接赋值和使用构造函数，而 StringBuffer、StringBuilder 只能使用构造函数

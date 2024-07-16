@@ -1,6 +1,6 @@
 # Java 数据结构 和 算法
 
-在线阅读：https://www.pengshiyu.com/data-structure-and-algorithm/#/
+在线阅读：https://mouday.github.io/coding-tree/data-structure-and-algorithm/
 
 视频地址
 

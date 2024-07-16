@@ -35,7 +35,7 @@ var _hmt = _hmt || [];
     ],
   ],
   sitemap: {
-    hostname: "https://mouday.github.io/coding-tree",
+    hostname: "https://mouday.github.io/coding-tree/",
   },
   locales: {
     "/": {

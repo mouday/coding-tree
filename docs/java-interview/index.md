@@ -12,9 +12,9 @@
 - 希尔排序
 - 插入与选择推到
 - 快速排序
-List
-Map *
-单例模式
+- List
+- Map
+- 单例模式
 
 并发篇：
 P63 - P65 线程状态
@@ -46,3 +46,5 @@ https://www.bilibili.com/video/BV15b4y117RJ/?p=38
 https://www.bilibili.com/video/BV15b4y117RJ?p=46
 
 https://www.bilibili.com/video/BV15b4y117RJ/?p=54
+
+https://www.bilibili.com/video/BV15b4y117RJ/?p=57

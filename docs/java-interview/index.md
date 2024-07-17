@@ -36,8 +36,8 @@ P127 - P130 四种引用
 P131 - P133 finalize
 框架 Spring 无分类，具有原子性，要看就一次性看完。（循环依赖常考！）
 
-
-
+学员笔记：
+https://www.bilibili.com/opus/765053780086489111
 
 https://www.bilibili.com/video/BV15b4y117RJ/?p=105
 

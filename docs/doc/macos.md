@@ -52,7 +52,7 @@ ShadowsocksX-NG | 科学上网工具 | [https://github.com/](https://github.com/
 OBS | 视频录制和视频实时交流软件 |[https://obsproject.com/](https://obsproject.com/)
 Typora | 一款 Markdown 编辑器和阅读器 |[https://typoraio.cn/](https://typoraio.cn/)
 ToDesk |远程桌面软件 |[https://www.todesk.com/](https://www.todesk.com/)
-
+PicGo | 图床管理 | [https://github.com/Molunerfinn/PicGo](https://github.com/Molunerfinn/PicGo)
 
 ## 开发者工具
 

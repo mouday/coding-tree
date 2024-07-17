@@ -269,3 +269,7 @@ iOS富文本编辑器[https://github.com/cjwirth/RichEditorView](https://github.
 
 
 https://github.com/kongyijilafumi/react-ant-admin
+
+vue-element-plus-admin 是一个基于 element-plus 免费开源的中后台模版
+
+https://github.com/kailong321200875/vue-element-plus-admin

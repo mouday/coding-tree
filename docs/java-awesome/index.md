@@ -439,3 +439,8 @@ Sentinel官网 "https://sentinelguard.io/zh-cn/"
 [GraalVM](https://www.graalvm.org/)
 
 YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台 https://github.com/YMFE/yapi
+
+| 名称 | 简介 | 地址|
+| - | - |- | 
+WxJava | 微信开发 Java SDK | [github](https://github.com/Wechat-Group/WxJava)
+Hashids | 整型的id转换为字符串 | [github](https://github.com/284885166/spring-boot-hashids)

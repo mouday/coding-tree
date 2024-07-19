@@ -1,12 +1,12 @@
-# 设计模式
-
-## 单例模式
+# 设计模式-单例模式
 
 目标
 - 掌握单例模式常见五种实现方式
 - 了解 jdk 中有哪些地方体现了单例模式
 
-### 饿汉式
+## 饿汉式单例
+
+### 代码实现
 
 ```java
 package com.demo.singleton;
@@ -52,9 +52,10 @@ public class Singleton1Test {
 
 可以看到两次获得的实例是同一个对象
 
-### 破坏单例模式
 
-1、通过反射创建实例，破坏单例
+### 反射破坏单例
+
+通过反射创建实例，破坏单例
 
 ```java
 package com.demo.singleton;
@@ -133,7 +134,9 @@ Caused by: java.lang.RuntimeException: 单例对象不能重复创建
 	... 6 more
 ```
 
-2、通过反序列化创建实例，破坏单例
+### 反序列化破坏单例
+
+通过反序列化创建实例，破坏单例
 
 ```java
 package com.demo.singleton;
@@ -204,7 +207,9 @@ com.demo.singleton.Singleton1@66d3c617
 com.demo.singleton.Singleton1@66d3c617
 ```
 
-3、通过unsafe创建实例，破坏单例
+### unsafe破坏单例
+
+通过unsafe创建实例，破坏单例
 
 引入spring依赖
 
@@ -247,7 +252,7 @@ public class Singleton1Test {
 
 ## 枚举饿汉式
 
-破坏单例
+### 代码实现
 
 ```java
 package learn.singleton;
@@ -267,7 +272,9 @@ public enum Singleton2 {
 }
 ```
 
-1、通过反射创建实例，不能破坏单例
+### 反射破坏单例
+
+通过反射创建实例，不能破坏单例
 
 ```java
 package learn.singleton;
@@ -338,7 +345,9 @@ Exception in thread "main" java.lang.IllegalArgumentException: Cannot reflective
 
 ```
 
-2、通过反序列化创建实例，不能破坏单例
+### 反序列化破坏单例
+
+通过反序列化创建实例，不能破坏单例
 
 反序列化得到的对象，和原有实例相等
 
@@ -374,7 +383,9 @@ public class Singleton2Test {
 }
 ```
 
-3、通过unsafe创建实例，可以实现破坏单例
+### unsafe破坏单例
+
+通过unsafe创建实例，可以实现破坏单例
 
 ```java
 package learn.singleton;

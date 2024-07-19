@@ -250,7 +250,7 @@ public class Singleton1Test {
 
 预防手段：暂无
 
-## 枚举饿汉式
+## 枚举饿汉式单例
 
 ### 代码实现
 
@@ -270,6 +270,26 @@ public enum Singleton2 {
         return getClass().getName() + "@" + Integer.toHexString(hashCode());
     }
 }
+```
+
+测试单例
+
+```java
+package learn.singleton;
+
+public class Singleton2Test {
+    public static void main(String[] args) {
+        Singleton2 instance1 = Singleton2.getInstance();
+        Singleton2 instance2 = Singleton2.getInstance();
+
+        System.out.println(instance1);
+        // learn.singleton.Singleton2@6504e3b2
+
+        System.out.println(instance2);
+        // learn.singleton.Singleton2@6504e3b2
+    }
+}
+
 ```
 
 ### 反射破坏单例

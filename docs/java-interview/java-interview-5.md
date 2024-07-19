@@ -244,3 +244,159 @@ public class Singleton1Test {
 ```
 
 预防手段：暂无
+
+## 枚举饿汉式
+
+破坏单例
+
+```java
+package learn.singleton;
+
+public enum Singleton2 {
+    INSTANCE;
+
+    // 提供获取实例的方法
+    public static Singleton2 getInstance() {
+        return INSTANCE;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getName() + "@" + Integer.toHexString(hashCode());
+    }
+}
+```
+
+1、通过反射创建实例，不能破坏单例
+
+```java
+package learn.singleton;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
+public class Singleton2Test {
+    public static void main(String[] args)
+            throws InstantiationException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        Singleton2 instance1 = Singleton2.getInstance();
+        System.out.println(instance1);
+        // learn.singleton.Singleton2@6504e3b2
+
+        // 通过反射创建实例，破坏单例
+        Object instance = Singleton2Test.reflection(Singleton2.class);
+    }
+
+
+    public static <T> T reflection(Class<T> clazz) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, InvocationTargetException {
+        Constructor<T> constructor = clazz.getDeclaredConstructor(String.class, int.class);
+        constructor.setAccessible(true);
+        return constructor.newInstance("INSTANCE", 0);
+    }
+}
+
+```
+
+使用无参构造会报错`NoSuchMethodException`
+
+```java
+Constructor<T> constructor = clazz.getDeclaredConstructor();
+```
+
+```bash
+Exception in thread "main" java.lang.NoSuchMethodException: learn.singleton.Singleton2.<init>()
+    at java.lang.Class.getConstructor0(Class.java:3082)
+    at java.lang.Class.getDeclaredConstructor(Class.java:2178)
+    at learn.singleton.Singleton2Test.reflection(Singleton2Test.java:23)
+    at learn.singleton.Singleton2Test.main(Singleton2Test.java:16)
+
+```
+
+因为枚举类的父类是Enum，有2个参数的构造函数
+
+```java
+public abstract class Enum<E extends Enum<E>>
+        implements Comparable<E>, Serializable {
+    protected Enum(String name, int ordinal) {
+        this.name = name;
+        this.ordinal = ordinal;
+    }
+```
+
+正确获取构造函数的方法
+
+```java
+Constructor<T> constructor = clazz.getDeclaredConstructor(String.class, int.class);
+```
+
+反射获取枚举单例，最后还是会报错`Cannot reflectively create enum objects`
+
+```bash
+Exception in thread "main" java.lang.IllegalArgumentException: Cannot reflectively create enum objects
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:417)
+    at learn.singleton.Singleton2Test.reflection(Singleton2Test.java:25)
+    at learn.singleton.Singleton2Test.main(Singleton2Test.java:16)
+
+```
+
+2、通过反序列化创建实例，不能破坏单例
+
+反序列化得到的对象，和原有实例相等
+
+```java
+package learn.singleton;
+
+import java.io.*;
+
+public class Singleton2Test {
+    public static void main(String[] args)
+            throws IOException, ClassNotFoundException {
+        Singleton2 instance1 = Singleton2.getInstance();
+        System.out.println(instance1);
+        // learn.singleton.Singleton2@6504e3b2
+
+        // 通过反射创建实例，破坏单例
+        Object instance2 = Singleton2Test.serializable(instance1);
+        System.out.println(instance2);
+        // learn.singleton.Singleton2@6504e3b2
+
+        System.out.println(instance1 == instance2);
+        // true
+    }
+
+    public static Object serializable(Object instance) throws ClassNotFoundException, IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(bos);
+        oos.writeObject(instance);
+
+        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
+        return ois.readObject();
+    }
+}
+```
+
+3、通过unsafe创建实例，可以实现破坏单例
+
+```java
+package learn.singleton;
+
+import org.springframework.objenesis.instantiator.util.UnsafeUtils;
+
+public class Singleton2Test {
+    public static void main(String[] args)
+            throws InstantiationException {
+        Singleton2 instance1 = Singleton2.getInstance();
+        System.out.println(instance1);
+        // learn.singleton.Singleton2@6504e3b2
+
+        // 通过反射创建实例，破坏单例
+        Object instance2 = Singleton2Test.unsafe(Singleton2.class);
+        System.out.println(instance2);
+        // learn.singleton.Singleton2@123a439b
+    }
+
+    public static Object unsafe(Class<?> clazz) throws InstantiationException {
+        return UnsafeUtils.getUnsafe().allocateInstance(clazz);
+    }
+}
+
+```

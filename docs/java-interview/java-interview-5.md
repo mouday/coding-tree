@@ -431,3 +431,191 @@ public class Singleton2Test {
 }
 
 ```
+
+
+
+## 懒汉式单例
+
+### 代码实现
+
+```java
+package learn.singleton;
+
+import java.io.Serializable;
+
+/**
+ * 懒汉式单例
+ */
+public class Singleton3 implements Serializable {
+    // 构造函数私有
+    private Singleton3() {}
+
+    // 实例私有
+    private static  Singleton3 INSTANCE = null;
+
+    // 提供获取实例的方法
+    public static Singleton3 getInstance() {
+        if(INSTANCE == null){
+            INSTANCE = new Singleton3();
+        }
+
+        return INSTANCE;
+    }
+}
+
+```
+
+单例测试
+
+```java
+package learn.singleton;
+
+public class Singleton3Test {
+    public static void main(String[] args) {
+        Singleton3 instance1 = Singleton3.getInstance();
+        Singleton3 instance2 = Singleton3.getInstance();
+
+        System.out.println(instance1);
+        // learn.singleton.Singleton3@6504e3b2
+
+        System.out.println(instance2);
+        // learn.singleton.Singleton3@6504e3b2
+    }
+}
+
+```
+
+### 线程安全
+
+多线程获取单例，会出现多个实例
+
+```java
+package learn.singleton;
+
+public class Singleton3Test {
+    public static void main(String[] args) {
+        // 线程1
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Singleton3 instance1 = Singleton3.getInstance();
+
+                System.out.println(instance1);
+                // learn.singleton.Singleton3@5b8d42e2
+
+            }
+        }).start();
+
+        // 线程2
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Singleton3 instance2 = Singleton3.getInstance();
+
+                System.out.println(instance2);
+                // learn.singleton.Singleton3@44e2d7cc
+
+            }
+        }).start();
+    }
+}
+
+```
+
+解决办法：通过增加`synchronized`关键字
+
+```java
+package learn.singleton;
+
+import java.io.Serializable;
+
+/**
+ * 懒汉式单例
+ */
+public class Singleton3 implements Serializable {
+    // 构造函数私有
+    private Singleton3() {}
+
+    // 实例私有
+    private static  Singleton3 INSTANCE = null;
+
+    // 提供获取实例的方法
+    public static synchronized Singleton3 getInstance() {
+        if(INSTANCE == null){
+
+            // 线程耗时
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            INSTANCE = new Singleton3();
+        }
+
+        return INSTANCE;
+    }
+}
+
+```
+
+再次运行多线程获取单例对象，则不会出现多个实例
+
+```
+learn.singleton.Singleton3@b6e42e3
+learn.singleton.Singleton3@b6e42e3
+```
+
+
+## 懒汉式单例-DCL
+
+双检锁 Double-Check Locking
+
+```java
+package learn.singleton;
+
+import java.io.Serializable;
+
+/**
+ * 懒汉式单例-DCL
+ */
+public class Singleton3 implements Serializable {
+    // 构造函数私有
+    private Singleton3() {
+    }
+
+    // 实例私有
+    private static volatile Singleton3 INSTANCE = null;
+
+    // 提供获取实例的方法
+    public static Singleton3 getInstance() {
+        if (INSTANCE == null) {
+            synchronized (Singleton3.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new Singleton3();
+                }
+            }
+        }
+
+        return INSTANCE;
+    }
+}
+
+```
+
+### volatile的作用
+
+volatile 可见性 有序性
+
+```bash
+# 反编译
+javap -c -v -p xxx.class
+```
+
+指令重排序示意图
+
+![](https://mouday.github.io/img/2024/07/20/xyr8k0p.png)
+
+volatile修饰共享变量，可以阻止指令重排序
+
+![](https://mouday.github.io/img/2024/07/20/xtknu5l.png)

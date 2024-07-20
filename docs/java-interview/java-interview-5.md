@@ -4,7 +4,7 @@
 - 掌握单例模式常见五种实现方式
 - 了解 jdk 中有哪些地方体现了单例模式
 
-## 饿汉式单例
+## 1、饿汉式单例
 
 ### 代码实现
 
@@ -250,7 +250,7 @@ public class Singleton1Test {
 
 预防手段：暂无
 
-## 枚举饿汉式单例
+## 2、枚举饿汉式单例
 
 ### 代码实现
 
@@ -432,9 +432,7 @@ public class Singleton2Test {
 
 ```
 
-
-
-## 懒汉式单例
+## 3、懒汉式单例
 
 ### 代码实现
 
@@ -567,7 +565,7 @@ learn.singleton.Singleton3@b6e42e3
 ```
 
 
-## 懒汉式单例-DCL
+## 4、懒汉式单例-DCL
 
 双检锁 Double-Check Locking
 
@@ -619,3 +617,68 @@ javap -c -v -p xxx.class
 volatile修饰共享变量，可以阻止指令重排序
 
 ![](https://mouday.github.io/img/2024/07/20/xtknu5l.png)
+
+## 5、懒汉式单例-内部类
+
+### 代码实现
+
+```java
+package learn.singleton;
+
+import java.io.Serializable;
+
+/**
+ * 懒汉式单例-内部类
+ */
+public class Singleton5 implements Serializable {
+    // 构造函数私有
+    private Singleton5() {
+        System.out.println("call constructor");
+    }
+
+    private static class Holder{
+        // 实例私有
+        static Singleton5 INSTANCE = new Singleton5();
+    }
+
+    // 提供获取实例的方法
+    public static Singleton5 getInstance() {
+        return Holder.INSTANCE;
+    }
+
+    public static void method(){
+        System.out.println("call method");
+    }
+}
+
+```
+
+测试
+
+```java
+package learn.singleton;
+
+public class Singleton5Test {
+    public static void main(String[] args) {
+        Singleton5.method();
+
+        Singleton5 instance1 = Singleton5.getInstance();
+        System.out.println(instance1);
+        // learn.singleton.Singleton5@6504e3b2
+
+        Singleton5 instance2 = Singleton5.getInstance();
+        System.out.println(instance2);
+        // learn.singleton.Singleton5@6504e3b2
+
+    }
+}
+```
+
+输出结果
+
+```
+call method
+call constructor
+learn.singleton.Singleton5@6504e3b2
+learn.singleton.Singleton5@6504e3b2
+```

@@ -20,17 +20,22 @@ package java.lang;
 
 public class Thread implements Runnable {
     public enum State {
-   
+        // 新建
         NEW,
-
+        
+        // 可运行
         RUNNABLE,
-
+        
+        // 阻塞
         BLOCKED,
 
+        // 等待
         WAITING,
 
+        // 有时限的等待
         TIMED_WAITING,
-
+        
+        // 中结
         TERMINATED;
     }
 }

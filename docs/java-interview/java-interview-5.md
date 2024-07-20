@@ -1,8 +1,19 @@
 # 设计模式-单例模式
 
 目标
+
 - 掌握单例模式常见五种实现方式
 - 了解 jdk 中有哪些地方体现了单例模式
+
+
+实现方式
+
+1. 饿汉式
+2. 枚举饿汉式
+3. 懒汉式
+4. 双检锁懒汉式
+5. 内部类懒汉式
+
 
 ## 1、饿汉式单例
 
@@ -681,4 +692,130 @@ call method
 call constructor
 learn.singleton.Singleton5@6504e3b2
 learn.singleton.Singleton5@6504e3b2
+```
+
+由`static`修饰的静态代码块，不会有线程安全问题
+
+
+## JDK中的单例模式
+
+Runtime.java
+
+```java
+package java.lang;
+
+public class Runtime {
+    private Runtime() {}
+
+    // 饿汉式单例
+    private static Runtime currentRuntime = new Runtime();
+
+    public static Runtime getRuntime() {
+        return currentRuntime;
+    }
+
+}
+```
+
+System.java
+
+```java
+
+package java.lang;
+
+public final class System {
+    private System() {}
+
+    // 双检锁单例
+    private static volatile Console cons = null;
+
+     public static Console console() {
+         if (cons == null) {
+             synchronized (System.class) {
+                 cons = sun.misc.SharedSecrets.getJavaIOAccess().console();
+             }
+         }
+         return cons;
+     }
+}
+```
+
+Collections.java
+
+```java
+package java.util;
+
+public class Collections {
+    private Collections() {}
+
+
+    // 饿汉式单例
+    public static final Set EMPTY_SET = new EmptySet<>();
+
+    public static final <T> Set<T> emptySet() {
+        return (Set<T>) EMPTY_SET;
+    }
+
+
+    // 饿汉式单例
+    public static final List EMPTY_LIST = new EmptyList<>();
+
+    public static final <T> List<T> emptyList() {
+        return (List<T>) EMPTY_LIST;
+    }
+
+
+    // 饿汉式单例
+    public static final Map EMPTY_MAP = new EmptyMap<>();
+
+    public static final <K,V> Map<K,V> emptyMap() {
+        return (Map<K,V>) EMPTY_MAP;
+    }
+
+
+    // 内部类懒汉式
+    public static final <K,V> NavigableMap<K,V> emptyNavigableMap() {
+        return (NavigableMap<K,V>) UnmodifiableNavigableMap.EMPTY_NAVIGABLE_MAP;
+    }
+
+    static class UnmodifiableNavigableMap<K,V> {
+        private static final EmptyNavigableMap<?,?> EMPTY_NAVIGABLE_MAP =
+            new EmptyNavigableMap<>();
+    }
+}
+```
+
+
+Collections.java
+
+```java
+package java.util;
+
+public class Collections {
+    private static class ReverseComparator
+        @Override
+        public Comparator<Comparable<Object>> reversed() {
+            return Comparator.naturalOrder();
+        }
+    }
+}
+
+
+public interface Comparator<T> {
+    public static <T extends Comparable<? super T>> Comparator<T> naturalOrder() {
+        return (Comparator<T>) Comparators.NaturalOrderComparator.INSTANCE;
+    }
+}
+
+
+class Comparators {
+    private Comparators() {
+        throw new AssertionError("no instances");
+    }
+
+    // 枚举实现单例
+    enum NaturalOrderComparator implements Comparator<Comparable<Object>> {
+        INSTANCE;
+    }
+}
 ```

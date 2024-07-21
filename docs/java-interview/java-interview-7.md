@@ -140,7 +140,7 @@ new ThreadPoolExecutor.CallerRunsPolicy()
 new ThreadPoolExecutor.DiscardPolicy()
 ```
 
-4、丢弃最早加入队列的任务
+4、丢弃最早加入队列的任务，并把新任务加到队列
 
 ```java
 new ThreadPoolExecutor.DiscardOldestPolicy()

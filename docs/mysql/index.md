@@ -4,7 +4,7 @@
 
 [MySQL进阶笔记](../mysq-advance/index.md)
 
-[瑞吉外卖笔记-安装mysql](../linux/linux-install-mysql)
+[瑞吉外卖笔记-安装mysql](../reggie-linux/linux-install/3-linux-install-mysql)
 
 [使用Docker模拟实现两台MySQL主从同步复制](https://pengshiyu.blog.csdn.net/article/details/128923517)
 

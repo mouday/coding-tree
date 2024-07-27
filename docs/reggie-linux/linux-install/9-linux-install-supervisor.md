@@ -187,6 +187,26 @@ serverurl=unix:///var/run/supervisor.sock
 files = conf/*.ini
 ```
 
+```bash
+# 平滑启动
+supervisorctl reread && supervisorctl update
+
+supervisorctl status
+
+# 启动XXX进程
+supervisorctl start 进程名
+
+# 停止XXX进程
+supervisorctl stop 进程名
+
+# 停止全部进程，注：start、restart、stop都不会载入最新的配置文件。
+supervisorctl stop all
+
+# 查看日志
+supervisorctl tail -f 进程名
+```
+
+
 ## 开机自启
 
 vim /usr/lib/systemd/system/supervisord.service

@@ -208,3 +208,79 @@ upstream targetserver {
     server 192.168.0.102:8080 weight=5;
 }
 ```
+
+常用配置示例
+```bash
+server {
+    listen       80;
+    listen 443 ssl;
+    ssl_certificate_key /usr/local/nginx/v1.22.1/conf/ssl/domain-admin.cn.key;
+    ssl_certificate /usr/local/nginx/v1.22.1/conf/ssl/domain-admin.cn.pem;
+
+    server_name  www.domain-admin.cn;
+    return       301 https://domain-admin.com$request_uri;
+}
+
+server
+{
+    listen 80;
+    listen 443 ssl;
+    server_name domain-admin.cn;
+
+    ssl_certificate_key /usr/local/nginx/v1.22.1/conf/ssl/domain-admin.cn.key;
+    ssl_certificate /usr/local/nginx/v1.22.1/conf/ssl/domain-admin.cn.pem;
+
+    if ($ssl_protocol = "") { return 301 https://$host$request_uri; }
+
+    location / {
+     root /data/wwwroot/domain-admin-www;
+     index  index.html index.htm;
+    }
+    
+
+    location /admin {
+      try_files $uri $uri/ /index.html;
+    }
+
+ location /api/ {
+  add_header Access-Control-Allow-Origin '*';
+  add_header Access-Control-Max-Age 86400;
+  add_header Access-Control-Allow-Credentials "true";
+  add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+  add_header Access-Control-Allow-Headers  'X-Token,Content-Type,DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,XRequested-With';
+
+  if ($request_method = 'OPTIONS') {
+     return 204;
+  }
+
+    proxy_pass http://localhost:8080/api/;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+  
+  location ~ .*\.(html)$ {
+   add_header Cache-Control no-cache;
+   add_header Pragma no-cache;
+  }
+
+   location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|mp4|ico)$ {
+    expires 30d;
+    access_log off;
+  }
+
+  location ~ .*\.(js|css)?$ {
+    expires 7d;
+    access_log off;
+  }
+
+  location ~ /\.ht {
+    deny all;
+  }
+
+  location /.well-known/acme-challenge/ {
+      alias /var/www/challenges/;
+      try_files $uri = 404;
+  }
+}
+```

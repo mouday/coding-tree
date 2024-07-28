@@ -214,26 +214,26 @@ upstream targetserver {
 server {
     listen       80;
     listen 443 ssl;
-    ssl_certificate_key /usr/local/nginx/v1.22.1/conf/ssl/domain-admin.cn.key;
-    ssl_certificate /usr/local/nginx/v1.22.1/conf/ssl/domain-admin.cn.pem;
+    ssl_certificate_key /usr/local/nginx/conf/ssl/domain.cn.key;
+    ssl_certificate /usr/local/nginx/conf/ssl/domain.cn.pem;
 
-    server_name  www.domain-admin.cn;
-    return       301 https://domain-admin.com$request_uri;
+    server_name  www.domain.cn;
+    return       301 https://domain.com$request_uri;
 }
 
 server
 {
     listen 80;
     listen 443 ssl;
-    server_name domain-admin.cn;
+    server_name domain.cn;
 
-    ssl_certificate_key /usr/local/nginx/v1.22.1/conf/ssl/domain-admin.cn.key;
-    ssl_certificate /usr/local/nginx/v1.22.1/conf/ssl/domain-admin.cn.pem;
+    ssl_certificate_key /usr/local/nginx/conf/ssl/domain.cn.key;
+    ssl_certificate /usr/local/nginx/conf/ssl/domain.cn.pem;
 
     if ($ssl_protocol = "") { return 301 https://$host$request_uri; }
 
     location / {
-     root /data/wwwroot/domain-admin-www;
+     root /data/wwwroot/domain-www;
      index  index.html index.htm;
     }
     
@@ -258,7 +258,7 @@ server
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }
-  
+
   location ~ .*\.(html)$ {
    add_header Cache-Control no-cache;
    add_header Pragma no-cache;

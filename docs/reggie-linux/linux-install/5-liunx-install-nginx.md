@@ -209,7 +209,44 @@ upstream targetserver {
 }
 ```
 
-常用配置示例
+## 开机自启
+
+vi /etc/systemd/system/nginx.service
+
+```bash
+[Unit]
+Description=nginx
+After=network.target
+ 
+[Service]
+Type=forking
+ExecStart=/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
+ExecReload=/usr/local/nginx/sbin/nginx -s reload
+ExecStop=/usr/local/nginx/sbin/nginx -s quit
+PrivateTmp=true
+ 
+[Install]
+WantedBy=multi-user.target
+```
+
+
+## 常用配置示例
+### default_server
+```bash
+server {
+    listen 80 default_server;
+    listen 443 ssl default_server;
+
+    ssl_certificate cert.pem;
+    ssl_certificate_key cert.key;
+
+    server_name _;
+    # 403 forbidden
+    return 403;
+}
+
+```
+
 ```bash
 server {
     listen       80;

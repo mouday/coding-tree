@@ -359,3 +359,17 @@ stop
 ```
 
 
+
+压测工具库
+
+org.openjdk.jcstress
+jcstress-core
+0.14
+
+
+org.apache.maven.plugins
+maven-shade-plugin
+2.2
+
+
+内存屏障

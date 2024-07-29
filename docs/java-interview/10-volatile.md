@@ -153,3 +153,163 @@ public class AddAndSubtract {
 ```
 
 由于不是原子性操作，所以最终结果并不是我们所期待的10，而是15
+
+## 可见性举例
+
+示例
+
+```java
+package learn.thread;
+
+public class ForeverLoop {
+    private static boolean stop = false;
+
+    public static void main(String[] args) {
+        new Thread(() -> {
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stop = true;
+            System.out.println("stop");
+
+        }).start();
+
+        foreverLoop();
+    }
+
+    private static void foreverLoop() {
+        int i = 0;
+        while (!stop) {
+            i++;
+        }
+        System.out.println("i=" + i);
+    }
+}
+
+```
+
+输出
+
+```
+stop
+```
+
+实际发现，上面的代码并不会停止，不符合预期
+
+原因：
+
+![](https://mouday.github.io/img/2024/07/29/jyoplob.png)
+
+上图可见，每个CPU对共享变量的操作都是将内存中的共享变量复制一份副本到自己高速缓存中，然后对这个副本进行操作。
+
+如果没有正确的同步，即使CPU0修改了某个变量，这个已修改的值还是只存在于副本中，此时CPU1需要使用到这个变，从内存中读取的还是修改前的值，这就是其中一种可见性问题。
+
+### 方式一
+
+通过增加参数`-Xint`，禁用JIT，该代码就能停止运行
+
+```bash
+$ javac learn/thread/ForeverLoop.java
+
+$ java -Xint learn/thread/ForeverLoop
+stop
+i=21533683
+```
+
+### 方式二
+
+减少停止时间为1毫秒，也能正常运行完成
+
+```java
+package learn.thread;
+
+public class ForeverLoop {
+    private static boolean stop = false;
+
+    public static void main(String[] args) {
+        new Thread(() -> {
+
+            try {
+                // 修改停止时间为1毫秒
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stop = true;
+            System.out.println("stop");
+
+        }).start();
+
+        foreverLoop();
+    }
+
+    private static void foreverLoop() {
+        int i = 0;
+        while (!stop) {
+            i++;
+        }
+        System.out.println("i=" + i);
+    }
+}
+
+
+```
+
+输出
+```
+stop
+i=288105
+```
+
+### 方式三
+
+增加volatile修饰符
+
+```java
+package learn.thread;
+
+public class ForeverLoop {
+    // 增加volatile修饰符
+    private static volatile boolean stop = false;
+
+    public static void main(String[] args) {
+        new Thread(() -> {
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stop = true;
+            System.out.println("stop");
+
+        }).start();
+
+        foreverLoop();
+    }
+
+    private static void foreverLoop() {
+        int i = 0;
+        while (!stop) {
+            i++;
+        }
+        System.out.println("i=" + i);
+    }
+}
+
+```
+
+输出结果
+
+```
+i=281509749
+stop
+```
+
+

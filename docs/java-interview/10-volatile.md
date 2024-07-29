@@ -208,6 +208,52 @@ stop
 
 如果没有正确的同步，即使CPU0修改了某个变量，这个已修改的值还是只存在于副本中，此时CPU1需要使用到这个变，从内存中读取的还是修改前的值，这就是其中一种可见性问题。
 
+
+```java
+package learn.thread;
+
+public class ForeverLoop {
+    private static boolean stop = false;
+
+    public static void main(String[] args) {
+        // 修改线程
+        new Thread(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stop = true;
+            System.out.println("stop");
+
+        }).start();
+
+        // 读取线程
+        new Thread(() -> {
+
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+            System.out.println("stop=" + stop);
+
+        }).start();
+    }
+}
+
+```
+
+可以看到，一个线程修改数据，另一个线程读取数据，是可以读取到的
+
+```
+stop
+stop=true
+```
+
 ### 方式一
 
 通过增加参数`-Xint`，禁用JIT，该代码就能停止运行

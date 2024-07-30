@@ -1,5 +1,7 @@
 # 安装jdk
 
+## 安装Oracle JDK
+
 使用二进制发布包安装方式安装jdk
 
 下载(需要登录)
@@ -37,4 +39,21 @@ $ java -version
 java version "1.8.0_351"
 Java(TM) SE Runtime Environment (build 1.8.0_351-b10)
 Java HotSpot(TM) 64-Bit Server VM (build 25.351-b10, mixed mode)
+```
+
+## 安装OpenJDK
+
+```bash
+# Java Runtime Environment
+yum install java-1.8.0-openjdk
+
+# develop
+yum install java-1.8.0-openjdk-devel
+```
+
+## 安装AdoptOpenJDK
+
+```bash
+wget https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u362-b09/OpenJDK8U-jdk_x64_linux_hotspot_8u362b09.tar.gz
+
 ```

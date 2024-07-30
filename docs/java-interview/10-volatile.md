@@ -373,3 +373,5 @@ maven-shade-plugin
 
 
 内存屏障
+
+Volatile详解，太详细了 https://www.cnblogs.com/cxy2020/p/12951333.html

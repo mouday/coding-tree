@@ -45,10 +45,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.351-b10, mixed mode)
 
 ```bash
 # Java Runtime Environment
-yum install java-1.8.0-openjdk
+yum install java-1.8.0-openjdk -y
 
 # develop
-yum install java-1.8.0-openjdk-devel
+yum install java-1.8.0-openjdk-devel -y
 ```
 
 ## 安装AdoptOpenJDK

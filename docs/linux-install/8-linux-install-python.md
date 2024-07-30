@@ -5,7 +5,7 @@ yum install -y zlib zlib-dev openssl-devel sqlite-devel bzip2-devel libffi libff
 && wget https://mirrors.huaweicloud.com/python/3.7.0/Python-3.7.0.tgz \
 && tar -zxvf  Python-3.7.0.tgz \
 && cd Python-3.7.0 \
-./configure --prefix=/usr/local/python/v3.7.0 \
+&& ./configure --prefix=/usr/local/python/v3.7.0 \
 --with-openssl=/usr/local/openssl/v1.1.1 \
 LDFLAGS="-L/usr/local/openssl/v1.1.1/lib" \
 CPPFLAGS="-I/usr/local/openssl/v1.1.1/include" \

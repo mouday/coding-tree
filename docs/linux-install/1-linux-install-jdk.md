@@ -57,3 +57,7 @@ yum install java-1.8.0-openjdk-devel -y
 wget https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u362-b09/OpenJDK8U-jdk_x64_linux_hotspot_8u362b09.tar.gz
 
 ```
+
+```bash
+java -version
+```

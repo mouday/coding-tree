@@ -1,4 +1,4 @@
-## 安装PHP
+# 安装PHP
 
 https://oneinstack.com/auto/
 

@@ -489,7 +489,7 @@ $ mvn package -Dmaven.test.skip=true
 ```
 
 运行
-```
+```bash
 java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -jar jcstress.jar -t learn.thread.Reordering.Case1
 ```
 

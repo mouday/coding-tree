@@ -358,20 +358,149 @@ i=281509749
 stop
 ```
 
+## 有序性举例
 
+引入压测工具库 [jcstress](https://github.com/openjdk/jcstress)
 
-压测工具库
+pom.xml
 
-org.openjdk.jcstress
-jcstress-core
-0.14
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.openjdk.jcstress</groupId>
+        <artifactId>jcstress-core</artifactId>
+        <version>0.14</version>
+    </dependency>
+</dependencies>
 
+<build>
+    <plugins>
+        <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>main</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>jcstress</finalName>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>full</shadedClassifierName>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>org.openjdk.jcstress.Main</mainClass>
+                                </transformer>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/TestList</resource>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+    </plugins>
+</build>
+```
 
-org.apache.maven.plugins
-maven-shade-plugin
-2.2
+测试用例
 
+```java
+package learn.thread;
 
-内存屏障
+import org.openjdk.jcstress.annotations.*;
+import org.openjdk.jcstress.infra.results.II_Result;
+
+public class Reordering {
+
+    @JCStressTest
+    @Outcome(id = {"0, 0", "1, 1", "0, 1"}, expect = Expect.ACCEPTABLE, desc = "ACCEPTABLE")
+    @Outcome(id = {"1, 0"}, expect = Expect.ACCEPTABLE_INTERESTING, desc = "ACCEPTABLE_INTERESTING")
+    @State
+    public static class Case1 {
+        int x;
+        int y;
+
+        @Actor
+        public void actor1() {
+            x = 1;
+            y = 1;
+        }
+
+        @Actor
+        public void actor2(II_Result result) {
+            result.r1 = y;
+            result.r2 = x;
+        }
+    }
+
+    @JCStressTest
+    @Outcome(id = {"0, 0", "1, 1", "0, 1"}, expect = Expect.ACCEPTABLE, desc = "ACCEPTABLE")
+    @Outcome(id = {"1, 0"}, expect = Expect.FORBIDDEN, desc = "FORBIDDEN")
+    @State
+    public static class Case2 {
+        int x;
+        volatile int y;
+
+        @Actor
+        public void actor1() {
+            x = 1;
+            y = 1;
+        }
+
+        @Actor
+        public void actor2(II_Result result) {
+            result.r1 = y;
+            result.r2 = x;
+        }
+    }
+
+    @JCStressTest
+    @Outcome(id = {"0, 0", "1, 1", "0, 1"}, expect = Expect.ACCEPTABLE, desc = "ACCEPTABLE")
+    @Outcome(id = {"1, 0"}, expect = Expect.ACCEPTABLE_INTERESTING, desc = "ACCEPTABLE_INTERESTING")
+    @State
+    public static class Case3 {
+        volatile int x;
+        int y;
+
+        @Actor
+        public void actor1() {
+            x = 1;
+            y = 1;
+        }
+
+        @Actor
+        public void actor2(II_Result result) {
+            result.r1 = y;
+            result.r2 = x;
+        }
+    }
+}
+```
+打包
+
+```bash
+$ mvn package -Dmaven.test.skip=true
+```
+
+运行
+```
+java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -jar jcstress.jar -t learn.thread.Reordering.Case1
+```
+
+volatile 内存屏障
+
+- 写：阻止之前的代码下来
+- 读：阻止下面的代码上去
+
+口诀：先读后写
+
+屏障是单向的，即阻止一个方向重排序
+
 
 Volatile详解，太详细了 https://www.cnblogs.com/cxy2020/p/12951333.html

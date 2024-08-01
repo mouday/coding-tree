@@ -2,6 +2,26 @@
 
 面试题: 线程池的核心参数
 
+**要求**
+
+* 掌握线程池的 7 大核心参数
+
+**七大参数**
+
+1. corePoolSize 核心线程数目 - 池中会保留的最多线程数
+2. maximumPoolSize 最大线程数目 - 核心线程+救急线程的最大数目
+3. keepAliveTime 生存时间 - 救急线程的生存时间，生存时间内没有新任务，此线程资源会释放
+4. unit 时间单位 - 救急线程的生存时间单位，如秒、毫秒等
+5. workQueue - 当没有空闲核心线程时，新来任务会加入到此队列排队，队列满会创建救急线程执行任务
+6. threadFactory 线程工厂 - 可以定制线程对象的创建，例如设置线程名字、是否是守护线程等
+7. handler 拒绝策略 - 当所有线程都在繁忙，workQueue 也放满时，会触发拒绝策略
+   1. 抛异常 java.util.concurrent.ThreadPoolExecutor.AbortPolicy
+   2. 由调用者执行任务 java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
+   3. 丢弃任务 java.util.concurrent.ThreadPoolExecutor.DiscardPolicy
+   4. 丢弃最早排队任务 java.util.concurrent.ThreadPoolExecutor.DiscardOldestPolicy
+
+![](https://mouday.github.io/img/2024/08/01/fef7jkt.png)
+
 ## 线程池的核心参数
 
 1. corePoolSize 核心线程数目

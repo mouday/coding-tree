@@ -365,20 +365,38 @@ stop
 pom.xml
 
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>org.openjdk.jcstress</groupId>
-        <artifactId>jcstress-core</artifactId>
-        <version>0.14</version>
-    </dependency>
-</dependencies>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-<build>
-    <plugins>
-        <plugin>
+    <groupId>thread-unsafe</groupId>
+    <artifactId>demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openjdk.jcstress</groupId>
+            <artifactId>jcstress-core</artifactId>
+            <version>0.14</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <compilerArgument>--add-exports=java.base/jdk.internal.misc=ALL-UNNAMED</compilerArgument>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>2.2</version>
                 <executions>
                     <execution>
                         <id>main</id>
@@ -388,8 +406,6 @@ pom.xml
                         </goals>
                         <configuration>
                             <finalName>jcstress</finalName>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <shadedClassifierName>full</shadedClassifierName>
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
@@ -404,23 +420,27 @@ pom.xml
                     </execution>
                 </executions>
             </plugin>
-    </plugins>
-</build>
+        </plugins>
+    </build>
+</project>
 ```
 
 测试用例
 
 ```java
-package learn.thread;
+package com.demo;
 
 import org.openjdk.jcstress.annotations.*;
 import org.openjdk.jcstress.infra.results.II_Result;
 
+// 有序性例子
+// java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -jar target/jcstress.jar -t com.demo.Reordering.Case1
+// java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -jar target/jcstress.jar -t com.demo.Reordering.Case2
+// java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -jar target/jcstress.jar -t com.demo.Reordering.Case3
 public class Reordering {
-
     @JCStressTest
     @Outcome(id = {"0, 0", "1, 1", "0, 1"}, expect = Expect.ACCEPTABLE, desc = "ACCEPTABLE")
-    @Outcome(id = {"1, 0"}, expect = Expect.ACCEPTABLE_INTERESTING, desc = "ACCEPTABLE_INTERESTING")
+    @Outcome(id = "1, 0", expect = Expect.ACCEPTABLE_INTERESTING, desc = "INTERESTING")
     @State
     public static class Case1 {
         int x;
@@ -433,15 +453,15 @@ public class Reordering {
         }
 
         @Actor
-        public void actor2(II_Result result) {
-            result.r1 = y;
-            result.r2 = x;
+        public void actor2(II_Result r) {
+            r.r1 = y;
+            r.r2 = x;
         }
     }
 
     @JCStressTest
     @Outcome(id = {"0, 0", "1, 1", "0, 1"}, expect = Expect.ACCEPTABLE, desc = "ACCEPTABLE")
-    @Outcome(id = {"1, 0"}, expect = Expect.FORBIDDEN, desc = "FORBIDDEN")
+    @Outcome(id = "1, 0", expect = Expect.FORBIDDEN, desc = "FORBIDDEN")
     @State
     public static class Case2 {
         int x;
@@ -454,15 +474,15 @@ public class Reordering {
         }
 
         @Actor
-        public void actor2(II_Result result) {
-            result.r1 = y;
-            result.r2 = x;
+        public void actor2(II_Result r) {
+            r.r1 = y;
+            r.r2 = x;
         }
     }
 
     @JCStressTest
     @Outcome(id = {"0, 0", "1, 1", "0, 1"}, expect = Expect.ACCEPTABLE, desc = "ACCEPTABLE")
-    @Outcome(id = {"1, 0"}, expect = Expect.ACCEPTABLE_INTERESTING, desc = "ACCEPTABLE_INTERESTING")
+    @Outcome(id = "1, 0", expect = Expect.ACCEPTABLE_INTERESTING, desc = "ACCEPTABLE_INTERESTING")
     @State
     public static class Case3 {
         volatile int x;
@@ -475,9 +495,9 @@ public class Reordering {
         }
 
         @Actor
-        public void actor2(II_Result result) {
-            result.r1 = y;
-            result.r2 = x;
+        public void actor2(II_Result r) {
+            r.r1 = y;
+            r.r2 = x;
         }
     }
 }
@@ -490,7 +510,31 @@ $ mvn package -Dmaven.test.skip=true
 
 运行
 ```bash
-java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -jar jcstress.jar -t learn.thread.Reordering.Case1
+java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -jar target/jcstress.jar -t com.demo.Reordering.Case1
+```
+
+
+
+case1
+```
+  RESULT      SAMPLES     FREQ       EXPECT  DESCRIPTION
+    0, 0    7,384,800    6.75%   Acceptable  ACCEPTABLE
+    0, 1    1,046,952    0.96%   Acceptable  ACCEPTABLE
+    1, 0       18,429    0.02%  Interesting  INTERESTING
+    1, 1  100,956,027   92.28%   Acceptable  ACCEPTABLE
+
+```
+
+case2符合预期
+
+case3
+```
+  RESULT      SAMPLES     FREQ       EXPECT  DESCRIPTION
+    0, 0   92,831,988   33.06%   Acceptable  ACCEPTABLE
+    0, 1    6,487,823    2.31%   Acceptable  ACCEPTABLE
+    1, 0      282,156    0.10%  Interesting  ACCEPTABLE_INTERESTING
+    1, 1  181,197,265   64.53%   Acceptable  ACCEPTABLE
+
 ```
 
 volatile 内存屏障

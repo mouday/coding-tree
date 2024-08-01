@@ -24,7 +24,9 @@ docker run \
 centos:centos7 /usr/sbin/init
 
 $ docker exec -it nginx /bin/bash
+```
 
+```bash
 # 安装依赖
 yum install -y gcc gcc-c++ zlib zlib-devel openssl openssl-devel pcre pcre-devel
 
@@ -46,6 +48,24 @@ cd nginx-1.22.1
 --with-http_sub_module
 
 make && make install
+```
+
+一键安装
+
+```bash
+yum install -y gcc gcc-c++ zlib zlib-devel openssl openssl-devel pcre pcre-devel \
+&& wget http://nginx.org/download/nginx-1.22.1.tar.gz \
+&& tar -zxvf nginx-1.22.1.tar.gz \
+&& cd nginx-1.22.1 \
+&& ./configure --prefix=/usr/local/nginx/v1.22.1 \
+--with-http_stub_status_module \
+--with-http_ssl_module \
+--with-http_gzip_static_module \
+--with-pcre \
+--with-http_realip_module \
+--with-http_sub_module \
+&& make && make install \
+&& /usr/local/nginx/v1.22.1/sbin/nginx -v
 ```
 
 目录结构
@@ -214,6 +234,7 @@ upstream targetserver {
 vi /etc/systemd/system/nginx.service
 
 ```bash
+# /etc/systemd/system/nginx.service
 [Unit]
 Description=nginx
 After=network.target
@@ -229,8 +250,16 @@ PrivateTmp=true
 WantedBy=multi-user.target
 ```
 
+```bash
+systemctl enable nginx
+
+systemctl is-enabled nginx
+
+systemctl start nginx
+```
 
 ## 常用配置示例
+
 ### default_server
 ```bash
 server {

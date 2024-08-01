@@ -68,51 +68,51 @@ public class SyncVsCas {
 ## synchronized实现线程安全
 
 ```java
-    public static void sync(Account account) {
-        Thread t1 = new Thread(() -> {
-            synchronized (account) {
-                int old = account.balance;
-                int n = old - 5;
-                account.balance = n;
-            }
-        },"t1");
+public static void sync(Account account) {
+    Thread t1 = new Thread(() -> {
+        synchronized (account) {
+            int old = account.balance;
+            int n = old - 5;
+            account.balance = n;
+        }
+    },"t1");
 
-        Thread t2 = new Thread(() -> {
-            synchronized (account) {
-                int o = account.balance;
-                int n = o + 5;
-                account.balance = n;
-            }
-        },"t2");
+    Thread t2 = new Thread(() -> {
+        synchronized (account) {
+            int o = account.balance;
+            int n = o + 5;
+            account.balance = n;
+        }
+    },"t2");
 
-        showResult(account, t1, t2);
-    }
+    showResult(account, t1, t2);
+}
 ```
 
 ## cas实现线程安全
 
 ```java
-    public static void cas(Account account) {
-        Thread t1 = new Thread(() -> {
-            while (true) {
-                int o = account.balance;
-                int n = o - 5;
-                if (U.compareAndSetInt(account, BALANCE, o, n)) {
-                    break;
-                }
+public static void cas(Account account) {
+    Thread t1 = new Thread(() -> {
+        while (true) {
+            int o = account.balance;
+            int n = o - 5;
+            if (U.compareAndSetInt(account, BALANCE, o, n)) {
+                break;
             }
-        },"t1");
+        }
+    },"t1");
 
-        Thread t2 = new Thread(() -> {
-            while (true) {
-                int o = account.balance;
-                int n = o + 5;
-                if (U.compareAndSetInt(account, BALANCE, o, n)) {
-                    break;
-                }
+    Thread t2 = new Thread(() -> {
+        while (true) {
+            int o = account.balance;
+            int n = o + 5;
+            if (U.compareAndSetInt(account, BALANCE, o, n)) {
+                break;
             }
-        },"t2");
+        }
+    },"t2");
 
-        showResult(account, t1, t2);
-    }
+    showResult(account, t1, t2);
+}
 ```

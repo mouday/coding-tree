@@ -5,13 +5,25 @@
 - Nginx配置文件
 - Nginx具体应用
 
+## 准备www用户
+
+1、添加用户组和用户
+
+```bash
+$ groupadd www
+
+$ useradd www -g www -s /sbin/nologin
+
+$ id www
+```
+
 ## Nginx概述
 
 轻量级的Web服务器
 
 官网：http://nginx.org
 
-下载安装
+## docker安装
 
 ```bash
 # 启动docker容器
@@ -25,6 +37,8 @@ centos:centos7 /usr/sbin/init
 
 $ docker exec -it nginx /bin/bash
 ```
+
+## 源码编译安装
 
 ```bash
 # 安装依赖
@@ -80,6 +94,36 @@ $ tree
 |-- logs             # 日志目录
 |-- sbin
     |-- nginx        # 二进制文件，启动、停止Nginx服务
+```
+
+
+## 开机自启
+
+vi /etc/systemd/system/nginx.service
+
+```bash
+# /etc/systemd/system/nginx.service
+[Unit]
+Description=nginx
+After=network.target
+ 
+[Service]
+Type=forking
+ExecStart=/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
+ExecReload=/usr/local/nginx/sbin/nginx -s reload
+ExecStop=/usr/local/nginx/sbin/nginx -s quit
+PrivateTmp=true
+ 
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+systemctl enable nginx
+
+systemctl is-enabled nginx
+
+systemctl start nginx
 ```
 
 ## Nginx命令
@@ -229,36 +273,8 @@ upstream targetserver {
 }
 ```
 
-## 开机自启
 
-vi /etc/systemd/system/nginx.service
 
-```bash
-# /etc/systemd/system/nginx.service
-[Unit]
-Description=nginx
-After=network.target
- 
-[Service]
-Type=forking
-ExecStart=/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
-ExecReload=/usr/local/nginx/sbin/nginx -s reload
-ExecStop=/usr/local/nginx/sbin/nginx -s quit
-PrivateTmp=true
- 
-[Install]
-WantedBy=multi-user.target
-```
-
-```bash
-systemctl enable nginx
-
-systemctl is-enabled nginx
-
-systemctl start nginx
-```
-
-## 常用配置示例
 
 ### default_server
 ```bash
@@ -275,6 +291,8 @@ server {
 }
 
 ```
+
+### 常用配置示例
 
 ```bash
 server {
@@ -350,3 +368,87 @@ server
   }
 }
 ```
+
+添加ssl证书
+
+```bash
+server {
+    listen  443 ssl;
+    server_name yourdomain.com;
+    
+    # 设置ssl证书文件路径
+    ssl_certificate certs/yourdomain.com.pem;
+    ssl_certificate_key certs/yourdomain.com.key;
+    
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_ciphers EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
+    ssl_prefer_server_ciphers on;
+    add_header Strict-Transport-Security "max-age=31536000";
+    
+    # 访问日志
+    access_log /var/log/nginx/yourdomain.com.https.log;
+    
+    location / {
+        root /var/html/yourdomain.com/;
+        index index.html;
+    }
+}
+```
+
+http重定向https
+```bash
+server {
+    listen 80;
+    server_name yourdomain.com;
+    rewrite ^(.*)$ https://$host$1 redirect;    # 临时重定向 302
+    #rewrite ^(.*)$ https://$host$1 permanent;   # 永久重定向 301
+}
+```
+
+后端服务接口
+
+```bash
+location /v1/ {
+    proxy_pass http://127.0.0.1:8080/;
+    proxy_read_timeout 30;
+    proxy_redirect off;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header REMOTE-HOST $remote_addr;
+}
+```
+
+WebSocket
+```bash
+location /v1/ {
+    proxy_pass http://127.0.0.1:8080/;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+}
+```
+
+SSE
+
+```bash
+location /sse/ {
+    proxy_buffering off;
+    proxy_pass http://127.0.0.1:8080/;
+}
+```
+
+开启gzip
+
+```bash
+gzip on;
+gzip_min_length 10k;
+gzip_buffers 4 16k;
+gzip_comp_level 5;
+gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+gzip_vary off;
+gzip_disable "MSIE [1-8]\.";
+```
+
+参考：https://httpsok.com/doc/reference/nginx-config.html

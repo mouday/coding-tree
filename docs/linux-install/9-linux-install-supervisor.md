@@ -239,6 +239,7 @@ systemctl start supervisord
 
 systemctl status supervisord
 
+journalctl -u supervisord -f
 ```
 
 ## 常用配置

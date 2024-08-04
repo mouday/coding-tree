@@ -191,6 +191,12 @@ server {
         root html;           # 指定静态资源根目录
         index index.html     # 指定默认首页
     }
+
+    # 后台
+    location ^~/admin {
+        alias /data/wwwroot/admin.demo.com/www;
+        try_files $uri $uri/ /admin/index.html;
+    }
 }
 ```
 

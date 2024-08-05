@@ -1,5 +1,8 @@
 # 并发篇-Hashtable vs ConcurrentHashMap
 
+![](https://mouday.github.io/img/2024/08/05/dxiew4a.png)
+
+![](https://mouday.github.io/img/2024/08/05/dcsokoh.png)
 **要求**
 
 * 掌握 Hashtable 与 ConcurrentHashMap 的区别

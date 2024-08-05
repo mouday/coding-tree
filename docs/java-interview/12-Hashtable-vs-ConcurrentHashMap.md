@@ -107,3 +107,59 @@ public class ConcurrentHashMap<K,V>{
     private static final int DEFAULT_CAPACITY = 16;    
 }
 ```
+
+
+测试代码
+
+```java
+package com.demo;
+
+import org.springframework.util.StopWatch;
+
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+
+public class HashTableDemo {
+    public static void main(String[] args) {
+        Map<String, String> map = new HashMap<>();
+        //Map<String, String> map = new Hashtable<>();
+        //Map<String, String> map = new ConcurrentHashMap<>();
+
+        int count = 100 * 10000;
+
+        CountDownLatch countDownLatch = new CountDownLatch(count);
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        for (int i = 0; i < count; i++) {
+            new Thread(() -> {
+                map.put(Thread.currentThread().getName(), "value");
+                countDownLatch.countDown();
+            }, "t"+i).start();
+        }
+
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        stopWatch.stop();
+        System.out.println(stopWatch.getTotalTimeMillis());
+        // 72957
+        System.out.println(map.size());
+        // 1000000
+    }
+}
+
+```
+
+| 实现类  | 耗时（单位：毫秒）
+| - | -
+| ConcurrentHashMap | 72957
+| Hashtable | 78241
+| HashMap | 68306
+

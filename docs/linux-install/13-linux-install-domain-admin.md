@@ -1,5 +1,7 @@
 # 安装domain-admin
 
+文档：https://domain-admin.readthedocs.io/
+
 ## pip安装
 
 ```bash

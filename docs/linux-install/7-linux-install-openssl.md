@@ -12,7 +12,7 @@ wget http://www.openssl.org/source/openssl-1.1.1.tar.gz \
 
 ```bash
 # fatal error: zlib.h: No such file or directory
-yum install zlib-devel.x86_64
+yum install zlib-devel.x86_64 -y
 
 # /usr/local/openssl/v1.1.1/bin/openssl: error while loading shared libraries: libssl.so.1.1: cannot open shared object file: No such file or directory
 $ find / -name libssl.so.1.1

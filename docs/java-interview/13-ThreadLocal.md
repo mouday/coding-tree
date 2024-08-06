@@ -34,7 +34,7 @@ ThreadLocalMap 中的 key 被设计为弱引用，原因如下
   - 仅是让 key 的内存释放，关联 value 的内存并不会释放
 - 懒惰被动释放 value
   - get key 时，发现是 null key，则释放其 value 内存
-  - set key 时，会使用启发式扫描，清除临近的 null key 的 value 内存，启发次数与元素个数，是否发现 null key 有关
+  - set key 时，会使用`启发式扫描`，清除临近的 null key 的 value 内存，启发次数与元素个数，是否发现 null key 有关
 - 主动 remove 释放 key，value
   - 会同时释放 key，value 的内存，也会清除临近的 null key 的 value 内存
   - 推荐使用它，因为一般使用 ThreadLocal 时都把它作为静态变量（即强引用），因此无法被动依靠 GC 回收

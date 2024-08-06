@@ -96,6 +96,13 @@ $ tree
     |-- nginx        # 二进制文件，启动、停止Nginx服务
 ```
 
+引入vhost配置文件
+
+```bash
+# nginx.conf
+include vhost/*.conf;
+```
+
 
 ## 开机自启
 
@@ -327,9 +334,10 @@ server
      index  index.html index.htm;
     }
     
-
-    location /admin {
-      try_files $uri $uri/ /index.html;
+    # admin
+    location ^~/admin {
+      alias /data/wwwroot/domain-admin;
+      try_files $uri $uri/ /admin/index.html;
     }
 
  location /api/ {

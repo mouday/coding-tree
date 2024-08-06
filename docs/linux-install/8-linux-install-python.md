@@ -13,3 +13,7 @@ PKG_CONFIG_PATH="/usr/local/openssl/v1.1.1/lib/pkgconfig" \
 && make && make install \
 && /usr/local/python/v3.7.0/bin/python3 --version
 ```
+
+```bash
+/usr/local/python/v3.7.0/bin/python3 -c "import ssl; print(ssl.OPENSSL_VERSION)"
+```

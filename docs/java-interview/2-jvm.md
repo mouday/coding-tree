@@ -1,23 +1,5 @@
 # Java面试题-JVM
 
-## JVM内存结构
-
-
-### 内存溢出
-
-
-1、类原始数据被放入元空间
-
-![](https://mouday.github.io/img/2024/07/03/7yuic7k.png)
-
-类加载器加载类的原始信息存储到元空间
-
-2、元空间内存释放
-
-![](https://mouday.github.io/img/2024/07/03/hx8kz3y.png)
-
-对象实例、对象对应的类、整个类加载器不再被使用，元空间中的原始才会被数据清除
-
 ## JVM内存参数
 
 对于JM内存配置参数:
@@ -90,13 +72,6 @@ Survivor = from + to = 1G + 1G = 2G
 存放JIT编译后的代码
 
 ![](https://mouday.github.io/img/2024/07/03/vpaqqks.png)
-
-### 线程
-
-`-Xss`默认1M
-
-![](https://mouday.github.io/img/2024/07/03/vnad104.png)
-
 
 
 # 虚拟机篇
@@ -241,6 +216,7 @@ Survivor = from + to = 1G + 1G = 2G
 
 **线程内存设置**
 
+`-Xss`默认1M
 
 ![](https://mouday.github.io/img/2024/08/07/v6cmw8c.png)
 

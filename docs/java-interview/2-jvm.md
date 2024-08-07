@@ -1,80 +1,4 @@
-# Java面试题-JVM
-
-## JVM内存参数
-
-对于JM内存配置参数:
-
-```
--Xmx10240m -Xms10240m -Xmn5120m -XX:SurvivorRatio=3 
-```
-
-其最小内存值和Survivor区总大小分别是
-
-![](https://mouday.github.io/img/2024/07/03/5vbw785.png)
-
-参数解答：
-
-- `-Xmx10240m` 最大内存 10240M = 10G
-- `-Xms10240m` 最小内存 10240M = 10G
-- `-Xmn5120m`  新生代内存数 5120M = 5G
-- `-XX:SurvivorRatio=3` 
-- `-XX:NewRatio` = old老年代 / new新生代
-
-内存配置
-
-- 老年代old
-- 新生代new
-    - 伊甸园区eden
-    - survivor区（from+to）
-
-比例计算
-
-```
-SurvivorRatio == 伊甸园区eden/from == 伊甸园区eden/to
-
-eden = 3
-from = 1
-to = 1
-
-5G / (3 + 1 + 1)
-= 5G / 5
-= 1G 
-
-Survivor = from + to = 1G + 1G = 2G
-```
-
-所以：最小内存值10G；Survivor区总大小是2G
-
-
-### 新生代大小设置
-
--XX:MaxNewSize
-
--XX:NewSize
-
--Xmn 相当于 MaxNewSize=NewSize
-
-![](https://mouday.github.io/img/2024/07/03/60s25i9.png)
-
-> 建议生产环境设置为一样: Xmx=Xms
-
-### 元空间内存
-
--XX:CompressedClassSpaceSize
--XX:MaxMetaspaceSize
-
-![](https://mouday.github.io/img/2024/07/03/no8wvox.png)
-
-### 代码缓存区
-
--XX:ReservedCodeCacheSize
-
-存放JIT编译后的代码
-
-![](https://mouday.github.io/img/2024/07/03/vpaqqks.png)
-
-
-# 虚拟机篇
+# Java面试题-JVM虚拟机篇
 
 ## 1. JVM 内存结构
 
@@ -156,6 +80,63 @@ Survivor = from + to = 1G + 1G = 2G
 
 * 熟悉常见的 JVM 参数，尤其和大小相关的
 
+
+对于JM内存配置参数:
+
+```
+-Xmx10240m -Xms10240m -Xmn5120m -XX:SurvivorRatio=3 
+```
+
+其最小内存值和Survivor区总大小分别是
+
+![](https://mouday.github.io/img/2024/07/03/5vbw785.png)
+
+参数解答：
+
+- `-Xmx10240m` 最大内存 10240M = 10G
+- `-Xms10240m` 最小内存 10240M = 10G
+- `-Xmn5120m`  新生代内存数 5120M = 5G
+- `-XX:SurvivorRatio=3` 
+- `-XX:NewRatio` = old老年代 / new新生代
+
+内存配置
+
+- 老年代old
+- 新生代new
+    - 伊甸园区eden
+    - survivor区（from+to）
+
+比例计算
+
+```
+SurvivorRatio == 伊甸园区eden/from == 伊甸园区eden/to
+
+eden = 3
+from = 1
+to = 1
+
+5G / (3 + 1 + 1)
+= 5G / 5
+= 1G 
+
+Survivor = from + to = 1G + 1G = 2G
+```
+
+所以：最小内存值10G；Survivor区总大小是2G
+
+
+### 新生代大小设置
+
+-XX:MaxNewSize
+
+-XX:NewSize
+
+-Xmn 相当于 MaxNewSize=NewSize
+
+![](https://mouday.github.io/img/2024/07/03/60s25i9.png)
+
+> 建议生产环境设置为一样: Xmx=Xms
+
 **堆内存，按大小设置**
 
 ![](https://mouday.github.io/img/2024/08/07/t5vwk6n.png)
@@ -201,6 +182,7 @@ Survivor = from + to = 1G + 1G = 2G
 
 **代码缓存内存设置**
 
+存放JIT编译后的代码
 
 ![](https://mouday.github.io/img/2024/08/07/xzqyqal.png)
 

@@ -44,7 +44,7 @@
 本地预览
 
 ```bash
-npm i docsify-cli -g
+pnpm i --registry https://registry.npmmirror.com
 
 npm run dev
 ```

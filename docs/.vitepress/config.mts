@@ -126,7 +126,7 @@ var _hmt = _hmt || [];
             text: "Vue Demo",
             link: "https://mouday.github.io/vue-demo/",
           },
-          
+
           { text: "学习笔记", link: "https://mouday.github.io/LearningNote/" },
           {
             text: "SpringBoot Demo",
@@ -168,6 +168,17 @@ var _hmt = _hmt || [];
     },
   },
   vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          }
+        }
+      }
+    },
     plugins: [
       // https://github.com/QC2168/vite-plugin-vitepress-auto-sidebar
       AutoSidebar({

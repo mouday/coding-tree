@@ -6,14 +6,9 @@
   "type": "commonjs",
   "private": true,
   "scripts": {
-    "dev:cli": "nodemon ./cli/server.js",
-    "build:cli": "node ./cli/build.js",
-    "dev": "~/.nvm/versions/node/v12.22.6/bin/docsify serve --open ./",
-    "live": "live-server",
-    "start": "http-server -o / -c-1",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs"
   },
   "repository": {
     "type": "git",
@@ -27,15 +22,8 @@
   },
   "homepage": "https://github.com/mouday/coding-tree#readme",
   "devDependencies": {
-    "docsify": "^4.12.2",
-    "http-server": "^14.1.0",
     "vite-plugin-vitepress-auto-sidebar": "^1.6.3",
     "vitepress": "^1.1.0"
   },
-  "dependencies": {
-    "express": "^4.18.2",
-    "marked": "^7.0.1",
-    "nodemon": "^3.0.1",
-    "nunjucks": "^3.2.4"
-  }
+  "dependencies": {}
 }

@@ -122,6 +122,11 @@ var _hmt = _hmt || [];
             text: "前端Demo",
             link: "https://mouday.github.io/front-end-demo/",
           },
+          {
+            text: "Vue Demo",
+            link: "https://mouday.github.io/vue-demo/",
+          },
+          
           { text: "学习笔记", link: "https://mouday.github.io/LearningNote/" },
           {
             text: "SpringBoot Demo",

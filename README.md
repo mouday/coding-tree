@@ -1,6 +1,7 @@
 # Coding Tree
 
-![](img/logo.png)
+
+![](https://mouday.github.io/img/2024/08/08/ba3ruee.png)
 
 - 国际地址：https://mouday.github.io/coding-tree/
 
@@ -38,6 +39,8 @@
 
 - [SpringBoot Demo](https://mouday.github.io/spring-boot-demo/#/)
 
+- [软考笔记](/blog/ruankao/index.md)
+
 本地预览
 
 ```bash
@@ -48,4 +51,6 @@ npm run dev
 
 ![](https://api.isoyu.com/bing_images.php)
 
-![](img/python-select-qrcode.jpeg ':size=40%')
+![](https://mouday.github.io/img/2024/08/08/m632883.jpeg)
+
+![](https://mouday.github.io/img/2024/08/08/fqb2wvr.png)

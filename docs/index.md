@@ -34,3 +34,21 @@ features:
 ![](https://mouday.github.io/img/2024/06/02/r2wiaed.jpg)
 
 [站点地图](https://mouday.github.io/coding-tree/sitemap.xml)
+
+
+
+## 博客站点
+
+  * [GitHub](https://github.com/mouday)
+
+  * [CSDN](https://pengshiyu.blog.csdn.net/)
+
+  * [51CTO](https://blog.51cto.com/u_13567403)
+  
+  * [稀土掘金](https://juejin.cn/user/3104676568106567)
+
+  * [知乎](https://www.zhihu.com/people/pengshiyu)
+  
+  * [华为云](https://bbs.huaweicloud.com/community/usersnew/id_1628242835316833)
+  
+  * [阿里云](https://developer.aliyun.com/group/pengshiyu)

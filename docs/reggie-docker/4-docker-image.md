@@ -9,14 +9,14 @@
 
 镜像就是在系统函数库、运行环境基础上，添加应用程序文件、配置文件、依赖文件等组合，然后编写好启动脚本打包在一起形成的文件。
 
-![](img/docker-image-layer.png)
 
+![](https://mouday.github.io/img/2024/08/08/9cdoo5c.png)
 ## 2、Dockerfile语法
 
 `Dockerfile` 就是一个文本文件，其中包含一个个的`指令(Instruction)`，用指令来说明要执行什么操作来构建镜像。每一个指令都会形成一层Layer。
 
-![](img/docker-instruction.png)
 
+![](https://mouday.github.io/img/2024/08/08/lxobnnd.png)
 官网文档： https://docs.docker.com/engine/reference/builder
 
 ## 3、构建Java项目

@@ -17,7 +17,8 @@
 
 ## 2、镜像命令
 
-![](img/docker-operate.png)
+
+![](https://mouday.github.io/img/2024/08/08/s58ur6o.png)
 
 ### 2.1、案例1-拉取、查看镜像
 
@@ -63,7 +64,8 @@ docker load -i nginx.tar
 
 ## 3、容器命令
 
-![](img/docker-command.png)
+
+![](https://mouday.github.io/img/2024/08/08/382z0dw.png)
 
 容器保护三个状态：
 
@@ -216,7 +218,8 @@ root@dc6903a9bcf7:/data# exit
 
 将容器与数据分离，解耦合，方便操作容器内数据，保证数据安全
 
-![](img/docker-volume.png)
+
+![](https://mouday.github.io/img/2024/08/08/955c8bi.png)
 
 ### 4.1、数据卷操作命令
 
@@ -342,8 +345,8 @@ vi index.html
 
 如图：
 
-![](img/docker-volume-file.png)
 
+![](https://mouday.github.io/img/2024/08/08/2058q9w.png)
 
 语法：
 

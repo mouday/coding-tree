@@ -82,8 +82,9 @@
 
 * 熟悉常见的 JVM 参数，尤其和大小相关的
 
+### 常见的 JVM 参数
 
-对于JM内存配置参数:
+对于JVM内存配置参数:
 
 ```
 -Xmx10240m -Xms10240m -Xmn5120m -XX:SurvivorRatio=3 
@@ -108,6 +109,8 @@
     - 伊甸园区eden
     - survivor区（from+to）
 
+> 建议生产环境设置为一样: Xmx=Xms
+
 比例计算
 
 ```
@@ -127,19 +130,7 @@ Survivor = from + to = 1G + 1G = 2G
 所以：最小内存值10G；Survivor区总大小是2G
 
 
-### 新生代大小设置
-
--XX:MaxNewSize
-
--XX:NewSize
-
--Xmn 相当于 MaxNewSize=NewSize
-
-![](https://mouday.github.io/img/2024/07/03/60s25i9.png)
-
-> 建议生产环境设置为一样: Xmx=Xms
-
-**堆内存，按大小设置**
+### 堆内存，按大小设置
 
 ![](https://mouday.github.io/img/2024/08/07/t5vwk6n.png)
 
@@ -153,8 +144,7 @@ Survivor = from + to = 1G + 1G = 2G
 * 保留是指，一开始不会占用那么多内存，随着使用内存越来越多，会逐步使用这部分保留内存。下同
 
 
-
-**堆内存，按比例设置**
+### 堆内存，按比例设置
 
 
 ![](https://mouday.github.io/img/2024/08/07/rlz893c.png)
@@ -166,7 +156,7 @@ Survivor = from + to = 1G + 1G = 2G
 
 
 
-**元空间内存设置**
+### 元空间内存设置
 
 ![](https://mouday.github.io/img/2024/08/07/kj63rdn.png)
 
@@ -182,7 +172,7 @@ Survivor = from + to = 1G + 1G = 2G
 
 
 
-**代码缓存内存设置**
+### 代码缓存内存设置
 
 存放JIT编译后的代码
 
@@ -198,7 +188,7 @@ Survivor = from + to = 1G + 1G = 2G
 
 
 
-**线程内存设置**
+### 线程内存设置
 
 `-Xss`默认1M
 

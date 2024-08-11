@@ -1,5 +1,7 @@
 # 安装Python
 
+https://mirrors.huaweicloud.com/python/
+
 ## Python-3.7.0
 
 ```bash

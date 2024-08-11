@@ -212,7 +212,12 @@ Survivor = from + to = 1G + 1G = 2G
 
 ### 三种垃圾回收算法
 
-1、标记清除法（已废弃）
+1. 标记清除法（已废弃）
+2. 标记整理法（适用于：老年代）
+3. 标记复制法（适用于新生代）
+
+
+1、标记清除法
 
 
 ![](https://mouday.github.io/img/2024/08/07/hhhl808.png)
@@ -230,7 +235,7 @@ Survivor = from + to = 1G + 1G = 2G
 
 
 
-2、标记整理法（适用于：老年代）
+2、标记整理法
 
 
 ![](https://mouday.github.io/img/2024/08/07/k4ualjg.png)
@@ -249,7 +254,7 @@ Survivor = from + to = 1G + 1G = 2G
 
 
 
-3、标记复制法（适用于新生代）
+3、标记复制法
 
 
 ![](https://mouday.github.io/img/2024/08/07/8xgbxb8.png)
@@ -268,7 +273,7 @@ Survivor = from + to = 1G + 1G = 2G
 
 
 
-### GC 与分代回收算法
+### GC 垃圾回收
 
 GC 的目的在于实现无用对象内存自动释放，减少内存碎片、加快分配速度
 
@@ -284,7 +289,7 @@ GC 要点：
 
 
 
-**分代回收**
+### 分代回收
 
 1. 伊甸园 eden，最初对象都分配到这里，与幸存区 survivor（分成 from 和 to）合称新生代，
 

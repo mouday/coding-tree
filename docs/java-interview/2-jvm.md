@@ -210,9 +210,9 @@ Survivor = from + to = 1G + 1G = 2G
 * 理解三色标记及漏标处理
 * 了解常见垃圾回收器
 
-**三种垃圾回收算法**
+### 三种垃圾回收算法
 
-标记清除法
+1、标记清除法（已废弃）
 
 
 ![](https://mouday.github.io/img/2024/08/07/hhhl808.png)
@@ -230,7 +230,7 @@ Survivor = from + to = 1G + 1G = 2G
 
 
 
-标记整理法
+2、标记整理法（适用于：老年代）
 
 
 ![](https://mouday.github.io/img/2024/08/07/k4ualjg.png)
@@ -249,7 +249,7 @@ Survivor = from + to = 1G + 1G = 2G
 
 
 
-标记复制法
+3、标记复制法（适用于新生代）
 
 
 ![](https://mouday.github.io/img/2024/08/07/8xgbxb8.png)

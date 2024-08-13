@@ -420,14 +420,14 @@ GC 要点：
 
 ### 垃圾回收器
 
-**垃圾回收器 - Parallel GC**
+1、**垃圾回收器 - Parallel GC**
 
 * eden 内存不足发生 Minor GC，采用标记复制算法，需要暂停用户线程
 * old 内存不足发生 Full GC，采用标记整理算法，需要暂停用户线程
 
 * **注重吞吐量**
 
-**垃圾回收器 - ConcurrentMarkSweep GC**
+2、**垃圾回收器 - ConcurrentMarkSweep GC**
 
 * 它是工作在 old 老年代，支持**并发标记**的一款回收器，采用**并发清除**算法
   * 并发标记时不需暂停用户线程
@@ -437,7 +437,7 @@ GC 要点：
 
 * **注重响应时间**
 
-**垃圾回收器 - G1 GC**
+3、**垃圾回收器 - G1 GC**
 
 * **响应时间与吞吐量兼顾**
 * 划分成多个区域，每个区域都可以充当 eden，survivor，old， humongous，其中 humongous 专为大对象准备

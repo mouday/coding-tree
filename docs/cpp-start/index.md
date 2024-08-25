@@ -2,8 +2,9 @@
 
 课程：2024新版黑马程序员C++零基础入门到精通
 
-视频地址：https://www.bilibili.com/video/BV1ZH4y137ws/
-学习资料：https://www.yuque.com/bigdata-caoyu/newcpp
+- 视频地址：https://www.bilibili.com/video/BV1ZH4y137ws/
+- 学习资料：https://www.yuque.com/bigdata-caoyu/newcpp
+- 课程代码：https://gitee.com/javacaoyu/itheima_cpp
 
 @[TOC](目录)
 
@@ -275,3 +276,23 @@ int main(){
 }
 ```
 > 会有额外语句输出
+
+## 变量
+
+```cpp
+#include <iostream>
+
+int main() {
+    // 1、申明变量
+    int age;
+
+    // 2、变量赋值
+    age = 18;
+
+    // 3、变量取值
+    std::cout << "age = " << age << std::endl;
+    // age = 18
+    return 0;
+}
+
+```

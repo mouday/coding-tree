@@ -1,4 +1,4 @@
-# 课程笔记：C++零基础入门到精通
+# C++零基础入门到精通
 
 课程：2024新版黑马程序员C++零基础入门到精通
 
@@ -6,6 +6,8 @@
 学习资料：https://www.yuque.com/bigdata-caoyu/newcpp
 
 @[TOC](目录)
+
+
 
 ## VSCode
 
@@ -36,8 +38,7 @@ CLion设置
 - Ctrl + v 粘贴
 
 
-
-
+第一章 数据类型、运算符与表达式
 
 
 ## Hello, World
@@ -192,3 +193,85 @@ Hello World!
  */
 ```
 
+## 字面常量
+
+```cpp
+int i = 21; // 整数字面常量
+
+float f = 3.14; // 小数字面常量
+
+char c = 'c'; // 字符字面常量
+
+char* string = "string"; // 字符串字面常量
+```
+
+## 标识符
+
+- 数字、字母、下划线
+- 数字不能开头
+- 不能是关键字
+
+
+## 符号常量
+
+```cpp
+#include <iostream>
+
+// 定义符号常量，不需要分号结尾
+#define PI 3.14
+
+int main(){
+	// 使用符号常量
+	std::cout << PI << std::endl;
+	// 输出：3.14
+
+	return 0;
+}
+```
+
+
+## 中文乱码问题
+
+方式一：引入`windows.h`库
+
+```cpp
+#include "windows.h" // 第一步：引入依赖库
+
+SetConsoleOutputCP(CP_UTF8); // 第二步：设置编码
+```
+
+示例
+
+```cpp
+#include <iostream>
+#include "windows.h" // 第一步：引入依赖库
+
+int main(){
+	SetConsoleOutputCP(CP_UTF8); // 第二步：设置编码
+
+    std::cout << "你好，CPP" << std::endl;
+    // 你好，CPP
+    return 0;
+}
+```
+
+方式二：使用`system`设置字体
+
+```cpp
+system("chcp 65001"); // 设置字体为utf8
+```
+
+示例
+
+```cpp
+#include <iostream>
+
+int main(){
+	system("chcp 65001"); // 设置字体为utf8
+
+    std::cout << "你好，CPP" << std::endl;
+    // 你好，CPP
+    return 0;
+}
+```
+> 会有额外语句输出

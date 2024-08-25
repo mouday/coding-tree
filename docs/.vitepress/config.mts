@@ -81,6 +81,7 @@ var _hmt = _hmt || [];
       {
         text: "服务端",
         items: [
+          { text: "C/C++", link: "/cpp/" },
           { text: "Linux", link: "/linux/" },
           { text: "Linux软件安装", link: "/linux-install/" },
           { text: "MySQL", link: "/mysql/" },

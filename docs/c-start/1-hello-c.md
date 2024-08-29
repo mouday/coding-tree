@@ -158,16 +158,17 @@ printf("num is %d\n", num);
 
 常见的占位符
 
-```c
-%d 十进制int整数
-%ld 十进制long整数
-%u 十进制无符号整数
-%f 浮点数float
-%lf 浮点数double
-%c 字符
-%s 字符串
-%p 指针
-```
+| 占位符 | 说明
+| - | -
+`%d` | 十进制int整数
+`%ld` | 十进制long整数
+`%u` | 十进制无符号整数
+`%f` | 浮点数float
+`%lf` | 浮点数double
+`%c` | 字符
+`%s` | 字符串
+`%p` | 指针
+
 
 eg：
 

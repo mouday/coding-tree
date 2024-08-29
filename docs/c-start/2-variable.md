@@ -90,11 +90,15 @@ printf(" i = %d\n", i); // 变量i 超出作用于，编译失败
     - 枚举类型 enum
 - 指针类型
 - 空类型 void
+- 后续新增类型：
+    - 整型 long long
+    - 浮点型 long double
+    - 布尔型 _Bool
 
 > 注意：c语言中没有字符串类型，用字符数组表示字符串
 
 
-
+https://www.bilibili.com/video/BV1Bh4y1q7Nt?p=13
 
 
 

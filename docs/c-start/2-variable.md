@@ -97,8 +97,292 @@ printf(" i = %d\n", i); // 变量i 超出作用于，编译失败
 
 > 注意：c语言中没有字符串类型，用字符数组表示字符串
 
+## 5、整数类型
 
-https://www.bilibili.com/video/BV1Bh4y1q7Nt?p=13
+修饰符
+
+- `signed` 带符号位，有正负号，默认
+- `unsigned` 不带符号位，只能表示零和正整数
+
+单位
+
+- bit 位：计算机中的最小存储单位
+- byte 字节：计算机中基本存储单元 
+
+```
+1 byte = 8 bit
+```
+
+不同类型占用空间大小
+
+| 类型 | 占用空间
+| - | -
+shot | 2字节
+int | 通常4字节
+long | 4或8字节
+long long | 4或8字节（c99新增）
+
+> 需要区分32位、64位编译器
+
+```c
+// 整数常量，默认int
+int a = 20;
+
+// 等价于
+signed int a = 20;
+```
+
+后缀
+
+```c
+// 声明long可以使用后缀: l或L
+long l1 = 123; // int -> long
+long l2 = 123L; // long
+
+// 声明long long可以使用后缀: ll或LL
+long long ll = 123LL;
+
+// 声明无符号整数使用：u或U
+unsigned int x = 123U;
+
+unsigned long x = 123UL;
+
+unsigned long long x = 123ULL;
+```
+
+精确宽度类型
+
+- int8_t
+- int16_t
+- int32_t
+- int64_t
+- uint8_t
+- uint16_t
+- uint32_t
+- uint64_t
+
+整数的极限值
+
+```c
+#include <stdio.h>
+#include <limits.h>
+
+int main(void) {
+
+    printf("%d\n", INT_MAX); // 最大值：2147483647
+    printf("%d\n", INT_MIN); // 最小值：-2147483648
+
+    return 0;
+}
+
+```
+
+## 6、浮点类型
+
+不同类型占用空间大小
+
+| 类型 | 占用空间
+| - | -
+float | 4字节
+double | 8字节
+long double | 12字节
+
+浮点型没有修饰符signed和unsigned
+
+```c
+// 浮点型默认为double
+
+double d1 = 12.3;
+
+long double d2 = 12.3L;
+
+float f1 = 12.3F;
+```
+
+科学计数法
+
+```c
+// 12.3 x 10^3
+double d1 = 12.3e+3;
+
+// 或者
+double d1 = 12.3e3;
+
+0.3E6 等价于 .3E6
+3.0E6 等价于 3.E6
+```
+
+示例：华氏度转摄氏度
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    // 华氏度f（64）转摄氏度c（17.8）
+    double f = 64.0;
+
+    // 计算公式：c = (5 / 9) * (f - 32)
+    double c = (5.0 / 9) * (f - 32);
+    printf("%.2f\n", c);
+    // 输出：17.78
+
+    return 0;
+}
+
+```
+
+## 字符类型
+
+char 表示一个字符，占用一个字节
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    char c = 'A';
+    // 等价于 char c = 65;
+
+    printf("%c\n", c); // A
+    printf("%d\n", c); // 65
+
+    return 0;
+}
+
+```
+
+区分字符1和数字1
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    char c1 = '1';
+    char c2 = 1;
+
+    printf("c1=%c (%d)\n", c1, c1); // c1=1 (49)
+    printf("c2=%c (%d)\n", c2, c2); // c2=SOH (1)
+
+    return 0;
+}
+
+```
+
+char每个字符对应一个ASCII码，是一个数值，可以进行加减乘除运算
+
+特殊值
+
+| ASCII码 | 控制字符
+| - | -
+48 | 0
+65 | A
+97 | a
+
+char型允许有修饰符signed和unsigned
+
+转义字符
+
+| 转义字符 | 说明
+|-|-
+`\n` | 换行
+`\t` | 制表
+`\'` | 单引号
+`\"` | 双引号
+`\0` | null字符
+
+
+## 布尔类型
+
+C89没有布尔值
+
+- 真：非零，比如：1
+- 假：0
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    int flag = 1;
+
+    if (flag) {
+        printf("true\n");
+    } else {
+        printf("false\n");
+    }
+
+    // 输出：true
+    return 0;
+}
+
+```
+
+C89中可以通过宏定义布尔值
+
+```c
+#include <stdio.h>
+
+// 定义bool类型
+#define BOOL int // 也可以使用 typedef int BOOL
+#define TRUE 1
+#define FALSE 0
+
+int main(void) {
+    BOOL flag = TRUE;
+
+    if (flag) {
+        printf("true\n");
+    } else {
+        printf("false\n");
+    }
+
+    // 输出：true
+    return 0;
+}
+
+```
+
+C99新增了 `_Bool`表示布尔值
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    _Bool flag = 1;
+
+    if (flag) {
+        printf("true\n");
+    } else {
+        printf("false\n");
+    }
+
+    // 输出：true
+    return 0;
+}
+
+```
+
+C99还提供了头文件`stdbool.h`
+
+```c
+#include <stdio.h>
+#include <stdbool.h>
+
+int main(void) {
+    bool flag = true;
+
+    if (flag) {
+        printf("true\n");
+    } else {
+        printf("false\n");
+    }
+
+    // 输出：true
+    return 0;
+}
+
+```
+
+https://www.bilibili.com/video/BV1Bh4y1q7Nt?p=17
+
 
 
 

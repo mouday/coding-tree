@@ -231,7 +231,7 @@ int main(void) {
 
 ```
 
-## 字符类型
+## 7、字符类型
 
 char 表示一个字符，占用一个字节
 
@@ -290,7 +290,7 @@ char型允许有修饰符signed和unsigned
 `\0` | null字符
 
 
-## 布尔类型
+## 8、布尔类型
 
 C89没有布尔值
 
@@ -360,7 +360,7 @@ int main(void) {
 
 ```
 
-C99还提供了头文件`stdbool.h`
+C99还提供了头文件 `stdbool.h`
 
 ```c
 #include <stdio.h>

@@ -636,6 +636,66 @@ int main(void) {
 }
 
 ```
+
+## 12、变量按照声明位置分类
+
+分类
+
+- 全局变量
+- 局部变量
+
+```c
+#include <stdio.h>
+
+int a = 100; // 全局变量
+
+int main(void) {
+    int a = 200; // 局部变量
+
+    printf("%d\n", a); // 输出：200
+
+    return 0;
+}
+
+```
+
+## 13、常见的进制
+
+| 进制 | 数字 | 进位规则 | 前缀
+| - | - | - | -
+十进制 decimal | 0-9 | 满十进一 | -
+二进制 binary | 0-1 | 满二进一 | `0b`/`0B`
+八进制 octal | 0-7 | 满八进一 | `0`
+十六进制 hex | 0-9,a-f不区分大小写 | 满十六进一 | `0x`/`0X`
+
+eg:
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    int a = 10; // 十进制
+    int b = 0B10; // 二进制
+    int c = 010; // 八进制
+    int d = 0X10; // 十六进制
+
+    printf("十进制：a = %d，b = %d，c = %d，d = %d\n", a, b, c, d);
+    printf("八进制：a = %#o，b = %#o，c = %#o，d = %#o\n", a, b, c, d);
+    printf("十六进制：a = %#x，b = %#x，c = %#x，d = %#x\n", a, b, c, d);
+
+    return 0;
+}
+
+```
+
+输出
+```shell
+十进制：a = 10，b = 2，c = 8，d = 16
+八进制：a = 012，b = 02，c = 010，d = 020
+十六进制：a = 0xa，b = 0x2，c = 0x8，d = 0x10
+```
+
+
 https://www.bilibili.com/video/BV1Bh4y1q7Nt?p=17
 
 

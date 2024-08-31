@@ -381,6 +381,167 @@ int main(void) {
 
 ```
 
+## 9、不同类型变量运算规则
+
+1、隐式类型转换
+
+窄类型自动转为宽类型
+
+```c
+int main(void) {
+
+    short s = 10;
+    int i = s;
+    long l = i;
+    double d = l;
+
+    float f = 3.14F;
+    double d2 = f;
+
+    return 0;
+}
+
+```
+
+计算结果为位数较多的那个类型
+
+```c
+int main(void) {
+
+    char c = 'A';
+    int a = c + 1; // char + int => int
+
+    return 0;
+}
+
+```
+
+2、强制类型转换
+
+宽类型赋值给窄类型
+
+
+```c
+#include <stdio.h>
+
+int main(void) {
+
+    double d = 3.99;
+    int i = (int)d;  // 数据截断，不会四舍五入
+    printf("%d\n", i); // 3
+
+    return 0;
+}
+
+```
+
+注意：强制类型转换可能会有精度损失
+
+```c
+#include <stdio.h>
+
+int main(void) {
+
+    int d = 40000;
+    short i = (short)d;
+    printf("%d\n", i); // -25536
+
+    return 0;
+}
+
+```
+
+3、运算溢出
+
+```c
+#include <limits.h>
+#include <stdio.h>
+
+int main(void) {
+
+    int i = INT_MAX;
+    i++;
+    printf("%d\n", i); // -2147483648
+
+    return 0;
+}
+
+```
+
+## 10、常量
+
+常量：不能改变的量
+
+常量分为以下几种
+
+- 字面常量
+- `#define`
+- `const` c99新增
+- 枚举常量
+
+1、字面常量
+
+```c
+3.14; // 字面常量
+```
+
+
+2、`#define`
+
+格式
+
+```c
+#define 常量名 常量值
+```
+
+eg:
+
+```c
+#include <stdio.h>
+
+#define PI 3.14
+
+int main(void) {
+    printf("%.2f\n", PI); // -2147483648
+
+    return 0;
+}
+
+```
+
+3、`const`
+
+```c
+
+int main(void) {
+    const float PI = 3.14F;
+
+    return 0;
+}
+
+```
+
+4、枚举常量
+
+```c
+#include <stdio.h>
+
+enum Sex {
+    UNKNOW,
+    MALE,
+    FEMALE
+};
+
+int main(void) {
+    enum Sex sex = FEMALE;
+    printf("sex = %d\n", sex);
+    // sex = 2
+
+    return 0;
+}
+
+```
+
 https://www.bilibili.com/video/BV1Bh4y1q7Nt?p=17
 
 

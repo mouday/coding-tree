@@ -542,6 +542,100 @@ int main(void) {
 
 ```
 
+## 11、输入输出函数
+
+- 输入：从外部输入到计算机
+- 输出：从计算机向外部输出
+
+
+| 类型 |输入函数 | 输出函数
+|-|-|-
+任意类型 | scanf | printf
+单个字符 | getchar | putchar
+字符串 | gets | puts
+
+1、scanf/printf
+
+eg: 输入半径，计算圆的面积
+
+```c
+
+#include <stdio.h>
+
+// 圆周率
+# define PI 3.14
+
+int main(void) {
+    float radius; // 半径
+
+    scanf("%f", &radius); // 阻塞等待
+
+    float area = PI * radius * radius;
+
+    printf("area = %.2f\n", area);
+    // 输入10
+    // 输出：area = 314.00
+
+    return 0;
+}
+
+```
+
+eg: 输入多个值，求乘积
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    int a, b, c;
+
+    // 输入值分隔：空格 Tab Enter
+    scanf("%d%d%d", &a, &b, &c);
+
+    int result = a * b * c;
+    printf("result = %d\n", result);
+    // 输入：2 4 3
+    // 输出：result = 24
+
+    return 0;
+}
+
+```
+
+2、getchar/putchar
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    char c = getchar(); // 阻塞等待
+
+    putchar(c);
+    // 输入：A
+    // 输出：A
+
+    return 0;
+}
+
+```
+
+3、gets/puts
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    char str[10];
+    gets(str);
+
+    puts(str);
+    // 输入：hello
+    // 输出：hello
+
+    return 0;
+}
+
+```
 https://www.bilibili.com/video/BV1Bh4y1q7Nt?p=17
 
 

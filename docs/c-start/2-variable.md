@@ -292,7 +292,7 @@ char型允许有修饰符signed和unsigned
 
 ## 8、布尔类型
 
-C89没有布尔值
+1、C89没有布尔值
 
 - 真：非零，比如：1
 - 假：0
@@ -315,7 +315,7 @@ int main(void) {
 
 ```
 
-C89中可以通过宏定义布尔值
+2、C89中可以通过宏定义布尔值
 
 ```c
 #include <stdio.h>
@@ -340,7 +340,7 @@ int main(void) {
 
 ```
 
-C99新增了 `_Bool`表示布尔值
+3、C99新增了 `_Bool`表示布尔值
 
 ```c
 #include <stdio.h>
@@ -360,7 +360,7 @@ int main(void) {
 
 ```
 
-C99还提供了头文件 `stdbool.h`
+4、C99还提供了头文件 `stdbool.h`
 
 ```c
 #include <stdio.h>

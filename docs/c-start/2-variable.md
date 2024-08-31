@@ -390,13 +390,13 @@ int main(void) {
 ```c
 int main(void) {
 
-    short s = 10;
-    int i = s;
-    long l = i;
-    double d = l;
+    short s = 10; // short
+    int i = s; // short => int
+    long l = i; // int => long
+    double d = l; // long => double
 
-    float f = 3.14F;
-    double d2 = f;
+    float f = 3.14F; // float
+    double d2 = f; // float => double
 
     return 0;
 }

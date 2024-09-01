@@ -711,9 +711,40 @@ int main(void) {
     - 负数的`反码`：原码基础上，最高位不变，其余位取反（0->1, 1->0）
     - 负数的`补码`：反码 + 1
 
+10进制转2进制
+
 ```c
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+    int decimal;
+    int binary[32];
+    int p = 0;
+
+    printf("Enter decimal number: ");
+    scanf("%d", &decimal);
+
+    while (decimal > 0) {
+        binary[p++] = decimal % 2;
+        decimal = decimal / 2;
+    }
+
+    for (int i = p - 1; i >= 0; i--) {
+        printf("%d", binary[i]);
+    }
+
+    return 0;
+}
 
 ```
+
+```shell
+Enter decimal number: 12
+1100
+```
+
+ref: https://www.w3schools.in/c-programming/examples/convert-decimal-to-binary
+
 
 
 ```c

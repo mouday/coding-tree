@@ -191,10 +191,123 @@ int main() {
 407
 ```
 
-2、`while`示例
+
+示例：求最大公约数和最小公倍数
+
+求最大公约数
 
 ```c
+#include <stdio.h>
 
+int main() {
+    int a = 12, b = 20;
+
+    // 获取a和b中较小的值
+    int min = a < b ? a : b;
+
+    // 求最大公约数
+    for (int i = min; i >= 1; i--) {
+        if (a % i == 0 && b % i == 0) {
+            printf("%d\n", i);
+            break; // 一旦找到合适的值，就跳出循环
+        }
+    }
+
+    // 输出：4
+    return 0;
+}
+
+```
+
+求最小公倍数
+
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 12, b = 20;
+
+    // 获取a和b中较大的值
+    int max = a > b ? a : b;
+
+    // 求最小公倍数
+    for (int i = max; i <= a * b; i++) {
+        if (i % a == 0 && i % b == 0) {
+            printf("%d\n", i);
+            break;
+        }
+    }
+
+    // 输出：60
+    return 0;
+}
+
+```
+
+2、`while`示例
+
+for循环和while循环都可以相互转换
+
+示例：打印5次helloworld
+
+```c
+#include <stdio.h>
+
+int main() {
+    int i = 0;
+
+    while (i < 5) {
+        printf("Hello World\n");
+        i++;
+    }
+
+    return 0;
+}
+`
+```
+
+输出
+
+```
+Hello World
+Hello World
+Hello World
+Hello World
+Hello World
+```
+
+
+示例：求1-100之前的偶数之和，获取偶数个数
+
+```c
+#include <stdio.h>
+
+int main() {
+    int i = 1;
+    int sum = 0;
+    int count = 0;
+
+    while (i <= 100) {
+        if (i % 2 == 0) {
+            sum += i;
+            count++;
+        }
+        i++;
+    }
+
+    printf("sum = %d\n", sum);
+    printf("count = %d\n", count);
+
+    return 0;
+}
+
+```
+
+输出
+
+```
+sum = 2550
+count = 50
 ```
 
 3、`do-while`示例

@@ -4,6 +4,7 @@
 
 [课程笔记：C语言零基础入门教程](../c-start/index.md)
 
+[C++ 教程](../cpp-ref/index.md)
 
 ## 学习视频
 

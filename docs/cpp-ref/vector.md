@@ -1,5 +1,7 @@
 # vector
 
+动态数组
+
 ## 修改数据
 
 ### push_back
@@ -181,7 +183,7 @@ int main() {
 
 返回元素数
 
-```
+```cpp
 #include <iostream>
 #include <vector>
 

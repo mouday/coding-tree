@@ -116,3 +116,28 @@ int main() {
 }
 
 ```
+
+## find
+
+寻找带有特定键的元素
+
+```cpp
+#include <iostream>
+#include <unordered_map>
+
+int main() {
+    std::unordered_map<std::string, std::string> map = {
+        {"red", "红色"},
+        {"green", "绿色"},
+        {"blue", "蓝色"},
+    };
+
+    auto iterator = map.find("red");
+
+    if (iterator != map.end()) {
+        std::cout << iterator->first << ": " << iterator->second << std::endl;
+    }
+    // red: 红色
+}
+
+```

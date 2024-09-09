@@ -312,17 +312,145 @@ count = 50
 
 3、`do-while`示例
 
+
+示例：输出5次`hello world`
+
 ```c
+#include <stdio.h>
+
+int main() {
+    int i = 0;
+    do {
+        printf("hello world\n");
+        i++;
+    } while (i < 5);
+
+    return 0;
+}
 
 ```
 
 
-
-
+示例：求1-100之间偶数个数
 
 ```c
+#include <stdio.h>
+
+int main() {
+    int i = 1;
+    int count = 0;
+
+    do {
+        if (i % 2 == 0) {
+            count++;
+        }
+        i++;
+    } while (i <= 100);
+
+    printf("count = %d", count);
+    // count = 50
+    
+    return 0;
+}
+
 
 ```
+
+示例：ATM取款程序
+
+功能：
+- 1、存款
+- 2、取款
+- 3、显示余额
+- 4、退出
+
+```c
+#include <stdio.h>
+
+int main() {
+    int balance = 0; // 余额
+    int value = 0; // 接收输入值
+    int choice = 0; // 选择的值
+    int is_quit = 0; // 退出标记位
+
+    do {
+        printf("===ATM===\n");
+        printf("1、存款\n");
+        printf("2、取款\n");
+        printf("3、显示余额\n");
+        printf("4、退出\n");
+        printf("=========\n");
+
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: {
+                // 1、存款
+                printf("请输入存款值:\n");
+                scanf("%d", &value);
+                if (value > 0) {
+                    balance += value;
+                } else {
+                    printf("输入的值不合法\n");
+                }
+                break;
+            }
+            case 2: {
+                // 2、取款
+                printf("请输入取款值:\n");
+                scanf("%d", &value);
+
+                if (value > 0 && balance > value) {
+                    balance -= value;
+                } else {
+                    printf("输入的值不合法\n");
+                }
+                break;
+            }
+            case 3: {
+                // 3、显示余额
+                printf("当前余额：%d\n", balance);
+                break;
+            }
+            case 4: {
+                // 退出
+                is_quit = 1;
+                printf("欢迎下次再来\n");
+                break;
+            }
+            default: {
+                printf("请重新输入\n");
+            }
+        }
+
+        // 退出
+        if (is_quit) {
+            break;
+        }
+    } while (1);
+
+    return 0;
+}
+
+```
+
+## 小结
+
+3种循环体都有4要素
+
+- 循环变量初始条件
+- 循环条件
+- 循环语句块
+- 循环变量迭代表达式
+
+选择：
+
+- 有明显的循环次数，选择`for`
+- 没有明显的循环次数，选择`while`
+- 循环体至少执行一次，选择`do-while`
+
 
 
 https://www.bilibili.com/video/BV1Bh4y1q7Nt/?p=35
+
+https://www.bilibili.com/video/BV1Bh4y1q7Nt/?p=40&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

@@ -269,6 +269,73 @@ int main() {
 
 ```
 
+## sort
+
+默认从小到大排序
+
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> list = {2, 4, 3, 5, 1};
+
+    std::sort(list.begin(), list.end());
+
+    for (int value: list) {
+        std::cout << value << " ";
+    }
+    // 1 2 3 4 5 
+}
+```
+
+自定义从大到小排序
+
+```cpp
+#include <iostream>
+#include <vector>
+
+/**
+* 自定义排序函数
+* 返回true 交换位置
+* 返回false 不交换位置
+*/
+bool compare(int a, int b) {
+    return a > b;
+}
+
+int main() {
+    std::vector<int> list = {2, 4, 3, 5, 1};
+
+    std::sort(list.begin(), list.end(), compare);
+
+    for (int value: list) {
+        std::cout << value << " ";
+    }
+    // 5 4 3 2 1 
+}
+```
+
+## reverse
+
+反转vector
+
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> list = {2, 4, 3, 5, 1};
+
+    std::reverse(list.begin(), list.end());
+
+    for (int value: list) {
+        std::cout << value << " ";
+    }
+    // 1 5 3 4 2 
+}
+
+```
 ## ref
 
 https://www.runoob.com/cplusplus/cpp-libs-vector.html

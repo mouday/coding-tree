@@ -142,6 +142,36 @@ int main() {
 
 ```
 
+## 成员检查
+
+```cpp
+#include <iostream>
+#include <unordered_map>
+
+int main() {
+    std::unordered_map<std::string, std::string> map= {
+        {"red", "红色"},
+        {"green", "绿色"},
+        {"blue", "蓝色"},
+    };
+
+    // 查询 red
+    if(map.count("red")) {
+        std::cout << "存在" << std::endl;
+    } else {
+        std::cout << "不存在" << std::endl;
+    }
+    // 存在
+
+    // 查询 yellow
+    if(map.count("yellow")) {
+        std::cout << "存在" << std::endl;
+    } else {
+        std::cout << "不存在" << std::endl;
+    }
+    // 不存在
+}
+```
 ## ref
 
 https://www.runoob.com/cplusplus/cpp-libs-unordered_map.html

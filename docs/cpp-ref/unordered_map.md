@@ -144,6 +144,8 @@ int main() {
 
 ## 成员检查
 
+`map.count`
+
 ```cpp
 #include <iostream>
 #include <unordered_map>
@@ -170,6 +172,28 @@ int main() {
         std::cout << "不存在" << std::endl;
     }
     // 不存在
+}
+```
+
+`map.find`
+
+```cpp
+#include <iostream>
+#include <unordered_map>
+
+int main() {
+    std::unordered_map<std::string, std::string> map = {
+        {"red", "红色"},
+        {"green", "绿色"},
+        {"blue", "蓝色"},
+    };
+
+    if (map.find("red") != map.end()) {
+        std::cout << "存在" << std::endl;
+    }
+    // 输出: 存在
+
+    return 0;
 }
 ```
 ## ref

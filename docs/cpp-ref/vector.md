@@ -336,6 +336,151 @@ int main() {
 }
 
 ```
+
+## in
+
+成员检查
+
+1、`std::count`
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> list = {3, 4, 5};
+
+    if(std::count(list.begin(), list.end(), 3)) {
+        std::cout << "存在" << std::endl;
+    } else {
+        std::cout << "不存在" << std::endl;
+    }
+
+    // 输出: 存在
+    return 0;
+
+}
+
+```
+
+
+2、`std::find`
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> list = {3, 4, 5};
+
+    if(std::find(list.begin(), list.end(), 3) != list.end()) {
+        std::cout << "存在" << std::endl;
+    } else {
+        std::cout << "不存在" << std::endl;
+    }
+
+    // 输出: 存在
+    return 0;
+
+}
+
+```
+
+3、`std::find_if`
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> list = {3, 4, 5};
+
+    if (std::find_if(list.begin(), list.end(), [](const int x) {
+        return x == 3;
+    }) != list.end()) {
+        std::cout << "存在" << std::endl;
+    } else {
+        std::cout << "不存在" << std::endl;
+    }
+
+    // 输出: 存在
+    return 0;
+}
+
+```
+
+4、`std::any_of`
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> list = {3, 4, 5};
+
+    if (std::any_of(list.begin(), list.end(), [](const int x) {
+        return x == 3;
+    })) {
+        std::cout << "存在" << std::endl;
+    } else {
+        std::cout << "不存在" << std::endl;
+    }
+
+    // 输出: 存在
+    return 0;
+}
+
+```
+
+5、`std::none_of`
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> list = {3, 4, 5};
+
+    if (!std::none_of(list.begin(), list.end(), [](const int x) {
+        return x == 3;
+    })) {
+        std::cout << "存在" << std::endl;
+    } else {
+        std::cout << "不存在" << std::endl;
+    }
+
+    // 输出: 存在
+    return 0;
+}
+
+```
+
+6、`std::binary_search`
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> list = {3, 4, 5};
+
+    if (std::binary_search(list.begin(), list.end(), 3)) {
+        std::cout << "存在" << std::endl;
+    } else {
+        std::cout << "不存在" << std::endl;
+    }
+    
+    // 输出: 存在
+    return 0;
+}
+
+```
 ## ref
 
 https://www.runoob.com/cplusplus/cpp-libs-vector.html

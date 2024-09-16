@@ -8,12 +8,17 @@
 
 语法
 
-```
+```cpp
 class 类名 {
 访问权限:
 	属性/行为
 };
 ```
+
+- 属性 成员属性 成员变量
+- 行为 成员函数 成员方法
+
+示例：求圆的周长
 
 设计一个圆类，求圆的周长
 
@@ -51,4 +56,50 @@ int main() {
 
 ```
 
+示例：学生类
 
+```cpp
+#include <iostream>
+
+using namespace std;
+
+// 学生类
+class Student {
+public:
+    void setId(int id) {
+        this->id = id;
+    }
+
+    void setName(string name) {
+        this->name = name;
+    }
+
+    void showInfo() {
+        cout << "Student:{"
+                << "id=" << this->id
+                << ", name=" << this->name
+                << "}" << endl;
+    }
+
+private:
+    int id;
+    string name;
+};
+
+int main() {
+    // 创建Student对象
+    Student student1;
+    student1.setId(1);
+    student1.setName("张三");
+    student1.showInfo();
+    // Student:{id=1, name=张三}
+
+    // 创建Student对象
+    Student student2;
+    student2.setId(2);
+    student2.setName("李四");
+    student2.showInfo();
+    // Student:{id=2, name=李四}
+}
+
+```

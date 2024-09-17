@@ -4,6 +4,8 @@
 
 ## 封装
 
+## 属性和行为
+
 封装的意义：属性和行为加以权限控制
 
 语法
@@ -102,4 +104,26 @@ int main() {
     // Student:{id=2, name=李四}
 }
 
+```
+
+## 权限控制
+
+| 权限 | 类内 | 类外 | 子类
+| - | - | - | - |   
+public  公有 | 可以访问 | 可以访问 | 可以访问
+protected 保护 | 可以访问 | 不可以访问 | 可以访问
+private 私有 | 可以访问 | 不可以访问 | 不可以访问
+
+
+```cpp
+class Student {
+public:
+    string name;
+
+protected:
+    int age;
+
+private:
+    string address;
+};
 ```

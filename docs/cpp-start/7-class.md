@@ -549,3 +549,246 @@ cmake -B build && make -C build && ./build/main
 [【CMake】第2篇 CMake构建.h与.cpp文件](https://blog.csdn.net/fanjufei123456/article/details/127089049)
 
 
+### 构造函数和析构函数
+
+- 构造函数 初始化工作
+- 析构函数 清理工作
+
+构造函数和析构函数都是`自动调用`，默认有空实现
+
+构造函数
+
+- 没有返回值，也不写void
+- 函数名与类名相同
+- 构造函数`可以有参数`，`可以重载`
+- 创建对象时自动调用一次
+
+
+语法
+
+```cpp
+类名(){}
+```
+
+析构函数
+
+- 没有返回值，也不写void
+- 函数名与类名相同，多一个`~`
+- 构造函数`不可以有参数`，`不可以重载`
+- 销毁对象时自动调用一次
+
+语法
+
+```cpp
+~类名(){}
+```
+
+示例
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Person {
+public:
+    // 构造函数
+    Person() {
+        cout << "构造函数" << endl;
+    }
+
+    // 析构函数
+    ~Person() {
+        cout << "析构函数" << endl;
+    }
+};
+
+
+int main() {
+    Person p; // 栈上的数据，执行结束后自动释放
+    return 0;
+}
+
+```
+
+输出
+
+```bash
+构造函数
+析构函数
+```
+
+### 构造函数的分类及调用
+
+分类方式：
+
+- 按照参数：有参构造（默认构造）、无参构造
+- 按照类型：普通构造、拷贝构造
+
+调用方式：
+
+- 括号法
+- 显示法
+- 隐式法
+
+1、定义类的构造函数
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Person {
+public:
+    // 无参构造函数
+    Person() {
+        cout << "无参构造函数" << endl;
+    }
+
+    // 有参构造函数
+    Person(int age) {
+        this->age = age;
+        cout << "有参构造函数" << endl;
+    }
+
+    // 拷贝构造函数
+    Person(const Person &person) {
+        this->age = person.age;
+        cout << "拷贝构造函数" << endl;
+    }
+
+    // 析构函数
+    ~Person() {
+        cout << "析构函数" << endl;
+    }
+
+private:
+    int age;
+};
+
+```
+
+2、括号法调用构造函数
+
+```cpp
+
+int main() {
+    // 括号法
+    Person p1;     // 无参构造函数
+    Person p2(18); // 有参构造函数
+    Person p3(p1); // 拷贝构造函数
+
+    return 0;
+}
+```
+
+输出
+
+```cpp
+无参构造函数
+有参构造函数
+拷贝构造函数
+析构函数
+析构函数
+析构函数
+```
+
+注意：调用`默认构造函数`的时候，不要加`()`
+
+```cpp
+// 编译器认为是一个函数声明
+void func();
+
+Person p1();
+```
+
+3、显示法调用构造函数
+
+```cpp
+int main() {
+    // 显示法
+    Person p1;              // 无参构造函数
+    Person p2 = Person(18); // 有参构造函数
+    Person p3 = Person(p1); // 拷贝构造函数
+
+    return 0;
+}
+```
+
+输出
+
+```cpp
+无参构造函数
+有参构造函数
+拷贝构造函数
+析构函数
+析构函数
+析构函数
+```
+
+注意：
+
+- `Person(18)`单独写，是一个匿名对象，当前行执行结束后，会立即回收
+- 不要用拷贝构造函数，初始化匿名对象
+
+示例1
+
+```cpp
+int main() {
+	// 匿名对象
+    Person(18);
+    cout << "结束" << endl;
+
+    return 0;
+}
+```
+
+输出
+
+```bash
+有参构造函数
+析构函数
+结束
+```
+
+示例2
+
+```cpp
+int main() {
+    Person p1; // 单独写，就是匿名对象
+
+    // Person(p1) 等价于 Person p1
+    Person(p1); // 编译报错：redefinition of 'p1'
+    return 0;
+}
+
+```
+
+
+4、隐式法调用构造函数
+
+```cpp
+int main() {
+    // 隐式
+    Person p1 = 18; // 相当于 Person p1 = Person(18); 有参构造函数
+    Person p2 = p1; // 拷贝构造函数
+
+    return 0;
+}
+
+```
+
+输出
+
+```cpp
+有参构造函数
+拷贝构造函数
+析构函数
+析构函数
+```
+
+
+
+
+
+

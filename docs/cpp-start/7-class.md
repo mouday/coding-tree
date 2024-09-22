@@ -786,9 +786,197 @@ int main() {
 析构函数
 析构函数
 ```
+### 拷贝构造函数调用时机
+
+C++中拷贝构造函数调用时机通常有三种情况
+
+- 使用一个已经创建完毕的对象来初始化一个新对象
+- 值传递的方式给函数参数传值
+- 以值方式返回局部对象
+
+Person类
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Person {
+public:
+    // 无参构造函数
+    Person() {
+        cout << "无参构造函数" << endl;
+    }
+
+    // 有参构造函数
+    Person(int age) {
+        this->age = age;
+        cout << "有参构造函数" << endl;
+    }
+
+    // 拷贝构造函数
+    Person(const Person &person) {
+        this->age = person.age;
+        cout << "拷贝构造函数" << endl;
+    }
+
+    // 析构函数
+    ~Person() {
+        cout << "析构函数" << endl;
+    }
+
+private:
+    int age;
+};
+
+```
+
+1、使用一个已经创建完毕的对象来初始化一个新对象
+
+```cpp
+
+int main() {
+    Person p1(10);
+    Person p2(p1);
+    Person p3 = p1;
+
+    return 0;
+}
+```
+
+输出
+
+```bash
+有参构造函数
+拷贝构造函数
+拷贝构造函数
+析构函数
+析构函数
+析构函数
+```
+
+2、值传递的方式给函数参数传值
+
+```cpp
+void doWork(Person p) {}
+
+int main() {
+    Person p1(10);
+    doWork(p1);
+
+    return 0;
+}
+```
+
+输出
+
+```bash
+有参构造函数
+拷贝构造函数
+析构函数
+析构函数
+```
 
 
+3、以值方式返回局部对象
+
+```cpp
+
+Person doWork() {
+    Person p1(10);
+    cout << &p1 << endl; // 0x7ff7bee87768
+    return p1;
+}
+
+int main() {
+    Person p = doWork();
+    cout << &p << endl; // 0x7ff7bee87768
+    return 0;
+}
+
+```
+
+输出
+
+```bash
+有参构造函数
+0x7ff7bee87768
+0x7ff7bee87768
+析构函数
+```
 
 
+### 构造函数调用规则
 
+默认情况下，c++编译器至少给一个类添加3个函数
 
+1．默认构造函数(无参，函数体为空)
+
+2．默认析构函数(无参，函数体为空)
+
+3．默认拷贝构造函数，对属性进行值拷贝
+
+构造函数调用规则如下：
+
+- 如果用户定义有参构造函数，c++不在提供默认无参构造，但是会提供默认拷贝构造
+
+- 如果用户定义拷贝构造函数，c++不会再提供其他构造函数
+
+示例：
+
+1、用户定义有参构造函数
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Person {
+public:
+    // 有参构造函数
+    Person(int age) {
+        this->age = age;
+        cout << "有参构造函数!" << endl;
+    }
+private:
+    int age;
+};
+
+int main() {
+    // Person p1;
+    // error: no matching constructor for initialization of 'Person'
+
+    Person p2(18);
+
+    return 0;
+}
+
+```
+
+2、定义拷贝构造函数
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Person {
+public:
+    // 拷贝构造函数
+    Person(const Person &p) {
+        this->age = p.age;
+        cout << "拷贝构造函数!" << endl;
+    }
+
+private:
+    int age;
+};
+
+int main() {
+    Person p1;
+    // error: no matching constructor for initialization of 'Person'
+
+    return 0;
+}
+
+```

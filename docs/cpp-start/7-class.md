@@ -548,6 +548,7 @@ cmake -B build && make -C build && ./build/main
 
 [【CMake】第2篇 CMake构建.h与.cpp文件](https://blog.csdn.net/fanjufei123456/article/details/127089049)
 
+## 对象的初始化和清理
 
 ### 构造函数和析构函数
 
@@ -556,7 +557,7 @@ cmake -B build && make -C build && ./build/main
 
 构造函数和析构函数都是`自动调用`，默认有空实现
 
-构造函数
+1、构造函数
 
 - 没有返回值，也不写void
 - 函数名与类名相同
@@ -570,7 +571,7 @@ cmake -B build && make -C build && ./build/main
 类名(){}
 ```
 
-析构函数
+2、析构函数
 
 - 没有返回值，也不写void
 - 函数名与类名相同，多一个`~`
@@ -979,4 +980,115 @@ int main() {
     return 0;
 }
 
+```
+
+### 深拷贝与浅拷贝
+
+深浅拷贝是面试经典问题，也是常见的一个坑
+
+浅拷贝：简单的赋值拷贝操作
+
+深拷贝：在堆区重新申请空间，进行拷贝操作
+
+浅拷贝问题：堆区的内存重复释放
+
+
+示例
+
+1、普通变量浅拷贝
+
+拷贝构造后的新对象和旧对象数据互不影响
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Person {
+public:
+    Person(int age) {
+        this->age = age;
+    }
+
+    int age;
+};
+
+int main() {
+    Person p1(18);
+
+    Person p2(p1);
+    p1.age = 20;
+
+    cout << "p1.age = " << p1.age << endl;
+    // p1.age = 20
+
+    cout << "p2.age = " << p2.age << endl;
+    // p2.age = 18
+
+    return 0;
+}
+
+```
+
+2、深拷贝
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Person {
+public:
+	// 有参构造函数
+    Person(int age) {
+        cout << "有参构造函数" << endl;
+        this->age = new int(age);
+    }
+
+    // 拷贝构造函数
+    Person(const Person &p) {
+        cout << "拷贝构造函数" << endl;
+        this->age = new int(*(p.age));
+    }
+
+    // 析构函数
+    ~Person() {
+        cout << "析构函数" << endl;
+        if (this->age != NULL) {
+            delete this->age;
+            this->age = NULL;
+        }
+    }
+
+public:
+    int *age;
+};
+
+int main() {
+    Person p1(18);
+
+    Person p2(p1);
+
+    return 0;
+}
+
+```
+
+正确：提供拷贝构造函数
+
+```bash
+有参构造函数
+拷贝构造函数
+析构函数
+析构函数
+```
+
+报错：如果没有提供拷贝构造函数，使用默认拷贝构造函数
+
+```bash
+main(60055,0x7ff852fb4fc0) malloc: *** error for object 0x600001d58040: pointer being freed was not allocated
+main(60055,0x7ff852fb4fc0) malloc: *** set a breakpoint in malloc_error_break to debug
+有参构造函数
+析构函数
+析构函数
 ```

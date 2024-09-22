@@ -1305,3 +1305,69 @@ int main() {
 }
 
 ```
+
+## C++对象模型和this指针
+
+### 成员变量和成员函数分开存储
+
+在C++中，类内的成员变量和成员函数分开存储
+
+只有非静态成员变量才属于类的对象上
+
+1、空对象占用一个字节
+
+```cpp
+#include <iostream>
+#include <ostream>
+using namespace std;
+
+class Person {
+};
+
+int main() {
+    // 类对象占用一个字节
+    cout << sizeof(Person) << endl; // 1
+
+    // 空对象占用一个字节
+    Person p;
+    cout << sizeof(p) << endl; // 1
+
+    return 0;
+}
+
+```
+
+2、对象占用大小
+
+```cpp
+#include <iostream>
+#include <ostream>
+using namespace std;
+
+class Person {
+public:
+    // 非静态成员变量占对象空间
+    int a;
+
+    // 静态成员变量不占对象空间
+    static int b;
+
+    // 函数也不占对象空间，所有函数共享一个函数实例
+    void funcA();
+
+    // 静态成员函数也不占对象空间
+    static void funcB();
+};
+
+int main() {
+    // 类对象占用4个字节
+    cout << sizeof(Person) << endl; // 4
+
+    // 对象占用4个字节
+    Person p;
+    cout << sizeof(p) << endl; // 4
+
+    return 0;
+}
+
+```

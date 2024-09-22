@@ -1092,3 +1092,216 @@ main(60055,0x7ff852fb4fc0) malloc: *** set a breakpoint in malloc_error_break to
 析构函数
 析构函数
 ```
+
+### 初始化列表
+
+作用：
+
+C++提供了初始化列表语法，用来初始化属性
+
+语法：
+
+```cpp
+构造函数()：属性1(值1),属性2（值2）... {}
+```
+
+示例：
+
+1、传统方式初始化
+
+```cpp
+class Person {
+public:
+    // 传统方式初始化
+    Person(int a, int b, int c) {
+        this->a = a;
+        this->b = b;
+        this->c = c;
+    }
+
+private:
+    int a;
+    int b;
+    int c;
+};
+
+int main() {
+    Person p(1, 2, 3);
+
+    return 0;
+}
+
+```
+
+2、初始化列表方式初始化
+
+```cpp
+class Person {
+public:
+    // 初始化列表方式初始化
+    Person(int a, int b, int c): a(a), b(b), c(c) {
+    }
+
+private:
+    int a;
+    int b;
+    int c;
+};
+
+int main() {
+    Person p(1, 2, 3);
+
+    return 0;
+}
+
+```
+
+### 类对象作为类成员
+
+C++类中的成员可以是另一个类的对象，我们称该成员为 `对象成员`
+
+例如：
+
+```cpp
+class A {}
+
+class B
+{
+    A a；
+}
+```
+
+B类中有对象A作为成员，A为对象成员
+
+那么当创建B对象时，A与B的构造和析构的顺序是谁先谁后？
+
+示例：
+
+```cpp
+#include <iostream>
+#include <ostream>
+
+class A {
+public:
+    A() {
+        std::cout << "A" << std::endl;
+    }
+
+    ~A() {
+        std::cout << "~A" << std::endl;
+    }
+};
+
+class B {
+public:
+    B() {
+        std::cout << "B" << std::endl;
+    }
+
+    ~B() {
+        std::cout << "~B" << std::endl;
+    }
+
+private:
+    A a;
+};
+
+int main() {
+    B a;
+
+    return 0;
+}
+
+```
+
+输出
+```
+A
+B
+~B
+~A
+```
+
+构造的顺序是 ：先调用对象成员的构造，再调用本类构造
+
+析构顺序与构造相反
+
+### 静态成员
+
+静态成员就是在成员变量和成员函数前加上关键字`static`，称为`静态成员`
+
+静态成员分为：
+
+- 静态成员变量
+    - 所有对象共享同一份数据
+    - 在编译阶段分配内存
+    - 类内声明，类外初始化
+- 静态成员函数
+    - 所有对象共享同一个函数
+    - 静态成员函数只能访问静态成员变量
+
+示例1：静态成员变量
+
+```cpp
+#include <iostream>
+#include <ostream>
+
+using namespace std;
+
+class Person {
+public:
+    // 类内声明
+    static int age;
+};
+
+// 类外初始化
+int Person::age = 18;
+
+int main() {
+    // 1、通过对象
+    Person p;
+    cout << p.age << endl; // 18
+
+    // 2、通过类名
+    cout << Person::age << endl; // 18
+
+    return 0;
+}
+
+```
+
+
+示例2：静态成员函数
+
+```cpp
+#include <iostream>
+#include <ostream>
+
+using namespace std;
+
+class Person {
+public:
+    // 类内声明
+    static int age;
+
+    static int getAge() {
+        // 静态成员函数只能访问静态成员变量
+        return Person::age;
+    }
+};
+
+// 类外初始化
+int Person::age = 18;
+
+int main() {
+    // 1、通过对象
+    Person p;
+    cout << p.getAge() << endl; // 18
+
+    // 2、通过类名
+    cout << Person::getAge() << endl; // 18
+
+    return 0;
+}
+
+```

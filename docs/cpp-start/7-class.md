@@ -1371,3 +1371,145 @@ int main() {
 }
 
 ```
+
+### this指针概念
+
+我们知道在C++中成员变量和成员函数是分开存储的
+
+每一个非静态成员函数只会诞生一份函数实例，也就是说多个同类型的对象会共用一块代码
+
+那么问题是：这一块代码是如何区分那个对象调用自己的呢？
+
+c++通过提供特殊的对象指针，`this`指针，解决上述问题。this指针指向被调用的成员函数所属的对象
+
+this指针是隐含每一个非静态成员函数内的一种指针
+
+this指针不需要定义，直接使用即可
+
+this指针的用途：
+
+- 当形参和成员变量同名时，可用`this`指针来区分
+- 在类的非静态成员函数中返回对象本身，可使用`return *this`
+
+成员变量前缀：`m_`：member
+
+示例：形参和成员变量同名
+
+```cpp
+#include <iostream>
+
+class Person {
+public:
+    Person(int age) {
+        // 当形参和成员变量同名时，可用this指针来区分
+        this->age = age;
+    }
+
+    int age;
+};
+
+int main() {
+    Person p1(10);
+
+    std::cout << "p1.age = " << p1.age << std::endl;
+    // p1.age = 10
+
+    return 0;
+}
+
+```
+
+示例：返回对象本身
+
+```cpp
+#include <iostream>
+
+class Person {
+public:
+    Person(): age(0) {
+    }
+
+    Person &addAge(int age) {
+        this->age += age;
+        // 返回对象本身
+        return *this;
+    }
+
+    int age;
+};
+
+int main() {
+    Person p1;
+
+    p1.addAge(10).addAge(10);
+
+    std::cout << "p1.age = " << p1.age << std::endl;
+    // p1.age = 20
+
+    return 0;
+}
+
+```
+
+
+### 空指针访问成员函数
+
+C++中空指针也是可以调用成员函数的，但是也要注意有没有用到this指针
+
+如果用到this指针，需要加以判断保证代码的健壮性
+
+nullptr和NULL
+
+```cpp
+#include <iostream>
+
+int main() {
+    if (nullptr == NULL) {
+        std::cout << "nullptr == NULL" << std::endl;
+    } else {
+        std::cout << "nullptr != NULL" << std::endl;
+    }
+    // 输出：nullptr == NULL
+    return 0;
+}
+
+```
+
+示例：空指针访问成员函数
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+
+class Person {
+public:
+    void ShowClassName() {
+        cout << "我是Person类!" << endl;
+    }
+
+    void ShowPerson() {
+        if (this == nullptr) {
+            return;
+        }
+        cout << age << endl;
+        // 相当于：cout << this->age << endl;
+    }
+
+public:
+    int age;
+};
+
+int main() {
+    Person *p = nullptr;
+    
+    p->ShowClassName(); // 空指针，可以调用成员函数
+    // 输出：我是Person类!
+
+    p->ShowPerson(); // 但是如果成员函数中用到了this指针，就不可以了
+
+    return 0;
+}
+
+```

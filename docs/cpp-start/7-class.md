@@ -1796,3 +1796,123 @@ int main() {
     return 0;
 }
 ```
+
+## 运算符重载
+
+运算符重载概念：对已有的运算符重新进行定义，赋予其另一种功能，以适应不同的数据类型
+
+### 加号运算符重载
+
+作用：实现两个自定义数据类型相加的运算
+
+1、成员函数实现 `+号运算符重载`
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Point {
+public:
+    Point(int x = 0, int y = 0) {
+        this->x = x;
+        this->y = y;
+    }
+
+    // 成员函数实现 + 号运算符重载
+    Point operator+(const Point &other) {
+        Point result;
+        result.x = this->x + other.x;
+        result.y = this->y + other.y;
+        return result;
+    }
+
+    string toString() {
+        return "Point(" + to_string(this->x) + ", " + to_string(this->y) + ")";
+    }
+
+private:
+    int x;
+    int y;
+};
+
+int main() {
+    Point p1 = Point(1, 2);
+    Point p2 = Point(3, 4);
+
+    // 相当于: Point p3 = p1.operator+(p2);
+    Point p3 = p1 + p2;
+
+    cout << p3.toString() << endl;
+    // Point(4, 6)
+
+    return 0;
+}
+
+```
+
+2、全局函数实现 `+号运算符重载`
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Point {
+public:
+    Point(int x = 0, int y = 0) {
+        this->x = x;
+        this->y = y;
+    }
+
+    string toString() {
+        return "Point(" + to_string(this->x) + ", " + to_string(this->y) + ")";
+    }
+
+public:
+    int x;
+    int y;
+};
+
+// 全局函数实现 + 号运算符重载
+Point operator+(const Point &p1, const Point &p2) {
+    Point result;
+    result.x = p1.x + p2.x;
+    result.y = p1.y + p2.y;
+    return result;
+}
+
+// 运算符重载 可以发生函数重载
+Point operator+(const Point &p, int val) {
+    Point result;
+    result.x = p.x + val;
+    result.y = p.y + val;
+    return result;
+}
+
+int main() {
+    Point p1 = Point(1, 2);
+    Point p2 = Point(3, 4);
+
+    // 相当于: Point p3 = operator+(p1, p2);
+    Point p3 = p1 + p2;
+
+    cout << p3.toString() << endl;
+    // Point(4, 6)
+
+    Point p4 = p3 + 10;
+
+    cout << p4.toString() << endl;
+    // Point(14, 16)
+
+    return 0;
+}
+
+```
+
+总结：
+
+- 对于内置的数据类型的表达式的的运算符是不可能改变的
+
+- 不要滥用运算符重载
+

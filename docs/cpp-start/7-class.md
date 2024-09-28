@@ -2038,3 +2038,139 @@ int main() {
     cout << p1 << endl; // Point(x=2, y=3)
 }
 ```
+
+### 4.5.4 赋值运算符重载
+
+c++编译器至少给一个类添加4个函数
+
+- 默认构造函数(无参，函数体为空)
+- 默认析构函数(无参，函数体为空)
+- 默认拷贝构造函数，对属性进行值拷贝
+- 赋值运算符 operator=, 对属性进行值拷贝
+
+如果类中有属性指向堆区，做赋值操作时也会出现深浅拷贝问题
+
+示例：浅拷贝
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Integer {
+    friend ostream &operator<<(ostream &out, Integer &a);
+
+public:
+    // 构造函数
+    Integer(int value = 0) {
+        // 将数据开辟到堆区
+        this->value = new int(value);
+    }
+
+    // 析构函数
+    ~Integer() {
+        if (this->value != NULL) {
+            delete this->value;
+            this->value = NULL;
+        }
+    }
+
+private:
+    int *value;
+};
+
+ostream &operator<<(ostream &out, Integer &integer) {
+    out << "Integer(value=" << *integer.value << ")";
+    return out;
+}
+
+int main() {
+    Integer a(1);
+    Integer b;
+
+    b = a;
+
+    cout << b << endl;
+    cout << a << endl;
+}
+
+```
+
+输出
+
+```bash
+main(80931,0x7ff852fb4fc0) malloc: *** error for object 0x6000027f8040: pointer being freed was not allocated
+main(80931,0x7ff852fb4fc0) malloc: *** set a breakpoint in malloc_error_break to debug
+Integer(value=1)
+Integer(value=1)
+
+```
+
+示例：深拷贝
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Integer {
+    friend ostream &operator<<(ostream &out, Integer &a);
+
+public:
+    // 构造函数
+    Integer(int value = 0) {
+        // 将数据开辟到堆区
+        this->value = new int(value);
+    }
+
+    // 重载赋值运算符
+    Integer &operator=(Integer &other) {
+        if (this->value != NULL) {
+            delete this->value;
+            this->value = NULL;
+        }
+
+		// 编译器提供的代码是浅拷贝
+		// this->value = other.value;
+
+        // 提供深拷贝 解决浅拷贝的问题
+        this->value = new int(*other.value);
+
+        return *this;
+    }
+
+    // 析构函数
+    ~Integer() {
+        if (this->value != NULL) {
+            delete this->value;
+            this->value = NULL;
+        }
+    }
+
+private:
+    int *value;
+};
+
+ostream &operator<<(ostream &out, Integer &integer) {
+    out << "Integer(value=" << *integer.value << ")";
+    return out;
+}
+
+int main() {
+    Integer a(1);
+    Integer b;
+
+    b = a;
+
+    cout << b << endl;
+    cout << a << endl;
+}
+
+```
+
+输出
+
+```bash
+Integer(value=1)
+Integer(value=1)
+```

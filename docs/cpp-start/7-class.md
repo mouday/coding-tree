@@ -2039,7 +2039,7 @@ int main() {
 }
 ```
 
-### 4.5.4 赋值运算符重载
+### 赋值运算符重载
 
 c++编译器至少给一个类添加4个函数
 
@@ -2173,4 +2173,114 @@ int main() {
 ```bash
 Integer(value=1)
 Integer(value=1)
+```
+
+### 关系运算符重载
+
+作用：重载关系运算符，可以让两个自定义类型对象进行对比操作
+
+示例：
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Point {
+    friend ostream &operator<<(ostream &out, Point point);
+
+public:
+    Point(int x, int y) : x(x), y(y) {
+    }
+
+    bool operator==(const Point &other) const {
+        return x == other.x && y == other.y;
+    }
+
+    bool operator!=(const Point &other) const {
+        return !(*this == other);
+    }
+
+private:
+    int x;
+    int y;
+};
+
+ostream &operator<<(ostream &out, Point point) {
+    out << "Point(x=" << point.x << ", y=" << point.y << ")" << endl;
+    return out;
+}
+
+int main() {
+    Point p1(1, 2);
+    Point p2(1, 2);
+
+    if (p1 == p2) {
+        cout << "p1 == p2" << endl; // p1 == p2
+    } else {
+        cout << "p1 != p2" << endl;
+    }
+
+    if (p1 != p2) {
+        cout << "p1 != p2" << endl;
+    } else {
+        cout << "p1 == p2" << endl; // p1 == p2
+    }
+}
+```
+
+输出
+
+```bash
+p1 == p2
+p1 == p2
+```
+
+
+### 函数调用运算符重载
+
+- 函数调用运算符 `()` 也可以重载
+- 由于重载后使用的方式非常像函数的调用，因此称为`仿函数`
+- 仿函数没有固定写法，非常灵活
+
+示例：
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Point {
+    friend ostream &operator<<(ostream &out, Point point);
+
+public:
+    Point &operator()(int value) {
+        this->x = value;
+        this->y = value;
+        return *this;
+    }
+
+private:
+    int x;
+    int y;
+};
+
+ostream &operator<<(ostream &out, Point point) {
+    out << "Point(x=" << point.x << ", y=" << point.y << ")" << endl;
+    return out;
+}
+
+int main() {
+    Point p;
+
+    p(10);
+    cout << p << endl;
+    // Point(x=10, y=10)
+
+    
+    // 匿名对象调用
+    cout << Point()(20) << endl;
+    // Point(x=20, y=20)
+}
+
 ```

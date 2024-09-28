@@ -1916,3 +1916,125 @@ int main() {
 
 - 不要滥用运算符重载
 
+
+### 左移运算符重载
+
+作用：可以输出自定义数据类型
+
+总结：重载左移运算符配合友元可以实现输出自定义数据类型
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Point {
+    friend ostream &operator<<(ostream &out, Point &p);
+
+public:
+    Point(int x, int y) {
+        this->x = x;
+        this->y = y;
+    }
+
+    //成员函数 实现不了  p << cout 不是我们想要的效果
+    //void operator<<(Point& p){
+    //}
+
+private:
+    int x;
+    int y;
+};
+
+//全局函数实现左移重载
+//ostream对象只能有一个
+ostream &operator<<(ostream &out, Point &p) {
+    out << "Point(a=" << p.x << ", b=" << p.y << ")";
+    return out;
+}
+
+int main() {
+    Point p1(10, 20);
+
+    cout << p1 << endl; //链式编程
+    // 输出：Point(a=10, b=20)
+
+    return 0;
+}
+
+```
+
+### 递增运算符重载
+
+
+作用： 通过重载递增运算符，实现自己的整型数据
+
+总结： 前置递增返回引用，后置递增返回值
+
+
+Point类
+
+```cpp
+#include <iostream>
+#include <ostream>
+
+using namespace std;
+
+class Point {
+    friend ostream &operator<<(ostream &out, Point point);
+
+public:
+    Point(int x, int y) : x(x), y(y) {
+    }
+
+    // 前置++ 先++,再返回
+    Point &operator++() {
+        this->x++;
+        this->y++;
+
+        return *this;
+    }
+
+    //后置++ 先返回
+    Point operator++(int) {
+        //记录当前本身的值，然后让本身的值加1，但是返回的是以前的值，达到先返回后++；
+        Point temp = *this;
+
+        this->x++;
+        this->y++;
+
+        return temp;
+    }
+
+private:
+    int x;
+    int y;
+};
+
+ostream &operator<<(ostream &out, Point point) {
+    out << "Point(x=" << point.x << ", y=" << point.y << ")" << endl;
+    return out;
+}
+```
+
+测试前++
+
+```cpp
+int main() {
+    Point p1(1, 2);
+
+    cout << ++p1 << endl; // Point(x=2, y=3)
+    cout << p1 << endl; // Point(x=2, y=3)
+}
+```
+
+测试后++
+
+```cpp
+int main() {
+    Point p1(1, 2);
+
+    cout << p1++ << endl; // Point(x=1, y=2)
+    cout << p1 << endl; // Point(x=2, y=3)
+}
+```

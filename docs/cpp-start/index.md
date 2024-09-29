@@ -12,3 +12,6 @@
 - 学员笔记：https://blog.csdn.net/liushuping528/article/details/126087429
 - 《B站黑马C++视频讲义》链接：https://pan.baidu.com/s/18RfK7-pAheYx2zPA8gMOtg 提取码：ep4g
 - 在线讲义：https://mouday.github.io/cpp-doc
+
+
+https://www.bilibili.com/video/BV1et411b73Z?p=89&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da

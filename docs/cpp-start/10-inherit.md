@@ -623,4 +623,150 @@ Base - static void func()
 Base - static void func(int a)
 ```
 
-https://www.bilibili.com/video/BV1et411b73Z/?p=133&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+## 7、多继承语法
+
+C++允许一个类继承多个类
+
+语法： `class 子类 ：继承方式 父类1 ， 继承方式 父类2...`
+
+多继承可能会引发父类中有同名成员出现，需要加作用域区分
+
+C++实际开发中`不建议`用多继承
+
+总结： 多继承中如果父类中出现了同名情况，子类使用时候要加作用域
+
+示例：
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Base1 {
+public:
+    Base1() {
+        m_A = 100;
+    }
+
+public:
+    int m_A;
+};
+
+class Base2 {
+public:
+    Base2() {
+        // 开始是m_B 不会出问题，但是改为mA就会出现不明确
+        m_A = 200;
+    }
+
+public:
+    int m_A;
+};
+
+//语法：class 子类：继承方式 父类1 ，继承方式 父类2
+class Son : public Base2, public Base1 {
+public:
+    Son() {
+        m_C = 300;
+        m_D = 400;
+    }
+
+public:
+    int m_C;
+    int m_D;
+};
+
+
+//多继承容易产生成员同名的情况
+//通过使用类名作用域可以区分调用哪一个基类的成员
+int main() {
+    Son s;
+    cout << "sizeof Son = " << sizeof(s) << endl;
+    // sizeof Son = 16
+    
+    cout << s.Base1::m_A << endl; // 100
+    cout << s.Base2::m_A << endl; // 200
+    
+    return 0;
+}
+
+```
+
+4.6.8 菱形继承
+菱形继承概念：
+
+两个派生类继承同一个基类
+
+又有某个类同时继承者两个派生类
+
+这种继承被称为菱形继承，或者钻石继承
+
+
+菱形继承问题：
+
+羊继承了动物的数据，驼同样继承了动物的数据，当草泥马使用数据时，就会产生二义性。
+草泥马继承自动物的数据继承了两份，其实我们应该清楚，这份数据我们只需要一份就可以。
+
+总结：
+
+菱形继承带来的主要问题是子类继承两份相同的数据，导致资源浪费以及毫无意义
+
+利用虚继承可以解决菱形继承问题
+
+示例：
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Animal {
+public:
+    int m_Age;
+};
+
+//继承前加virtual关键字后，变为虚继承
+//此时公共的父类Animal称为虚基类
+class Sheep : virtual public Animal {
+};
+
+class Tuo : virtual public Animal {
+};
+
+class SheepTuo : public Sheep, public Tuo {
+};
+
+
+int main() {
+    SheepTuo st;
+    st.Sheep::m_Age = 100;
+    st.Tuo::m_Age = 200;
+
+    cout << "st.Sheep::m_Age = " << st.Sheep::m_Age << endl;
+    // st.Sheep::m_Age = 200
+
+    cout << "st.Tuo::m_Age = " << st.Tuo::m_Age << endl;
+    // st.Tuo::m_Age = 200
+
+    cout << "st.m_Age = " << st.m_Age << endl;
+    // st.m_Age = 200
+
+    return 0;
+}
+
+```
+
+## 8、查看C++类的内存布局
+
+需要安装 Visual Stdio
+
+```bash
+cl /d1 reportSingleClassLayout[ClassName] filename.cpp
+```
+
+vbptr -> vbtable
+
+- v virtual
+- b base
+- ptr pointer
+

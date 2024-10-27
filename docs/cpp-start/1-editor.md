@@ -7,13 +7,60 @@
 
 https://code.visualstudio.com/
 
-安装扩展包：
+
+### 安装VSCode
+
+https://code.visualstudio.com/
+
+安装插件
+
+- C/C++ Extension Pack
+- Code Runner
 - chinese
 - c/c++
 - c/c++ Themes
-- c/c++ extension pack
 - cMake
 - cMake Tools
+
+
+### 安装工具链
+
+- gcc
+- cmake
+- gdb
+
+Windows开发环境MinGW-w64
+
+### 编译和运行
+
+```c
+// main.c
+#include<stdio.h>
+
+int main(){
+    int i = 0;
+    i++;
+    
+    printf("i = %d\n", i);
+
+	return 0;
+}
+```
+
+
+### VSCode GDB调试
+
+调试：
+- 查看变量
+- 内存数据
+- 调用栈
+
+各种断点：
+- 条件断点（条件表达式、命中次数）
+- 日志断点
+- 函数断点
+- 数据断点
+- 内嵌断点
 
 ## CLion
 

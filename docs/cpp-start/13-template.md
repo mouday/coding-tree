@@ -846,3 +846,262 @@ int main() {
 	return 0;
 }
 ```
+
+### 1.3.6 类模板成员函数类外实现
+
+学习目标：能够掌握类模板中的成员函数类外实现
+
+总结：类模板中成员函数类外实现时，需要加上模板参数列表
+
+示例：
+
+```cpp
+#include <string>
+
+//类模板中成员函数类外实现
+template<class T1, class T2>
+class Person {
+public:
+	//成员函数类内声明
+	Person(T1 name, T2 age);
+	void showPerson();
+
+public:
+	T1 m_Name;
+	T2 m_Age;
+};
+
+//构造函数 类外实现
+template<class T1, class T2>
+Person<T1, T2>::Person(T1 name, T2 age) {
+	this->m_Name = name;
+	this->m_Age = age;
+}
+
+//成员函数 类外实现
+template<class T1, class T2>
+void Person<T1, T2>::showPerson() {
+	cout << "姓名: " << this->m_Name << " 年龄:" << this->m_Age << endl;
+}
+
+void test01()
+{
+	Person<string, int> p("Tom", 20);
+	p.showPerson();
+}
+
+int main() {
+
+	test01();
+
+	system("pause");
+
+	return 0;
+}
+```
+
+### 1.3.7 类模板分文件编写
+
+学习目标：
+
+掌握类模板成员函数分文件编写产生的问题以及解决方式
+
+问题：
+
+类模板中成员函数创建时机是在调用阶段，导致分文件编写时链接不到
+
+解决：
+
+- 解决方式1：直接包含`.cpp`源文件
+- 解决方式2：将声明和实现写到同一个文件中，并更改后缀名为`.hpp`，hpp是约定的名称，并不是强制
+
+总结：主流的解决方式是第二种，将类模板成员函数写到一起，并将后缀名改为.hpp
+
+示例：
+
+
+1、类模板分文件编写`.cpp`中代码
+
+```cpp
+// person.h
+#pragma once
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+template<class T1, class T2>
+class Person {
+public:
+    Person(T1 name, T2 age);
+
+    void showPerson();
+
+public:
+    T1 m_Name;
+    T2 m_Age;
+};
+
+```
+
+```cpp
+// person.cpp
+#include "person.h"
+
+//构造函数 类外实现
+template<class T1, class T2>
+Person<T1, T2>::Person(T1 name, T2 age) {
+    this->m_Name = name;
+    this->m_Age = age;
+}
+
+//成员函数 类外实现
+template<class T1, class T2>
+void Person<T1, T2>::showPerson() {
+    cout << "姓名: " << this->m_Name << " 年龄:" << this->m_Age << endl;
+}
+```
+
+```cpp
+// main.cpp
+#include<iostream>
+using namespace std;
+
+// #include "person.h" // 直接引入 .h 文件会提示报错
+#include "person.cpp" // 解决方式1，包含cpp源文件
+
+int main() {
+    Person<string, int> p("Tom", 10);
+    p.showPerson();
+
+    return 0;
+}
+
+```
+
+2、将声明和实现写到一起，文件后缀名改为`.hpp`
+
+person.hpp中代码：
+
+```cpp
+// person.hpp
+#pragma once
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+template<class T1, class T2>
+class Person {
+public:
+	Person(T1 name, T2 age);
+	void showPerson();
+public:
+	T1 m_Name;
+	T2 m_Age;
+};
+
+//构造函数 类外实现
+template<class T1, class T2>
+Person<T1, T2>::Person(T1 name, T2 age) {
+	this->m_Name = name;
+	this->m_Age = age;
+}
+
+//成员函数 类外实现
+template<class T1, class T2>
+void Person<T1, T2>::showPerson() {
+	cout << "姓名: " << this->m_Name << " 年龄:" << this->m_Age << endl;
+}
+```
+
+```cpp
+// main.cpp
+#include<iostream>
+
+//解决方式2，将声明和实现写到一起，文件后缀名改为.hpp
+#include "person.hpp"
+
+using namespace std;
+
+int main() {
+    Person<string, int> p("Tom", 10);
+    p.showPerson();
+
+    return 0;
+}
+```
+
+### 1.3.8 类模板与友元
+
+学习目标：
+
+掌握类模板配合友元函数的类内和类外实现
+
+- 全局函数类内实现 - 直接在类内声明友元即可
+
+- 全局函数类外实现 - 需要提前让编译器知道全局函数的存在
+
+总结：建议全局函数做类内实现，用法简单，而且编译器可以直接识别
+
+示例：
+
+
+```cpp
+// main.cpp
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+template<class T1, class T2>
+class Person {
+    // 1、全局函数配合友元 类内实现
+    friend void printPerson(Person<T1, T2> &p) {
+        cout << "printPerson" << endl;
+    }
+};
+
+int main() {
+    // 1、全局函数在类内实现
+    Person<string, int> p;
+    printPerson(p);
+
+    return 0;
+}
+
+```
+
+```cpp
+// main.cpp
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+//2、全局函数配合友元  类外实现 - 先做函数模板声明，下方在做函数模板定义，在做友元
+template<class T1, class T2>
+class Person;
+
+// 如果声明了函数模板，可以将实现写到后面，否则需要将实现体写到类的前面让编译器提前看到
+template<class T1, class T2>
+void printPerson2(Person<T1, T2> &p) {
+    cout << "printPerson2" << endl;
+}
+
+template<class T1, class T2>
+class Person {
+    //全局函数配合友元  类外实现
+    friend void printPerson2<>(Person<T1, T2> &p);
+};
+
+
+int main() {
+    //2、全局函数在类外实现
+    Person<string, int> p;
+    printPerson2(p);
+
+    return 0;
+}
+```

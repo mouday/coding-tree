@@ -1105,3 +1105,147 @@ int main() {
     return 0;
 }
 ```
+
+### 1.3.9 类模板案例
+
+案例描述: 实现一个通用的数组类，要求如下：
+
+- 可以对内置数据类型以及自定义数据类型的数据进行存储
+- 将数组中的数据存储到堆区
+- 构造函数中可以传入数组的容量
+- 提供对应的拷贝构造函数以及`operator=`防止浅拷贝问题
+- 提供尾插法和尾删法对数组中的数据进行增加和删除
+- 可以通过下标的方式访问数组中的元素
+- 可以获取数组中当前元素个数和数组的容量
+
+总结：
+
+能够利用所学知识点实现通用的数组
+
+示例：
+
+myArray.hpp中代码
+
+
+```cpp
+#pragma once
+#include <iostream>
+
+using namespace std;
+
+template<typename T>
+class MyArray {
+public:
+    // 构造函数
+    MyArray(int capacity) {
+        cout << "MyArray" << endl;
+        this->capacity = capacity;
+        this->size = 0;
+        this->data = new T[capacity];
+    }
+
+    // 拷贝构造
+    MyArray(const MyArray &other) {
+        cout << "MyArray copy" << endl;
+        this->clone(other);
+    }
+
+    //重载= 操作符  防止浅拷贝问题
+    MyArray &operator=(const MyArray &other) {
+        cout << "MyArray operator=" << endl;
+        this->clean();
+        this->clone(other);
+        return *this;
+    }
+
+    //重载[] 操作符  arr[0]
+    T& operator [](int index)
+    {
+        return this->data[index]; // 不考虑越界，用户自己去处理
+    }
+
+    //尾插法
+    void PushBack(const T & val)
+    {
+        if (this->capacity == this->size)
+        {
+            return;
+        }
+        this->data[this->size] = val;
+        this->size++;
+    }
+
+    //尾删法
+    void PopBack()
+    {
+        if (this->size == 0)
+        {
+            return;
+        }
+
+        this->size--;
+    }
+
+    //获取数组容量
+    int GetCapacity()
+    {
+        return this->capacity;
+    }
+
+    //获取数组大小
+    int	GetSize()
+    {
+        return this->size;
+    }
+    ~MyArray() {
+        cout << "~MyArray" << endl;
+        this->clean();
+    }
+
+private:
+    T *data;
+    int size;
+    int capacity;
+
+    void clean() {
+        if (this->data != NULL) {
+            delete[] this->data;
+            this->data = NULL;
+        }
+        this->capacity = 0;
+        this->size = 0;
+    }
+
+    void clone(const MyArray &other) {
+        this->capacity = other.capacity;
+        this->size = other.size;
+        this->data = new T[other.capacity];
+
+        // copy data
+        for (int i = 0; i < this->size; i++) {
+            this->data[i] = other.data[i];
+        }
+    }
+};
+
+```
+
+```cpp
+// main.cpp
+#include <string>
+#include <iostream>
+#include "my_array.hpp"
+
+using namespace std;
+
+
+int main() {
+    MyArray<int> arr1(3);
+    MyArray<int> arr2(arr1);
+    MyArray<int> arr3(5);
+    arr3 = arr1;
+
+    return 0;
+}
+
+```

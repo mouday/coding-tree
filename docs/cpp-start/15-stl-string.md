@@ -1,4 +1,4 @@
-## string容器
+# string容器
 
 ## 1 string基本概念
 
@@ -282,3 +282,222 @@ int main() {
 * find找到字符串后返回查找的第一个字符位置，找不到返回-1
 * replace在替换时，要指定从哪个位置起，多少个字符，替换成什么样的字符串
 
+
+## 3.1.6 string字符串比较
+
+功能描述：
+
+- 字符串之间的比较
+
+比较方式：
+
+字符串比较是按字符的ASCII码进行对比
+
+- `=` 返回   0
+
+- `>`返回  1 
+
+- `<` 返回  -1
+
+总结：字符串对比主要是用于比较两个字符串是否相等，判断谁大谁小的意义并不是很大
+
+
+函数原型：
+
+```cpp
+// 与字符串s比较
+int compare(const string &s) const;
+
+// 与字符串s比较
+int compare(const char *s) const;
+```
+
+
+示例
+
+```cpp
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+//字符串比较
+void test01() {
+    string s1 = "hello";
+    string s2 = "aello";
+
+    int ret = s1.compare(s2);
+
+    if (ret == 0) {
+        cout << "s1 等于 s2" << endl;
+    } else if (ret > 0) {
+        cout << "s1 大于 s2" << endl;
+    } else {
+        cout << "s1 小于 s2" << endl;
+    }
+    // output: s1 大于 s2
+}
+
+int main() {
+    test01();
+
+    return 0;
+}
+
+```
+
+## 3.1.7 string字符存取
+
+
+string中单个字符存取方式有两种
+
+```cpp
+// 通过[]方式取字符
+char& operator[](int n);
+
+// 通过at方法获取字符
+char& at(int n);
+```
+
+
+示例：
+
+```cpp
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+
+void test01() {
+    string str = "hello world";
+
+    // []
+    for (int i = 0; i < str.size(); i++) {
+        cout << str[i] << " ";
+    }
+    cout << endl;
+
+    // at
+    for (int i = 0; i < str.size(); i++) {
+        cout << str.at(i) << " ";
+    }
+    cout << endl;
+
+
+    //字符修改
+    str[0] = 'x';
+    str.at(1) = 'x';
+    cout << str << endl;
+}
+
+int main() {
+    test01();
+
+
+    return 0;
+}
+
+```
+
+总结：string字符串中单个字符存取有两种方式，利用 `[]` 或 `at`
+
+
+## 3.1.8 string插入和删除
+
+功能描述：
+
+* 对string字符串进行插入和删除字符操作
+
+函数原型：
+
+```cpp
+// 插入字符串
+string& insert(int pos, const char* s);
+
+// 插入字符串
+string& insert(int pos, const string& str); 
+
+// 在指定位置插入n个字符c
+string& insert(int pos, int n, char c);
+
+// 删除从Pos开始的n个字符 
+string& erase(int pos, int n = npos);
+```
+示例：
+
+```cpp
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+//字符串插入和删除
+void test01() {
+    string str = "hello";
+    str.insert(1, "111");
+    cout << str << endl;
+    // h111ello
+
+    str.erase(1, 3); //从1号位置开始3个字符
+    cout << str << endl;
+    // hello
+}
+
+int main() {
+    test01();
+
+    return 0;
+}
+
+```
+
+总结：插入和删除的起始下标都是从0开始
+
+
+## 3.1.9 string子串
+
+功能描述：
+
+- 从字符串中获取想要的子串
+
+
+
+函数原型：
+
+```cpp
+// 返回由pos开始的n个字符组成的字符串
+string substr(int pos = 0, int n = npos) const;
+```
+
+示例：
+
+```cpp
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+//子串
+void test01() {
+    string str = "abcdefg";
+    string subStr = str.substr(1, 3);
+    cout << "subStr = " << subStr << endl;
+    // subStr = bcd
+    
+    string email = "hello@sina.com";
+    int pos = email.find("@");
+    string username = email.substr(0, pos);
+    cout << "username: " << username << endl;
+    // username: hello
+}
+
+int main() {
+    test01();
+
+    return 0;
+}
+
+```
+
+总结：灵活的运用求子串功能，可以在实际开发中获取有效的信息

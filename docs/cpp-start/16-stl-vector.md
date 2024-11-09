@@ -101,3 +101,158 @@ int main() {
 **总结：** vector的多种构造方式没有可比性，灵活使用即可
 
 
+## 3 vector赋值操作
+
+功能描述：
+
+给vector容器进行赋值
+
+函数原型：
+
+```cpp
+//重载等号操作符
+vector& operator=(const vector &vec);
+
+//将[beg, end)区间中的数据拷贝赋值给本身。
+assign(beg, end); 
+
+//将n个elem拷贝赋值给本身。
+assign(n, elem); 
+```
+
+总结： vector赋值方式比较简单，使用operator=，或者assign都可以
+
+示例：
+
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void printVector(vector<int> &v) {
+    for (vector<int>::iterator it = v.begin(); it != v.end(); it++) {
+        cout << *it << " ";
+    }
+    cout << endl;
+}
+
+//赋值操作
+void test01() {
+    vector<int> v1; //无参构造
+    for (int i = 0; i < 10; i++) {
+        v1.push_back(i);
+    }
+    printVector(v1);
+    // 0 1 2 3 4 5 6 7 8 9
+
+    vector<int> v2;
+    v2 = v1;
+    printVector(v2);
+    // 0 1 2 3 4 5 6 7 8 9
+
+    vector<int> v3;
+    v3.assign(v1.begin(), v1.end());
+    printVector(v3);
+    // 0 1 2 3 4 5 6 7 8 9
+
+    vector<int> v4;
+    v4.assign(10, 100);
+    printVector(v4);
+    // 100 100 100 100 100 100 100 100 100 100
+}
+
+int main() {
+    test01();
+    
+    return 0;
+}
+```
+
+## 4 vector容量和大小
+
+功能描述：
+
+对vector容器的容量和大小操作
+
+函数原型：
+
+```cpp
+// 判断容器是否为空
+empty(); 
+
+// 容器的容量
+capacity(); 
+
+// 返回容器中元素的个数
+size(); 
+
+// 重新指定容器的长度为num，若容器变长，则以默认值填充新位置。
+// 如果容器变短，则末尾超出容器长度的元素被删除。
+resize(int num); 
+​ 
+// 重新指定容器的长度为num，若容器变长，则以elem值填充新位置。
+// 如果容器变短，则末尾超出容器长度的元素被删除
+resize(int num, elem); 
+```
+
+总结：
+
+- 判断是否为空 --- empty
+- 返回元素个数 --- size
+- 返回容器容量 --- capacity
+- 重新指定大小 --- resize
+
+示例：
+
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void printVector(vector<int> &v) {
+    for (vector<int>::iterator it = v.begin(); it != v.end(); it++) {
+        cout << *it << " ";
+    }
+    cout << endl;
+}
+
+void test01() {
+    vector<int> v1;
+    for (int i = 0; i < 10; i++) {
+        v1.push_back(i);
+    }
+    printVector(v1);
+    // 0 1 2 3 4 5 6 7 8 9
+
+    if (v1.empty()) {
+        cout << "v1为空" << endl;
+    } else {
+        cout << "v1不为空" << endl;
+        cout << "v1的容量 = " << v1.capacity() << endl;
+        cout << "v1的大小 = " << v1.size() << endl;
+    }
+    // v1不为空
+    // v1的容量 = 16
+    // v1的大小 = 10
+
+
+    //resize 重新指定大小 ，若指定的更大，默认用0填充新位置，可以利用重载版本替换默认填充
+    v1.resize(15, 10);
+    printVector(v1);
+    // 0 1 2 3 4 5 6 7 8 9 10 10 10 10 10
+    
+    //resize 重新指定大小 ，若指定的更小，超出部分元素被删除
+    v1.resize(5);
+    printVector(v1);
+    // 0 1 2 3 4
+}
+
+int main() {
+    test01();
+
+    return 0;
+}
+
+```

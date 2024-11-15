@@ -84,6 +84,7 @@ var _hmt = _hmt || [];
           { text: "C/C++", link: "/cpp/" },
           { text: "Linux", link: "/linux/" },
           { text: "Linux软件安装", link: "/linux-install/" },
+          { text: "OpenGauss", link: "/opengauss/" },
           { text: "MySQL", link: "/mysql/" },
           { text: "Redis", link: "/redis/" },
           { text: "Laravel", link: "/laravel/" },

@@ -1,12 +1,13 @@
 # PostgreSQL安装教程
 
 
-
 ## 源码安装
 
 安装教程
 
 https://www.postgresql.org/docs/17/installation.html
+
+中文版（15.7）http://www.postgres.cn/docs/current/installation.html
 
 1、下载源码
 
@@ -50,6 +51,10 @@ pg_ctl -D /usr/local/pgsql/data -l logfile start
 createdb test
 
 psql test
+
+create table tb_test(id int, name varchar(20));
+
+select * from tb_test;
 ```
 
 ## 遇到的问题
@@ -111,3 +116,12 @@ initdb: symbol lookup error: initdb: undefined symbol: pqsignal
 ```bash
 export LD_LIBRARY_PATH=/usr/local/pgsql/lib:$LD_LIBRARY_PATH
 ```
+
+3、postgresql gdb which has no line number information
+
+```bash
+make uninstall && make clean && make && make install
+```
+
+linux 安装gcc---GMP 4.2+, MPFR 3.1.0+ and MPC 0.8.0+ 
+https://www.cnblogs.com/zhiminyu/p/18267733

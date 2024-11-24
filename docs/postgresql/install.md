@@ -24,7 +24,7 @@ tar xf postgresql-17.2.tar.bz2
 2、安装
 
 ```bash
-./configure --prefix=/usr/local/pgsql
+./configure --prefix=/usr/local/pgsql --enable-debug --enable-cassert --enable-depend CFLAGS=-O0
 
 make && make install
 ```

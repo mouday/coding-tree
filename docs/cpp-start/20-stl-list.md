@@ -209,49 +209,56 @@ resize(num, elem);
 
 
 ```cpp
+#include <iostream>
 #include <list>
 
-void printList(const list<int>& L) {
+using namespace std;
 
-	for (list<int>::const_iterator it = L.begin(); it != L.end(); it++) {
-		cout << *it << " ";
-	}
-	cout << endl;
+
+void printList(const list<int> &L) {
+    for (list<int>::const_iterator it = L.begin(); it != L.end(); it++) {
+        cout << *it << " ";
+    }
+    cout << endl;
 }
 
 //大小操作
-void test01()
-{
-	list<int>L1;
-	L1.push_back(10);
-	L1.push_back(20);
-	L1.push_back(30);
-	L1.push_back(40);
+void test01() {
+    list<int> L1;
+    L1.push_back(10);
+    L1.push_back(20);
+    L1.push_back(30);
+    L1.push_back(40);
 
-	if (L1.empty())
-	{
-		cout << "L1为空" << endl;
-	}
-	else
-	{
-		cout << "L1不为空" << endl;
-		cout << "L1的大小为： " << L1.size() << endl;
-	}
+    if (L1.empty()) {
+        cout << "L1为空" << endl;
+    } else {
+        cout << "L1不为空" << endl;
+        cout << "L1的大小为： " << L1.size() << endl;
+    }
 
-	//重新指定大小
-	L1.resize(10);
-	printList(L1);
+    //重新指定大小
+    L1.resize(10);
+    printList(L1);
 
-	L1.resize(2);
-	printList(L1);
+    L1.resize(2);
+    printList(L1);
 }
 
 int main() {
+    test01();
 
-	test01();
-
-	return 0;
+    return 0;
 }
+```
+
+输出
+
+```bash
+L1不为空
+L1的大小为： 4
+10 20 30 40 0 0 0 0 0 0 
+10 20 
 ```
 
 总结：

@@ -30,7 +30,7 @@ List有一个重要的性质，插入操作和删除操作都不会造成原有l
 总结：STL中List和vector是两个最常被使用的容器，各有优缺点
 
 
-## 3.7.2 list构造函数
+## 2 list构造函数
 
 功能描述：
 
@@ -89,7 +89,7 @@ int main() {
 
 总结：list构造方式同其他几个STL常用容器，熟练掌握即可
 
-## 3.7.3 list 赋值和交换
+## 3 list 赋值和交换
 
 功能描述：
 
@@ -180,3 +180,82 @@ int main() {
 ```
 
 总结：list赋值和交换操作能够灵活运用即可
+
+## 4 list 大小操作
+
+功能描述：
+
+对list容器的大小进行操作
+
+函数原型：
+
+```cpp
+
+size(); //返回容器中元素的个数
+
+empty(); //判断容器是否为空
+
+//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。
+//如果容器变短，则末尾超出容器长度的元素被删除。
+resize(num); 
+
+//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。
+//如果容器变短，则末尾超出容器长度的元素被删除。
+resize(num, elem); 
+```
+
+示例：
+
+
+
+```cpp
+#include <list>
+
+void printList(const list<int>& L) {
+
+	for (list<int>::const_iterator it = L.begin(); it != L.end(); it++) {
+		cout << *it << " ";
+	}
+	cout << endl;
+}
+
+//大小操作
+void test01()
+{
+	list<int>L1;
+	L1.push_back(10);
+	L1.push_back(20);
+	L1.push_back(30);
+	L1.push_back(40);
+
+	if (L1.empty())
+	{
+		cout << "L1为空" << endl;
+	}
+	else
+	{
+		cout << "L1不为空" << endl;
+		cout << "L1的大小为： " << L1.size() << endl;
+	}
+
+	//重新指定大小
+	L1.resize(10);
+	printList(L1);
+
+	L1.resize(2);
+	printList(L1);
+}
+
+int main() {
+
+	test01();
+
+	return 0;
+}
+```
+
+总结：
+
+- 判断是否为空 --- empty
+- 返回元素个数 --- size
+- 重新指定个数 --- resize

@@ -367,3 +367,210 @@ int main() {
 	return 0;
 }
 ```
+
+## 6 list 数据存取
+
+功能描述：
+
+对list容器中数据进行存取
+
+函数原型：
+
+```cpp
+front(); //返回第一个元素。
+back(); //返回最后一个元素。
+```
+
+总结：
+
+- list容器中不可以通过[]或者at方式访问数据
+- 返回第一个元素 --- front
+- 返回最后一个元素 --- back
+
+示例：
+
+```cpp
+#include <list>
+
+//数据存取
+void test01()
+{
+	list<int>L1;
+	L1.push_back(10);
+	L1.push_back(20);
+	L1.push_back(30);
+	L1.push_back(40);
+
+	
+	//cout << L1.at(0) << endl;//错误 不支持at访问数据
+	//cout << L1[0] << endl; //错误  不支持[]方式访问数据
+	cout << "第一个元素为： " << L1.front() << endl;
+	cout << "最后一个元素为： " << L1.back() << endl;
+
+	//list容器的迭代器是双向迭代器，不支持随机访问
+	list<int>::iterator it = L1.begin();
+	//it = it + 1;//错误，不可以跳跃访问，即使是+1
+}
+
+int main() {
+
+	test01();
+
+	return 0;
+}
+```
+
+
+## 7 list 反转和排序
+
+功能描述：
+
+将容器中的元素反转，以及将容器中的数据进行排序
+
+函数原型：
+
+```cpp
+reverse(); // 反转链表
+sort(); // 链表排序
+```
+
+总结：
+
+- 反转 --- reverse
+- 排序 --- sort （成员函数）
+
+
+示例：
+
+```cpp
+void printList(const list<int>& L) {
+
+	for (list<int>::const_iterator it = L.begin(); it != L.end(); it++) {
+		cout << *it << " ";
+	}
+
+	cout << endl;
+}
+
+bool myCompare(int val1 , int val2)
+{
+	return val1 > val2;
+}
+
+//反转和排序
+void test01()
+{
+	list<int> L;
+	L.push_back(90);
+	L.push_back(30);
+	L.push_back(20);
+	L.push_back(70);
+	printList(L);
+
+	//反转容器的元素
+	L.reverse();
+	printList(L);
+
+	//排序
+	L.sort(); //默认的排序规则 从小到大
+	printList(L);
+
+	L.sort(myCompare); //指定规则，从大到小
+	printList(L);
+}
+
+int main() {
+
+	test01();
+
+	return 0;
+}
+```
+
+## 8 排序案例
+
+案例描述：将Person自定义数据类型进行排序，Person中属性有姓名、年龄、身高
+
+排序规则：按照年龄进行升序，如果年龄相同按照身高进行降序
+
+总结：
+
+- 对于自定义数据类型，必须要指定排序规则，否则编译器不知道如何进行排序
+
+- 高级排序只是在排序规则上再进行一次逻辑规则制定，并不复杂
+
+示例：
+
+```cpp
+#include <list>
+#include <string>
+
+
+class Person {
+public:
+	Person(string name, int age , int height) {
+		m_Name = name;
+		m_Age = age;
+		m_Height = height;
+	}
+
+public:
+	string m_Name;  //姓名
+	int m_Age;      //年龄
+	int m_Height;   //身高
+};
+
+
+bool ComparePerson(Person& p1, Person& p2) {
+
+	if (p1.m_Age == p2.m_Age) {
+		return p1.m_Height  > p2.m_Height;
+	}
+	else
+	{
+		return  p1.m_Age < p2.m_Age;
+	}
+
+}
+
+void test01() {
+
+	list<Person> L;
+
+	Person p1("刘备", 35 , 175);
+	Person p2("曹操", 45 , 180);
+	Person p3("孙权", 40 , 170);
+	Person p4("赵云", 25 , 190);
+	Person p5("张飞", 35 , 160);
+	Person p6("关羽", 35 , 200);
+
+	L.push_back(p1);
+	L.push_back(p2);
+	L.push_back(p3);
+	L.push_back(p4);
+	L.push_back(p5);
+	L.push_back(p6);
+
+	for (list<Person>::iterator it = L.begin(); it != L.end(); it++) {
+		cout << "姓名： " << it->m_Name << " 年龄： " << it->m_Age 
+              << " 身高： " << it->m_Height << endl;
+	}
+
+	cout << "---------------------------------" << endl;
+	L.sort(ComparePerson); //排序
+
+	for (list<Person>::iterator it = L.begin(); it != L.end(); it++) {
+		cout << "姓名： " << it->m_Name << " 年龄： " << it->m_Age 
+              << " 身高： " << it->m_Height << endl;
+	}
+}
+
+int main() {
+
+	test01();
+
+	system("pause");
+
+	return 0;
+}
+```

@@ -35,6 +35,10 @@ std::string toString(std::map<K, V> const &m);
  */
 template<typename K, typename V>
 std::string toString(std::map<K, V> const &m) {
+    if (m.empty()) {
+        return "{}";
+    }
+
     std::stringstream ss;
 
     ss << "{\n";
@@ -265,5 +269,211 @@ int main() {
   age: 20
   name: Tom
   school: PKU
+}
+```
+
+## 4 map插入和删除
+
+功能描述：
+
+map容器进行插入数据和删除数据
+
+函数原型：
+
+```cpp
+insert(elem); //在容器中插入元素。
+clear(); //清除所有元素
+erase(pos); //删除pos迭代器所指的元素，返回下一个元素的迭代器。
+erase(beg, end); //删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。
+erase(key); //删除容器中值为key的元素。
+```
+
+总结：
+
+- map插入方式很多，记住其一即可
+- 插入 --- insert
+- 删除 --- erase
+- 清空 --- clear
+
+示例：
+
+```cpp
+#include <iostream>
+#include <map>
+#include <string>
+#include "cpputil.h"
+
+using namespace std;
+
+
+void test01() {
+    // 插入
+    map<int, int> m;
+    // 第一种插入方式
+    m.insert(pair<int, int>(1, 10));
+    // 第二种插入方式
+    m.insert(make_pair(2, 20));
+    // 第三种插入方式
+    m.insert(map<int, int>::value_type(3, 30));
+    // 第四种插入方式
+    m[4] = 40;
+
+    cout << toString(m) << endl;
+    // {
+    //     1: 10
+    //     2: 20
+    //     3: 30
+    //     4: 40
+    // }
+
+    // 删除
+    m.erase(m.begin());
+    cout << toString(m) << endl;
+    // {
+    //     2: 20
+    //     3: 30
+    //     4: 40
+    //  }
+
+    m.erase(3);
+    cout << toString(m) << endl;
+    // {
+    //     2: 20
+    //     4: 40
+    //  }
+
+    // 清空
+    m.erase(m.begin(), m.end());
+    m.clear();
+    cout << toString(m) << endl;
+    // {}
+}
+
+int main() {
+    test01();
+
+    return 0;
+}
+```
+
+## 5 map查找和统计
+
+功能描述：
+
+对map容器进行查找数据以及统计数据
+
+函数原型：
+
+```cpp
+find(key); //查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();
+
+count(key); //统计key的元素个数
+```
+
+总结：
+
+- 查找 --- find （返回的是迭代器）
+- 统计 --- count （对于map，结果为0或者1）
+
+示例：
+
+```cpp
+#include <iostream>
+#include <map>
+#include <string>
+#include "cpputil.h"
+
+using namespace std;
+
+
+// 查找和统计
+void test01() {
+    map<int, int> m;
+    m.insert(pair<int, int>(1, 10));
+    m.insert(pair<int, int>(2, 20));
+    m.insert(pair<int, int>(3, 30));
+
+    //查找
+    map<int, int>::iterator pos = m.find(3);
+
+    if (pos != m.end()) {
+        cout << "找到了元素 key = " << (*pos).first << " value = " << (*pos).second << endl;
+    } else {
+        cout << "未找到元素" << endl;
+    }
+    // 找到了元素 key = 3 value = 30
+
+    //统计
+    int num = m.count(3);
+    cout << "num = " << num << endl;
+    // num = 1
+}
+
+int main() {
+    test01();
+
+    return 0;
+}
+
+```
+
+## 6 map容器排序
+
+学习目标：
+
+map容器默认排序规则为 按照key值进行 从小到大排序，掌握如何改变排序规则
+
+主要技术点:
+
+利用仿函数，可以改变排序规则
+
+总结：
+
+- 利用仿函数可以指定map容器的排序规则
+- 对于自定义数据类型，map必须要指定排序规则,同set容器
+
+
+示例：
+
+```cpp
+#include <iostream>
+#include <map>
+#include <string>
+#include "cpputil.h"
+
+using namespace std;
+
+class MyCompare {
+public:
+    bool operator()(int v1, int v2) const {
+        return v1 > v2;
+    }
+};
+
+void test01() {
+    //默认从小到大排序
+    //利用仿函数实现从大到小排序
+    map<int, int, MyCompare> m;
+
+    m.insert(make_pair(1, 10));
+    m.insert(make_pair(2, 20));
+    m.insert(make_pair(3, 30));
+    m.insert(make_pair(4, 40));
+    m.insert(make_pair(5, 50));
+
+    for (map<int, int, MyCompare>::iterator it = m.begin(); it != m.end(); it++) {
+        cout << "key:" << it->first << " value:" << it->second << endl;
+    }
+    // key:5 value:50
+    // key:4 value:40
+    // key:3 value:30
+    // key:2 value:20
+    // key:1 value:10
+}
+
+int main() {
+    test01();
+
+    return 0;
 }
 ```

@@ -35,6 +35,7 @@ make && make install
 # vim ~/.bash_profile
 # pgsql
 PG_HOME='/usr/local/pgsql/'
+export PGDATA='/usr/local/postgres-data'
 export PATH="$PG_HOME/bin":$PATH
 export LD_LIBRARY_PATH='$PG_HOME/lib':$LD_LIBRARY_PATH
 ```
@@ -56,6 +57,9 @@ create table tb_test(id int, name varchar(20));
 
 select * from tb_test;
 ```
+
+如果设置了环境变量`PGDATA` ,可以不指定`-D`参数
+
 
 ## 遇到的问题
 

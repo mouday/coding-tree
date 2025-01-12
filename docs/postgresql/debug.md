@@ -81,11 +81,22 @@ brew install graphviz
 select 1;
 ```
 
+说明：
+- 第一个图基于pgNodeGraph
+- 第二个图基于pg_node2graph
+
+parsetree_list
+
+![](https://mouday.github.io/img/2025/01/12/v6u46im.png)
+
+![](https://mouday.github.io/img/2025/01/12/e3fj2rj.png)
+
 1、parse tree
 
 ![](https://mouday.github.io/img/2025/01/11/u3bjsdc.png)
 
 ![](https://mouday.github.io/img/2025/01/12/h4okokv.png)
+
 2、rewritten
 
 ![](https://mouday.github.io/img/2025/01/11/t5mgqfp.png)

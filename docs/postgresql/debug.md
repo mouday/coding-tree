@@ -68,6 +68,8 @@ pg_plan_query(){
 
 https://github.com/shenyuflying/pgNodeGraph
 
+https://github.com/japinli/pg_node2graph
+
 依赖 graphviz
 
 ```bash
@@ -83,15 +85,17 @@ select 1;
 
 ![](https://mouday.github.io/img/2025/01/11/u3bjsdc.png)
 
+![](https://mouday.github.io/img/2025/01/12/h4okokv.png)
 2、rewritten
 
 ![](https://mouday.github.io/img/2025/01/11/t5mgqfp.png)
 
+![](https://mouday.github.io/img/2025/01/12/xoaygs2.png)
 3、plan
 
 ![](https://mouday.github.io/img/2025/01/11/le0w9zc.png)
 
-
+![](https://mouday.github.io/img/2025/01/12/ky20gf7.png)
 ref
 
 PostgreSQL数据库查询——exec_simple_query函数分析 

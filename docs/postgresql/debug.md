@@ -15,6 +15,16 @@ postgres=# select 1;
 
 ## 开启debug日志
 
+查找配置文件路径
+
+```sql
+# psql -d postgres -c "SHOW config_file;"
+                   config_file
+-------------------------------------------------
+ /Users/user/local/postgres-data/postgresql.conf
+(1 row)
+```
+
 postgresql.conf
 
 ```bash

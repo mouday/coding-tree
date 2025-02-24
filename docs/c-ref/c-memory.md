@@ -112,3 +112,31 @@ typedef char *name_t;
 
 name_t a;
 ```
+
+### 1.3、指针运算符
+
+指针的加减，实际改变的是一个单位
+
+```cpp
+#include <stdio.h>
+
+int main() {
+    int *p1 = NULL;
+    printf("%p\n", p1 + 1);
+    // 0x4
+
+    char *p2 = NULL;
+    printf("%p\n", p2 + 1);
+    // 0x1
+
+    return 0;
+}
+
+```
+
+取值 两者等价
+
+```cpp
+p[n]
+*(p + n)
+```

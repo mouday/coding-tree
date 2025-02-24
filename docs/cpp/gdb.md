@@ -251,6 +251,11 @@ Unable to find Mach task port for process-id 3246: (os/kern) failure (0x5).
 
 解决办法：gdb前面加sudo
 
+https://sourceware.org/gdb/wiki/BuildingOnDarwin
+
+https://sourceware.org/gdb/wiki/PermissionsDarwin
+
+备注：macos上的gdb问题比较多，推荐lldb
 
 ## GDB设置启动参数
 

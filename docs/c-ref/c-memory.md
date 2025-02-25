@@ -140,3 +140,48 @@ int main() {
 p[n]
 *(p + n)
 ```
+
+内存分配：从高地址向低地址
+
+```cpp
+#include <stdio.h>
+
+int main() {
+    int a = 0x12345678;
+    int b = 0x87654321;
+
+    int *p_b = &b;
+    char *p_c = (char *) &a;
+
+    printf("%#x\n", a);          // 0x12345678
+    printf("%#x\n", *(p_b + 1)); // 0x12345678
+    printf("%#x\n", p_b[1]);     // 0x12345678
+
+    printf("%#x\n", *p_c);       // 0x78
+    printf("%#x\n", *(p_c + 1)); // 0x56
+    printf("%#x\n", *(p_c + 2)); // 0x34
+    printf("%#x\n", *(p_c + 3)); // 0x12
+
+    return 0;
+}
+```
+
+注意：const仅对编译器有用
+
+```cpp
+#include <stdio.h>
+
+int main() {
+    const int a = 0x12345678;
+    int b = 0x11223344;
+
+    // a = 0x87654321; // error: cannot assign to variable 'a'
+
+    int *p = &b;
+    *(p + 1) = 0x55667788;
+
+    printf("%#x\n", a); // 0x12345678
+
+    return 0;
+}
+```

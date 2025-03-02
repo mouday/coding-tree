@@ -195,6 +195,8 @@ world]])
 
 5、获取变量
 
+语法
+
 ```shell
 ${变量名}
 ```
@@ -207,6 +209,14 @@ message(${CMAKE_VERSION})
 ```
 
 6、设置变量
+
+语法
+
+```shell
+set(<variable> <value>...[PARENT_SCOPE])
+```
+
+示例
 
 ```shell
 set(name1 Tom)
@@ -340,5 +350,194 @@ set(ITEMS1 1 3 2 4 5)
 
 list(SORT ITEMS1)
 message(${ITEMS1}) # 12345
+
+```
+
+### 3、流程控制
+
+- if
+- loop: break continue
+
+1、if条件
+
+```shell
+if(<condition>)
+    <commands>
+elseif(<condition>)
+    <commands>
+else()
+    <commands>
+endif()
+```
+
+示例
+
+```shell
+set(VAR TRUE)
+
+if(VAR)
+    message(VAR is true)
+else()
+    message(VAR is false)
+endif()
+# VARistrue
+
+```
+
+NOT
+
+```shell
+set(VAR TRUE)
+
+if(NOT VAR)
+    message(VAR is not true)
+else()
+    message(VAR is true)
+endif()
+# VARistrue
+
+```
+
+OR
+
+```shell
+set(VAR TRUE)
+
+if(NOT VAR OR VAR)
+    message(VAR true)
+else()
+    message(VAR false)
+endif()
+# VARtrue
+
+```
+AND
+
+```shell
+set(VAR TRUE)
+
+if(NOT VAR AND VAR)
+    message(VAR true)
+else()
+    message(VAR false)
+endif()
+# VARfalse
+
+```
+
+LESS
+
+```shell
+if(1 LESS 2)
+    message("1 LESS 2")
+else()
+    message("1 NOT LESS 2")
+endif()
+# 1 LESS 2
+```
+
+EQUAL
+
+```shell
+if(1 EQUAL "1")
+    message("1 EQUAL 1")
+else()
+    message("1 NOT EQUAL 1")
+endif()
+# 1 EQUAL 1
+
+```
+
+2、loop循环
+
+支持 break continue
+
+2.1、foreach
+
+```shell
+foreach(<loop_var> RANGE <max>)
+    <commands>
+endforeach()
+
+foreach(<loop_var> RANGE <min> <max> [<step>])
+foreach(<loop_var> IN [LISTS <lists>] [ITEMS <items>])
+```
+
+示例
+
+
+RANGE
+
+
+```shell
+foreach(var RANGE 3)
+    message(${var})
+endforeach()
+
+# 0
+# 1
+# 2
+# 3
+
+```
+
+IN LISTS
+
+```shell
+set(LIST 1 2 3)
+
+foreach(var IN LISTS LIST ITEMS a b)
+    message(${var})
+endforeach()
+
+# 1
+# 2
+# 3
+# a
+# b
+
+```
+
+IN ZIP_LISTS
+
+```shell
+set(L1 1 2 3)
+set(L2 a b c)
+
+foreach(var IN ZIP_LISTS L1 L2)
+    message("${var_0}, ${var_1}")
+endforeach()
+
+# 1, a
+# 2, b
+# 3, c
+
+```
+
+2.2、while
+
+```shell
+while(<condition>)
+    <commands>
+endwhile()
+```
+示例
+
+```shell
+set(COUNT 0)
+
+while(COUNT LESS 3)
+
+    math(EXPR COUNT "${COUNT}+1")
+
+    if(COUNT EQUAL 2)
+        continue()
+    endif()
+
+    message("${COUNT}")
+endwhile()
+
+# 1
+# 3
 
 ```

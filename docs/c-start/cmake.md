@@ -1,5 +1,12 @@
 # CMake简明教程
 
+![](https://mouday.github.io/img/2025/03/02/f3am8xi.png)
+
+- CMake 官网 https://cmake.org/
+- CMake 官方文档：https://cmake.org/cmake/help/latest/guide/tutorial/index.html
+- CMake 源码：https://github.com/Kitware/CMake
+- CMake 源码：https://gitlab.kitware.com/cmake/cmakeku
+
 ## CMake初体验
 
 1、CMake是什么

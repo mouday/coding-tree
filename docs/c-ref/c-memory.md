@@ -194,3 +194,50 @@ int main() {
 
 指针类型相同比较才有意义
 
+### 1.4、多级指针
+
+存放地址的地址空间
+
+```cpp
+char **p
+p[0] p[1] ... p[n] NULL
+```
+
+示例1
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv) {
+    for (int i = 0; i < argc; i++) {
+        printf("%s\n", argv[i]);
+    }
+    return 0;
+}
+
+```
+
+或者
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv) {
+    int i =0;
+    while (argv[i] != NULL) {
+        printf("%s\n", argv[i]);
+        i++;
+    }
+    return 0;
+}
+```
+
+运行结果
+
+```cpp
+$ ./a.out hello world
+./a.out
+hello
+world
+
+```

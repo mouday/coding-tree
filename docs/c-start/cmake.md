@@ -20,12 +20,29 @@ CMake：开源、跨平台自动化构建工具
 
 3、CMake Makefile Make关系：
 
-CMake 会生成Makefile
-Make 调用Makefile中的命令
+- CMake 会生成Makefile
+- Make 调用Makefile中的命令
 
 4、CMake流程
 
-示例 CMakeLists.txt
+确保已经安装cmake
+
+```shell
+cmake --version
+cmake version 3.29.6
+```
+
+示例
+
+项目结构
+
+```shell
+.
+├── CMakeLists.txt
+└── main.c
+```
+
+CMakeLists.txt
 
 ```shell
 # 最小版本
@@ -36,21 +53,33 @@ project(Hello)
 
 # 生成可执行文件
 add_executable(${PROJECT_NAME} main.c)
-
 ```
 
+main.c
+```cpp
+#include <stdio.h>
+
+int main(int argc, char const *argv[])
+{
+    printf("hello world!\n");
+    return 0;
+}
+```
+
+构建步骤
+
 ```shell
-# 生成Makefile
+# 在目录build 中生成Makefile
 cmake -B build
 
-# 生成项目
+# 生成可执行文件
 cmake --build build
 ```
 
-```shell
-cmake --version
-cmake version 3.29.6 (CMake; JetBrains IDE bundle; build 1)
-debugging support enabled
+运行可执行文件
 
-CMake suite maintained and supported by Kitware (kitware.com/cmake).
+```shell
+./build/Hello      
+hello world!
 ```
+

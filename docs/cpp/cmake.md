@@ -353,7 +353,7 @@ message(${ITEMS1}) # 12345
 
 ```
 
-### 3、流程控制
+### 2.2、流程控制
 
 - if
 - loop: break continue
@@ -540,4 +540,255 @@ endwhile()
 # 1
 # 3
 
+```
+
+### 2.3、函数
+
+函数定义
+
+```cpp
+function(<name> [<argument>...])
+    <commands>
+endfunction()
+```
+
+示例
+
+```shell
+# 定义
+function(Foo Name)
+    message("function: ${CMAKE_CURRENT_FUNCTION}")
+    message("Name: ${Name}")
+endfunction()
+
+# 调用
+Foo("Tom")
+```
+
+输出
+```cpp
+function: Foo
+Name: Tom
+```
+
+### 2.4、Scope作用域
+
+CMake的两种作用域
+
+1. Function scope, 函数作用域
+
+2. Directory Scope,add_subdirectory 嵌套目录，父CMakeLists.txt变量可以被子CMakeLists.txt文件使用
+
+示例
+
+```shell
+function(InFunc)
+    message("InFunc in: ${Var}")
+    set(Var 3)
+    message("InFunc out: ${Var}")
+endfunction()
+
+function(OutFunc)
+    message("OutFunc in: ${Var}")
+    set(Var 2)
+    InFunc()
+    message("OutFunc out: ${Var}")
+endfunction()
+
+set(Var 1)
+message("Global in: ${Var}")
+OutFunc()
+message("Global out: ${Var}")
+
+# output
+# Global in: 1
+# OutFunc in: 1
+# InFunc in: 2
+# InFunc out: 3
+# OutFunc out: 2
+# Global out: 1
+```
+
+### 2.5、宏
+
+macro(<name> [<argument>...])
+    <commands>
+endmacro()
+
+注意：会读就好，尽量不要写宏
+
+示例
+
+```shell
+macro(Test Var)
+    message("Test in: ${Var}")    
+    set(Var 3)
+    message("Test out: ${Var}")
+endmacro()
+
+set(Var 1)
+message("Global in: ${Var}")
+Test(2)
+message("Global out: ${Var}")
+
+# output
+# Global in: 1
+# Test in: 2
+# Test out: 2
+# Global out: 3
+
+```
+
+## 3、CMake构建项目的4种方式
+
+### 3.1、直接写入源码路径的方式
+
+add_executable中写入相对路径
+
+源码中引入头文件时需要写相对路径
+
+```shell
+.
+├── CMakeLists.txt
+├── animal
+│   ├── dog.c
+│   └── dog.h
+└── main.c
+```
+
+CMakeLists.txt
+```shell
+cmake_minimum_required(VERSION 3.15)
+
+# 项目名
+project(Animal)
+
+# 可执行文件
+add_executable(${PROJECT_NAME} main.c animal/dog.c)
+```
+
+main.c
+
+```cpp
+#include <stdio.h>
+#include "animal/dog.h"
+
+int main(int argc, char const *argv[])
+{
+    bark();
+
+    return 0;
+}
+
+```
+dog.h
+```cpp
+#pragma once
+
+void bark();
+```
+
+dog.c
+```cpp
+#include "dog.h"
+#include <stdio.h>
+
+void bark(){
+    printf("wang wang wang...\n");
+}
+```
+
+编译运行
+
+```shell
+cmake -B build && cmake --build build && ./build/Animal
+```
+
+### 3.2、调用子目录cmake脚本的方法
+
+include方法可以引入子目录中的cmake后缀的配置文件
+
+将配置加入到add_executable中
+
+项目结构
+
+```shell
+.
+├── CMakeLists.txt
+├── animal
+│   ├── animal.cmake
+│   ├── cat.c
+│   ├── cat.h
+│   ├── dog.c
+│   └── dog.h
+└── main.c
+```
+
+CMakeLists.txt
+
+```shell
+cmake_minimum_required(VERSION 3.15)
+
+# 项目名
+project(Animal)
+
+# 引入子目录文件
+include(animal/animal.cmake)
+
+# 可执行文件
+add_executable(${PROJECT_NAME} main.c ${animal_sources})
+
+# cmake -B build && cmake --build build && ./build/Animal
+```
+
+animal.cmake
+```shell
+set(animal_sources animal/cat.c animal/dog.c)
+```
+
+main.c
+
+```cpp
+#include <stdio.h>
+#include "animal/dog.h"
+#include "animal/cat.h"
+
+int main(int argc, char const *argv[])
+{
+    dog_bark();
+    cat_bark();
+
+    return 0;
+}
+```
+
+cat.h
+```cpp
+#pragma once
+
+void cat_bark();
+```
+cat.c
+```cpp
+#include "cat.h"
+#include <stdio.h>
+
+void cat_bark(){
+    printf("cat bark...\n");
+}
+```
+dog.h
+```cpp
+#pragma once
+
+void dog_bark();
+```
+dog.c
+```cpp
+#include "dog.h"
+#include <stdio.h>
+
+void dog_bark(){
+    printf("dog bark...\n");
+}
 ```

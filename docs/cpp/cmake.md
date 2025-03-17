@@ -611,9 +611,11 @@ message("Global out: ${Var}")
 
 ### 2.5、宏
 
+```shell
 macro(<name> [<argument>...])
     <commands>
 endmacro()
+```
 
 注意：会读就好，尽量不要写宏
 

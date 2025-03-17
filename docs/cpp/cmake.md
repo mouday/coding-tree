@@ -792,3 +792,112 @@ void dog_bark(){
     printf("dog bark...\n");
 }
 ```
+
+### 3.3、CMakeLists嵌套
+
+target_include_directories 头文件目录声明
+
+target_link_libraries 连接库文件
+
+add_subdirectory 添加子目录
+
+add_library 生成库文件(默认static library)
+
+项目结构
+```shell
+.
+├── CMakeLists.txt
+├── animal
+│   ├── CMakeLists.txt
+│   ├── cat.c
+│   ├── cat.h
+│   ├── dog.c
+│   └── dog.h
+└── main.c
+
+2 directories, 7 files
+```
+
+./CMakeLists.txt
+
+```shell
+cmake_minimum_required(VERSION 3.15)
+
+# 项目名
+project(Animal)
+
+# 引入子目录文件
+add_subdirectory(animal)
+
+# 可执行文件
+add_executable(${PROJECT_NAME} main.c)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC AnimalLib)
+
+target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/animal")
+
+# cmake -B build && cmake --build build && ./build/Animal
+
+
+```
+
+./main.c
+
+```cpp
+#include <stdio.h>
+#include "dog.h"
+#include "cat.h"
+
+int main(int argc, char const *argv[])
+{
+    dog_bark();
+    cat_bark();
+
+    return 0;
+}
+
+```
+
+./animal/CMakeLists.txt
+
+```shell
+add_library(AnimalLib cat.c dog.c)
+```
+
+./animal/dog.h
+
+```cpp
+#pragma once
+
+void dog_bark();
+```
+
+./animal/cat.c
+
+```cpp
+#include "cat.h"
+#include <stdio.h>
+
+void cat_bark(){
+    printf("cat bark...\n");
+}
+```
+
+./animal/cat.h
+
+```cpp
+#pragma once
+
+void cat_bark();
+```
+
+./animal/dog.c
+
+```cpp
+#include "dog.h"
+#include <stdio.h>
+
+void dog_bark(){
+    printf("dog bark...\n");
+}
+```

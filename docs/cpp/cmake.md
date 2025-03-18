@@ -826,7 +826,7 @@ add_library 生成库文件(默认static library)
 cmake_minimum_required(VERSION 3.15)
 
 # 项目名
-project(Animal)
+project(AnimalApp)
 
 # 引入子目录文件
 add_subdirectory(animal)
@@ -838,7 +838,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC AnimalLib)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/animal")
 
-# cmake -B build && cmake --build build && ./build/Animal
+# cmake -B build && cmake --build build && ./build/AnimalApp
 
 
 ```
@@ -902,4 +902,269 @@ void cat_bark();
 void dog_bark(){
     printf("dog bark...\n");
 }
+```
+
+### 3.4、Object Libraries
+
+add_library OBJECT（version >=3.12）
+
+将 target_include_directories 移入子CMakeLists.txt中
+
+项目结构和文件内容同3.3
+
+修改如下
+
+./animal/CMakeLists.txt
+```shell
+# add_library(AnimalLib cat.c dog.c)
+add_library(AnimalLib OBJECT cat.c dog.c)
+target_include_directories(AnimalLib PUBLIC .)
+```
+
+CMakeLists.txt
+
+```shell
+cmake_minimum_required(VERSION 3.15)
+
+# 项目名
+project(AnimalApp)
+
+# 引入子目录文件
+add_subdirectory(animal)
+
+# 可执行文件
+add_executable(${PROJECT_NAME} main.c)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC AnimalLib)
+
+# target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/animal")
+```
+
+
+## 4、CMake与库
+
+### 4.1、CMake生成动态库/静态库
+
+- 静态库：打包到可执行文件中
+- 动态库：运行时载入
+
+命名区别：
+- 静态库 
+    - linux: `lib<name>.a`
+    - macos: `lib<name>.a`
+    - windows: `lib<name>.lib`
+- 动态库 
+    - linux: `lib<name>.so`
+    - macos: `lib<name>.dylib`
+    - windows: `lib<name>.ddl`
+    
+
+命令
+
+```shell
+file常用于搜索源文件
+
+# 生成静态库
+add_library(animal STATIC ${src})
+
+# 生成动态库
+add_library(animal SHARED ${src})
+
+${LIBRARY_OUTPUT_PATH}导出目录
+```
+
+项目结构
+
+```shell
+.
+├── CMakeLists.txt
+├── include
+│   └── dog.h
+└── src
+    └── dog.c
+
+3 directories, 3 files
+```
+
+./CMakeLists.txt
+
+```shell
+cmake_minimum_required(VERSION 3.15)
+
+# 项目名
+project(Animal)
+
+# 查找所有文件
+file(GLOB SRC ${PROJECT_SOURCE_DIR}/src/*.c)
+
+# 头文件
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
+# 输出路径
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+
+# 静态库
+# add_library(Animal STATIC ${SRC})
+
+# 动态库
+add_library(Animal SHARED ${SRC})
+
+# cmake -B build && cmake --build build
+
+```
+
+./include/dog.h
+
+```cpp
+#pragma once
+
+void dog_bark();
+```
+
+./src/dog.c
+
+```cpp
+#include "dog.h"
+#include <stdio.h>
+
+void dog_bark(){
+    printf("dog bark...\n");
+}
+```
+
+```shell
+ls lib
+
+libAnimal.a     
+libAnimal.dylib
+```
+
+### 4.2、CMake调用静态库和动态库
+
+静态库调用流程
+
+1. 引入头文件
+2. 连接静态库
+3. 生成可执行二进制文件
+
+
+动态库调用流程
+
+1. 引入头文件
+2. 声明库目录
+3. 生成可执行二进制文件
+4. 连接动态库
+
+示例1：使用静态库
+
+项目结构
+
+```shell
+.
+├── CMakeLists.txt
+├── include
+│   └── dog.h
+├── lib
+│   └── libAnimal.a
+└── main.c
+```
+
+./CMakeLists.txt
+
+```shell
+cmake_minimum_required(VERSION 3.15)
+
+# 项目名
+project(App)
+
+# 头文件
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
+link_directories(${PROJECT_SOURCE_DIR}/lib)
+
+link_libraries(Animal)
+
+add_executable(App main.c)
+
+# cmake -B build && cmake --build build && ./build/App
+```
+
+./main.c
+
+```cpp
+#include <stdio.h>
+#include "dog.h"
+
+int main(int argc, char const *argv[])
+{
+    dog_bark();
+
+    return 0;
+}
+
+```
+
+./include/dog.h
+
+```cpp
+#pragma once
+
+void dog_bark();
+```
+
+
+示例2：使用动态库
+
+项目结构
+```shell
+.
+├── CMakeLists.txt
+├── include
+│   └── dog.h
+├── lib
+│   └── libAnimal.dylib
+└── main.c
+```
+
+./CMakeLists.txt
+
+```shell
+cmake_minimum_required(VERSION 3.15)
+
+# 项目名
+project(App)
+
+# 头文件
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
+link_directories(${PROJECT_SOURCE_DIR}/lib)
+
+add_executable(App main.c)
+
+target_link_libraries(App PUBLIC Animal)
+
+# cmake -B build && cmake --build build && ./build/App
+```
+
+./main.c
+
+```cpp
+#include <stdio.h>
+#include "dog.h"
+
+int main(int argc, char const *argv[])
+{
+    dog_bark();
+
+    return 0;
+}
+
+```
+
+./include/dog.h
+
+```cpp
+#pragma once
+
+void dog_bark();
 ```

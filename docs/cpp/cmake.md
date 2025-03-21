@@ -1168,3 +1168,56 @@ int main(int argc, char const *argv[])
 
 void dog_bark();
 ```
+
+
+## 5、CMake与源文件交互
+
+项目结构
+
+```shell
+.
+├── CMakeLists.txt
+├── config.h.in
+└── main.c
+
+```
+
+./CMakeLists.txt
+
+```shell
+cmake_minimum_required(VERSION 3.15)
+
+# 项目名
+project(App)
+
+configure_file(config.h.in config.h)
+
+add_executable(App main.c)
+
+target_include_directories(App PUBLIC ${PROJECT_BINARY_DIR})
+
+# cmake -B build && cmake --build build && ./build/App
+
+```
+
+./config.h.in
+
+```cpp
+#define PROJECT_NAME "${PROJECT_NAME}"
+```
+
+./main.c
+
+```cpp
+#include <stdio.h>
+#include "config.h"
+
+int main(int argc, char const *argv[])
+{
+    printf("PROJECT_NAME: %s\n", PROJECT_NAME);
+    // PROJECT_NAME: App
+
+    return 0;
+}
+
+```

@@ -1221,3 +1221,101 @@ int main(int argc, char const *argv[])
 }
 
 ```
+
+## 6、CMake条件编译
+
+通过不同传入参数，编译不同的文件
+1. 使用option定义变量
+2. 在子CMakeLists.txt中根据变量ON还是OFF来修改SRC源文件以及`target_compile_definitions`
+3. 修改源文件根据变量选择代码
+4. 执行命令时`-D<变量>=ON/OFF`来进行条件编译
+
+PUBLIC/INTERFACE/PRIVATE
+
+- PUBLIC 本目标需要用，依赖这个目标的其他目标也需要
+
+- INTERFACE 本项目不需要，依赖本项目的其他目标需要
+
+- PRIVATE 本项目需要，依赖这个项目的其他目标不需要
+
+项目结构
+
+```shell
+.
+├── CMakeLists.txt
+└── main.c
+```
+
+./CMakeLists.txt
+
+```shell
+cmake_minimum_required(VERSION 3.15)
+
+# 项目名
+project(App)
+
+# cmake中使用变量
+option(ENABLE_DEBUG "Enable Debug Mode" OFF)
+
+message("ENABLE_DEBUG:" ${ENABLE_DEBUG})
+
+if(ENABLE_DEBUG)
+    message("ENABLE_DEBUG is ON")
+else()
+    message("ENABLE_DEBUG is OFF")
+endif()
+
+add_executable(App main.c)
+
+# 让宏变量c文件中生效
+if(ENABLE_DEBUG)
+    target_compile_definitions(App PUBLIC ENABLE_DEBUG)
+endif()
+# cmake -B build && cmake --build build && ./build/App
+
+```
+
+./main.c
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char const *argv[])
+{
+
+#ifdef ENABLE_DEBUG
+    printf("ENABLE_DEBUG is defind\n");
+#else
+    printf("ENABLE_DEBUG is not defind\n");
+#endif
+
+    return 0;
+}
+
+```
+
+使用默认参数
+
+```shell
+$ cmake -B build
+ENABLE_DEBUG:OFF
+ENABLE_DEBUG is OFF
+
+$ cmake --build build
+
+$ ./build/App
+
+ENABLE_DEBUG is not defind
+```
+
+指定参数
+
+```shell
+$ cmake -B build -DENABLE_DEBUG=ON         
+ENABLE_DEBUG:ON
+ENABLE_DEBUG is ON
+
+$ cmake --build build
+$ ./build/App 
+ENABLE_DEBUG is defind
+```

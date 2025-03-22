@@ -1319,3 +1319,13 @@ $ cmake --build build
 $ ./build/App 
 ENABLE_DEBUG is defind
 ```
+
+## 参考资料
+
+CMake 简明教程笔记
+
+https://www.dafaycoding.com/article/cpp-basic-cmake-tutorial
+
+Modern CMake 简体中文版
+
+https://modern-cmake-cn.github.io/Modern-CMake-zh_CN/

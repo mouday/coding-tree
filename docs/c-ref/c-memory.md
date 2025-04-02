@@ -300,6 +300,112 @@ int main() {
 }
 ```
 
+输出
+```shell
+a = abc
+b = abc
+c = adc
+p = abc
+```
+
+自动处理数组大小
+
+```cpp
+
+#include <stdio.h>
+
+int main() {
+    char a[] = {'a', 'b', 'c', '\0'};
+    char b[] = {"abc"};
+    char c[] = "abc";
+    char *p = "abc";
+    
+    printf("a = %s, sizeof(a) = %ld\n", a, sizeof(a));
+    printf("b = %s, sizeof(b) = %ld\n", b, sizeof(b));
+    printf("c = %s, sizeof(c) = %ld\n", c, sizeof(c));
+    printf("p = %s, sizeof(p) = %ld\n", p, sizeof(p));
+
+    return 0;
+}
+```
+
+输出
+
+```shell
+a = abc, sizeof(a) = 4
+b = abc, sizeof(b) = 4
+c = abc, sizeof(c) = 4
+p = abc, sizeof(p) = 8
+```
+
+修改字符串
+
+```cpp
+#include <stdio.h>
+
+int main() {
+    char a[] = {'a', 'b', 'c', '\0'};
+
+    printf("before: a = %s\n", a);
+    // before: a = abc
+
+    // a = {'d', 'e', 'f', '\0'}; // 错误，数组不能重新赋值
+
+    a[0] = 'd';
+    a[1] = 'e';
+    a[2] = 'f';
+    a[3] = '\0';
+
+    printf("after: a = %s\n", a);
+    // after: a = def
+
+    return 0;
+}
+```
+
+字符空间拷贝函数
+
+声明
+
+```cpp
+char *strcpy(char *dest, const char *src)
+
+char *strncpy(char *dest, const char *src, size_t n)
+```
+
+- 内存空间逐一赋值
+- 特殊值 `'\0'` 结束
+- strcpy 会出现内存泄漏，推荐使用 strncpy
+
+```cpp
+char buf[10] = "abc";
+
+strcpy(buf, "hello world");
+
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char buf[20] = "";
+
+    printf("before: buf = %s\n", buf);
+    // before: buf = 
+
+    strcpy(buf, "hello world");
+
+    printf("after: buf = %s\n", buf);
+    // after: buf = hello world
+
+    return 0;
+}
+
+```
+
 
 ## 3、结构体、共用体
 

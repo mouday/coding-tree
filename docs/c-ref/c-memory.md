@@ -278,8 +278,7 @@ int a[100];
 
 ### 2.2、字符空间及地址
 
-
-空间的赋值：逐一赋值
+（1）空间的赋值：逐一赋值
 
 ```cpp
 #include <stdio.h>
@@ -338,7 +337,7 @@ c = abc, sizeof(c) = 4
 p = abc, sizeof(p) = 8
 ```
 
-修改字符串
+（2）修改字符串
 
 ```cpp
 #include <stdio.h>
@@ -363,7 +362,7 @@ int main() {
 }
 ```
 
-字符空间拷贝函数
+（3）字符空间拷贝函数
 
 声明
 
@@ -406,13 +405,242 @@ int main() {
 
 ```
 
+（4）非字符空间拷贝函数
+
+字符空间: ASCII码 `'\0'` 结尾
+
+非字符空间：`0x00-0xFF`
+
+```cpp
+// string
+char buffer[]
+
+// data
+unsigned char buffer[]
+```
+
+示例：字符拷贝
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char buf[20];
+    char src[] = "hello world";
+
+    // char *strcpy(char *dst, const char *src)
+    strcpy(buf, src);
+
+    printf("buf = %s\n", buf);
+    // buf = hello world
+
+    return 0;
+}
+
+```
+
+示例：非字符空间
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    unsigned char buf[20];
+    unsigned char src[] = "hello world";
+
+    // void *memcpy(void *dst, const void *src, size_t n)
+    memcpy(buf, src, 20 * sizeof(unsigned char));
+
+    printf("buf = %s\n", buf);
+    // buf = hello world
+
+    return 0;
+}
+
+```
+
+### 2.3、指针与数组
+
+指针数组
+
+```cpp
+char *a[];
+
+char **a;
+```
+
+### 2.4、多维数组
+
+```cpp
+#include <stdio.h>
+
+int main() {
+    int a[5] = {0};
+    int b[5][6] = {0};
+
+    const int *p1 = a;
+    int (*p2)[6] = b;
+
+    printf("p1 = %d\n", *p1);
+    printf("p2 = %d\n", *(*p2));
+
+    return 0;
+}
+```
 
 ## 3、结构体、共用体
 
 ### 3.1、定义、字节对齐
 
+提升效率：空间换时间
+
+示例：成员的类型不一样
+
+```cpp
+#include <stdio.h>
+
+struct Data {
+    char a; // 1
+    int b;  // 4
+};
+
+int main() {
+    struct Data data;
+
+    printf("sizeof(data) = %lu\n", sizeof(data));
+    // sizeof(data) = 8
+
+    return 0;
+}
+```
+
 ### 3.2、位域
 
+示例：相同成员，位置不一样
+
+```cpp
+#include <stdio.h>
+
+struct Data1 {
+    char a;  // 1
+    short b; // 2
+    int c;   // 4
+};
+
+struct Data2 {
+    char a;  // 1
+    int c;   // 4
+    short b; // 2
+};
+
+int main() {
+    struct Data1 data1;
+    struct Data2 data2;
+
+    printf("sizeof(data1) = %lu\n", sizeof(data1));
+    printf("sizeof(data2) = %lu\n", sizeof(data2));
+    // sizeof(data1) = 8
+    // sizeof(data2) = 12
+
+    return 0;
+}
+
+```
+
 ## 4、内存分布图
+
+内存属性：
+1. 大小
+2. 位置
+
+```cpp
+#include <stdio.h>
+
+int a;
+
+int main() {
+    int b;
+
+    printf("a = %p\n", &a);
+    printf("main = %p\n", main);
+    printf("b = %p\n", &b);
+
+    // a =    0x10403e000
+    // main = 0x10403cf30
+    // b =    0x7ff7bbec35c8
+
+    return 0;
+}
+```
+
+内存分布
+
+```shell
+0xFFFFFFFF
+------------
+内核空间 应用程序不允许访问
+------------ 3G
+栈空间 局部变量 [read write]
+
+----
+堆空间 运行时 malloc [read write]
+
+----
+代码段
+    全局数据空间（初始化、未初始化）static [DATA、BSS]
+    只读数据段 字符串常量 [read only] [TEXT]
+    代码段 [read only] [TEXT]
+------------
+0x00000000
+```
+
+macos下size查看各段大小
+
+```shell
+size  main  
+__TEXT  __DATA  __OBJC  others  dec     hex
+4096    4096    0       4294975488      4294983680      100004000
+```
+
+
+main.c
+
+```cpp
+#include <stdio.h>
+
+int main() {
+
+    printf("hello\n");
+
+    return 0;
+}
+```
+
+main.c
+
+```cpp
+#include <stdio.h>
+
+int main() {
+
+    printf("hello world\n");
+
+    return 0;
+}
+```
+
+linux下两段代码输出的text数据相差6字节
+
+```shell
+$ size ./a.out 
+   text    data     bss     dec     hex filename
+   1220     548       4    1772     6ec ./a.out
+
+$ size ./a.out 
+   text    data     bss     dec     hex filename
+   1226     548       4    1778     6f2 ./a.out
+```
 
 ## 5、段错误分析

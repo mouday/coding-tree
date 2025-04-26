@@ -28,6 +28,10 @@ postgres=# select 1;
 postgresql.conf
 
 ```bash
+
+# log_min_messages = warning
+log_min_messages = debug5
+
 #debug_print_parse = off
 debug_print_parse = on
 
@@ -39,6 +43,7 @@ debug_print_plan = on
 
 #debug_pretty_print = on
 debug_pretty_print = on
+
 ```
 
 ```cpp
@@ -112,6 +117,7 @@ parsetree_list
 ![](https://mouday.github.io/img/2025/01/11/t5mgqfp.png)
 
 ![](https://mouday.github.io/img/2025/01/12/xoaygs2.png)
+
 3、plan
 
 ![](https://mouday.github.io/img/2025/01/11/le0w9zc.png)
@@ -122,3 +128,19 @@ ref
 PostgreSQL数据库查询——exec_simple_query函数分析 
 
 https://www.cnblogs.com/feishujun/p/PostgreSQLSourceAnalysis_query001.html
+
+## 调试代码
+
+根据错误直接定位代码
+
+```shell
+postgres=# select * from tb1;
+ERROR:  relation "tb1" does not exist
+LINE 1: select * from tb1;
+                      ^
+postgres=# \errverbose
+ERROR:  42P01: relation "tb1" does not exist
+LINE 1: select * from tb1;
+                      ^
+LOCATION:  parserOpenTable, parse_relation.c:1452
+```

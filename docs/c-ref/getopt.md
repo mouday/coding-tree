@@ -1,4 +1,4 @@
-# 命令行解析函数：getopt和getopt_long
+# 命令行解析
 
 ## getopt
 

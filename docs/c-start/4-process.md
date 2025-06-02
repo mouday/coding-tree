@@ -449,7 +449,60 @@ int main() {
 - 没有明显的循环次数，选择`while`
 - 循环体至少执行一次，选择`do-while`
 
+## 无限循环
 
+```cpp
+// 形式1
+while(1){}
+
+// 形式2
+for(;;){}
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+
+/**
+* 无限循环等待输入数字，计算正数和负数的个数
+*/
+int main() {
+    int num;
+    int positive = 0;
+    int negative = 0;
+
+    while (1) {
+        printf("please input number: ");
+        scanf("%d", &num);
+
+        if (num > 0) {
+            positive++;
+        } else if (num < 0) {
+            negative++;
+        } else {
+            break;
+        }
+    }
+
+    printf("positive = %d, negative = %d\n", positive, negative);
+
+    return 0;
+}
+```
+
+输出
+
+```bash
+$ gcc main.c && ./a.out
+please input number: 1
+please input number: 2
+please input number: 3
+please input number: -1
+please input number: -2
+please input number: 0
+positive = 3, negative = 2
+```
 
 https://www.bilibili.com/video/BV1Bh4y1q7Nt/?p=35
 

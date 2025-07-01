@@ -18,6 +18,8 @@
 
 [C 参考文档](../c-ref/index.md)
 
+[C 标准库](../c-standard-library/index.md)
+
 ## 学习视频
 
 华为团队斥巨资打造了最新的C/C++教程

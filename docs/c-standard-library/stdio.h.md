@@ -532,6 +532,59 @@ ret: 11
 buf: hello world
 ```
 
+## remove
+
+删除给定的文件名 filename，以便它不再被访问。
+
+```cpp
+/**
+ * 参数
+ *   filename -- 这是 C 字符串，包含了要被删除的文件名称。
+ * 返回值
+ *   如果成功，则返回零。
+ *   如果错误，则返回 -1，并设置 errno。
+ */
+int remove(const char *filename)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+
+int main(int argc, char **argv)
+{
+    int ret;
+    const char *filename = "demo.txt";
+
+    ret = remove(filename);
+    if (ret == 0)
+    {
+        printf("success, ret: %d\n", ret);
+    }
+    else
+    {
+        printf("error, ret: %d, %s\n", ret, strerror(errno));
+    }
+
+    return 0;
+}
+```
+运行
+```shell
+# 创建文件
+$ touch demo
+
+# 移除文件
+$ gcc main.c -o main && ./main  
+success, ret: 0
+
+# 再次移除，文件不存在
+$ gcc main.c -o main && ./main  
+error, ret: -1, No such file or directory
+```
 
 5	int fflush(FILE *stream)
 刷新流 stream 的输出缓冲区。
@@ -548,8 +601,7 @@ buf: hello world
 12	long int ftell(FILE *stream)
 返回给定流 stream 的当前文件位置。
 
-14	int remove(const char *filename)
-删除给定的文件名 filename，以便它不再被访问。
+
 15	int rename(const char *old_filename, const char *new_filename)
 把 old_filename 所指向的文件名改为 new_filename。
 16	void rewind(FILE *stream)

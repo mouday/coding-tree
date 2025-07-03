@@ -572,7 +572,9 @@ int main(int argc, char **argv)
     return 0;
 }
 ```
+
 运行
+
 ```shell
 # 创建文件
 $ touch demo
@@ -585,6 +587,165 @@ success, ret: 0
 $ gcc main.c -o main && ./main  
 error, ret: -1, No such file or directory
 ```
+
+## rename
+
+修改文件名
+
+```cpp
+/**
+ * 参数
+ *   old_filename -- 文件名称
+ *   new_filename -- 文件的新名称
+ * 返回值
+ *   如果成功，则返回零。
+ *   如果错误，则返回 -1，并设置 errno。
+ */
+int rename(const char *old_filename, const char *new_filename)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+
+int main(int argc, char **argv)
+{
+    int ret;
+    const char *oldname = "old.txt";
+    const char *newname = "new.txt";
+
+    ret = rename(oldname, newname);
+    if (ret == 0)
+    {
+        printf("success, ret: %d\n", ret);
+    }
+    else
+    {
+        printf("error, ret: %d, %s\n", ret, strerror(errno));
+    }
+
+    return 0;
+}
+
+```
+运行
+
+```shell
+$ touch old.txt
+
+# 修改成功
+$ gcc main.c -o main && ./main  
+success, ret: 0
+
+# 修改失败
+$ gcc main.c -o main && ./main  
+error, ret: -1, No such file or directory
+```
+
+## tmpfile
+
+以二进制更新模式(wb+)创建临时文件。
+
+```cpp
+/**
+ * 参数
+ *   NA
+ * 返回值
+ *   如果成功，该函数返回一个指向被创建的临时文件的流指针。
+ *   如果文件未被创建，则返回 NULL。
+ */
+FILE *tmpfile(void)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+
+int main(int argc, char **argv)
+{
+    FILE *file;
+    file = tmpfile();
+
+    if (file == NULL)
+    {
+        printf("create temp file error, ret: %s\n", strerror(errno));
+        return 1;
+    }
+
+    printf("create temp file success\n");
+
+    fclose(file);
+
+    return 0;
+}
+
+```
+
+运行
+
+```shell
+$ gcc main.c -o main && ./main  
+create temp file success
+```
+
+## tmpnam
+
+生成并返回一个有效的临时文件名，该文件名之前是不存在的。
+
+如果 str 为空，则只会返回临时文件名。
+
+> 注意：`tmpnam`已经被标记为过时了，推荐使用 `mkstemp`
+
+```cpp
+/**
+ * 参数
+ *   str -- 这是一个指向字符数组的指针，其中，临时文件名将被存储为 C 字符串。
+ * 返回值
+ *   一个指向 C 字符串的指针，该字符串存储了临时文件名。如果 str 是一个空指针，则该指针指向一个内部缓冲区，缓冲区在下一次调用函数时被覆盖。
+ *   如果 str 不是一个空指针，则返回 str。如果函数未能成功创建可用的文件名，则返回一个空指针。
+ */
+char *tmpnam(char *str)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+
+int main(int argc, char **argv)
+{
+    char buffer[L_tmpnam];
+
+    if (tmpnam(buffer) == NULL)
+    {
+        printf("create temp file error, ret: %s\n", strerror(errno));
+        return 1;
+    }
+
+    printf("create temp filename: %s\n", buffer);
+
+    return 0;
+}
+
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main 
+create temp filename: /var/tmp/tmp.0.d2gq1d
+```
+
+
+
 
 5	int fflush(FILE *stream)
 刷新流 stream 的输出缓冲区。
@@ -602,18 +763,13 @@ error, ret: -1, No such file or directory
 返回给定流 stream 的当前文件位置。
 
 
-15	int rename(const char *old_filename, const char *new_filename)
-把 old_filename 所指向的文件名改为 new_filename。
+
 16	void rewind(FILE *stream)
 设置文件位置为给定流 stream 的文件的开头。
 17	void setbuf(FILE *stream, char *buffer)
 定义流 stream 应如何缓冲。
 18	int setvbuf(FILE *stream, char *buffer, int mode, size_t size)
 另一个定义流 stream 应如何缓冲的函数。
-19	FILE *tmpfile(void)
-以二进制更新模式(wb+)创建临时文件。
-20	char *tmpnam(char *str)
-生成并返回一个有效的临时文件名，该文件名之前是不存在的。
 
 22	int printf(const char *format, ...)
 发送格式化输出到标准输出 stdout。

@@ -12,36 +12,36 @@
 #define	EOF	(-1)
 
 typedef	struct __sFILE {
-	unsigned char *_p;	/* current position in (some) buffer */
-	int	_r;		/* read space left for getc() */
-	int	_w;		/* write space left for putc() */
-	short	_flags;		/* flags, below; this FILE is free if 0 */
-	short	_file;		/* fileno, if Unix descriptor, else -1 */
-	struct	__sbuf _bf;	/* the buffer (at least 1 byte, if !NULL) */
-	int	_lbfsize;	/* 0 or -_bf._size, for inline putc */
+	unsigned char *_p;	 /* current position in (some) buffer */
+	int	_r;		         /* read space left for getc() */
+	int	_w;		         /* write space left for putc() */
+	short	_flags;		 /* flags, below; this FILE is free if 0 */
+	short	_file;		 /* fileno, if Unix descriptor, else -1 */
+	struct	__sbuf _bf;	 /* the buffer (at least 1 byte, if !NULL) */
+	int	_lbfsize;	     /* 0 or -_bf._size, for inline putc */
 
 	/* operations */
-	void	*_cookie;	/* cookie passed to io functions */
+	void	*_cookie;	 /* cookie passed to io functions */
 	int	(* _Nullable _close)(void *);
 	int	(* _Nullable _read) (void *, char *, int);
 	fpos_t	(* _Nullable _seek) (void *, fpos_t, int);
 	int	(* _Nullable _write)(void *, const char *, int);
 
 	/* separate buffer for long sequences of ungetc() */
-	struct	__sbuf _ub;	/* ungetc buffer */
-	struct __sFILEX *_extra; /* additions to FILE to not break ABI */
-	int	_ur;		/* saved _r when _r is counting ungetc data */
+	struct	__sbuf _ub;	      /* ungetc buffer */
+	struct __sFILEX *_extra;  /* additions to FILE to not break ABI */
+	int	_ur;		          /* saved _r when _r is counting ungetc data */
 
 	/* tricks to meet minimum requirements even when malloc() fails */
-	unsigned char _ubuf[3];	/* guarantee an ungetc() buffer */
-	unsigned char _nbuf[1];	/* guarantee a getc() buffer */
+	unsigned char _ubuf[3];	  /* guarantee an ungetc() buffer */
+	unsigned char _nbuf[1];	  /* guarantee a getc() buffer */
 
 	/* separate buffer for fgetln() when line crosses buffer boundary */
-	struct	__sbuf _lb;	/* buffer for fgetln() */
+	struct	__sbuf _lb;	      /* buffer for fgetln() */
 
 	/* Unix stdio files get aligned to block boundaries on fseek() */
-	int	_blksize;	/* stat.st_blksize (may be != _bf._size) */
-	fpos_t	_offset;	/* current lseek offset (see WARNING) */
+	int	_blksize;	      /* stat.st_blksize (may be != _bf._size) */
+	fpos_t	_offset;	  /* current lseek offset (see WARNING) */
 } FILE;
 ```
 
@@ -858,10 +858,44 @@ int main(int argc, char **argv) {
 
 ```
 
+## fwrite
+
 把 ptr 所指向的数组中的数据写入到给定流 stream 中。
+
 ```cpp
+/**
+ * 参数
+ *   ptr -- 这是指向要被写入的元素数组的指针。
+ *   size -- 这是要被写入的每个元素的大小，以字节为单位。
+ *   nmemb -- 这是元素的个数，每个元素的大小为 size 字节。
+ *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象指定了一个输出流。
+ * 返回值
+ *   如果成功，该函数返回一个 size_t 对象，表示元素的总数，该对象是一个整型数据类型。
+ *   如果该数字与 nmemb 参数不同，则会显示一个错误。
+ */
 size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream)
 ```
+
+```cpp
+#include <stdio.h>  // printf
+#include <errno.h>  // errno
+#include <string.h> // strerror
+
+int main(int argc, char **argv)
+{
+    FILE *fd;
+    char text[] = "hello world";
+
+    fd = fopen("demo.txt", "w");
+
+    fwrite(text, sizeof(text), 1, fd);
+
+    fclose(fd);
+
+    return 0;
+}
+```
+
 
 发送格式化输出到流 stream 中。
 ```cpp

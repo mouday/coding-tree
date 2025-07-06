@@ -771,16 +771,8 @@ create temp filename: /var/tmp/tmp.0.d2gq1d
 18	int setvbuf(FILE *stream, char *buffer, int mode, size_t size)
 另一个定义流 stream 应如何缓冲的函数。
 
-22	int printf(const char *format, ...)
-发送格式化输出到标准输出 stdout。
-23	int sprintf(char *str, const char *format, ...)
-发送格式化输出到字符串。
-24	int vfprintf(FILE *stream, const char *format, va_list arg)
-使用参数列表发送格式化输出到流 stream 中。
-25	int vprintf(const char *format, va_list arg)
-使用参数列表发送格式化输出到标准输出 stdout。
-26	int vsprintf(char *str, const char *format, va_list arg)
-使用参数列表发送格式化输出到字符串。
+
+
 27	int fscanf(FILE *stream, const char *format, ...)
 从流 stream 读取格式化输入。
 28	int scanf(const char *format, ...)
@@ -808,8 +800,7 @@ create temp filename: /var/tmp/tmp.0.d2gq1d
 40	int ungetc(int char, FILE *stream)
 把字符 char（一个无符号字符）推入到指定的流 stream 中，以便它是下一个被读取到的字符。
 
-42	int snprintf(char *str, size_t size, const char *format, ...)
-格式字符串到 str 中。
+
 
 
 
@@ -896,8 +887,190 @@ int main(int argc, char **argv)
 }
 ```
 
+## printf
+
+发送格式化输出到标准输出 stdout。
+
+```cpp
+/**
+ * 参数
+ *   format -- 这是字符串，包含了要被写入到标准输出 stdout 的文本
+ *   附加参数 -- 参数的个数应与 % 标签的个数相同。
+ * 返回值
+ *   如果成功，则返回写入的字符总数，
+ *   否则返回一个负数。
+ */
+int printf(const char *format, ...)
+```
+
+format 标签属性是 
+
+```cpp
+%[flags][width][.precision][length]specifier
+```
+
+具体讲解如下：
+
+(1) flags（标识）
+
+| flags（标识） | 描述
+|-|-|
+`-`	| 在给定的字段宽度内左对齐，默认是右对齐（参见 width 子说明符）。
+`+` | 强制在结果之前显示加号或减号（+ 或 -），即正数前面会显示 + 号。<br/>默认情况下，只有负数前面会显示一个 - 号。
+`(space)` | 空格, 如果没有写入任何符号，则在该值前面插入一个空格。
+`#`	| 与 o、x 或 X 说明符一起使用时，非零值前面会分别显示 0、0x 或 0X。<br/>与 e、E 和 f 一起使用时，会强制输出包含一个小数点，即使后边没有数字时也会显示小数点。<br/>默认情况下，如果后边没有数字时候，不会显示显示小数点。<br/>与 g 或 G 一起使用时，结果与使用 e 或 E 时相同，但是尾部的零不会被移除。
+`0` | 在指定填充 padding 的数字左边放置零（0），而不是空格（参见 width 子说明符）。
+
+（2）width（宽度）
+
+|width（宽度）| 描述
+|-|-
+`(number)` | 要输出的字符的最小数目。如果输出的值短于该数，结果会用空格填充。如果输出的值长于该数，结果不会被截断。
+`*` | 宽度在 format 字符串中未指定，但是会作为附加整数值参数放置于要被格式化的参数之前。
+
+（3）precision（精度）
+|.precision（精度）	| 描述
+|-|-|
+`.number` | 对于整数说明符（d、i、o、u、x、X）：precision 指定了要写入的数字的最小位数。<br/>如果写入的值短于该数，结果会用前导零来填充。<br/>如果写入的值长于该数，结果不会被截断。精度为 0 意味着不写入任何字符。<br/>对于 e、E 和 f 说明符：要在小数点后输出的小数位数。<br/>对于 g 和 G 说明符：要输出的最大有效位数。<br/>对于 s: 要输出的最大字符数。默认情况下，所有字符都会被输出，直到遇到末尾的空字符。<br/>对于 c 类型：没有任何影响。<br/>当未指定任何精度时，默认为 1。<br/>如果指定时不带有一个显式值，则假定为 0。
+`.*`	| 精度在 format 字符串中未指定，但是会作为附加整数值参数放置于要被格式化的参数之前。
+
+（4）length（长度）
+|length（长度）	| 描述
+|-|-|
+h	| 参数被解释为短整型或无符号短整型（仅适用于整数说明符：i、d、o、u、x 和 X）。
+l	| 参数被解释为长整型或无符号长整型，适用于整数说明符（i、d、o、u、x 和 X）及说明符 c（表示一个宽字符）和 s（表示宽字符字符串）。
+L	| 参数被解释为长双精度型（仅适用于浮点数说明符：e、E、f、g 和 G）。
+
+（5）specifier（说明符）
+
+|specifier（说明符）| 输出
+|-|-|
+c | 字符
+d 或 i	| 有符号十进制整数
+e | 使用 e 字符的科学科学记数法（尾数和指数）
+E |	使用 E 字符的科学科学记数法（尾数和指数）
+f |	十进制浮点数
+g |	自动选择 %e 或 %f 中合适的表示法
+G |	自动选择 %E 或 %f 中合适的表示法
+o |	有符号八进制
+s |	字符的字符串
+u |	无符号十进制整数
+x |	无符号十六进制整数
+X |	无符号十六进制整数（大写字母）
+p |	指针地址
+n |	无输出
+% |	字符%
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    char *text = "hello world";
+    printf("%s\n", text);
+
+    return 0;
+}
+```
+
+输出
+
+```shell
+$ gcc main.c -o main -g && ./main 
+hello world
+```
+
+23	int sprintf(char *str, const char *format, ...)
+发送格式化输出到字符串。
+
+25	int vprintf(const char *format, va_list arg)
+使用参数列表发送格式化输出到标准输出 stdout。
+26	int vsprintf(char *str, const char *format, va_list arg)
+使用参数列表发送格式化输出到字符串。
+
+24	int vfprintf(FILE *stream, const char *format, va_list arg)
+使用参数列表发送格式化输出到流 stream 中。
+
+42	int snprintf(char *str, size_t size, const char *format, ...)
+格式字符串到 str 中。
+
+## fprintf
 
 发送格式化输出到流 stream 中。
 ```cpp
+/**
+ * 参数
+ *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象标识了流。
+ *   format -- 这是 C 字符串，包含了要被写入到流 stream 中的文本。
+ * 返回值
+ *   如果成功，则返回写入的字符总数，
+ *   否则返回一个负数。
+ */
 int fprintf(FILE *stream, const char *format, ...)
+```
+
+## 变长参数列表
+
+宏定义
+
+```cpp
+// #include <stdarg.h>
+
+#ifndef _VA_LIST
+typedef __builtin_va_list va_list;
+#define _VA_LIST
+#endif
+#define va_start(ap, param) __builtin_va_start(ap, param)
+#define va_end(ap)          __builtin_va_end(ap)
+#define va_arg(ap, type)    __builtin_va_arg(ap, type)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdarg.h>
+
+void print_values(int count, ...)
+{
+    va_list args;
+
+    va_start(args, count);
+
+    printf("[");
+    for (int i = 0; i < count; i++)
+    {
+        int value = va_arg(args, int);
+
+        if (i + 1 < count)
+        {
+            printf("%d, ", value);
+        }
+        else
+        {
+            printf("%d", value);
+        }
+    }
+    va_end(args);
+
+    printf("]\n");
+}
+
+int main(int argc, char **argv)
+{
+
+    print_values(5, 1, 2, 3, 4, 5);
+
+    return 0;
+}
+
+```
+
+输出结果
+
+```shell
+$ gcc main.c -o main -g && ./main 
+[1, 2, 3, 4, 5]
 ```

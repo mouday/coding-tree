@@ -157,21 +157,30 @@ void sum_and_product(int result[2], int count, ...)
     int product = 1;
 
     // sum
-    va_start(sum_args, count);
-    va_copy(product_args, sum_args); // copy
-
+    va_start(sum_args, count); // [1, 2, 3, 4, 5]
     for (int i = 0; i < count; i++)
     {
-        sum += va_arg(sum_args, int);
+        int value = va_arg(sum_args, int);
+        printf("value: %d\n", value);
+        sum += value;
+
+        // 第2次取值之后，进行copy，包含元素个数：count - 2
+        if (i == 1)
+        {
+            va_copy(product_args, sum_args); // copy
+        }
     }
     va_end(sum_args);
 
     result[0] = sum;
 
     // product
-    for (int i = 0; i < count; i++)
+    // [3, 4, 5]
+    for (int i = 0; i < count - 2; i++)
     {
-        product *= va_arg(product_args, int);
+        int value = va_arg(product_args, int);
+        printf("value: %d\n", value);
+        product *= value;
     }
     va_end(product_args);
     result[1] = product;
@@ -181,18 +190,28 @@ int main(int argc, char **argv)
 {
     int result[2];
 
+    // [1, 2, 3, 4, 5]
     sum_and_product(result, 5, 1, 2, 3, 4, 5);
 
     printf("sum: %d, product: %d\n", result[0], result[1]);
-    // sum: 15, product: 120
+    // sum: 15, product: 60
 
     return 0;
 }
+
 ```
 
 输出结果
 
 ```shell
 $ gcc main.c -o main -g && ./main 
-sum: 15, product: 120
+value: 1
+value: 2
+value: 3
+value: 4
+value: 5
+value: 3
+value: 4
+value: 5
+sum: 15, product: 60
 ```

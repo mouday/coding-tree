@@ -982,19 +982,202 @@ $ gcc main.c -o main -g && ./main
 hello world
 ```
 
-23	int sprintf(char *str, const char *format, ...)
+## vprintf
+
+使用参数列表发送格式化输出到标准输出 stdout。
+
+```cpp
+/**
+ * 参数
+ *   format -- 这是字符串，包含了要被写入到标准输出 stdout 的文本
+ *   arg -- 一个表示可变参数列表的对象。这应被 <stdarg> 中定义的 va_start 宏初始化。
+ * 返回值
+ *   如果成功，则返回写入的字符总数，
+ *   否则返回一个负数。
+ */
+int vprintf(const char *format, va_list arg)
+
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdarg.h>
+
+void print_values(char *format, ...)
+{
+    va_list args;
+    va_start(args, format);
+    vprintf(format, args);
+    va_end(args);
+}
+
+int main(int argc, char **argv)
+{
+    print_values("%c=%d\n", 'a', 'a');
+
+    return 0;
+}
+
+```
+
+输出
+
+```shell
+$ gcc main.c -o main -g && ./main 
+a=97
+```
+
+## sprintf
+
 发送格式化输出到字符串。
 
-25	int vprintf(const char *format, va_list arg)
-使用参数列表发送格式化输出到标准输出 stdout。
-26	int vsprintf(char *str, const char *format, va_list arg)
+```cpp
+/**
+ * 参数
+ *   str -- 这是指向一个字符数组的指针，该数组存储了 C 字符串。
+ *   format -- 这是字符串，包含了要被写入到字符串 str 的文本。
+ *   附加参数 -- 根据不同的 format 字符串，函数可能需要一系列的附加参数，每个参数包含了一个要被插入的值，替换了 format 参数中指定的每个 % 标签。参数的个数应与 % 标签的个数相同。
+ * 返回值
+ *   如果成功，则返回写入的字符总数，不包括字符串追加在字符串末尾的空字符。
+ *   如果失败，则返回一个负数。
+ */
+int sprintf(char *str, const char *format, ...)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    char text[20];
+    sprintf(text, "%c=%d", 'a', 'a');
+    printf("%s\n", text);
+
+    return 0;
+}
+
+```
+
+输出
+
+```shell
+$ gcc main.c -o main -g && ./main 
+a=97
+```
+
+## vsprintf
+
 使用参数列表发送格式化输出到字符串。
 
-24	int vfprintf(FILE *stream, const char *format, va_list arg)
-使用参数列表发送格式化输出到流 stream 中。
+```cpp
+/**
+ * 参数
+ *   str -- 这是指向一个字符数组的指针，该数组存储了 C 字符串。
+ *   format -- 这是字符串，包含了要被写入到字符串 str 的文本。
+ *   arg -- 一个表示可变参数列表的对象。这应被 <stdarg> 中定义的 va_start 宏初始化。
+ * 返回值
+ *   成功：返回写入的字符总数
+ *   失败：返回一个负数
+ */
+int vsprintf(char *str, const char *format, va_list arg)
+```
 
-42	int snprintf(char *str, size_t size, const char *format, ...)
+示例
+```cpp
+#include <stdio.h>
+#include <stdarg.h>
+
+int print_values(char text[], const char *format, ...)
+{
+    va_list args;
+    va_start(args, format);
+    int ret = vsprintf(text, format, args);
+    va_end(args);
+    return ret;
+}
+
+int main(int argc, char **argv)
+{
+    char text[20];
+    int ret = print_values(text, "%c=%d", 'a', 'a');
+    printf("ret=%d, text=%s\n", ret, text);
+
+    return 0;
+}
+
+```
+
+输出
+
+```shell
+$ gcc main.c -o main -g && ./main 
+ret=4, text=a=97
+```
+
+## snprintf
+
 格式字符串到 str 中。
+
+与 sprintf() 函数不同的是，snprintf() 函数提供了一个参数 size，可以防止缓冲区溢出
+
+```cpp
+/**
+ * 参数
+ *   str -- 目标字符串，用于存储格式化后的字符串的字符数组的指针。
+ *   size -- 字符数组的大小。超过 size 会被截断，最多写入 size-1 个字符，并在字符串的末尾添加一个空字符（\0）以表示字符串的结束
+ *   format -- 格式化字符串。
+ *   ... -- 可变参数，可变数量的参数根据 format 中的格式化指令进行格式化。
+ * 返回值
+ *   成功，返回将要写入的字符数（不包括结尾的空字符），即使这个值大于 size。
+ *   错误，返回负值。
+ */
+int snprintf(char *str, size_t size, const char *format, ...)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    char text[5];
+    int ret = snprintf(text, 5, "%s", "hello world");
+    printf("ret: %d, text: %s\n", ret, text);
+
+    return 0;
+}
+
+```
+
+```shell
+% gcc main.c -o main -g && ./main 
+ret: 11, text: hell
+```
+
+如果使用`sprintf`，会出现程序异常
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    char text[5];
+    int ret = sprintf(text, "%s", "hello world");
+    printf("ret: %d, text: %s\n", ret, text);
+
+    return 0;
+}
+```
+
+```shell
+$ gcc main.c -o main -g && ./main 
+illegal hardware instruction  ./main
+```
 
 ## fprintf
 
@@ -1011,7 +1194,89 @@ hello world
 int fprintf(FILE *stream, const char *format, ...)
 ```
 
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    FILE *file = fopen("demo.txt", "w");
+
+    fprintf(file, "%s\n", "hello world");
+
+    fclose(file);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main -g && ./main
+
+$ cat demo.txt 
+hello world
+```
+
+## vfprintf
+
+使用参数列表发送格式化输出到流 stream 中。
+```cpp
+/**
+ * 参数
+ *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象标识了流。
+ *   format -- 这是 C 字符串，包含了要被写入到流 stream 中的文本
+ *   arg -- 一个表示可变参数列表的对象。这应被 <stdarg> 中定义的 va_start 宏初始化。
+ * 返回值
+ *   成功：返回写入的字符总数，
+ *   失败：返回一个负数。
+ */
+int vfprintf(FILE *stream, const char *format, va_list arg)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdarg.h>
+
+void print_values(FILE *file, const char *format, ...)
+{
+    va_list args;
+
+    va_start(args, format);
+    vfprintf(file, format, args);
+    va_end(args);
+}
+
+int main(int argc, char **argv)
+{
+    FILE *file;
+
+    file = fopen("demo.txt", "w");
+    print_values(file, "%s\n", "hello world");
+    fclose(file);
+
+    return 0;
+}
+
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main -g && ./main 
+
+$ cat demo.txt 
+hello world
+```
+
+
 ## 变长参数列表
+
+printf等函数，实现了变长参数列表，我们也能通过`stdarg.h` 实现
 
 宏定义
 

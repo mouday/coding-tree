@@ -6,42 +6,42 @@
 #include <stdio.h>
 ```
 
-## 通用宏
+## 数据结构
 
 ```cpp
-#define	EOF	(-1)
+#define  EOF  (-1)
 
-typedef	struct __sFILE {
-	unsigned char *_p;	 /* current position in (some) buffer */
-	int	_r;		         /* read space left for getc() */
-	int	_w;		         /* write space left for putc() */
-	short	_flags;		 /* flags, below; this FILE is free if 0 */
-	short	_file;		 /* fileno, if Unix descriptor, else -1 */
-	struct	__sbuf _bf;	 /* the buffer (at least 1 byte, if !NULL) */
-	int	_lbfsize;	     /* 0 or -_bf._size, for inline putc */
+typedef  struct __sFILE {
+  unsigned char *_p;   /* current position in (some) buffer */
+  int  _r;             /* read space left for getc() */
+  int  _w;             /* write space left for putc() */
+  short  _flags;     /* flags, below; this FILE is free if 0 */
+  short  _file;     /* fileno, if Unix descriptor, else -1 */
+  struct  __sbuf _bf;   /* the buffer (at least 1 byte, if !NULL) */
+  int  _lbfsize;       /* 0 or -_bf._size, for inline putc */
 
-	/* operations */
-	void	*_cookie;	 /* cookie passed to io functions */
-	int	(* _Nullable _close)(void *);
-	int	(* _Nullable _read) (void *, char *, int);
-	fpos_t	(* _Nullable _seek) (void *, fpos_t, int);
-	int	(* _Nullable _write)(void *, const char *, int);
+  /* operations */
+  void  *_cookie;   /* cookie passed to io functions */
+  int  (* _Nullable _close)(void *);
+  int  (* _Nullable _read) (void *, char *, int);
+  fpos_t  (* _Nullable _seek) (void *, fpos_t, int);
+  int  (* _Nullable _write)(void *, const char *, int);
 
-	/* separate buffer for long sequences of ungetc() */
-	struct	__sbuf _ub;	      /* ungetc buffer */
-	struct __sFILEX *_extra;  /* additions to FILE to not break ABI */
-	int	_ur;		          /* saved _r when _r is counting ungetc data */
+  /* separate buffer for long sequences of ungetc() */
+  struct  __sbuf _ub;        /* ungetc buffer */
+  struct __sFILEX *_extra;  /* additions to FILE to not break ABI */
+  int  _ur;              /* saved _r when _r is counting ungetc data */
 
-	/* tricks to meet minimum requirements even when malloc() fails */
-	unsigned char _ubuf[3];	  /* guarantee an ungetc() buffer */
-	unsigned char _nbuf[1];	  /* guarantee a getc() buffer */
+  /* tricks to meet minimum requirements even when malloc() fails */
+  unsigned char _ubuf[3];    /* guarantee an ungetc() buffer */
+  unsigned char _nbuf[1];    /* guarantee a getc() buffer */
 
-	/* separate buffer for fgetln() when line crosses buffer boundary */
-	struct	__sbuf _lb;	      /* buffer for fgetln() */
+  /* separate buffer for fgetln() when line crosses buffer boundary */
+  struct  __sbuf _lb;        /* buffer for fgetln() */
 
-	/* Unix stdio files get aligned to block boundaries on fseek() */
-	int	_blksize;	      /* stat.st_blksize (may be != _bf._size) */
-	fpos_t	_offset;	  /* current lseek offset (see WARNING) */
+  /* Unix stdio files get aligned to block boundaries on fseek() */
+  int  _blksize;        /* stat.st_blksize (may be != _bf._size) */
+  fpos_t  _offset;    /* current lseek offset (see WARNING) */
 } FILE;
 ```
 
@@ -62,11 +62,11 @@ FILE *fopen(const char *filename, const char *mode)
 
 mode 可以是以下表格中的值：
 
-|模式	| 作用 | 描述
+|模式  | 作用 | 描述
 |-|- |-
-r	| 只读 | read, 打开一个用于读取的文件。该文件`必须存在`
-w	| 只写 | write, 若文件存在则文件长度清为0，即该文件内容会消失。\n若文件不存在则建立该文件
-a	| 追加写 | append, 追加到一个文件。写操作向文件末尾追加数据。\n如果文件不存在，则创建文件。
+|r  | 只读 | read, 打开一个用于读取的文件。该文件`必须存在`
+|w  | 只写 | write, 若文件存在则文件长度清为0，即该文件内容会消失。\n若文件不存在则建立该文件
+|a  | 追加写 | append, 追加到一个文件。写操作向文件末尾追加数据。\n如果文件不存在，则创建文件。
 
 可选组合：
 
@@ -115,7 +115,6 @@ int main(int argc, char **argv)
     return 0;
 }
 ```
-
 
 ## fclose
 
@@ -453,7 +452,6 @@ int main(int argc, char **argv)
 
 ```
 
-
 文件内容
 
 ```shell
@@ -491,6 +489,9 @@ hi boy!
  */
 size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream)
 ```
+
+示例
+
 ```cpp
 #include <stdio.h>
 
@@ -631,6 +632,7 @@ int main(int argc, char **argv)
 }
 
 ```
+
 运行
 
 ```shell
@@ -744,66 +746,6 @@ $ gcc main.c -o main && ./main
 create temp filename: /var/tmp/tmp.0.d2gq1d
 ```
 
-
-
-
-5	int fflush(FILE *stream)
-刷新流 stream 的输出缓冲区。
-6	int fgetpos(FILE *stream, fpos_t *pos)
-获取流 stream 的当前文件位置，并把它写入到 pos。
-
-
-9	FILE *freopen(const char *filename, const char *mode, FILE *stream)
-把一个新的文件名 filename 与给定的打开的流 stream 关联，同时关闭流中的旧文件。
-10	int fseek(FILE *stream, long int offset, int whence)
-设置流 stream 的文件位置为给定的偏移 offset，参数 offset 意味着从给定的 whence 位置查找的字节数。
-11	int fsetpos(FILE *stream, const fpos_t *pos)
-设置给定流 stream 的文件位置为给定的位置。参数 pos 是由函数 fgetpos 给定的位置。
-12	long int ftell(FILE *stream)
-返回给定流 stream 的当前文件位置。
-
-
-
-16	void rewind(FILE *stream)
-设置文件位置为给定流 stream 的文件的开头。
-17	void setbuf(FILE *stream, char *buffer)
-定义流 stream 应如何缓冲。
-18	int setvbuf(FILE *stream, char *buffer, int mode, size_t size)
-另一个定义流 stream 应如何缓冲的函数。
-
-
-
-27	int fscanf(FILE *stream, const char *format, ...)
-从流 stream 读取格式化输入。
-28	int scanf(const char *format, ...)
-从标准输入 stdin 读取格式化输入。
-29	int sscanf(const char *str, const char *format, ...)
-从字符串读取格式化输入。
-
-
-32	int fputc(int char, FILE *stream)
-把参数 char 指定的字符（一个无符号字符）写入到指定的流 stream 中，并把位置标识符往前移动。
-33	int fputs(const char *str, FILE *stream)
-把字符串写入到指定的流 stream 中，但不包括空字符。
-34	int getc(FILE *stream)
-从指定的流 stream 获取下一个字符（一个无符号字符），并把位置标识符往前移动。
-35	int getchar(void)
-从标准输入 stdin 获取一个字符（一个无符号字符）。
-36	char *gets(char *str)
-从标准输入 stdin 读取一行，并把它存储在 str 所指向的字符串中。当读取到换行符时，或者到达文件末尾时，它会停止，具体视情况而定。
-37	int putc(int char, FILE *stream)
-把参数 char 指定的字符（一个无符号字符）写入到指定的流 stream 中，并把位置标识符往前移动。
-38	int putchar(int char)
-把参数 char 指定的字符（一个无符号字符）写入到标准输出 stdout 中。
-39	int puts(const char *str)
-把一个字符串写入到标准输出 stdout，直到空字符，但不包括空字符。换行符会被追加到输出中。
-40	int ungetc(int char, FILE *stream)
-把字符 char（一个无符号字符）推入到指定的流 stream 中，以便它是下一个被读取到的字符。
-
-
-
-
-
 ## 常用示例
 
 文件写入
@@ -914,52 +856,54 @@ format 标签属性是
 (1) flags（标识）
 
 | flags（标识） | 描述
-|-|-|
-`-`	| 在给定的字段宽度内左对齐，默认是右对齐（参见 width 子说明符）。
-`+` | 强制在结果之前显示加号或减号（+ 或 -），即正数前面会显示 + 号。<br/>默认情况下，只有负数前面会显示一个 - 号。
-`(space)` | 空格, 如果没有写入任何符号，则在该值前面插入一个空格。
-`#`	| 与 o、x 或 X 说明符一起使用时，非零值前面会分别显示 0、0x 或 0X。<br/>与 e、E 和 f 一起使用时，会强制输出包含一个小数点，即使后边没有数字时也会显示小数点。<br/>默认情况下，如果后边没有数字时候，不会显示显示小数点。<br/>与 g 或 G 一起使用时，结果与使用 e 或 E 时相同，但是尾部的零不会被移除。
-`0` | 在指定填充 padding 的数字左边放置零（0），而不是空格（参见 width 子说明符）。
+|-|-
+| `-`  | 在给定的字段宽度内左对齐，默认是右对齐（参见 width 子说明符）。
+| `+` | 强制在结果之前显示加号或减号（+ 或 -），即正数前面会显示 + 号。<br/>默认情况下，只有负数前面会显示一个 - 号。
+| `(space)` | 空格, 如果没有写入任何符号，则在该值前面插入一个空格。
+| `#`  | 与 o、x 或 X 说明符一起使用时，非零值前面会分别显示 0、0x 或 0X。<br/>与 e、E 和 f 一起使用时，会强制输出包含一个小数点，即使后边没有数字时也会显示小数点。<br/>默认情况下，如果后边没有数字时候，不会显示显示小数点。<br/>与 g 或 G 一起使用时，结果与使用 e 或 E 时相同，但是尾部的零不会被移除。
+| `0` | 在指定填充 padding 的数字左边放置零（0），而不是空格（参见 width 子说明符）。
 
 （2）width（宽度）
 
 |width（宽度）| 描述
 |-|-
-`(number)` | 要输出的字符的最小数目。如果输出的值短于该数，结果会用空格填充。如果输出的值长于该数，结果不会被截断。
-`*` | 宽度在 format 字符串中未指定，但是会作为附加整数值参数放置于要被格式化的参数之前。
+| `(number)` | 要输出的字符的最小数目。如果输出的值短于该数，结果会用空格填充。如果输出的值长于该数，结果不会被截断。
+| `*` | 宽度在 format 字符串中未指定，但是会作为附加整数值参数放置于要被格式化的参数之前。
 
 （3）precision（精度）
-|.precision（精度）	| 描述
-|-|-|
-`.number` | 对于整数说明符（d、i、o、u、x、X）：precision 指定了要写入的数字的最小位数。<br/>如果写入的值短于该数，结果会用前导零来填充。<br/>如果写入的值长于该数，结果不会被截断。精度为 0 意味着不写入任何字符。<br/>对于 e、E 和 f 说明符：要在小数点后输出的小数位数。<br/>对于 g 和 G 说明符：要输出的最大有效位数。<br/>对于 s: 要输出的最大字符数。默认情况下，所有字符都会被输出，直到遇到末尾的空字符。<br/>对于 c 类型：没有任何影响。<br/>当未指定任何精度时，默认为 1。<br/>如果指定时不带有一个显式值，则假定为 0。
-`.*`	| 精度在 format 字符串中未指定，但是会作为附加整数值参数放置于要被格式化的参数之前。
+
+|.precision（精度）| 描述
+|-|-
+|`.number` | 对于整数说明符（d、i、o、u、x、X）：precision 指定了要写入的数字的最小位数。<br/>如果写入的值短于该数，结果会用前导零来填充。<br/>如果写入的值长于该数，结果不会被截断。精度为 0 意味着不写入任何字符。<br/>对于 e、E 和 f 说明符：要在小数点后输出的小数位数。<br/>对于 g 和 G 说明符：要输出的最大有效位数。<br/>对于 s: 要输出的最大字符数。默认情况下，所有字符都会被输出，直到遇到末尾的空字符。<br/>对于 c 类型：没有任何影响。<br/>当未指定任何精度时，默认为 1。<br/>如果指定时不带有一个显式值，则假定为 0。
+|`.*`  | 精度在 format 字符串中未指定，但是会作为附加整数值参数放置于要被格式化的参数之前。
 
 （4）length（长度）
-|length（长度）	| 描述
-|-|-|
-h	| 参数被解释为短整型或无符号短整型（仅适用于整数说明符：i、d、o、u、x 和 X）。
-l	| 参数被解释为长整型或无符号长整型，适用于整数说明符（i、d、o、u、x 和 X）及说明符 c（表示一个宽字符）和 s（表示宽字符字符串）。
-L	| 参数被解释为长双精度型（仅适用于浮点数说明符：e、E、f、g 和 G）。
+
+|length（长度）| 描述
+|-|-
+| h | 参数被解释为短整型或无符号短整型（仅适用于整数说明符：i、d、o、u、x 和 X）。
+| l | 参数被解释为长整型或无符号长整型，适用于整数说明符（i、d、o、u、x 和 X）及说明符 c（表示一个宽字符）和 s（表示宽字符字符串）。
+| L | 参数被解释为长双精度型（仅适用于浮点数说明符：e、E、f、g 和 G）。
 
 （5）specifier（说明符）
 
 |specifier（说明符）| 输出
-|-|-|
-c | 字符
-d 或 i	| 有符号十进制整数
-e | 使用 e 字符的科学科学记数法（尾数和指数）
-E |	使用 E 字符的科学科学记数法（尾数和指数）
-f |	十进制浮点数
-g |	自动选择 %e 或 %f 中合适的表示法
-G |	自动选择 %E 或 %f 中合适的表示法
-o |	有符号八进制
-s |	字符的字符串
-u |	无符号十进制整数
-x |	无符号十六进制整数
-X |	无符号十六进制整数（大写字母）
-p |	指针地址
-n |	无输出
-% |	字符%
+| - | -
+|c | 字符
+| d 或 i| 有符号十进制整数
+| e | 使用 e 字符的科学科学记数法（尾数和指数）
+| E | 使用 E 字符的科学科学记数法（尾数和指数）
+| f | 十进制浮点数
+| g | 自动选择 %e 或 %f 中合适的表示法
+| G | 自动选择 %E 或 %f 中合适的表示法
+| o | 有符号八进制
+| s | 字符的字符串
+| u | 无符号十进制整数
+| x | 无符号十六进制整数
+| X | 无符号十六进制整数（大写字母）
+| p | 指针地址
+| n | 无输出
+| % | 字符%
 
 示例
 
@@ -1087,6 +1031,7 @@ int vsprintf(char *str, const char *format, va_list arg)
 ```
 
 示例
+
 ```cpp
 #include <stdio.h>
 #include <stdarg.h>
@@ -1182,6 +1127,7 @@ illegal hardware instruction  ./main
 ## fprintf
 
 发送格式化输出到流 stream 中。
+
 ```cpp
 /**
  * 参数
@@ -1223,6 +1169,7 @@ hello world
 ## vfprintf
 
 使用参数列表发送格式化输出到流 stream 中。
+
 ```cpp
 /**
  * 参数
@@ -1272,3 +1219,191 @@ $ gcc main.c -o main -g && ./main
 $ cat demo.txt 
 hello world
 ```
+
+## fflush
+
+刷新流 stream 的输出缓冲区。
+
+```cpp
+/**
+ * 参数
+ *    stream -- 指向 FILE 类型的指针
+ *      如果 stream 为 NULL，则会刷新所有输出流的缓冲区。
+ *      如果 stream 是文件指针，则刷新该文件流的输出缓冲区。
+ * 返回值
+ *    成功刷新缓冲区，返回 0。
+ *    错误，返回 EOF，并且设置错误标识符（ferror）。
+ */
+int fflush(FILE *stream)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    FILE *fp = fopen("demo.txt", "w");
+
+    fprintf(fp, "%s\n", "hello world");
+
+    if (fflush(fp) == 0)
+    {
+        printf("flush success\n");
+    }
+    else
+    {
+        printf("flush error\n");
+    }
+
+    fclose(fp);
+
+    return 0;
+}
+
+```
+
+执行结果
+
+```shell
+$ gcc main.c -o main && ./main
+flush success
+```
+
+## scanf
+
+从标准输入 stdin 读取格式化输入。
+
+```cpp
+/**
+ * 参数
+ *   format -- 这是 C 字符串
+ *   附加参数 -- 参数的个数应与 % 标签的个数相同。
+ * 返回值
+ *   成功，返回成功匹配和赋值的个数。
+ *   到达文件末尾或发生读错误，返回 EOF。
+ */
+int scanf(const char *format, ...)
+```
+
+format 说明符形式为:
+
+```cpp
+[%[*][width][modifiers]type]
+```
+
+具体讲解如下：
+
+|参数 | 符号 | 描述
+|-|-|-
+| 星号`*`说明符 | `*` | 读取数据但不存储
+| 宽度说明符 | width | 指定读取的最大字符数
+| 长度修饰符 | modifiers | 为对应的附加参数所指向的数据指定一个不同于整型（针对 d、i 和 n）、无符号整型（针对 o、u 和 x）或浮点型（针对 e、f 和 g）的大小
+| 格式说明符 | type | 指定要读取的数据类型和格式
+
+modifiers 长度修饰符
+
+| 符号 | 描述
+|-|-
+| h  | 短整型（针对 d、i 和 n），或无符号短整型（针对 o、u 和 x） 
+|l  | 长整型（针对 d、i 和 n），或无符号长整型（针对 o、u 和 x），或双精度型（针对 e、f 和 g）
+| L | 长双精度型（针对 e、f 和 g）
+
+type 类型说明符：
+
+|类型 | 合格的输入 | 参数的类型
+|-|-|- 
+|%a、%A  | 读入一个浮点值(仅 C99 有效)。| float *
+|%c |单个字符：读取下一个字符。如果指定了一个不为 1 的宽度 width，函数会读取 width 个字符，并通过参数传递，把它们存储在数组中连续位置。在末尾不会追加空字符。  |  char *
+|%d |十进制整数：数字前面的 + 或 - 号是可选的。 |    int *
+%e、%E、%f、%F、%g、%G    浮点数：包含了一个小数点、一个可选的前置符号 + 或 -、一个可选的后置字符 e 或 E，以及一个十进制数字。两个有效的实例 -732.103 和 7.12e4   |  float *
+|%i |读入十进制，八进制，十六进制整数 。  |   int *
+|%o |八进制整数。 |    int *
+|%s |字符串。这将读取连续字符，直到遇到一个空格字符（空格字符可以是空白、换行和制表符）。   |  char *
+|%u    |无符号的十进制整数。  |   unsigned int *
+|%x、%X    |十六进制整数。  |   int *
+|%p    |读入一个指针 。  | 
+|`%[]`    |扫描字符集合 。| 
+|`%%`    |读 % 符号。  | 
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    int a;
+    
+    printf("please input 1 number:\n");
+    scanf("%d", &a);
+
+    printf("input number: %d\n", a);
+
+    return 0;
+}
+```
+
+```shell
+$ gcc main.c -o main && ./main
+
+please input 1 number:
+16
+input number: 16
+```
+
+
+27  int fscanf(FILE *stream, const char *format, ...)
+从流 stream 读取格式化输入。
+
+29  int sscanf(const char *str, const char *format, ...)
+从字符串读取格式化输入。
+
+
+6  int fgetpos(FILE *stream, fpos_t *pos)
+获取流 stream 的当前文件位置，并把它写入到 pos。
+
+
+9  FILE *freopen(const char *filename, const char *mode, FILE *stream)
+把一个新的文件名 filename 与给定的打开的流 stream 关联，同时关闭流中的旧文件。
+10  int fseek(FILE *stream, long int offset, int whence)
+设置流 stream 的文件位置为给定的偏移 offset，参数 offset 意味着从给定的 whence 位置查找的字节数。
+11  int fsetpos(FILE *stream, const fpos_t *pos)
+设置给定流 stream 的文件位置为给定的位置。参数 pos 是由函数 fgetpos 给定的位置。
+12  long int ftell(FILE *stream)
+返回给定流 stream 的当前文件位置。
+
+
+
+16  void rewind(FILE *stream)
+设置文件位置为给定流 stream 的文件的开头。
+17  void setbuf(FILE *stream, char *buffer)
+定义流 stream 应如何缓冲。
+18  int setvbuf(FILE *stream, char *buffer, int mode, size_t size)
+另一个定义流 stream 应如何缓冲的函数。
+
+
+
+
+
+32  int fputc(int char, FILE *stream)
+把参数 char 指定的字符（一个无符号字符）写入到指定的流 stream 中，并把位置标识符往前移动。
+33  int fputs(const char *str, FILE *stream)
+把字符串写入到指定的流 stream 中，但不包括空字符。
+34  int getc(FILE *stream)
+从指定的流 stream 获取下一个字符（一个无符号字符），并把位置标识符往前移动。
+35  int getchar(void)
+从标准输入 stdin 获取一个字符（一个无符号字符）。
+36  char *gets(char *str)
+从标准输入 stdin 读取一行，并把它存储在 str 所指向的字符串中。当读取到换行符时，或者到达文件末尾时，它会停止，具体视情况而定。
+37  int putc(int char, FILE *stream)
+把参数 char 指定的字符（一个无符号字符）写入到指定的流 stream 中，并把位置标识符往前移动。
+38  int putchar(int char)
+把参数 char 指定的字符（一个无符号字符）写入到标准输出 stdout 中。
+39  int puts(const char *str)
+把一个字符串写入到标准输出 stdout，直到空字符，但不包括空字符。换行符会被追加到输出中。
+40  int ungetc(int char, FILE *stream)
+把字符 char（一个无符号字符）推入到指定的流 stream 中，以便它是下一个被读取到的字符。
+
+

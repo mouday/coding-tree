@@ -696,7 +696,7 @@ $ gcc main.c -o main && ./main
 create temp file success
 ```
 
-## tmpnam
+## tmpnam(deprecated)
 
 生成并返回一个有效的临时文件名，该文件名之前是不存在的。
 
@@ -1634,42 +1634,133 @@ $ cat demo.txt
 hello world
 ```
 
+## getc
 
+从指定的流 stream 获取下一个字符（一个无符号字符），并把位置标识符往前移动。
+
+```cpp
+/**
+ * 参数
+ *   stream -- 这是指向 FILE 对象的指针
+ * 返回值
+ *   该函数以无符号 char 强制转换为 int 的形式返回读取的字符
+ *   如果到达文件末尾或发生读错误，则返回 EOF。
+ */
+int getc(FILE *stream)
+```
 示例
 
 ```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    int value;
+
+    printf("please input a char\n");
+    value = getc(stdin);
+    printf("input: %c\n", value);
+
+    return 0;
+}
 
 ```
 
 运行结果
 
 ```shell
+$ gcc main.c -o main && ./main
+please input a char
+A
+input: A
+```
 
+## getchar
+
+从标准输入 stdin 获取一个字符（一个无符号字符）。同于 `getc(stdin)`
+
+```cpp
+
+/**
+ * 参数
+ *   NA
+ * 返回值
+ *   该函数以无符号 char 强制转换为 int 的形式返回读取的字符
+ *   如果到达文件末尾或发生读错误，则返回 EOF。
+ */
+int getchar(void);
 ```
 
 示例
 
 ```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    int value;
+
+    printf("please input a char\n");
+    value = getchar();
+    printf("input: %c\n", value);
+
+    return 0;
+}
 
 ```
 
 运行结果
 
 ```shell
-
+$ gcc main.c -o main && ./main
+please input a char
+A
+input: A
 ```
 
+## gets(deprecated)
+
+从标准输入 stdin 读取一行，并把它存储在 str 所指向的字符串中。当读取到换行符时，或者到达文件末尾时，它会停止，具体视情况而定。
+
+```cpp
+/**
+ * 参数
+ *   str -- 这是指向一个字符数组的指针，该数组存储了 C 字符串。
+ * 返回值
+ *   如果成功，该函数返回 str。
+ *   如果发生错误或者到达文件末尾时还未读取任何字符，则返回 NULL。
+ */
+char *gets(char *str)
+```
 
 示例
 
 ```cpp
+#include <stdio.h>
 
+int main(int argc, char **argv)
+{
+    char text[20];
+
+    printf("please input a string:\n");
+    
+    gets(text);
+
+    printf("input: %s\n", text);
+
+    return 0;
+}
 ```
 
 运行结果
 
 ```shell
+$ gcc main.c -o main && ./main
+warning: this program uses gets(), which is unsafe.
 
+please input a string:
+hello world
+input: hello world
 ```
 
 
@@ -1739,12 +1830,8 @@ hello world
 
 
 
-34  int getc(FILE *stream)
-从指定的流 stream 获取下一个字符（一个无符号字符），并把位置标识符往前移动。
-35  int getchar(void)
-从标准输入 stdin 获取一个字符（一个无符号字符）。
-36  char *gets(char *str)
-从标准输入 stdin 读取一行，并把它存储在 str 所指向的字符串中。当读取到换行符时，或者到达文件末尾时，它会停止，具体视情况而定。
+
+
 37  int putc(int char, FILE *stream)
 把参数 char 指定的字符（一个无符号字符）写入到指定的流 stream 中，并把位置标识符往前移动。
 38  int putchar(int char)

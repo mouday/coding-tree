@@ -1317,7 +1317,7 @@ type 类型说明符：
 |%a、%A  | 读入一个浮点值(仅 C99 有效)。| float *
 |%c |单个字符：读取下一个字符。如果指定了一个不为 1 的宽度 width，函数会读取 width 个字符，并通过参数传递，把它们存储在数组中连续位置。在末尾不会追加空字符。  |  char *
 |%d |十进制整数：数字前面的 + 或 - 号是可选的。 |    int *
-%e、%E、%f、%F、%g、%G    浮点数：包含了一个小数点、一个可选的前置符号 + 或 -、一个可选的后置字符 e 或 E，以及一个十进制数字。两个有效的实例 -732.103 和 7.12e4   |  float *
+%e、%E、%f、%F、%g、%G   | 浮点数：包含了一个小数点、一个可选的前置符号 + 或 -、一个可选的后置字符 e 或 E，以及一个十进制数字。两个有效的实例 -732.103 和 7.12e4   |  float *
 |%i |读入十进制，八进制，十六进制整数 。  |   int *
 |%o |八进制整数。 |    int *
 |%s |字符串。这将读取连续字符，直到遇到一个空格字符（空格字符可以是空白、换行和制表符）。   |  char *
@@ -1345,6 +1345,8 @@ int main(int argc, char **argv)
 }
 ```
 
+运行结果
+
 ```shell
 $ gcc main.c -o main && ./main
 
@@ -1353,28 +1355,380 @@ please input 1 number:
 input number: 16
 ```
 
+## fscanf
 
-27  int fscanf(FILE *stream, const char *format, ...)
 从流 stream 读取格式化输入。
 
-29  int sscanf(const char *str, const char *format, ...)
+```cpp
+/**
+ * 参数
+ *  stream -- 这是指向 FILE 对象的指针
+ *  format -- 这是 C 字符串，包含了以下各项中的一个或多个
+ *  附加参数 -- 参数的个数应与 % 标签的个数相同
+ * 返回值
+ *  成功：返回成功匹配和赋值的个数
+ *  到达文件末尾或发生读错误，返回 EOF
+ */
+int fscanf(FILE *stream, const char *format, ...)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    FILE *fp;
+    char text[20];
+
+    fp = fopen("demo.txt", "r");
+
+    fscanf(fp, "%s", text);
+    printf("read text: %s\n", text);
+
+    fclose(fp);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+read text: hello
+```
+
+## sscanf
+
 从字符串读取格式化输入。
 
+```cpp
 
-6  int fgetpos(FILE *stream, fpos_t *pos)
+/**
+ * 参数
+ *   str -- 这是 C 字符串，是函数检索数据的源。
+ *   format -- 这是 C 字符串
+ *   附加参数 -- 参数与 % 标签的顺序相同
+ * 返回值
+ *   如果成功，该函数返回成功匹配和赋值的个数。
+ *   如果到达文件末尾或发生读错误，则返回 EOF。
+ */
+int sscanf(const char *str, const char *format, ...)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char **argv)
+{
+    char text[20];
+    int year, month, day;
+
+    strcpy(text, "2025-10-01");
+
+    sscanf(text, "%d-%d-%d", &year, &month, &day);
+
+    printf("Year: %d, Month: %d, Day: %d\n", year, month, day);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+Year: 2025, Month: 10, Day: 1
+```
+
+## fgetpos
+
 获取流 stream 的当前文件位置，并把它写入到 pos。
 
+```cpp
+/**
+ * 参数
+ *   stream -- 这是指向 FILE 对象的指针
+ *   pos -- 这是指向 fpos_t 对象的指针
+ * 返回值
+ *   成功，返回零
+ *   错误，返回非零值
+ */
+int fgetpos(FILE *stream, fpos_t *pos)
+```
 
-9  FILE *freopen(const char *filename, const char *mode, FILE *stream)
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    FILE *file;
+    fpos_t position;
+    file = fopen("demo.txt", "w");
+
+    // first
+    fgetpos(file, &position);
+    printf("Current position in file: %ld\n", (long)position);
+
+    fprintf(file, "hello world\n");
+
+    // second
+    fgetpos(file, &position);
+    printf("Current position in file: %ld\n", (long)position);
+
+    fclose(file);
+
+    return 0;
+}
+
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+Current position in file: 0
+Current position in file: 12
+```
+
+## freopen
+
 把一个新的文件名 filename 与给定的打开的流 stream 关联，同时关闭流中的旧文件。
+
+```cpp
+/**
+ * 参数
+ *   filename -- 这是 C 字符串，包含了要打开的文件名称。
+ *   mode -- 这是 C 字符串，包含了文件访问模式
+ *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象标识了要被重新打开的流。
+ * 返回值
+ *   如果文件成功打开，则函数返回一个指针，指向用于标识流的对象。
+ *   否则，返回空指针。
+ */
+FILE *freopen(const char *filename, const char *mode, FILE *stream)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    FILE *file;
+
+    file = freopen("demo.txt", "w", stdout);
+
+    // 该文本重定向到 demo.txt
+    printf("Hello, World!\n");
+    
+    fclose(file);
+
+    return 0;
+}
+
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+
+$ cat demo.txt 
+Hello, World!
+```
+
+## fputc
+
+把参数 char 指定的字符（一个无符号字符）写入到指定的流 stream 中，并把位置标识符往前移动。
+
+```cpp
+/**
+ * 参数
+ *   char -- 这是要被写入的字符
+ *   stream -- 这是指向 FILE 对象的指针
+ * 返回值
+ *   成功：则返回被写入的字符。
+ *   错误：则返回 EOF，并设置错误标识符。
+ */
+int fputc(int char, FILE *stream)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    FILE *file;
+
+    file = fopen("demo.txt", "w");
+
+    fputc('A', file);
+
+    fclose(file);
+
+    return 0;
+}
+
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+
+$ cat demo.txt
+A
+```
+
+## fputs
+
+把字符串写入到指定的流 stream 中，但不包括空字符。
+
+```cpp
+/**
+ * 参数
+ *   str -- 这是一个数组，包含了要写入的以空字符终止的字符序列。
+ *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象标识了要被写入字符串的流。
+ * 返回值
+ *   成功：该函数返回一个非负值
+ *   失败：发生错误则返回 EOF。
+ */
+int fputs(const char *str, FILE *stream)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    FILE *file;
+
+    file = fopen("demo.txt", "w");
+
+    fputs("hello world", file);
+
+    fclose(file);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+
+$ cat demo.txt
+hello world
+```
+
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
 10  int fseek(FILE *stream, long int offset, int whence)
 设置流 stream 的文件位置为给定的偏移 offset，参数 offset 意味着从给定的 whence 位置查找的字节数。
 11  int fsetpos(FILE *stream, const fpos_t *pos)
 设置给定流 stream 的文件位置为给定的位置。参数 pos 是由函数 fgetpos 给定的位置。
 12  long int ftell(FILE *stream)
 返回给定流 stream 的当前文件位置。
-
-
 
 16  void rewind(FILE *stream)
 设置文件位置为给定流 stream 的文件的开头。
@@ -1385,12 +1739,6 @@ input number: 16
 
 
 
-
-
-32  int fputc(int char, FILE *stream)
-把参数 char 指定的字符（一个无符号字符）写入到指定的流 stream 中，并把位置标识符往前移动。
-33  int fputs(const char *str, FILE *stream)
-把字符串写入到指定的流 stream 中，但不包括空字符。
 34  int getc(FILE *stream)
 从指定的流 stream 获取下一个字符（一个无符号字符），并把位置标识符往前移动。
 35  int getchar(void)

@@ -137,6 +137,7 @@ var _hmt = _hmt || [];
           },
           { text: "全栈爱好者周刊", link: "/weekly/" },
           { text: "软考", link: "/ruankao/" },
+          { text: "面试题", link: "/interview/" },
           { text: "数据结构和算法", link: "/data-structure-and-algorithm/" },
           { text: "在线工具箱", link: "https://mouday.github.io/tools/" },
         ],

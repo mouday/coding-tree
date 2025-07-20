@@ -746,51 +746,6 @@ $ gcc main.c -o main && ./main
 create temp filename: /var/tmp/tmp.0.d2gq1d
 ```
 
-## 常用示例
-
-文件写入
-
-```cpp
-#include <stdio.h>
-
-int main(int argc, char **argv) {
-    FILE *file = fopen("demo.txt", "r");
-    if (file == NULL) {
-        perror("fopen");
-    }
-
-    fprintf(file, "hello world\n");
-
-    fclose(file);
-
-    return 0;
-}
-
-```
-
-文件读取
-
-```cpp
-#include <stdio.h>
-
-int main(int argc, char **argv) {
-    FILE *file = fopen("demo.txt", "r");
-    if (file == NULL) {
-        perror("fopen");
-    }
-
-    char buffer[50];
-    while (fgets(buffer, sizeof(buffer), file) != NULL) {
-        printf("%s", buffer);
-    }
-
-    fclose(file);
-
-    return 0;
-}
-
-```
-
 ## fwrite
 
 把 ptr 所指向的数组中的数据写入到给定流 stream 中。
@@ -1098,6 +1053,8 @@ int main(int argc, char **argv)
 }
 
 ```
+
+运行结果
 
 ```shell
 % gcc main.c -o main -g && ./main 
@@ -1763,66 +1720,190 @@ hello world
 input: hello world
 ```
 
+## rewind
 
-示例
-
-```cpp
-
-```
-
-运行结果
-
-```shell
-
-```
-
-
-示例
+设置文件位置为给定流 stream 的文件的开头。
 
 ```cpp
-
-```
-
-运行结果
-
-```shell
-
-```
-
-
-示例
-
-```cpp
-
-```
-
-运行结果
-
-```shell
-
+/**
+ * 参数
+ *   stream -- 这是指向 FILE 对象的指针
+ * 返回值
+ *   该函数不返回任何值。
+ */
+void rewind(FILE *stream)
 ```
 
 示例
 
 ```cpp
+#include <stdio.h>
 
+int main(int argc, char **argv)
+{
+    FILE *fd = fopen("demo.txt", "r");
+    int ch;
+
+    // 第一次读取
+    while (1)
+    {
+        ch = fgetc(fd);
+        if (feof(fd))
+        {
+            break;
+        }
+
+        printf("%c", ch);
+    }
+
+    printf("\n");
+
+    // 将读取位置重置到文件开头
+    // 等价于 fseek(fd, 0, SEEK_SET);
+    rewind(fd);
+
+    // 第二次读取
+    while (1)
+    {
+        ch = fgetc(fd);
+        if (feof(fd))
+        {
+            break;
+        }
+
+        printf("%c", ch);
+    }
+
+    printf("\n");
+
+    fclose(fd);
+
+    return 0;
+}
 ```
 
 运行结果
 
 ```shell
-
+$ gcc main.c -o main && ./main
+hello world
+hello world
 ```
 
-10  int fseek(FILE *stream, long int offset, int whence)
+## fseek
+
 设置流 stream 的文件位置为给定的偏移 offset，参数 offset 意味着从给定的 whence 位置查找的字节数。
+
+```cpp
+/**
+ * 参数
+ *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象标识了流。
+ *   offset -- 这是相对 whence 的偏移量，以字节为单位。
+ *   whence -- 这是表示开始添加偏移 offset 的位置
+ * 返回值
+ *   成功：返回零
+ *   失败：返回非零值
+ */
+int fseek(FILE *stream, long int offset, int whence)
+```
+
+`whence` 一般指定为下列常量之一：
+
+|常量 | 描述
+|-|-
+|SEEK_SET | 文件的开头
+|SEEK_CUR | 文件指针的当前位置
+|SEEK_END | 文件的末尾
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+
+    FILE *fd = fopen("demo.txt", "r");
+    int ch;
+
+    // 第一次读取
+    while (1)
+    {
+        ch = fgetc(fd);
+        if (feof(fd))
+        {
+            break;
+        }
+
+        printf("%c", ch);
+    }
+
+    printf("\n");
+
+    // 将读取位置重置到文件开头
+    // 等价于 rewind(fd);
+    fseek(fd, 0, SEEK_SET);
+
+    // 第二次读取
+    while (1)
+    {
+        ch = fgetc(fd);
+        if (feof(fd))
+        {
+            break;
+        }
+
+        printf("%c", ch);
+    }
+
+    printf("\n");
+
+    fclose(fd);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+hello world
+hello world
+```
+
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
 11  int fsetpos(FILE *stream, const fpos_t *pos)
 设置给定流 stream 的文件位置为给定的位置。参数 pos 是由函数 fgetpos 给定的位置。
 12  long int ftell(FILE *stream)
 返回给定流 stream 的当前文件位置。
 
-16  void rewind(FILE *stream)
-设置文件位置为给定流 stream 的文件的开头。
+
 17  void setbuf(FILE *stream, char *buffer)
 定义流 stream 应如何缓冲。
 18  int setvbuf(FILE *stream, char *buffer, int mode, size_t size)

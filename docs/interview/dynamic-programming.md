@@ -251,12 +251,12 @@ python3 demo.py  0.03s user 0.01s system 87% cpu 0.049 total
 
 ![](https://mouday.github.io/img/2025/07/20/iqls34j.png)
 
-动态规划核心判断标准：
+1、动态规划核心判断标准：
 
 - 重复子问题
 - 最优子结构：一个问题的最优解，可有由其子问题的最优解组合而成
 
-适用题型：
+2、适用题型：
 
 - 爬楼梯
 - 打家劫舍
@@ -265,7 +265,7 @@ python3 demo.py  0.03s user 0.01s system 87% cpu 0.049 total
 - 字符串拆分
 - 0-1背包问题
 
-不适用题型：
+3、不适用题型：
 
 二分查找
 

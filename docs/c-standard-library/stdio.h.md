@@ -9,40 +9,54 @@
 ## 数据结构
 
 ```cpp
+// stdio.h
+
+// 无符号整数类型
+typedef unsigned long size_t;
+
+// 文件流类型，适合存储文件流信息的对象类型。
+typedef struct __sFILE {} FILE;
+
+// 文件位置类型，适合存储文件中任何位置的对象类型。
+typedef long long fpos_t;
+
+// 已经到达文件结束的负整数
 #define  EOF  (-1)
 
-typedef  struct __sFILE {
-  unsigned char *_p;   /* current position in (some) buffer */
-  int  _r;             /* read space left for getc() */
-  int  _w;             /* write space left for putc() */
-  short  _flags;     /* flags, below; this FILE is free if 0 */
-  short  _file;     /* fileno, if Unix descriptor, else -1 */
-  struct  __sbuf _bf;   /* the buffer (at least 1 byte, if !NULL) */
-  int  _lbfsize;       /* 0 or -_bf._size, for inline putc */
+// 空指针常量
+#define  NULL  (0)
 
-  /* operations */
-  void  *_cookie;   /* cookie passed to io functions */
-  int  (* _Nullable _close)(void *);
-  int  (* _Nullable _read) (void *, char *, int);
-  fpos_t  (* _Nullable _seek) (void *, fpos_t, int);
-  int  (* _Nullable _write)(void *, const char *, int);
+// 适用于 setvbuf 函数的第三个参数
+#define	_IOFBF	0 /* setvbuf should set fully buffered */
+#define	_IOLBF	1 /* setvbuf should set line buffered */
+#define	_IONBF	2 /* setvbuf should set unbuffered */
 
-  /* separate buffer for long sequences of ungetc() */
-  struct  __sbuf _ub;        /* ungetc buffer */
-  struct __sFILEX *_extra;  /* additions to FILE to not break ABI */
-  int  _ur;              /* saved _r when _r is counting ungetc data */
+// setbuf 函数使用的缓冲区大小
+#define	BUFSIZ	1024 /* size of buffer used by setbuf */
 
-  /* tricks to meet minimum requirements even when malloc() fails */
-  unsigned char _ubuf[3];    /* guarantee an ungetc() buffer */
-  unsigned char _nbuf[1];    /* guarantee a getc() buffer */
+// 系统可以同时打开的文件数量
+#define	FOPEN_MAX	20	/* must be <= OPEN_MAX <sys/syslimits.h> */
 
-  /* separate buffer for fgetln() when line crosses buffer boundary */
-  struct  __sbuf _lb;        /* buffer for fgetln() */
+// 字符数组可以存储的文件名的最大长度
+#define	FILENAME_MAX	1024	/* must be <= PATH_MAX <sys/syslimits.h> */
 
-  /* Unix stdio files get aligned to block boundaries on fseek() */
-  int  _blksize;        /* stat.st_blksize (may be != _bf._size) */
-  fpos_t  _offset;    /* current lseek offset (see WARNING) */
-} FILE;
+#define	P_tmpdir	"/var/tmp/"
+
+// 字符数组可以存储的由 tmpnam 函数创建的临时文件名的最大长度
+#define	L_tmpnam	1024	/* XXX must be == PATH_MAX */
+
+// tmpnam 函数可生成的独特文件名的最大数量
+#define	TMP_MAX		308915776
+
+// 在 fseek 函数中使用，用于在一个文件中定位不同的位置
+#define SEEK_SET        0       /* set file offset to offset */
+#define SEEK_CUR        1       /* set file offset to current plus offset */
+#define SEEK_END        2       /* set file offset to EOF plus offset */
+
+// 分别对应于标准错误、标准输入和标准输出流
+#define	stdin	__stdinp
+#define	stdout	__stdoutp
+#define	stderr	__stderrp
 ```
 
 ## fopen
@@ -533,6 +547,44 @@ ret: 11
 buf: hello world
 ```
 
+## fwrite
+
+把 ptr 所指向的数组中的数据写入到给定流 stream 中。
+
+```cpp
+/**
+ * 参数
+ *   ptr -- 这是指向要被写入的元素数组的指针。
+ *   size -- 这是要被写入的每个元素的大小，以字节为单位。
+ *   nmemb -- 这是元素的个数，每个元素的大小为 size 字节。
+ *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象指定了一个输出流。
+ * 返回值
+ *   如果成功，该函数返回一个 size_t 对象，表示元素的总数，该对象是一个整型数据类型。
+ *   如果该数字与 nmemb 参数不同，则会显示一个错误。
+ */
+size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream)
+```
+
+```cpp
+#include <stdio.h>  // printf
+#include <errno.h>  // errno
+#include <string.h> // strerror
+
+int main(int argc, char **argv)
+{
+    FILE *fd;
+    char text[] = "hello world";
+
+    fd = fopen("demo.txt", "w");
+
+    fwrite(text, sizeof(text), 1, fd);
+
+    fclose(fd);
+
+    return 0;
+}
+```
+
 ## remove
 
 删除给定的文件名 filename，以便它不再被访问。
@@ -744,44 +796,6 @@ int main(int argc, char **argv)
 ```shell
 $ gcc main.c -o main && ./main 
 create temp filename: /var/tmp/tmp.0.d2gq1d
-```
-
-## fwrite
-
-把 ptr 所指向的数组中的数据写入到给定流 stream 中。
-
-```cpp
-/**
- * 参数
- *   ptr -- 这是指向要被写入的元素数组的指针。
- *   size -- 这是要被写入的每个元素的大小，以字节为单位。
- *   nmemb -- 这是元素的个数，每个元素的大小为 size 字节。
- *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象指定了一个输出流。
- * 返回值
- *   如果成功，该函数返回一个 size_t 对象，表示元素的总数，该对象是一个整型数据类型。
- *   如果该数字与 nmemb 参数不同，则会显示一个错误。
- */
-size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream)
-```
-
-```cpp
-#include <stdio.h>  // printf
-#include <errno.h>  // errno
-#include <string.h> // strerror
-
-int main(int argc, char **argv)
-{
-    FILE *fd;
-    char text[] = "hello world";
-
-    fd = fopen("demo.txt", "w");
-
-    fwrite(text, sizeof(text), 1, fd);
-
-    fclose(fd);
-
-    return 0;
-}
 ```
 
 ## printf
@@ -1455,6 +1469,55 @@ Current position in file: 0
 Current position in file: 12
 ```
 
+## fsetpos
+
+设置给定流 stream 的文件位置为给定的位置。参数 pos 是由函数 fgetpos 给定的位置。
+
+```cpp
+/**
+ * 参数
+ *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象标识了流。
+ *   pos -- 这是指向 fpos_t 对象的指针，该对象包含了之前通过 fgetpos 获得的位置。
+ * 返回值
+ *   如果成功，该函数返回零值，
+ *   否则返回非零值，并设置全局变量 errno 为一个正值，该值可通过 perror 来解释。
+ */
+int fsetpos(FILE *stream, const fpos_t *pos)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    FILE *fp;
+    fpos_t postion;
+
+    fp = fopen("demo.txt", "w");
+
+    fgetpos(fp, &postion);
+    fputs("hello world", fp);
+
+    fsetpos(fp, &postion);
+    fputs("good study", fp);
+
+    fclose(fp);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+
+$ cat demo.txt
+good studyd
+```
+
 ## freopen
 
 把一个新的文件名 filename 与给定的打开的流 stream 关联，同时关闭流中的旧文件。
@@ -1872,54 +1935,297 @@ hello world
 hello world
 ```
 
+## putc
+
+把参数 char 指定的字符（一个无符号字符）写入到指定的流 stream 中，并把位置标识符往前移动。
+
+```cpp
+/**
+ * 参数
+ *   char -- 这是要被写入的字符。该字符以其对应的 int 值进行传递。
+ *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象标识了要被写入字符的流。
+ * 返回值
+ *   该函数以无符号 char 强制转换为 int 的形式返回写入的字符，
+ *   如果发生错误则返回 EOF。
+ */
+int putc(int char, FILE *stream)
+```
 
 示例
 
 ```cpp
+#include <stdio.h>
 
+int main(int argc, char **argv)
+{
+    FILE *fd = fopen("demo.txt", "w");
+
+    putc('H', fd);
+
+    fclose(fd);
+
+    return 0;
+}
 ```
 
 运行结果
 
 ```shell
+$ gcc main.c -o main && ./main
 
+$ cat demo.txt
+H
 ```
 
-示例
+## ftell
 
-```cpp
-
-```
-
-运行结果
-
-```shell
-
-```
-
-
-11  int fsetpos(FILE *stream, const fpos_t *pos)
-设置给定流 stream 的文件位置为给定的位置。参数 pos 是由函数 fgetpos 给定的位置。
-12  long int ftell(FILE *stream)
 返回给定流 stream 的当前文件位置。
 
+```cpp
+/**
+ * 参数
+ *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象标识了流。
+ * 返回值
+ *   该函数返回位置标识符的当前值。
+ *   如果发生错误，则返回 -1L，全局变量 errno 被设置为一个正值。
+ */
+long int ftell(FILE *stream)
+```
 
-17  void setbuf(FILE *stream, char *buffer)
-定义流 stream 应如何缓冲。
-18  int setvbuf(FILE *stream, char *buffer, int mode, size_t size)
-另一个定义流 stream 应如何缓冲的函数。
+示例
 
+```cpp
+#include <stdio.h>
 
+int main(int argc, char **argv)
+{
+    FILE *fd = fopen("demo.txt", "r");
 
+    fseek(fd, 0, SEEK_END);
 
+    int pos = ftell(fd);
+    printf("pos: %d\n", pos);
 
-37  int putc(int char, FILE *stream)
-把参数 char 指定的字符（一个无符号字符）写入到指定的流 stream 中，并把位置标识符往前移动。
-38  int putchar(int char)
-把参数 char 指定的字符（一个无符号字符）写入到标准输出 stdout 中。
-39  int puts(const char *str)
+    fclose(fd);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ cat demo.txt
+Hello World!
+
+$ gcc main.c -o main && ./main
+pos: 13
+```
+
+## puts
+
 把一个字符串写入到标准输出 stdout，直到空字符，但不包括空字符。换行符会被追加到输出中。
-40  int ungetc(int char, FILE *stream)
+
+```cpp
+/**
+ * 参数
+ *   str -- 这是要被写入的 C 字符串。
+ * 返回值
+ *   如果成功，该函数返回一个非负值为字符串长度（包括末尾的 \0）
+ *   如果发生错误则返回 EOF。
+ */
+int puts(const char *str)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    puts("hello world");
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+hello world
+```
+
+## putchar
+
+把参数 char 指定的字符（一个无符号字符）写入到标准输出 stdout 中。
+
+```cpp
+/**
+ * 参数
+ *   char -- 这是要被写入的字符。该字符以其对应的 int 值进行传递。
+ * 返回值
+ *   该函数以无符号 char 强制转换为 int 的形式返回写入的字符
+ *   如果发生错误则返回 EOF。
+ */
+int putchar(int char)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    putchar('A');
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+A                                 
+```
+
+## ungetc
+
 把字符 char（一个无符号字符）推入到指定的流 stream 中，以便它是下一个被读取到的字符。
 
+```cpp
+/**
+ * 参数
+ *   char -- 这是要被推入的字符。该字符以其对应的 int 值进行传递。
+ *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象标识了输入流。
+ * 返回值
+ *   如果成功，则返回被推入的字符
+ *   否则返回 EOF，且流 stream 保持不变。
+ */
+int ungetc(int char, FILE *stream)
+```
 
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    ungetc('H', stdin);
+    int ret = fgetc(stdin);
+
+    printf("ret: %c\n", ret);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+ret: H
+```
+
+## setbuf
+
+定义流 stream 应如何缓冲。
+
+```cpp
+/**
+ * 参数
+ *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象标识了一个打开的流。
+ *   buffer -- 这是分配给用户的缓冲，它的长度至少为 BUFSIZ 字节，BUFSIZ 是一个宏常量，表示数组的长度。
+ * 返回值
+ *   该函数不返回任何值。
+ */
+void setbuf(FILE *stream, char *buffer)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    char buffer[BUFSIZ];
+
+    setbuf(stdout, buffer);
+    puts("hello world");
+    fflush(stdout);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ $gcc main.c -o main && ./main
+hello world
+```
+
+## setvbuf
+
+另一个定义流 stream 应如何缓冲的函数。
+
+```cpp
+/**
+ * 参数
+ *   stream -- 这是指向 FILE 对象的指针，该 FILE 对象标识了一个打开的流。
+ *   buffer -- 这是分配给用户的缓冲。如果设置为 NULL，该函数会自动分配一个指定大小的缓冲。
+ *   mode -- 这指定了文件缓冲的模式
+ *   size --这是缓冲的大小，以字节为单位。
+ * 返回值
+ *   如果成功，则该函数返回 0
+ *   否则返回非零值。
+ */
+int setvbuf(FILE *stream, char *buffer, int mode, size_t size)
+```
+
+文件缓冲的模式mode
+
+| 模式 | 描述
+|-|-
+|_IOFBF	| 全缓冲：<br/>对于输出，数据在缓冲填满时被一次性写入。<br/>对于输入，缓冲会在请求输入且缓冲为空时被填充。
+|_IOLBF	| 行缓冲：<br/>对于输出，数据在遇到换行符或者在缓冲填满时被写入，具体视情况而定。<br/>对于输入，缓冲会在请求输入且缓冲为空时被填充，直到遇到下一个换行符。
+|_IONBF	| 无缓冲：<br/>不使用缓冲。每个 I/O 操作都被即时写入。buffer 和 size 参数被忽略。
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+int main(int argc, char **argv)
+{
+    char buffer[BUFSIZ];
+    memset(buffer, '\0', sizeof(buffer));
+
+    setvbuf(stdout, buffer, _IOFBF, sizeof(buffer));
+
+    fputs("hello", stdout);
+
+    fflush(stdout);
+
+    sleep(3);
+
+    fputs("world", stdout);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+# 2次输出之间会停顿一下
+$ gcc main.c -o main && ./main
+helloworld
+```

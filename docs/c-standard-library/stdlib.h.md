@@ -61,17 +61,9 @@ gcc main.c -o main && ./main
 create temp filename: temp-GhUF2h
 ```
 
-1	double atof(const char *str)
-把参数 str 所指向的字符串转换为一个浮点数（类型为 double 型）。
 
-3	long int atol(const char *str)
-把参数 str 所指向的字符串转换为一个长整数（类型为 long int 型）。
-4	double strtod(const char *str, char **endptr)
-把参数 str 所指向的字符串转换为一个浮点数（类型为 double 型）。
-5	long int strtol(const char *str, char **endptr, int base)
-把参数 str 所指向的字符串转换为一个长整数（类型为 long int 型）。
-6	unsigned long int strtoul(const char *str, char **endptr, int base)
-把参数 str 所指向的字符串转换为一个无符号长整数（类型为 unsigned long int 型）。
+
+
 7	void *calloc(size_t nitems, size_t size)
 分配所需的内存空间，并返回一个指向它的指针。
 8	void free(void *ptr)
@@ -134,7 +126,9 @@ create temp filename: temp-GhUF2h
 
 ## atoi
 
-把参数 str 所指向的字符串转换为一个整数（类型为 int 型）。
+字符串转换为整数（类型为 int 型）。
+
+ASCII to integer
 
 ```cpp
 /**
@@ -212,7 +206,6 @@ remainder: 3
 ```
 
 ## abs
-
 
 取绝对值。
 
@@ -380,4 +373,387 @@ int main(int argc, char **argv)
 ```shell
 $ $gcc main.c -o main && ./main
 found value: 2, index: 1
+```
+
+## atof
+
+字符串转换为浮点数（类型为 double 型）。
+
+```cpp
+/**
+ * 参数
+ *   str -- 要转换为浮点数的字符串。
+ * 返回值
+ *   函数返回转换后的双精度浮点数
+ *   如果没有执行有效的转换，则返回零（0.0）。
+ */
+double atof(const char *str)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char **argv)
+{
+    double ret = atof("3.14");
+    printf("value: %f\n", ret);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+value: 3.140000
+```
+
+## atol
+
+字符串转换为长整数（类型为 long int 型）。
+
+```cpp
+/**
+ * 参数
+ *   str -- 要转换为长整数的字符串。
+ * 返回值
+ *   该函数返回转换后的长整数
+ *   如果没有执行有效的转换，则返回零。
+ */
+long int atol(const char *str)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char **argv)
+{
+    long ret = atol("666");
+    printf("value: %ld\n", ret);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+value: 666
+```
+
+## strtod
+
+把参数 str 所指向的字符串转换为一个浮点数（类型为 double 型）。
+
+```cpp
+/**
+ * 参数
+ *   str -- 要转换为双精度浮点数的字符串。
+ *   endptr -- 对类型为 char* 的对象的引用，其值由函数设置为 str 中数值后下一个字符。
+ * 返回值
+ *   该函数返回转换后的双精度浮点数，如果没有执行有效的转换，则返回零（0.0）。
+ */
+double strtod(const char *str, char **endptr)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char **argv)
+{
+    char *ptr;
+    double ret = strtod("666 is test value", &ptr);
+    printf("value: %f\n", ret);
+    printf("other: %s\n", ptr);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+value: 666.000000
+other:  is test value
+```
+
+## strtol
+
+把参数 str 所指向的字符串转换为一个长整数（类型为 long int 型）。
+
+```cpp
+/**
+ * 参数
+ *   str -- 要转换为长整数的字符串。
+ *   endptr -- 对类型为 char* 的对象的引用，其值由函数设置为 str 中数值后的下一个字符。
+ *   base -- 基数，必须介于 2 和 36（包含）之间，或者是特殊值 0。
+ *     如果 base 为 0，则会根据字符串的前缀来判断进制：
+ *       - 如果字符串以 '0x' 或 '0X' 开头，则将其视为十六进制；
+ *       - 如果字符串以 '0' 开头，则将其视为八进制；
+ *       - 否则将其视为十进制。
+ * 返回值
+ *   函数返回被转换的长整型整数值。
+ *     - 如果输入字符串不符合数字格式，strtol() 将返回 0
+ *     - 如果转换结果超出了 long 整数的表示范围，那么将产生溢出，并设置 errno 为 ERANGE
+ */
+long int strtol(const char *str, char **endptr, int base)
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+6	unsigned long int strtoul(const char *str, char **endptr, int base)
+把参数 str 所指向的字符串转换为一个无符号长整数（类型为 unsigned long int 型）。
+
+```cpp
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+
+
+
+```cpp
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+
+
+
+```cpp
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+
+
+
+```cpp
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+
+```cpp
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+
+
+
+```cpp
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+
+
+
+```cpp
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+
+
+
+```cpp
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+
+```cpp
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+
+
+
+```cpp
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+
+
+
+```cpp
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
+```
+
+
+
+
+
+```cpp
+
+```
+
+示例
+
+```cpp
+
+```
+
+运行结果
+
+```shell
+
 ```

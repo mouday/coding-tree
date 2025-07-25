@@ -64,14 +64,7 @@ create temp filename: temp-GhUF2h
 
 
 
-7	void *calloc(size_t nitems, size_t size)
-分配所需的内存空间，并返回一个指向它的指针。
-8	void free(void *ptr)
-释放之前调用 calloc、malloc 或 realloc 所分配的内存空间。
-9	void *malloc(size_t size)
-分配所需的内存空间，并返回一个指向它的指针。
-10	void *realloc(void *ptr, size_t size)
-尝试重新调整之前调用 malloc 或 calloc 所分配的 ptr 所指向的内存块的大小。
+
 11	void abort(void)
 使一个异常程序终止。
 12	int atexit(void (*func)(void))
@@ -514,129 +507,336 @@ long int strtol(const char *str, char **endptr, int base)
 示例
 
 ```cpp
+#include <stdio.h>
+#include <stdlib.h>
 
+int main(int argc, char **argv)
+{
+    char *ptr;
+    long int ret;
+
+    ret = strtol("666 is test value", &ptr, 10);
+    printf("value: %ld\n", ret);
+    printf("other: %s\n", ptr);
+
+    return 0;
+}
 ```
 
 运行结果
 
 ```shell
-
+$ gcc main.c -o main && ./main
+value: 666
+other:  is test value
 ```
 
-6	unsigned long int strtoul(const char *str, char **endptr, int base)
+## strtoul
+
 把参数 str 所指向的字符串转换为一个无符号长整数（类型为 unsigned long int 型）。
 
 ```cpp
-
+/**
+ * 参数
+ *   str -- 要转换为无符号长整数的字符串。
+ *   endptr -- 对类型为 char* 的对象的引用，其值由函数设置为 str 中数值后的下一个字符。
+ *   base -- 基数，必须介于 2 和 36（包含）之间，或者是特殊值 0。
+ * 返回值
+ *   该函数返回转换后的长整数，如果没有执行有效的转换，则返回一个零值。
+ */
+unsigned long int strtoul(const char *str, char **endptr, int base)
 ```
 
 示例
 
 ```cpp
+#include <stdio.h>
+#include <stdlib.h>
 
+int main(int argc, char **argv)
+{
+    char *ptr;
+    unsigned long ret;
+
+    ret = strtoul("666 is test value", &ptr, 10);
+    printf("value: %ld\n", ret);
+    printf("other: %s\n", ptr);
+
+    return 0;
+}
 ```
 
 运行结果
 
 ```shell
-
+$ gcc main.c -o main && ./main
+value: 666
+other:  is test value
 ```
 
+## calloc
 
+分配所需的内存空间，并返回一个指向它的指针。
 
+malloc 和 calloc 之间的不同点是:
 
+- malloc 不会设置内存为零
+- calloc 会设置分配的内存为零
 
 ```cpp
-
+/**
+ * 参数
+ *   nitems -- 要被分配的元素个数。
+ *   size -- 元素的大小。
+ * 返回值
+ *   该函数返回一个指针，指向已分配的内存
+ *   如果请求失败，则返回 NULL。
+ */
+void *calloc(size_t nitems, size_t size)
 ```
 
 示例
 
 ```cpp
+#include <stdio.h>
+#include <stdlib.h>
 
+int main(int argc, char **argv)
+{
+    int *arr;
+    int arr_len = 3;
+
+    arr = (int *)calloc(arr_len, sizeof(int)); // 申请内存
+
+    for (int i = 0; i < arr_len; i++)
+    {
+        arr[i] = i * i;
+    }
+
+    for (int i = 0; i < arr_len; i++)
+    {
+        printf("arr[%d]=%d\n", i, arr[i]);
+    }
+
+    free(arr); // 释放内存
+
+    return 0;
+}
 ```
 
 运行结果
 
 ```shell
-
+$ gcc main.c -o main && ./main
+arr[0]=0
+arr[1]=1
+arr[2]=4
 ```
 
+## free
 
-
-
+释放之前调用 calloc、malloc 或 realloc 所分配的内存空间。
 
 ```cpp
-
+/**
+ * 参数
+ *   ptr -- 指针指向一个要释放内存的内存块。
+ *     如果传递的参数是一个空指针，则不会执行任何动作。
+ * 返回值
+ *   该函数不返回任何值。
+ */
+void free(void *ptr)
 ```
 
 示例
 
 ```cpp
+#include <stdio.h>
+#include <stdlib.h>
 
+int main(int argc, char **argv)
+{
+    int *arr;
+    int arr_len = 3;
+
+    arr = (int *)malloc(arr_len * sizeof(int)); // 申请内存
+
+    for (int i = 0; i < arr_len; i++)
+    {
+        arr[i] = i * i;
+    }
+
+    for (int i = 0; i < arr_len; i++)
+    {
+        printf("arr[%d]=%d\n", i, arr[i]);
+    }
+
+    free(arr); // 释放内存
+    arr = NULL;
+
+    return 0;
+}
 ```
 
 运行结果
 
 ```shell
-
+$ gcc main.c -o main && ./main
+arr[0]=0
+arr[1]=1
+arr[2]=4
 ```
 
+注意事项
 
+1. 释放正确的内存：只能释放通过动态内存分配函数分配的内存，不能释放由其他方式分配的内存（例如局部变量或全局变量）。
 
+2. 避免重复释放：同一个内存块不能多次释放，否则可能导致未定义行为。
 
+3. 释放后指针处理：释放内存后，指针仍然指向已释放的内存位置。为了避免悬空指针，可以将指针设为 NULL。
+
+4. 检查空指针：调用 free() 前最好检查指针是否为空，以确保程序稳定性。
+
+5. 内存泄漏：如果动态分配的内存没有被释放或丢失了对其的引用，内存将无法再被程序使用，造成内存泄漏。
+
+6. 悬空指针：指向已释放内存的指针称为悬空指针。如果悬空指针被再次访问，会导致未定义行为，可能引起程序崩溃或数据损坏。
+
+7. 避免重复释放：同一个内存块不能多次释放，否则可能导致未定义行为。
 
 ```cpp
+if (array != NULL) {
+    free(array);
+    array = NULL;
+}
+```
 
+## malloc
+
+分配所需的内存空间，并返回一个指向它的指针。
+
+```cpp
+/**
+ * 参数
+ *   size -- 内存块的大小，以字节为单位。
+ * 返回值
+ *   该函数返回一个指针 ，指向已分配大小的内存。如果请求失败，则返回 NULL。
+ */
+void *malloc(size_t size)
 ```
 
 示例
 
 ```cpp
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+int main(int argc, char **argv)
+{
+    char *str;
+
+    str = (char *)malloc(10); // 申请内存
+
+    strcpy(str, "Hello");
+    printf("%s\n", str);
+
+    free(str); // 释放内存
+    str = NULL;
+
+    return 0;
+}
 ```
 
 运行结果
 
 ```shell
-
+$ gcc main.c -o main && ./main
+Hello
 ```
 
+## realloc
 
+尝试重新调整之前调用 malloc 或 calloc 所分配的 ptr 所指向的内存块的大小。
+
+- realloc() 可能会将内存块移动到新的位置（如果在原位置没有足够的空间容纳新的大小）。如果移动成功，ptr 会指向新位置。需要特别注意，旧的 ptr 指针需要被更新为 realloc() 返回的新地址。
+- 如果内存分配失败，realloc() 返回 NULL，而原始的内存块不会被释放。为避免内存泄漏，应该使用一个临时指针来接收 realloc() 的返回值，并检查是否为 NULL。
 
 ```cpp
-
+/**
+ * 参数
+ *   ptr -- 指针指向一个要重新分配内存的内存块
+ *     该内存块之前是通过调用 malloc、calloc 或 realloc 进行分配内存的。
+ *     如果为空指针，则会分配一个新的内存块，且函数返回一个指向它的指针。
+ *   size -- 内存块的新的大小，以字节为单位。
+ *     如果大小为 0，且 ptr 指向一个已存在的内存块，则 ptr 所指向的内存块会被释放，并返回一个空指针。
+ * 返回值
+ *   如果成功，realloc() 返回指向新内存块的指针。
+ *   如果失败，返回 NULL，并且原来的内存块仍然保持不变（并没有释放）。
+ */
+void *realloc(void *ptr, size_t size)
 ```
 
 示例
 
 ```cpp
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+int main(int argc, char **argv)
+{
+    char *str;
+    char *new_str;
+
+    // 申请内存
+    str = (char *)malloc(10);
+
+    if (str == NULL)
+    {
+        perror("Failed to allocate memory");
+        return 1;
+    }
+
+    strcpy(str, "Hello");
+    printf("%s\n", str);
+
+    // 重新分配内存
+    new_str = (char *)realloc(str, 20);
+    if (new_str == NULL)
+    {
+        perror("Failed to reallocate memory");
+        free(str); // 释放原来的内存
+        return 1;
+    }
+
+    strcat(new_str, ", World!");
+    printf("%s\n", new_str);
+
+    free(new_str); // 释放新分配的内存
+    str = NULL;
+
+    return 0;
+}
 ```
 
 运行结果
 
 ```shell
-
+$ gcc main.c -o main && ./main
+Hello
+Hello, World!
 ```
 
+注意事项
+
+- 检查返回值：总是检查 realloc() 的返回值。如果返回 NULL，不要直接丢弃原有指针。
+- 内存泄漏：如果 realloc() 返回 NULL，原来的内存块不会释放。此时应释放原有内存并处理错误情况。
+- 指针失效：如果你直接使用原指针来接收 realloc() 返回的新指针，可能会导致内存泄漏，尤其是在 realloc() 失败时。因此，通常先用临时指针接收返回值。
 
 
 
 
 ```cpp
-
-```
-
-示例
-
-```cpp
-
-```
-
-运行结果
-
-```shell
 
 ```
 

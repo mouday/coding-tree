@@ -25,3 +25,16 @@ C 标准库（C Standard Library）
 | `complex.h` | 提供复数运算的函数和宏，如 cabs、carg 等。
 | `tgmath.h` | 为泛型数学函数提供宏，以简化对不同类型数据的数学运算。
 | `fenv.h` | 提供对浮点环境的控制，如舍入模式和异常状态
+
+开启 Mac Coredump
+
+```shell
+# 开启 Mac Coredump
+sudo sysctl kern.coredump=1
+
+# 设置 core 文件大小
+ulimit -c unlimited
+
+# 调试 core 文件
+lldb -c /cores/core.37676
+```

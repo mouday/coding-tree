@@ -61,62 +61,6 @@ gcc main.c -o main && ./main
 create temp filename: temp-GhUF2h
 ```
 
-
-
-
-
-11	void abort(void)
-使一个异常程序终止。
-12	int atexit(void (*func)(void))
-当程序正常终止时，调用指定的函数 func。
-13	void exit(int status)
-使程序正常终止。
-14	char *getenv(const char *name)
-搜索 name 所指向的环境字符串，并返回相关的值给字符串。
-15	int system(const char *string)
-由 string 指定的命令传给要被命令处理器执行的主机环境。
-
-
-
-
-20	long int labs(long int x)
-返回 x 的绝对值。
-21	ldiv_t ldiv(long int numer, long int denom)
-分子除以分母。
-22	int rand(void)
-返回一个范围在 0 到 RAND_MAX 之间的伪随机数。
-23	void srand(unsigned int seed)
-该函数播种由函数 rand 使用的随机数发生器。
-24	int mblen(const char *str, size_t n)
-返回参数 str 所指向的多字节字符的长度。
-25	size_t mbstowcs(schar_t *pwcs, const char *str, size_t n)
-把参数 str 所指向的多字节字符的字符串转换为参数 pwcs 所指向的数组。
-26	int mbtowc(wchar_t *pwc, const char *str, size_t n)
-检查参数 str 所指向的多字节字符。
-27	size_t wcstombs(char *str, const wchar_t *pwcs, size_t n)
-把数组 pwcs 中存储的编码转换为多字节字符，并把它们存储在字符串 str 中。
-28	int wctomb(char *str, wchar_t wchar)
-检查对应于参数 wchar 所给出的多字节字符的编码。
-
-
-
-```cpp
-
-```
-
-示例
-
-```cpp
-
-
-```
-
-运行结果
-
-```shell
-
-```
-
 ## atoi
 
 字符串转换为整数（类型为 int 型）。
@@ -833,11 +777,211 @@ Hello, World!
 - 内存泄漏：如果 realloc() 返回 NULL，原来的内存块不会释放。此时应释放原有内存并处理错误情况。
 - 指针失效：如果你直接使用原指针来接收 realloc() 返回的新指针，可能会导致内存泄漏，尤其是在 realloc() 失败时。因此，通常先用临时指针接收返回值。
 
+## abort
 
-
+使一个异常程序终止。
 
 ```cpp
+/**
+ * 参数
+ *   abort 函数不接受任何参数。
+ * 返回值
+ *   abort 函数没有返回值，因为它不会正常返回。
+ */
+void abort(void)
+```
 
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char **argv)
+{
+    printf("before abort\n");
+    abort();
+    printf("after abort\n");
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main     
+before abort
+zsh: abort (core dumped)  ./main
+```
+
+注意事项
+
+- abort 函数用于立即终止程序执行，并产生一个核心转储文件。
+- 使用 abort 函数时，不会执行任何 atexit 注册的函数或对象析构函数。
+- 通常用于在检测到不可恢复的错误时终止程序。
+- abort 函数会立即终止程序，不会进行任何清理工作。
+- 如果希望在程序终止前执行一些清理操作，可以使用 exit 函数代替 abort。
+- 核心转储文件可以用于调试，帮助开发者分析程序异常终止的原因。
+
+## atexit
+
+当程序正常终止时，调用指定的函数 func。
+
+```cpp
+/**
+ * 参数
+ *   func -- 在程序终止时被调用的函数。
+ * 返回值
+ *   如果函数成功注册，则该函数返回零，否则返回一个非零值。
+ */
+int atexit(void (*func)(void))
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+void cleanup()
+{
+    printf("cleanup\n");
+}
+
+int main(int argc, char **argv)
+{
+    printf("before atexit\n");
+    atexit(cleanup);
+    printf("after atexit\n");
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+before atexit
+after atexit
+cleanup
+```
+
+## exit
+
+使程序正常终止。
+
+```cpp
+/**
+ * 参数
+ *   status -- 返回给父进程的状态值。
+ * 返回值
+ *   该函数不返回值。
+ */
+void exit(int status)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char **argv)
+{
+    printf("before exit\n");
+    exit(0);
+    printf("after exit\n");
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+before exit
+
+$ echo $?
+0
+```
+
+## getenv
+
+搜索 name 所指向的环境字符串，并返回相关的值给字符串。
+
+```cpp
+/**
+ * 参数
+ *   name -- 包含被请求变量名称的 C 字符串。
+ * 返回值
+ *   该函数返回一个以 null 结尾的字符串，该字符串为被请求环境变量的值。
+ *   如果该环境变量不存在，则返回 NULL。
+ */
+char *getenv(const char *name)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char **argv)
+{
+    char *HOME = getenv("HOME");
+
+    printf("HOME: %s\n", HOME);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+HOME: /Users/user
+```
+
+## system
+
+由 string 指定的命令传给要被命令处理器执行的主机环境。
+
+```cpp
+/**
+ * 参数
+ *   command -- 包含被请求变量名称的 C 字符串。
+ * 返回值
+ *   如果发生错误，则返回值为 -1，否则返回命令的状态。
+ */
+int system(const char *string)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char **argv)
+{
+    int ret = system("echo 'hi'");
+
+    printf("ret: %d\n", ret);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+hi
+ret: 0
 ```
 
 
@@ -882,23 +1026,6 @@ Hello, World!
 
 
 
-```cpp
-
-```
-
-示例
-
-```cpp
-
-```
-
-运行结果
-
-```shell
-
-```
-
-
 
 
 
@@ -917,6 +1044,7 @@ Hello, World!
 ```shell
 
 ```
+
 
 
 
@@ -942,6 +1070,32 @@ Hello, World!
 
 
 
+
+
+
+
+
+
+20	long int labs(long int x)
+返回 x 的绝对值。
+21	ldiv_t ldiv(long int numer, long int denom)
+分子除以分母。
+22	int rand(void)
+返回一个范围在 0 到 RAND_MAX 之间的伪随机数。
+23	void srand(unsigned int seed)
+该函数播种由函数 rand 使用的随机数发生器。
+24	int mblen(const char *str, size_t n)
+返回参数 str 所指向的多字节字符的长度。
+25	size_t mbstowcs(schar_t *pwcs, const char *str, size_t n)
+把参数 str 所指向的多字节字符的字符串转换为参数 pwcs 所指向的数组。
+26	int mbtowc(wchar_t *pwc, const char *str, size_t n)
+检查参数 str 所指向的多字节字符。
+27	size_t wcstombs(char *str, const wchar_t *pwcs, size_t n)
+把数组 pwcs 中存储的编码转换为多字节字符，并把它们存储在字符串 str 中。
+28	int wctomb(char *str, wchar_t wchar)
+检查对应于参数 wchar 所给出的多字节字符的编码。
+
+
 ```cpp
 
 ```
@@ -949,6 +1103,7 @@ Hello, World!
 示例
 
 ```cpp
+
 
 ```
 

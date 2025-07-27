@@ -29,26 +29,26 @@ typedef long long fpos_t;
 #define  NULL  (0)
 
 // 适用于 setvbuf 函数的第三个参数
-#define	_IOFBF	0 /* setvbuf should set fully buffered */
-#define	_IOLBF	1 /* setvbuf should set line buffered */
-#define	_IONBF	2 /* setvbuf should set unbuffered */
+#define _IOFBF 0 /* setvbuf should set fully buffered */
+#define _IOLBF 1 /* setvbuf should set line buffered */
+#define _IONBF 2 /* setvbuf should set unbuffered */
 
 // setbuf 函数使用的缓冲区大小
-#define	BUFSIZ	1024 /* size of buffer used by setbuf */
+#define BUFSIZ 1024 /* size of buffer used by setbuf */
 
 // 系统可以同时打开的文件数量
-#define	FOPEN_MAX	20	/* must be <= OPEN_MAX <sys/syslimits.h> */
+#define FOPEN_MAX 20 /* must be <= OPEN_MAX <sys/syslimits.h> */
 
 // 字符数组可以存储的文件名的最大长度
-#define	FILENAME_MAX	1024	/* must be <= PATH_MAX <sys/syslimits.h> */
+#define FILENAME_MAX 1024 /* must be <= PATH_MAX <sys/syslimits.h> */
 
-#define	P_tmpdir	"/var/tmp/"
+#define P_tmpdir "/var/tmp/"
 
 // 字符数组可以存储的由 tmpnam 函数创建的临时文件名的最大长度
-#define	L_tmpnam	1024	/* XXX must be == PATH_MAX */
+#define L_tmpnam 1024 /* XXX must be == PATH_MAX */
 
 // tmpnam 函数可生成的独特文件名的最大数量
-#define	TMP_MAX		308915776
+#define TMP_MAX 308915776
 
 // 在 fseek 函数中使用，用于在一个文件中定位不同的位置
 #define SEEK_SET        0       /* set file offset to offset */
@@ -56,11 +56,10 @@ typedef long long fpos_t;
 #define SEEK_END        2       /* set file offset to EOF plus offset */
 
 // 分别对应于标准错误、标准输入和标准输出流
-#define	stdin	__stdinp
-#define	stdout	__stdoutp
-#define	stderr	__stderrp
+#define stdin __stdinp
+#define stdout __stdoutp
+#define stderr __stderrp
 ```
-
 
 ## printf
 

@@ -1,5 +1,11 @@
 # stdarg.h
 
+引入头文件
+
+```cpp
+#include <stdarg.h>
+```
+
 printf 等函数，实现了变长参数列表，我们也能通过`stdarg.h` 实现
 
 | 类型    | 说明                                                |

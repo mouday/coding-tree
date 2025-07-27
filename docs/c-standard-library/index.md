@@ -5,7 +5,7 @@ C 标准库（C Standard Library）
 |头文件 | 功能简介
 |-|-
 | [stdio.h](stdio.h.md) | 标准输入输出库，包含 printf、scanf、fgets、fputs 等函数。
-| `stdlib.h` | 标准库函数，包含内存分配、程序控制、转换函数等，如 malloc、free、exit、atoi、rand 等。
+| [stdlib.h](stdlib.h.md) | 标准库函数，包含内存分配、程序控制、转换函数等，如 malloc、free、exit、atoi、rand 等。
 | `string.h` | 字符串操作函数，如 strlen、strcpy、strcat、strcmp 等。
 | `math.h` | 数学函数库，包含各种数学运算函数，如 sin、cos、tan、exp、log、sqrt 等。
 | `time.h` | 时间和日期函数，如 time、clock、difftime、strftime 等。

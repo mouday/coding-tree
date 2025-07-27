@@ -48,7 +48,7 @@ f(n) = f(n-1) + f(n-2)
 
 ## 解法
 
-解法1：自底向上的动态规划（表格法）
+### 解法1：自底向上的动态规划（表格法）
 
 该方法是最优解，空间复杂度`O(1)`，时间复杂度`O(n)`
 
@@ -64,7 +64,7 @@ def climbStairs(n):
     return b
 ```
 
-解法2：递归
+### 解法2：递归
 
 ![](https://mouday.github.io/img/2025/07/20/zk4whpe.png)
 
@@ -84,7 +84,7 @@ def climbStairs(n):
 
 ![](https://mouday.github.io/img/2025/07/20/updpyo5.png)
 
-解法3：自顶向下的动态规划（记忆化）
+### 解法3：自顶向下的动态规划（记忆化）
 
 ```python
 def climbStairs(n, memo={}):

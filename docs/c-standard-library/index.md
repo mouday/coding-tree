@@ -12,8 +12,8 @@ C 标准库（C Standard Library）
 | `ctype.h` | 字符处理函数，如 isalpha、isdigit、isspace、toupper、tolower 等。
 | `limits.h` | 定义各种类型的限制值，如 INT_MAX、CHAR_MIN、LONG_MAX 等。
 | `float.h` | 定义浮点类型的限制值，如 FLT_MAX、DBL_MIN 等。
-| `assert.h` | 包含宏 assert，用于在调试时进行断言检查。
-| `errno.h` | 定义了错误码变量 errno 及相关宏，用于表示和处理错误。
+| [assert.h](assert.h.md) | 包含宏 assert，用于在调试时进行断言检查。
+| [errno.h](errno.h.md) | 定义了错误码变量 errno 及相关宏，用于表示和处理错误。
 | `stddef.h` | 定义了一些通用类型和宏，如 size_t、ptrdiff_t、NULL 等。
 | `signal.h` | 定义了处理信号的函数和宏，如 signal、raise 等。
 | `setjmp.h` | 提供非本地跳转功能的宏和函数，如 setjmp、longjmp 等。

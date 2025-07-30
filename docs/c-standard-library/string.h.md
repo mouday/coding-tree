@@ -229,22 +229,363 @@ int main()
 dest: hello world
 ```
 
+## strncmp
+
+把 str1 和 str2 进行比较，最多比较前 n 个字节。
 
 ```cpp
-
+/**
+ * 参数
+ *   str1 -- 要进行比较的第一个字符串。
+ *   str2 -- 要进行比较的第二个字符串。
+ *   n -- 要比较的最大字符数。
+ * 返回值
+ *   如果返回值 < 0，则表示 str1 小于 str2。
+ *   如果返回值 > 0，则表示 str1 大于 str2。
+ *   如果返回值 = 0，则表示 str1 等于 str2。
+ */
+int strncmp(const char *str1, const char *str2, size_t n)
 ```
 
 示例
 
 ```cpp
+#include <stdio.h>
+#include <string.h>
 
+int main()
+{
+    char *a = "abcd";
+    char *b = "abcD";
+
+    int ret = strncmp(a, b, 3);
+
+    printf("ret: %d\n", ret);
+
+    return 0;
+}
 ```
 
 运行结果
 
 ```shell
-
+$ gcc main.c -o main && ./main
+ret: 0
 ```
+
+## strchr
+
+在参数 str 所指向的字符串中搜索第一次出现字符 c（一个无符号字符）的位置。
+
+```cpp
+/**
+ * 参数
+ *   str -- 要查找的字符串。
+ *   c -- 要查找的字符。
+ * 返回值
+ *   如果在字符串 str 中找到字符 c，则返回指向该字符的指针
+ *   如果未找到该字符则返回NULL。
+ */
+char *strchr(const char *str, int c)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char *str = "hello world";
+
+    char *ptr = strchr(str, 'o');
+
+    printf("index: %ld\n", (ptr - str));
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+index: 4
+```
+
+## strcpy
+
+把 src 所指向的字符串复制到 dest。
+
+```cpp
+/**
+ * 参数
+ *   dest -- 指向用于存储复制内容的目标数组。
+ *   src -- 要复制的字符串。
+ * 返回值
+ *   该函数返回一个指向最终的目标字符串 dest 的指针。
+ */
+char *strcpy(char *dest, const char *src)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char *str = "hello world";
+    char buffer[20];
+
+    // clear the buffer
+    memset(buffer, '\0', sizeof(buffer));
+
+    strcpy(buffer, str);
+
+    printf("buffer: %s\n", buffer);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+buffer: hello world
+```
+
+## strncpy
+
+把 src 所指向的字符串复制到 dest，最多复制 n 个字符。
+
+```cpp
+/**
+ * 参数
+ *   dest -- 指向用于存储复制内容的目标数组。
+ *   src -- 要复制的字符串。
+ *   n -- 要从源中复制的字符数。
+ * 返回值
+ *   该函数返回最终复制的字符串。
+ */
+char *strncpy(char *dest, const char *src, size_t n)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char *str = "hello world";
+    char buffer[20];
+
+    strncpy(buffer, str, sizeof(buffer) - 1); // 保留终止符位置
+    buffer[sizeof(buffer) - 1] = '\0'; // 手动添加终止符
+
+    printf("buffer: %s\n", buffer);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+buffer: hello world
+```
+
+## strerror
+
+从内部数组中搜索错误号 errnum，并返回一个指向错误消息字符串的指针。
+
+```cpp
+/**
+ * 参数
+ *   errnum -- 错误号，通常是 errno。
+ * 返回值
+ *   该函数返回一个指向错误字符串的指针，该错误字符串描述了错误 errnum。
+ */
+char *strerror(int errnum)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+
+int main()
+{
+    char *error_msg = strerror(ENOENT); // ENOENT = 2
+
+    printf("error_msg: %s\n", error_msg);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+error_msg: No such file or directory
+```
+
+## strlen
+
+计算字符串 str 的长度，直到空结束字符，但不包括空结束字符。
+
+```cpp
+/**
+ * 参数
+ *   str -- 要计算长度的字符串。
+ * 返回值
+ *   该函数返回字符串的长度。
+ */
+size_t strlen(const char *str)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char *str = "hello";
+
+    size_t ret = strlen(str);
+
+    printf("ret: %ld\n", ret);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+ret: 5
+```
+
+## strrchr
+
+在参数 str 所指向的字符串中搜索最后一次出现字符 c（一个无符号字符）的位置。
+
+```cpp
+/**
+ * 参数
+ *   str -- C 字符串。
+ *   c -- 要搜索的字符，通常以整数形式传递（ASCII 值），但是最终会转换回 char 形式。
+ * 返回值
+ *   从字符串的末尾开始向前搜索，直到找到指定的字符或搜索完整个字符串。
+ *   如果找到字符，它将返回一个指向该字符的指针，否则返回 NULL。
+ */
+char *strrchr(const char *str, int c)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char *str = "hello world";
+
+    char *ptr = strrchr(str, 'o');
+
+    printf("right index: %ld\n", (ptr - str));
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+right index: 7
+```
+
+## strcoll
+
+本地化字符串比较，结果取决于 LC_COLLATE 的位置设置。
+
+```cpp
+/**
+ * 参数
+ *   str1 -- 要进行比较的第一个字符串。
+ *   str2 -- 要进行比较的第二个字符串。
+ * 返回值
+ *   如果返回值 < 0，则表示 str1 小于 str2。
+ *   如果返回值 > 0，则表示 str2 小于 str1。
+ *   如果返回值 = 0，则表示 str1 等于 str2。
+ */
+int strcoll(const char *str1, const char *str2)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+#include <locale.h>
+
+int main()
+{
+    setlocale(LC_COLLATE, "en_US.UTF-8");
+
+    char *str1 = "hello";
+    char *str2 = "world";
+
+    int ret = strcoll(str1, str2);
+
+    printf("ret: %d\n", ret);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+ret: -30
+```
+
+检查可用区域
+
+```cpp
+system("locale -a");
+```
+
+
+14	size_t strcspn(const char *str1, const char *str2)
+检索字符串 str1 开头连续有几个字符都不含字符串 str2 中的字符。
+
+17	char *strpbrk(const char *str1, const char *str2)
+检索字符串 str1 中第一个匹配字符串 str2 中字符的字符，不包含空结束字符。也就是说，依次检验字符串 str1 中的字符，当被检验字符在字符串 str2 中也包含时，则停止检验，并返回该字符位置。
+
+19	size_t strspn(const char *str1, const char *str2)
+检索字符串 str1 中第一个不在字符串 str2 中出现的字符下标。
+20	char *strstr(const char *haystack, const char *needle)
+在字符串 haystack 中查找第一次出现字符串 needle（不包含空结束字符）的位置。
+21	char *strtok(char *str, const char *delim)
+分解字符串 str 为一组字符串，delim 为分隔符。
+22	size_t strxfrm(char *dest, const char *src, size_t n)
+根据程序当前的区域选项中的 LC_COLLATE 来转换字符串 src 的前 n 个字符，并把它们放置在字符串 dest 中。
 
 
 1	void *memchr(const void *str, int c, size_t n)
@@ -257,36 +598,3 @@ dest: hello world
 另一个用于从 src 复制 n 个字符到 dest 的函数。
 5	void *memset(void *str, int c, size_t n)
 将指定的值 c 复制到 str 所指向的内存区域的前 n 个字节中。
-
-
-8	char *strchr(const char *str, int c)
-在参数 str 所指向的字符串中搜索第一次出现字符 c（一个无符号字符）的位置。
-9	int strcmp(const char *str1, const char *str2)
-把 str1 所指向的字符串和 str2 所指向的字符串进行比较。
-10	int strncmp(const char *str1, const char *str2, size_t n)
-把 str1 和 str2 进行比较，最多比较前 n 个字节。
-11	int strcoll(const char *str1, const char *str2)
-把 str1 和 str2 进行比较，结果取决于 LC_COLLATE 的位置设置。
-12	char *strcpy(char *dest, const char *src)
-把 src 所指向的字符串复制到 dest。
-13	char *strncpy(char *dest, const char *src, size_t n)
-把 src 所指向的字符串复制到 dest，最多复制 n 个字符。
-14	size_t strcspn(const char *str1, const char *str2)
-检索字符串 str1 开头连续有几个字符都不含字符串 str2 中的字符。
-15	char *strerror(int errnum)
-从内部数组中搜索错误号 errnum，并返回一个指向错误消息字符串的指针。
-16	size_t strlen(const char *str)
-计算字符串 str 的长度，直到空结束字符，但不包括空结束字符。
-17	char *strpbrk(const char *str1, const char *str2)
-检索字符串 str1 中第一个匹配字符串 str2 中字符的字符，不包含空结束字符。也就是说，依次检验字符串 str1 中的字符，当被检验字符在字符串 str2 中也包含时，则停止检验，并返回该字符位置。
-18	char *strrchr(const char *str, int c)
-在参数 str 所指向的字符串中搜索最后一次出现字符 c（一个无符号字符）的位置。
-19	size_t strspn(const char *str1, const char *str2)
-检索字符串 str1 中第一个不在字符串 str2 中出现的字符下标。
-20	char *strstr(const char *haystack, const char *needle)
-在字符串 haystack 中查找第一次出现字符串 needle（不包含空结束字符）的位置。
-21	char *strtok(char *str, const char *delim)
-分解字符串 str 为一组字符串，delim 为分隔符。
-22	size_t strxfrm(char *dest, const char *src, size_t n)
-根据程序当前的区域选项中的 LC_COLLATE 来转换字符串 src 的前 n 个字符，并把它们放置在字符串 dest 中。
-

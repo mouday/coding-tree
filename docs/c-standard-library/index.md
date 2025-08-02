@@ -19,7 +19,7 @@ C 标准库（C Standard Library）
 | `setjmp.h` | 提供非本地跳转功能的宏和函数，如 setjmp、longjmp 等。
 | `locale.h` | 定义了与地域化相关的函数和宏，如 setlocale、localeconv 等。
 | [stdarg.h](stdarg.h.md) | 提供处理可变参数函数的宏，如 va_start、va_arg、va_end 等。
-| `stdbool.h` | 定义布尔类型和值 true 和 false。
+| [stdbool.h](stdbool.h) | 定义布尔类型和值 true 和 false。
 | `stdint.h` | 定义了精确宽度的整数类型，如 int8_t、uint16_t 等。
 | `inttypes.h` | 提供与整数类型相关的格式化输出宏和函数。
 | `complex.h` | 提供复数运算的函数和宏，如 cabs、carg 等。

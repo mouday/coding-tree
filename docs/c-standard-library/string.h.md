@@ -1065,3 +1065,40 @@ int main()
 $ gcc main.c -o main && ./main
 ret: 32
 ```
+
+## strsignal
+
+返回信号描述字符串
+
+```cpp
+/**
+ * 参数
+ *   int signum：信号编号。
+ * 返回值
+ *   成功时返回指向描述信号的字符串的指针。
+ *   失败时返回 NULL。
+ */
+char *strsignal(int sig);
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <signal.h> // SIGINT
+#include <string.h> // strsignal
+
+int main()
+{
+    char *msg = strsignal(SIGINT);
+    printf("msg: %s\n", msg);
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+$ gcc main.c -o main && ./main
+msg: Interrupt: 2
+```

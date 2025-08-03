@@ -9,15 +9,15 @@ C 标准库（C Standard Library）
 | [string.h](string.h.md) | 字符串操作函数，如 strlen、strcpy、strcat、strcmp 等。
 | [math.h](math.h.md) | 数学函数库，包含各种数学运算函数，如 sin、cos、tan、exp、log、sqrt 等。
 | [time.h](time.h.md) | 时间和日期函数，如 time、clock、difftime、strftime 等。
-| `ctype.h` | 字符处理函数，如 isalpha、isdigit、isspace、toupper、tolower 等。
+| [ctype.h](ctype.h.md) | 字符处理函数，如 isalpha、isdigit、isspace、toupper、tolower 等。
 | `limits.h` | 定义各种类型的限制值，如 INT_MAX、CHAR_MIN、LONG_MAX 等。
 | `float.h` | 定义浮点类型的限制值，如 FLT_MAX、DBL_MIN 等。
 | [assert.h](assert.h.md) | 包含宏 assert，用于在调试时进行断言检查。
 | [errno.h](errno.h.md) | 定义了错误码变量 errno 及相关宏，用于表示和处理错误。
 | [stddef.h](stddef.h.md) | 定义了一些通用类型和宏，如 size_t、ptrdiff_t、NULL 等。
-| `signal.h` | 定义了处理信号的函数和宏，如 signal、raise 等。
-| `setjmp.h` | 提供非本地跳转功能的宏和函数，如 setjmp、longjmp 等。
-| `locale.h` | 定义了与地域化相关的函数和宏，如 setlocale、localeconv 等。
+| [signal.h](signal.h.md) | 定义了处理信号的函数和宏，如 signal、raise 等。
+| [setjmp.h](setjmp.h.md) | 提供非本地跳转功能的宏和函数，如 setjmp、longjmp 等。
+| [locale.h](locale.h.md) | 定义了与地域化相关的函数和宏，如 setlocale、localeconv 等。
 | [stdarg.h](stdarg.h.md) | 提供处理可变参数函数的宏，如 va_start、va_arg、va_end 等。
 | [stdbool.h](stdbool.h.md) | 定义布尔类型和值 true 和 false。
 | [stdint.h](stdint.h.md) | 定义了精确宽度的整数类型，如 int8_t、uint16_t 等。
@@ -38,3 +38,44 @@ ulimit -c unlimited
 # 调试 core 文件
 lldb -c /cores/core.37676
 ```
+
+## C 语言标准
+
+查看当前支持的 C 语言标准
+
+```shell
+$ gcc -E -dM - </dev/null | grep "STDC_VERSION"
+#define __STDC_VERSION__ 201710L
+```
+
+| 结果 | 默认支持标准
+|-|-
+`#define __STDC_VERSION__ 199901L` | C99 标准
+`#define __STDC_VERSION__ 201112L` | C11 标准
+`#define __STDC_VERSION__ 201710L` |  C17 标准
+| `-` | C89 标准
+
+指定 C 语言标准编译
+
+```shell
+ -std=c11        # Conform to the ISO 2011 C standard
+ -std=c89        # Conform to the ISO 1990 C standard
+ -std=c90        # Conform to the ISO 1990 C standard
+ -std=c99        # Conform to the ISO 1999 C standard
+ ​
+ -std=gnu11      # Conform to the ISO 2011 C standard with GNU extensions（默认）
+ -std=gnu89      # Conform to the ISO 1990 C standard with GNU extensions
+ -std=gnu90      # Conform to the ISO 1990 C standard with GNU extensions
+ -std=gnu99      # Conform to the ISO 1999 C standard with GNU extensions
+```
+
+示例
+
+```shell
+$ gcc main.c -o test -std=c99
+```
+
+参考
+
+Linux GCC 如何查看及指定 C 语言标准
+https://zhuanlan.zhihu.com/p/626785086

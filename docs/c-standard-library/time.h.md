@@ -356,7 +356,7 @@ size_t strftime(char *str, size_t maxsize,
 | %Z |  时区的名称或缩写   | CDT
 | %% |  一个 % 符号 | %
 
-示例
+示例1
 
 ```cpp
 #include <stdio.h>
@@ -385,6 +385,36 @@ int main()
 ```shell
 $ gcc main.c -o main && ./main
 ret: 2025-08-01 23:58:47
+```
+
+示例2: 获取月份和星期
+
+```cpp
+#include <stdio.h>
+#include <locale.h>
+#include <time.h>
+
+int main()
+{
+    // 设置本地化信息
+    // 如果不设置，本地化信息，输出结果为：strftime: August Sunday
+    setlocale(LC_TIME, "zh_CN.UTF-8");
+
+    // 获取当前时间
+    time_t now_time;
+    time(&now_time);
+    struct tm *now_tm = localtime(&now_time);
+    char buf[100];
+    strftime(buf, sizeof(buf), "%B %A", now_tm); 
+    printf("strftime: %s\n", buf);
+
+    return 0;
+}
+```
+
+```shell
+$ gcc main.c -o main && ./main
+strftime: 八月 星期日
 ```
 
 ## asctime

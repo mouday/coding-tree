@@ -220,7 +220,7 @@ years: 2025
 
 ## localtime
 
-timer 的值被分解为 tm 结构，并用本地时区表示。
+timer 的值被分解为 tm 结构，并用本地时区表示。`非线程安全`
 
 ```cpp
 struct tm *localtime(const time_t *timer)

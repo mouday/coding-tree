@@ -13,59 +13,9 @@
 #include <pthread.h>
 ```
 
-## __thread
-
-`__thread`是GCC的扩展关键字，用于定义线程局部存储变量
-
-示例
-
-```cpp
-#include <stdio.h>
-#include <pthread.h>
-#include <unistd.h>
-
-__thread int i = 0;
-
-void *f1(void *arg)
-{
-    i++;
-    printf("f1 i address %p val %d\n", &i, i);
-    return NULL;
-}
-
-void *f2(void *arg)
-{
-    i += 2;
-    printf("f2 i address %p val %d\n", &i, i);
-
-    return NULL;
-}
-
-int main()
-{
-    pthread_t pid1, pid2;
-    
-    i += 3;
-    pthread_create(&pid1, NULL, f1, NULL);
-    pthread_create(&pid2, NULL, f2, NULL);
-    pthread_join(pid1, NULL);
-    pthread_join(pid2, NULL);
-
-    printf("main i address %p val %d\n", &i, i);
-    return 0;
-}
-```
-
-运行结果
-
-```shell
-% gcc main.c -o main -lpthread && ./main
-f2 i address 0x7fb4edf060c0 val 2
-f1 i address 0x7fb4ee804080 val 1
-main i address 0x7fb4edf05fa0 val 3
-```
-
 ## pthread_create
+
+创建线程
 
 ```cpp
 /**
@@ -400,6 +350,58 @@ int main(void)
 pthread_join error Invalid argument
 ```
 
+## __thread
+
+`__thread`是GCC的扩展关键字，用于定义线程局部存储变量
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <pthread.h>
+#include <unistd.h>
+
+__thread int i = 0;
+
+void *f1(void *arg)
+{
+    i++;
+    printf("f1 i address %p val %d\n", &i, i);
+    return NULL;
+}
+
+void *f2(void *arg)
+{
+    i += 2;
+    printf("f2 i address %p val %d\n", &i, i);
+
+    return NULL;
+}
+
+int main()
+{
+    pthread_t pid1, pid2;
+    
+    i += 3;
+    pthread_create(&pid1, NULL, f1, NULL);
+    pthread_create(&pid2, NULL, f2, NULL);
+    pthread_join(pid1, NULL);
+    pthread_join(pid2, NULL);
+
+    printf("main i address %p val %d\n", &i, i);
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+% gcc main.c -o main -lpthread && ./main
+f2 i address 0x7fb4edf060c0 val 2
+f1 i address 0x7fb4ee804080 val 1
+main i address 0x7fb4edf05fa0 val 3
+```
+
 ## pthread_attr_t
 
 线程属性pthread_attr_t，该结构体中成员的值不能直接修改，须使用函数进行相关操作
@@ -717,4 +719,461 @@ int main() {
 Default policy: 1, priority: 31
 Trying to set policy: 2, priority: 31
 Thread is running
+```
+
+## 互斥锁
+
+使用互斥锁实现线程同步时，系统会为共享资源添加一个称为互斥锁的标记，防止多个线程在同一时刻访问相同的共用资源。
+
+互斥锁通常也被称为互斥量（mutex），它相当于一把锁，使用互斥锁可以保证以下3点：
+
+- （1）原子性：如果在一个线程设置了一个互斥锁，那么在加锁与解锁之间的操作会被锁定为一个原子操作，这些操作要么全部完成，要么一个也不执行；
+- （2）唯一性：如果为一个线程锁定了一个互斥锁，在解除锁定之前，没有其它线程可以锁定这个互斥量；
+- （3）非繁忙等待：如果一个线程已经锁定了一个互斥锁，此后第二个线程试图锁定该互斥锁，则第二个线程会被挂起；直到第一个线程解除对互斥锁的锁定时，第二个线程才会被唤醒，同时锁定这个互斥锁。
+
+使用互斥锁实现线程同步时主要包含四步：
+
+- 初始化互斥锁
+- 加锁
+- 解锁
+- 销毁锁
+
+### pthread_mutex_init
+
+初始化互斥锁
+
+```cpp
+/**
+ * 参数
+ *   mutex 传出参数
+ *   attr 代表互斥量的属性，通常传NULL，表示使用默认属性。
+ * 成功则返回0，否则返回errno
+ */
+int pthread_mutex_init(pthread_mutex_t *restrict mutex,
+​              const pthread_mutexattr_t *restrict attr);
+```
+
+关于参数mutex有以下几个要点：
+
+- pthread_mutext_t类型的本质是结构体，为简化理解，读者可将其视为整型；
+- pthread_mutex_t类型的变量mutex只有两种取值：0和1，
+  - 加锁操作可视为`mutex-1`；
+  - 解锁操作可视为`mutex+1`；
+- 参数mutex之前的restrict是一个关键字，该关键字用于限制指针，其功能为告诉编译器，所有修改该指针指向内存中内容的操作，只能通过本指针完成。
+
+errno的常见取值为:
+
+- EAGAIN表示超出互斥锁递归锁定的最大次数，因此无法获取该互斥锁；
+- EDEADLK表示当前线程已有互斥锁，二次加锁失败。
+
+通过pthread_mutex_init()函数初始化互斥量又称为`动态初始化`，一般用于初始化局部变量，示例如下：
+
+```cpp
+pthread_mutex_init(&mutex, NULL);
+```
+
+此外互斥锁也可以直接使用宏进行初始化，示例如下：
+
+```cpp
+pthead_mutex_t muetx = PTHREAD_MUTEX_INITIALIZER;
+```
+
+此条语句与以上动态初始化示例语句功能相同。
+
+### pthread_mutex_lock
+
+锁定指定互斥量
+
+```cpp
+/**
+ * 参数mutex，表示待锁定的互斥量
+ * 调用成功则返回0，否则返回errno
+ */
+int pthread_mutex_lock(pthread_mutex_t *mutex);
+```
+
+程序中调用函数pthread_mutex_lock 后，直至程序中调用pthread_mutex_unlock()函数之前，此间的代码均被上锁，即在同一时刻只能被一个线程执行。
+
+### pthread_mutex_trylock
+
+```cpp
+/**
+ * 参数mutex同样表示待锁定的互斥量
+ * 若函数调用成功则返回0，否则返回errno
+ */
+int pthread_mutex_trylock(pthread_mutex_t *mutex);
+```
+
+若需要使用的互斥锁正在被使用，调用pthread_mutxe_lock()函数的线程会进入阻塞，但有些情况下，我们希望线程可以先去执行其它功能，此时需要使用非阻塞的互斥锁。
+
+Linux系统中提供了pthread_mutex_trylock()函数，该函数的功能为尝试加锁，若锁正在被使用，不阻塞等待，而是直接返回并返回错误号。
+
+其中常见的errno有两个，分别为:
+
+- EBUSY：参数mutex指向的互斥锁已锁定；
+- EAGAIN：超过互斥锁递归锁定的最大次数。
+
+### pthread_mutex_unlock
+
+线程将会为指定互斥量解锁
+
+```cpp
+/**
+ * 参数mutex表示待解锁的互斥量。
+ * 调用成功则返回0，否则返回errno
+ */
+int pthread_mutex_unlock(pthread_mutex_t *mutex);
+```
+
+### pthread_mutex_destroy
+
+互斥锁也是系统中的一种资源，因此使用完毕后应将其释放
+
+线程将为指定互斥量解锁
+
+```cpp
+/**
+ * 参数mutex表示待销毁的互斥量。
+ * 调用成功则返回0，否则返回errno。
+ */
+int pthread_mutex_destroy(pthread_mutex_t *mutex);
+```
+
+### 示例
+
+两个线程输出文字：
+
+- 线程1: 预期输出 hello world
+- 线程2: 预期输出 HELLO WORLD
+
+示例1：未加锁
+
+```cpp
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+void *task1(void *arg)
+{
+    printf("hello ");
+    sleep(1);
+    printf("world\n");
+    return NULL;
+}
+
+void *task2(void *arg)
+{
+    printf("HELLO ");
+    sleep(1);
+    printf("WORLD\n");
+    return NULL;
+}
+
+int main(int argc, char const *argv[])
+{
+    pthread_t task1_tid, task2_tid;
+
+    pthread_create(&task1_tid, NULL, task1, NULL);
+    pthread_create(&task2_tid, NULL, task2, NULL);
+
+    pthread_join(task1_tid, NULL);
+    pthread_join(task2_tid, NULL);
+
+    return 0;
+}
+
+```
+
+运行结果
+
+```shell
+% gcc main.c  -o main -l pthread  && ./main
+hello HELLO world
+WORLD
+```
+
+示例2：加锁
+
+```cpp
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+pthread_mutex_t mutex;
+
+void *task1(void *arg)
+{
+    pthread_mutex_lock(&mutex); // 加锁
+
+    printf("hello ");
+    sleep(1);
+    printf("world\n");
+
+    pthread_mutex_unlock(&mutex); // 释放锁
+    return NULL;
+}
+
+void *task2(void *arg)
+{
+    pthread_mutex_lock(&mutex); // 加锁
+
+    printf("HELLO ");
+    sleep(1);
+    printf("WORLD\n");
+
+    pthread_mutex_unlock(&mutex); // 释放锁
+
+    return NULL;
+}
+
+int main(int argc, char const *argv[])
+{
+    pthread_t task1_tid, task2_tid;
+
+    // 初始化信号量
+    pthread_mutex_init(&mutex, NULL);
+
+    // 启动线程
+    pthread_create(&task1_tid, NULL, task1, NULL);
+    pthread_create(&task2_tid, NULL, task2, NULL);
+
+    // 等待线程结束
+    pthread_join(task1_tid, NULL);
+    pthread_join(task2_tid, NULL);
+
+    // 销毁信号量
+    pthread_mutex_destroy(&mutex);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+% gcc main.c  -o main -l pthread  && ./main
+hello world
+HELLO WORLD
+```
+
+## 条件变量
+
+使用条件变量控制线程同步时，线程访问共享资源的前提，是程序中设置的条件变量得到满足。条件变量不会对共享资源加锁，但也会使线程阻塞，若线程不满足条件变量规定的条件，就会进入阻塞状态直到条件满足。
+
+条件变量往往与互斥锁搭配使用，在线程需要访问共享资源时，会先绑定一个互斥锁，然后检测条件变量
+
+- 若条件变量满足，线程就继续执行，并在资源访问完成后解开互斥锁；
+- 若条件变量不满足，线程将解开互斥锁，进入阻塞状态，等待条件变量状况发生改变。
+
+一般条件变量的状态由其它非阻塞态的线程改变，条件变量被满足则会唤醒阻塞中的进程，这些线程再次争夺互斥锁，对条件变量状况进行测试。
+
+综上所述，条件变量的使用分为以下四个步骤：
+
+- （1）初始化条件变量；
+- （2）等待条件变量满足；
+- （3）唤醒阻塞线程；
+- （4）释放条件变量。
+
+### pthread_cond_init
+
+初始化条件变量
+
+```cpp
+/**
+ * 参数cond代表条件变量
+ * 参数attr代表条件变量的属性，通常设置为NULL，表示使用默认属性初始化条件变量
+ *   - PTHREAD_PROCESS_PRIVATE，默认值，当前进程中的线程共用此条件变量；
+ *   - PTHREAD_PROCESS_SHARED，表示多个进程间的线程共用条件变量。
+ * 
+ * 成功则返回0，否则返回-1，并设置errno
+ */
+int pthread_cond_init(pthread_cond_t *restrict cond,
+​             const pthread_condattr_t *restrict attr);
+```
+
+除使用函数pthread_cond_init()动态初始化条件变量外，也可以使用如下语句以静态方法初始化条件变量：
+
+```cpp
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+```
+
+此种方式与将attr参数初始化为NULL的pthread_cond_init()函数等效，但是不进行错误检查。
+
+### pthread_cond_wait
+
+阻塞等待条件变量
+
+```cpp
+/**
+ * 参数cond代表条件变量；
+ * 参数mutex代表与当前线程绑定的互斥锁。
+ * 
+ * 成功则返回0，否则返回-1，并设置errno。
+ */
+int pthread_cond_wait(pthread_cond_t *restrict cond,
+​              pthread_mutex_t *restrict mutex);
+```
+
+pthread_cond_wait()类似于互斥锁中的函数pthread_mutex_lock()，但其功能更为丰富，它的工作机制如下：
+
+（1）阻塞等待条件变量cond满足；
+
+（2）解除已绑定的互斥锁（类似于pthread_mutex_unlock()）；
+
+（3）当线程被唤醒，pthread_cond_wait()函数返回，pthread_cond_wait()函数同时会解除线程阻塞，并使线程重新申请绑定互斥锁。
+
+以上工作机制中，前两条为一个原子操作；需要注意的最后一条，最后一条机制表明：当线程被唤醒后，仍需重新绑定互斥锁。这是因为，“线程被唤醒”及“绑定互斥锁”并不是一个原子操作，条件变量满足后也许会有多个处于运行态的线程出现，并竞争互斥锁，极有可能在线程B绑定互斥锁之前，线程A已经执行了以下操作：
+
+获取互斥锁——修改条件变量——解除互斥锁
+
+此时线程B即便获取到互斥锁，条件变量仍不满足，线程B应继续阻塞等待。综上所述，再次检测条件变量的状况是极有必要的。
+
+![](https://mouday.github.io/img/2025/08/20/dm3sel9.png)
+
+### pthread_cond_timedwait
+
+使线程阻塞等待条件变量
+
+该函数可以指定线程的阻塞时长，若等待超时，该函数便会返回
+
+```cpp
+/**
+ * 参数cond代表条件变量，
+ * 参数mutex代表互斥锁，
+ * 参数abstime代表绝对时间，用于设置等待时长，该参数是一个传入参数
+ */
+int pthread_cond_timedwait(
+        pthread_cond_t *restrict cond,
+        pthread_mutex_t *restrict mutex,
+        const struct timespec *restrict abstime
+);
+```
+
+`struct timespec` 定义如下
+
+```cpp
+struct timespec {
+  time_t tv_sec;   //秒
+  long  tv_nsec;   //纳秒
+}
+```
+
+### pthread_cond_signal
+
+在条件变量满足之后，以信号的形式唤醒阻塞在该条件变量的一个线程。处于阻塞状态中的线程的唤醒顺序由调度策略决定
+
+```cpp
+/**
+ * 参数cond代表条件变量
+ * 成功则返回0，否则返回-1，并设置errno。
+ */
+int pthread_cond_signal(pthread_cond_t *cond);
+```
+
+### pthread_cond_broadcast
+
+唤醒阻塞在指定条件变量的线程，该函数会以广播的形式，唤醒阻塞在该条件变量上的所有线程。
+
+```cpp
+/**
+ * 参数cond代表条件变量
+ * 成功则返回0，否则返回-1，并设置errno。
+ */
+int pthread_cond_broadcast(pthread_cond_t *cond);
+```
+
+### 示例
+
+生产者-消费者模型，两个线程，消费者必须等待消费者生产数据后才能消费
+
+```cpp
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <time.h>
+
+// 初始化互斥锁
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+// 初始化条件变量
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+
+int value = 0; // 标志位，表示是否有产品
+
+void *producer(void *arg)
+{
+    while (1)
+    {
+        pthread_mutex_lock(&mutex); // 加锁
+
+        while (value)
+        {
+            pthread_cond_wait(&cond, &mutex); // 等待条件变量
+        }
+
+        sleep(1);                   // 模拟生产过程
+        value = random() % 100 + 1; // 生产完毕，设置标志位
+        printf("producer: %d\n", value);
+        pthread_mutex_unlock(&mutex); // 释放锁
+        pthread_cond_signal(&cond);   // 通知消费者
+    }
+
+    return NULL;
+}
+
+void *comsumer(void *arg)
+{
+
+    while (1)
+    {
+        pthread_mutex_lock(&mutex); // 加锁
+        while (!value)
+        {
+            pthread_cond_wait(&cond, &mutex); // 等待条件变量
+        }
+        printf("comsumer: %d\n", value);
+        sleep(1);                     // 模拟消费过程
+        value = 0;                    // 消费完毕，重置标志位
+        pthread_mutex_unlock(&mutex); // 释放锁
+        pthread_cond_signal(&cond);   // 通知生产者
+    }
+
+    return NULL;
+}
+
+int main(int argc, char const *argv[])
+{
+    pthread_t producer_tid, comsumer_tid;
+
+    srand(time(NULL));
+
+    // 启动线程
+    pthread_create(&producer_tid, NULL, producer, NULL);
+    pthread_create(&comsumer_tid, NULL, comsumer, NULL);
+
+    // 等待线程结束
+    pthread_join(producer_tid, NULL);
+    pthread_join(comsumer_tid, NULL);
+
+    // 销毁
+    pthread_mutex_destroy(&mutex);
+    pthread_cond_destroy(&cond);
+
+    return 0;
+}
+
+```
+
+```shell
+% gcc main.c  -o main -l pthread  && ./main
+producer: 84
+comsumer: 84
+producer: 87
+comsumer: 87
+producer: 78
+comsumer: 78
+producer: 16
+comsumer: 16
 ```

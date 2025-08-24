@@ -25,6 +25,20 @@ C 标准库（C Standard Library）
 | [complex.h](complex.h.md) | 提供复数运算的函数和宏，如 cabs、carg 等。
 | [tgmath.h](tgmath.h.md) | 为泛型数学函数提供宏，以简化对不同类型数据的数学运算。
 | [fenv.h](fenv.h.md) | 提供对浮点环境的控制，如舍入模式和异常状态
+| [pthread.h](pthread.h.md) | 多线程
+| [unistd.h](unistd.h.md) | 
+
+## 进程通信
+
+| 进程方式 | 适用场景 | 数据特点  | 同步要求
+|-|-|-|-
+[管道（Pipe）](unistd.h.md#pipe)|父子进程|字节流|阻塞读写
+FIFO | 任意进程|字节流|可非阻塞
+[共享内存](sys_shm.h.md) | 高性能数据共享 | 直接内存访问 | 需同步
+信号  |  进程控制 | 无数据 | 异步
+[信号量](sys_sem.h.md)  |  进程控制 | |
+[消息队列](sys_msg.h.md) | 任意进程 | 结构化消息 | 异步
+
 
 开启 Mac Coredump
 

@@ -189,3 +189,45 @@ Received message: Hello World!
 ```cpp
 int dup2(int oldfd, int newfd);
 ```
+
+## access
+
+```cpp
+/**
+ * 参数
+ *   path 文件名
+ *   mode 检查项
+ * 成功返回0，失败返回-1，并设置errno
+ */ 
+int access(const char *path, int mode);
+```
+
+mode可选：
+
+- R_OK 读取权限
+- W_OK 写权限
+- X_OK 执行权限
+- F_OK 存在检查
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <unistd.h>
+
+int main(int argc, char const *argv[])
+{
+    // 检查文件是否存在
+    int ret = access("main.c", F_OK);
+    printf("ret=%d\n", ret);
+
+    return 0;
+}
+```
+
+执行结果
+
+```shell
+% gcc main.c  -o main && ./main
+ret=0
+```

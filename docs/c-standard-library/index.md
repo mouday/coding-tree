@@ -33,12 +33,17 @@ C 标准库（C Standard Library）
 | 进程方式 | 适用场景 | 数据特点  | 同步要求
 |-|-|-|-
 [管道（Pipe）](unistd.h.md#pipe)|父子进程|字节流|阻塞读写
-FIFO | 任意进程|字节流|可非阻塞
+[FIFO](unistd.h.md##access) | 任意进程|字节流|可非阻塞
 [共享内存](sys_shm.h.md) | 高性能数据共享 | 直接内存访问 | 需同步
-信号  |  进程控制 | 无数据 | 异步
+[信号](signal.h.md)  |  进程控制 | 无数据 | 异步
 [信号量](sys_sem.h.md)  |  进程控制 | |
 [消息队列](sys_msg.h.md) | 任意进程 | 结构化消息 | 异步
 
+## Socket网络编程
+
+- [socket](sys_socket.h.md)
+- [网络字节序、IP地址转换函数](arpa_inet.h.md)
+- [地址结构体sockaddr](netinet_in.h.md)
 
 开启 Mac Coredump
 

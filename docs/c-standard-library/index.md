@@ -26,7 +26,7 @@ C 标准库（C Standard Library）
 | [tgmath.h](tgmath.h.md) | 为泛型数学函数提供宏，以简化对不同类型数据的数学运算。
 | [fenv.h](fenv.h.md) | 提供对浮点环境的控制，如舍入模式和异常状态
 | [pthread.h](pthread.h.md) | 多线程
-| [unistd.h](unistd.h.md) | 
+| [unistd.h](unistd.h.md) | Unix 标准头文件，提供了对 POSIX 操作系统 API 的访问
 
 ## 进程通信
 
@@ -44,6 +44,10 @@ C 标准库（C Standard Library）
 - [socket](sys_socket.h.md)
 - [网络字节序、IP地址转换函数](arpa_inet.h.md)
 - [地址结构体sockaddr](netinet_in.h.md)
+
+## 常用代码
+
+[日志 logger](../c-start/logger.md)
 
 开启 Mac Coredump
 
@@ -98,3 +102,6 @@ $ gcc main.c -o test -std=c99
 
 Linux GCC 如何查看及指定 C 语言标准
 https://zhuanlan.zhihu.com/p/626785086
+
+嵌入式Linux进程间通信(IPC)
+https://mp.weixin.qq.com/s/eFNEHQiLp2mZ6ulr7uOHrQ

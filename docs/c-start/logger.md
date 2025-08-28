@@ -210,6 +210,22 @@ int main()
 
 ```
 
+运行结果
+
+```shell
+% gcc main.c log.c -o main && ./main
+[2025-08-28 08:18:45] [DEBUG] debug log
+[2025-08-28 08:18:45] [INFO] Program started. Version: 1.0.0
+[2025-08-28 08:18:45] [WARN] Apple: 100 remaining
+[2025-08-28 08:18:45] [ERROR] Failed to connect to database: timeout
+
+% cat app.log
+[2025-08-28 08:19:19] [DEBUG] debug log
+[2025-08-28 08:19:19] [INFO] Program started. Version: 1.0.0
+[2025-08-28 08:19:19] [WARN] Apple: 100 remaining
+[2025-08-28 08:19:19] [ERROR] Failed to connect to database: timeout
+```
+
 参考文章
 
 用 C 语言实现日志打印结构体：从设计到实战

@@ -1102,3 +1102,41 @@ int main()
 $ gcc main.c -o main && ./main
 msg: Interrupt: 2
 ```
+
+## bzero（deprecated）
+
+填充空字符，推荐使用memset
+
+```cpp
+void bzero(void *s, size_t n)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char const *argv[])
+{
+    char buf[10];
+    
+    strcpy(buf, "hello");
+    printf("before buf: %s\n", buf);
+
+    // 等价于：memset(buf, 0, sizeof(buf))
+    bzero(buf, sizeof(buf));
+    printf("after buf: %s\n", buf);
+
+    return 0;
+}
+
+```
+
+运行结果
+
+```shell
+ gcc main.c -o main  && ./main
+before buf: hello
+after buf: 
+```

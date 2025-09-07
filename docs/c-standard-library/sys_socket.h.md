@@ -1289,3 +1289,9 @@ success: write
 success: read
 HELLO
 ```
+
+## 多路I/O转接服务器
+
+- [sys/select.h](sys_select.h.md)
+- [poll.h](poll.h.md)
+- [sys/epoll.h](sys_epoll.h.md)

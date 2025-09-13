@@ -1,6 +1,5 @@
 # Debug Postgresql
 
-
 查询客户端连接上的服务进程id
 
 ```sql

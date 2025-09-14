@@ -185,12 +185,3 @@ make:
 reload:
 	make stop; make rebuild && make start
 ```
-
-PostgreSQL进程：
-
-- 守护进程 Postmaster
-- 服务进程 Postgres
-- 辅助进程
-  - SysLogger
-  - PgStat
-  - AutoVacuum

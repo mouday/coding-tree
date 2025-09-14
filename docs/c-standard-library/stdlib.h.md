@@ -974,44 +974,6 @@ zsh: abort (core dumped)  ./main
 - 如果希望在程序终止前执行一些清理操作，可以使用 exit 函数代替 abort。
 - 核心转储文件可以用于调试，帮助开发者分析程序异常终止的原因。
 
-## getenv
-
-搜索 name 所指向的环境字符串，并返回相关的值给字符串。
-
-```cpp
-/**
- * 参数
- *   name -- 包含被请求变量名称的 C 字符串。
- * 返回值
- *   该函数返回一个以 null 结尾的字符串，该字符串为被请求环境变量的值。
- *   如果该环境变量不存在，则返回 NULL。
- */
-char *getenv(const char *name)
-```
-
-示例
-
-```cpp
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(int argc, char **argv)
-{
-    char *HOME = getenv("HOME");
-
-    printf("HOME: %s\n", HOME);
-
-    return 0;
-}
-```
-
-运行结果
-
-```shell
-$ gcc main.c -o main && ./main
-HOME: /Users/user
-```
-
 ## system
 
 由 string 指定的命令传给要被命令处理器执行的主机环境。
@@ -1532,4 +1494,121 @@ int main(int argc, char **argv)
 ```shell
 gcc main.c -o main && ./main 
 create temp filename: temp-GhUF2h
+```
+
+## setenv
+
+设置环境变量
+
+```cpp
+int setenv(const char * name, const char * value, int overwrite);
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char const *argv[])
+{
+    char *app_mode;
+
+    // 设置环境变量
+    setenv("APP_MODE", "debug", 0);
+
+    // 读取环境变量
+    app_mode = getenv("APP_MODE");
+
+    printf("app_mode: %s\n", app_mode);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+app_mode: debug
+```
+
+## getenv
+
+搜索 name 所指向的环境字符串，并返回相关的值给字符串。
+
+```cpp
+/**
+ * 参数
+ *   name -- 包含被请求变量名称的 C 字符串。
+ * 返回值
+ *   该函数返回一个以 null 结尾的字符串，该字符串为被请求环境变量的值。
+ *   如果该环境变量不存在，则返回 NULL。
+ */
+char *getenv(const char *name)
+```
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char const *argv[])
+{
+    char *app_mode;
+
+    // 设置环境变量
+    setenv("APP_MODE", "debug", 0);
+
+    // 读取环境变量
+    app_mode = getenv("APP_MODE");
+
+    printf("app_mode: %s\n", app_mode);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+app_mode: debug
+```
+
+## unsetenv
+
+重置环境变量
+
+```cpp
+int unsetenv(const char *name);
+```
+
+示例
+
+```cpp
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char const *argv[])
+{
+    char *app_mode;
+
+    // 重置环境变量
+    unsetenv("APP_MODE");
+
+    // 读取环境变量
+    app_mode = getenv("APP_MODE");
+
+    printf("app_mode: %s\n", app_mode);
+
+    return 0;
+}
+
+```
+
+运行结果
+
+```shell
+app_mode: (null)
 ```

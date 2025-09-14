@@ -78,3 +78,41 @@ const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
 这两个函数不但能转换IPv4格式的地址in_addr，还能转换IPv6格式的地址in_addr6
 
 以上两个函数需要转换IPv4和IPv6这两种形式的地址，因此用来传递地址的参数类型为void*。
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <arpa/inet.h>
+
+int main(int argc, char const *argv[])
+{
+    // 将ip字符串转为网络地址结构
+    int ret;
+    struct in_addr sin_addr;
+    ret = inet_pton(AF_INET, "127.0.0.1", &sin_addr);
+    printf("ret: %d\n", ret);
+    printf("sin_addr.s_addr: %d\n", sin_addr.s_addr);
+
+    // 网络地址结构arc转换为字符串
+    char str[INET_ADDRSTRLEN];
+    const char *ip = inet_ntop(AF_INET, &sin_addr, str, sizeof(str));
+
+    printf("str: %s\n", str);
+    printf("ip: %s\n", ip);
+    printf("ip == str: %s\n", ip == str ? "true": "false");
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+ret: 1
+sin_addr.s_addr: 16777343
+
+str: 127.0.0.1
+ip: 127.0.0.1
+ip == str: true
+```

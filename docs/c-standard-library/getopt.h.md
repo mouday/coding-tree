@@ -1,4 +1,4 @@
-# 命令行解析
+# getopt.h
 
 ## getopt
 
@@ -174,17 +174,17 @@ int getopt_long_only(int argc, char * const argv[],const char *optstring, const 
 #define optional_argument  2
 
 struct option {
-	/* name of long option */
-	const char *name;
-	/*
-	 * one of no_argument, required_argument, and optional_argument:
-	 * whether option takes an argument
-	 */
-	int has_arg;
-	/* if not NULL, set *flag to val when option found */
-	int *flag;
-	/* if flag not NULL, value to set *flag to; else return value */
-	int val;
+    /* name of long option */
+    const char *name;
+    /*
+     * one of no_argument, required_argument, and optional_argument:
+     * whether option takes an argument
+     */
+    int has_arg;
+    /* if not NULL, set *flag to val when option found */
+    int *flag;
+    /* if flag not NULL, value to set *flag to; else return value */
+    int val;
 };
 ```
 

@@ -551,15 +551,120 @@ int main()
 
 ## 文件描述符
 
-// 复制文件描述符
-int dup(int oldfd);
-int dup2(int oldfd, int newfd);
+### dup
 
-// 关闭文件描述符
-int close(int fd);
+复制文件描述符
+
+```cpp
+/**
+ * 参数
+ *   oldfd 要复制的文件描述符
+ * 成功返回文件描述符，失败返回-1，并设置errno
+*/
+int dup(int oldfd);
+```
+
+示例
+
+```cpp
+#include <unistd.h> // close/dup
+#include <fcntl.h>  // open
+
+int main(int argc, char const *argv[])
+{
+
+    int fd = open("demo.txt", O_WRONLY | O_CREAT, 0644);
+
+    // dup_fd和 fd指向同一个文件
+    int dup_fd = dup(fd);
+    write(fd, "hello", 5);
+    write(dup_fd, "world\n", 6);
+
+    close(dup_fd);
+    close(fd);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+% cat demo.txt
+helloworld
+```
 
 ### dup2
 
+重定向，修改文件描述符指向
+
 ```cpp
+/**
+ * 参数
+ *   oldfd 要复制的文件描述符
+ *   newfd 指定新的文件描述符
+ * 返回
+ *   成功 返回newfd
+ *   失败 返回-1，并设置errno
+*/
 int dup2(int oldfd, int newfd);
+```
+
+示例
+
+```cpp
+#include <unistd.h> // close/dup
+#include <fcntl.h>  // open
+#include <stdio.h>
+
+int main(int argc, char const *argv[])
+{
+
+    int fd = open("demo.txt", O_WRONLY | O_CREAT, 0644);
+
+    // 将标准输出冲定向到文件fd
+    dup2(fd, STDOUT_FILENO);
+    printf("hello world\n");
+
+    close(fd);
+
+    return 0;
+}
+```
+
+运行结果
+
+```shell
+% cat demo.txt   
+hello world
+```
+
+### close
+
+关闭文件描述符
+
+```cpp
+/**
+ * 参数：
+ * fd 文件描述符
+ * 成功返回0，失败返回-1，并设置errno
+*/
+int close(int fd);
+```
+
+示例
+
+```cpp
+#include <unistd.h> // close
+#include <fcntl.h>  // open
+
+int main(int argc, char const *argv[])
+{
+
+   int fd = open("demo.txt", O_WRONLY, 0644);
+
+   close(fd);
+
+    return 0;
+}
 ```

@@ -27,6 +27,7 @@ C 标准库（C Standard Library）
 | [fenv.h](fenv.h.md) | 提供对浮点环境的控制，如舍入模式和异常状态
 | [pthread.h](pthread.h.md) | 多线程
 | [unistd.h](unistd.h.md) | Unix 标准头文件，提供了对 POSIX 操作系统 API 的访问
+| [fcntl.h](fcntl.h.md) |
 
 ## 进程通信
 

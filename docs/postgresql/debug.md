@@ -143,3 +143,54 @@ LINE 1: select * from tb1;
                       ^
 LOCATION:  parserOpenTable, parse_relation.c:1452
 ```
+
+## 查看日志
+
+打印日志
+
+```cpp
+ereport(LOG, (errmsg("PgStartTime: %ld", PgStartTime)));
+```
+
+通过进程号过滤日志
+
+```shell
+tail -f postgresql.log | grep '\[35004\]'
+```
+
+makefile
+
+```shell
+.PHONY: start
+start:
+	pg_ctl -D /Users/wang/local/postgres-data -l logfile start
+
+.PHONY: stop
+stop:
+	pg_ctl -D /Users/wang/local/postgres-data -l logfile stop
+
+.PHONY: restart
+restart:
+	make stop && make start
+
+.PHONY: build
+build:
+	./configure --prefix=/Users/wang/local/postgres --enable-debug --enable-cassert --enable-depend CFLAGS=-O0 && make && make install
+
+.PHONY: rebuild
+make:
+	make && make install
+
+.PHONY: reload
+reload:
+	make stop; make rebuild && make start
+```
+
+PostgreSQL进程：
+
+- 守护进程 Postmaster
+- 服务进程 Postgres
+- 辅助进程
+  - SysLogger
+  - PgStat
+  - AutoVacuum

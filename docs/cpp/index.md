@@ -21,6 +21,8 @@ Valgrind | 内存泄漏定位工具 | [](https://valgrind.org/downloads/)
 
 [C 标准库](../c-standard-library/index.md)
 
+[CPP 标准库](../cpp-standard-library/index.md)
+
 ## 学习视频
 
 华为团队斥巨资打造了最新的C/C++教程

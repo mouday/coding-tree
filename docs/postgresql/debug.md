@@ -50,21 +50,21 @@ pg_rewrite_query()
 {
 
     // debug_print_parse = on
-	if (Debug_print_parse)
-		elog_node_display(LOG, "parse tree", query,
-						  Debug_pretty_print);
+    if (Debug_print_parse)
+        elog_node_display(LOG, "parse tree", query,
+                          Debug_pretty_print);
 
     // debug_print_rewritten = on
     if (Debug_print_rewritten)
-		elog_node_display(LOG, "rewritten parse tree", querytree_list,
-						  Debug_pretty_print);
+        elog_node_display(LOG, "rewritten parse tree", querytree_list,
+                          Debug_pretty_print);
 
 }
 
 pg_plan_query(){
     // debug_print_plan = on
-	if (Debug_print_plan)
-		elog_node_display(LOG, "plan", plan, Debug_pretty_print);
+    if (Debug_print_plan)
+        elog_node_display(LOG, "plan", plan, Debug_pretty_print);
 }
 ```
 
@@ -163,25 +163,25 @@ makefile
 ```shell
 .PHONY: start
 start:
-	pg_ctl -D /Users/wang/local/postgres-data -l logfile start
+    pg_ctl -D /Users/wang/local/postgres-data -l logfile start
 
 .PHONY: stop
 stop:
-	pg_ctl -D /Users/wang/local/postgres-data -l logfile stop
+    pg_ctl -D /Users/wang/local/postgres-data -l logfile stop
 
 .PHONY: restart
 restart:
-	make stop && make start
+    make stop && make start
 
 .PHONY: build
 build:
-	./configure --prefix=/Users/wang/local/postgres --enable-debug --enable-cassert --enable-depend CFLAGS=-O0 && make && make install
+    ./configure --prefix=/Users/wang/local/postgres --enable-debug --enable-cassert --enable-depend CFLAGS=-O0 && make && make install
 
 .PHONY: rebuild
 make:
-	make && make install
+    make && make install
 
 .PHONY: reload
 reload:
-	make stop; make rebuild && make start
+    make stop; make rebuild && make start
 ```

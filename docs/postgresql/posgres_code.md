@@ -181,7 +181,7 @@ postmaster_child_launch(){
 - pg_index 索引信息
 - pg_statistic 统计信息
 
-初始化过程
+## 初始化过程
 
 3个默认系统数据库
 
@@ -191,7 +191,7 @@ postmaster_child_launch(){
 |template0 | 用于备份
 |postgres | 用于连接
 
-Portal执行过程
+## Portal执行过程
 
 ```cpp
 CreatePortal()       // 创建portal
@@ -201,14 +201,14 @@ PortalRun()          // 调用portal执行过程
 PortalDrop()         // 调用portal清理过程
 ```
 
-SQL语句分类：
+## SQL语句分类
 
 |SQL语句类型 | 操作范围 | 处理模块
 |-|-|-|
 |数据定义语句 DDL statement，功能性操作| 元组以外 | 功能处理器 Utility Processor
 |可优化语句 Optimizable statement| 元组相关  | 执行器 Executor
 
-数据定义语句
+### 数据定义语句
 
 以建表语句为例
 
@@ -276,3 +276,216 @@ exec_simple_query(){
 |节点类型 |核心处理函数 |功能
 |-|-|-
 | T_CreateStmt | DefineRelation | 创建关系表
+
+### 可优化语句
+
+计划节点继承体系
+
+```cpp
+// src/include/nodes/plannodes.h
+Plan
+    /* 控制节点 control node */
+    Result
+    ProjectSet
+    ModifyTable
+    Append
+    MergeAppend
+    RecursiveUnion
+    BitmapAnd
+    BitmapOr
+
+    /* 扫描节点 scan node */
+    Scan
+        SeqScan
+        SampleScan
+        IndexScan
+        IndexOnlyScan
+        BitmapIndexScan
+        BitmapHeapScan
+        TidScan
+        TidRangeScan
+        SubqueryScan
+        FunctionScan
+        ValuesScan
+        TableFuncScan
+        CteScan
+        NamedTuplestoreScan
+        WorkTableScan
+        ForeignScan
+        CustomScan
+
+    /* 连接节点 join node */
+    Join
+        NestLoop
+        MergeJoin
+        HashJoin
+
+    /* 物化节点 meterialzation node */
+    Material
+    Memoize
+    Sort
+        IncrementalSort
+    Group
+    Agg
+    WindowAgg
+    Unique
+    Gather
+    GatherMerge
+    Hash
+    SetOp
+    LockRows
+    Limit
+```
+
+状态节点继承体系
+
+```cpp
+// src/include/nodes/execnodes.h
+PlanState
+    ResultState
+    ProjectSetState
+    ModifyTableState
+    AppendState
+    MergeAppendState
+    RecursiveUnionState
+    BitmapAndState
+    BitmapOrState
+    ScanState
+        SeqScanState
+        SampleScanState
+        IndexScanState
+        IndexOnlyScanState
+        BitmapIndexScanState
+        BitmapHeapScanState
+        TidScanState
+        TidRangeScanState
+        SubqueryScanState
+        FunctionScanState
+        ValuesScanState
+        TableFuncScanState
+        CteScanState
+        NamedTuplestoreScanState
+        WorkTableScanState
+        ForeignScanState
+        CustomScanState
+        MaterialState
+        MemoizeState
+        SortState
+        IncrementalSortState
+        GroupState
+        AggState
+        WindowAggState
+    JoinState
+        NestLoopState
+        MergeJoinState
+        HashJoinState
+    UniqueState
+    GatherState
+    GatherMergeState
+    HashState
+    SetOpState
+    LockRowsState
+    LimitState
+```
+
+执行器执行过程中涉及的主要数据结构
+
+```cpp
+/* query descriptor */
+typedef struct QueryDesc
+{
+    /* These fields are provided by CreateQueryDesc */
+    // 语句类型
+    CmdType        operation;        /* CMD_SELECT, CMD_UPDATE, etc. */
+    // 查询计划树
+    PlannedStmt *plannedstmt;    /* planner's output (could be utility, too) */
+    // 查询语句
+    const char *sourceText;        /* source text of the query */
+
+    /* These fields are set by ExecutorStart */
+
+    TupleDesc    tupDesc;        /* descriptor for result tuples */
+    // 执行器全局状态
+    EState       *estate;            /* executor's query-wide state */
+    // 计划节点执行状态
+    PlanState  *planstate;        /* tree of per-plan-node state */
+} QueryDesc;
+
+
+// PlannedStmt node
+typedef struct PlannedStmt
+{
+    NodeTag        type;
+
+    // 语句类型
+    CmdType        commandType;    /* select|insert|update|delete|merge|utility */
+
+    uint64        queryId;        /* query identifier (copied from Query) */
+
+    // 查询计划树根节点
+    struct Plan *planTree;        /* tree of Plan nodes */
+
+    // 查询涉及的范围表
+    List       *rtable;            /* list of RangeTblEntry nodes */
+
+    /* rtable indexes of target relations for INSERT/UPDATE/DELETE/MERGE */
+    // 结果关系表
+    List       *resultRelations;    /* integer list of RT indexes, or NIL */
+
+    Node       *utilityStmt;    /* non-null if this is utility stmt */
+
+} PlannedStmt;
+
+
+/* Executor state */
+typedef struct EState
+{
+    NodeTag        type;
+    // 查询涉及的范围表
+    List       *es_range_table; /* List of RangeTblEntry */
+    
+    /* Other working state: */
+    // EState内存上下文
+    MemoryContext es_query_cxt; /* per-query context in which EState lives */
+
+    // 用于节点之间传递元组的全局元组表
+    List       *es_tupleTable;    /* List of TupleTableSlots */
+
+    /*
+     * this ExprContext is for per-output-tuple operations, such as constraint
+     * checks and index-value computations.  It will be reset for each output
+     * tuple.  Note that it will be created only if needed.
+     */
+    // 每获取一个元组就会回收的内存上下文
+    ExprContext *es_per_tuple_exprcontext;
+
+} EState;
+
+
+/* PlanState node */
+typedef struct PlanState
+{
+
+    NodeTag        type;
+
+    // 计划节点指针
+    Plan       *plan;            /* associated Plan node */
+
+    // 执行器全局状态指针
+    EState       *state;            /* at execution time, states of individual
+                                 * nodes point to one EState for the whole
+                                 * top-level plan */
+
+    /*
+     * Common structural data for all Plan types.  These links to subsidiary
+     * state trees parallel links in the associated plan tree (except for the
+     * subPlan list, which does not exist in the plan tree).
+     */
+    //  选择运算相关条件
+    ExprState  *qual;            /* boolean qual condition */
+
+    // 左右子树状态节点指针
+    struct PlanState *lefttree; /* input plan tree(s) */
+    struct PlanState *righttree;
+} PlanState;
+```

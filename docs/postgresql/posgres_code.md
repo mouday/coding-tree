@@ -489,3 +489,158 @@ typedef struct PlanState
     struct PlanState *righttree;
 } PlanState;
 ```
+
+## 执行器运行
+
+```cpp
+exec_simple_query(const char *query_string){
+    
+    // 词法语法分析
+    List<RawStmt> *parsetree_list = pg_parse_query(const char *query_string);
+
+    foreach(ListCell *parsetree_item, parsetree_list) {
+        RawStmt *parsetree = lfirst_node(RawStmt, parsetree_item);
+
+        List<Query> *querytree_list = pg_analyze_and_rewrite_fixedparams(RawStmt *parsetree)
+        List<PlannedStmt> *plantree_list = pg_plan_queries(List *querytree_list)
+
+        // portal阶段
+        Portal portal = CreatePortal("", true, true);
+        PortalDefineQuery(Portal portal, List *plantree_list)
+
+        PortalStart(Portal portal){
+            // 执行策略选择
+            PortalStrategy portal->strategy = ChoosePortalStrategy(List *portal->stmts);
+            switch (portal->strategy)
+            {
+                case PORTAL_ONE_SELECT:
+                    // 创建QueryDesc
+                    QueryDesc *queryDesc = CreateQueryDesc(PlannedStmt *plannedstmt)
+                    ExecutorStart(QueryDesc *queryDesc){
+                        // 对执行器进行必要初始化
+                        standard_ExecutorStart(QueryDesc *queryDesc){
+                            // 构造EState
+                            EState *estate = CreateExecutorState();
+                            queryDesc->estate = estate;
+
+                            // 构造PlanState
+                            InitPlan(QueryDesc *queryDesc){
+                                // 递归处理查询计划树每个节点，转为对应的状态节点树
+                                PlanState *planstate = ExecInitNode(Plan *node, EState *estate);
+                                queryDesc->planstate = planstate;
+                            }
+                        }
+                    }
+
+                    portal->queryDesc = queryDesc;
+            }
+        }
+
+        PortalRun(Portal portal){
+            switch (portal->strategy){
+                case PORTAL_ONE_SELECT:
+                    PortalRunSelect(Portal portal){
+                        ExecutorRun(QueryDesc *queryDesc){
+                            standard_ExecutorRun(QueryDesc *queryDesc){
+                                ExecutePlan(EState *estate, PlanState *planstate){
+                                    for (;;){
+                                        ExecProcNode(PlanState *node)
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+
+        PortalDrop(Portal portal){
+            PortalCleanup(Portal portal){
+                // 清理执行器内部
+                ExecutorEnd(QueryDesc *queryDesc){
+                    standard_ExecutorEnd(QueryDesc *queryDesc){
+                        // 处理执行状态树根节点已分配的资源
+                        ExecEndPlan(PlanState *planstate, EState *estate){
+                            ExecEndNode(PlanState *node)
+                        }
+                        // 释放执行器全局状态EState
+                        FreeExecutorState(EState *estate)
+                    }
+                }
+
+                // 释放QueryDesc
+                FreeQueryDesc(QueryDesc *queryDesc);
+            }
+        }
+    }
+}
+```
+
+执行示例
+
+```sql
+-- 课程信息
+drop table if exists tb_course;
+create table tb_course(
+    no int, 
+    name varchar(20)
+);
+
+-- 教师信息
+drop table if exists tb_teacher;
+create table tb_teacher(
+    no int,
+    name varchar(20),
+    sex int
+);
+
+-- 教师任课信息
+drop table if exists tb_teacher_course;
+create table tb_teacher_course(
+    tno int,
+    cno int,
+    stu_num int
+);
+
+-- 数据
+insert into tb_course (no, name) values(1, 'math');
+insert into tb_course (no, name) values(2, 'chinese');
+insert into tb_course (no, name) values(3, 'english');
+
+insert into tb_teacher (no, name, sex) values(1, 'Tom', 1);
+insert into tb_teacher (no, name, sex) values(2, 'Jack', 1);
+insert into tb_teacher (no, name, sex) values(3, 'Steve', 0);
+
+insert into tb_teacher_course (tno, cno, stu_num) values(1, 1, 50);
+insert into tb_teacher_course (tno, cno, stu_num) values(1, 2, 55);
+insert into tb_teacher_course (tno, cno, stu_num) values(2, 3, 56);
+insert into tb_teacher_course (tno, cno, stu_num) values(2, 2, 57);
+insert into tb_teacher_course (tno, cno, stu_num) values(3, 1, 58);
+
+-- 查询
+select t.name, c.name, stu_num
+from tb_course as c, tb_teacher_course as tc, tb_teacher as t
+where c.no = tc.cno and t.no = tc.tno and c.name = 'math' and t.name = 'Tom';
+```
+
+查看计划
+
+```sql
+explain select t.name, c.name, stu_num
+from tb_course as c, tb_teacher_course as tc, tb_teacher as t
+where c.no = tc.cno and t.no = tc.tno and c.name = 'math' and t.name = 'Tom';
+
+                                     QUERY PLAN
+-------------------------------------------------------------------------------------
+ Hash Join  (cost=42.10..80.72 rows=1 width=120)
+   Hash Cond: (tc.tno = t.no)
+   ->  Hash Join  (cost=21.30..59.76 rows=41 width=66)
+         Hash Cond: (tc.cno = c.no)
+         ->  Seq Scan on tb_teacher_course tc  (cost=0.00..30.40 rows=2040 width=12)
+         ->  Hash  (cost=21.25..21.25 rows=4 width=62)
+               ->  Seq Scan on tb_course c  (cost=0.00..21.25 rows=4 width=62)
+                     Filter: ((name)::text = 'math'::text)
+   ->  Hash  (cost=20.75..20.75 rows=4 width=62)
+         ->  Seq Scan on tb_teacher t  (cost=0.00..20.75 rows=4 width=62)
+               Filter: ((name)::text = 'Tom'::text)
+(11 rows)
+```

@@ -7,3 +7,7 @@
 学习时间：2024-08-28 ~ 
 
 https://www.bilibili.com/video/BV1Bh4y1q7Nt/?p=40&spm_id_from=pageDriver&vd_source=efbb4dc944fa761b6e016ce2ca5933da
+
+|软件 | 简介 | 链接
+|- | - | -
+Logisim | 免费的开源电子电路设计工具 | [web](https://cburch.com/logisim/) [download](https://sourceforge.net/projects/circuit/)

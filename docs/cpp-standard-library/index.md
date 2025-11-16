@@ -4,16 +4,16 @@
 
 |头文件 | 说明
 |- | -
-`<iostream>` |  标准输入输出流
-`<fstream>` |  文件输入输出流
-`<sstream>` |  字符串流
-`<iomanip>` |  输入输出流格式化
+[`<iostream>`](./iostream.md) |  标准输入输出流
+[`<fstream>`](./fstream.md) |  文件输入输出流
+[`<sstream>`](./sstream.md) |  字符串流
+[`<iomanip>`](./iomanip.md) |  输入输出流格式化
 
 容器
 
 |头文件 | 说明
 |- | -
-`<array>` |  定长数组容器
+[`<array>`](./array.md) |  定长数组容器
 `<vector>` |  动态数组容器
 `<deque>` |  双端队列容器
 `<list>` |  双向链表容器
@@ -116,3 +116,32 @@
 `<climits>` |  数值极限
 `<cfloat>` |  浮点极限
 `<cstdlib>` |  常用工具（如 std |  | rand 和 std |  | abs 等）
+
+其他资源
+
+C++ 标准库 https://en.cppreference.com/w/cpp/header.html
+
+提供免费的 C++ 源代码和 C++ 库
+https://www.thefreecountry.com/sourcecode/cpp.shtml
+
+## Hello World
+
+```cpp
+// hello.cpp 
+#include <iostream>
+
+int main(int argc, char const *argv[])
+{
+    std::cout << "Hello World!" << std::endl;
+
+    return 0;
+}
+
+```
+
+输出
+
+```shell
+g++ hello.cpp -o hello && ./hello
+Hello World!
+```

@@ -1,0 +1,954 @@
+# 查询执行
+
+## 执行策略
+
+
+## Portal执行过程
+
+```cpp
+CreatePortal()       // 创建portal
+PortalDefineQuery()  // 设置部分字段
+PortalStart()        // 初始化portal
+PortalRun()          // 调用portal执行过程
+PortalDrop()         // 调用portal清理过程
+```
+
+## SQL语句分类
+
+|SQL语句类型 | 操作范围 | 处理模块
+|-|-|-|
+|数据定义语句 DDL statement，功能性操作| 元组以外 | 功能处理器 Utility Processor
+|可优化语句 Optimizable statement| 元组相关  | 执行器 Executor
+
+### 数据定义语句
+
+以建表语句为例
+
+```sql
+create table t1(id int, age int);
+```
+
+调用栈
+
+```cpp
+start(){
+main(){
+PostmasterMain(){
+ServerLoop(){
+BackendStartup(){
+postmaster_child_launch(){
+BackendMain(){
+PostgresMain(){
+exec_simple_query(){
+    pg_parse_query() // 解析
+    pg_analyze_and_rewrite_fixedparams() // 分析和重写查询树
+    pg_plan_queries() // 生成查询计划
+
+    CreatePortal()     // 创建portal
+    PortalDefineQuery() // 设置部分字段
+    PortalStart(){     // 初始化portal
+        // 策略选择PORTAL_MULTI_QUERY
+        ChoosePortalStrategy() 
+    }
+    
+    PortalRun(){       // 调用portal执行过程
+        PortalRunMulti(){
+        PortalRunUtility(){
+        ProcessUtility(){ // 功能处理器函数
+        standard_ProcessUtility(){
+        ProcessUtilitySlow(){
+            // 对T_CreateStmt 节点进行转换处理
+            transformCreateStmt() 
+            DefineRelation(){
+                // 创建物理文件并在相应系统表中注册
+                heap_create_with_catalog(){
+                    heap_create(){
+                        // 创建物理文件
+                        RelationCreateStorage()
+                    }
+                    // 向表中pg_type新增一条记录
+                    AddNewRelationType()
+                    // 将表的相关信息存入pg_class
+                    AddNewRelationTuple()
+                    // 将表的属性存入pg_attribute
+                    AddNewAttributeTuples()
+                    // 将约束存入pg_constraint
+                    // 将默认值存入g_attrdef
+                    StoreConstraints()
+                }
+            }
+        }
+    }
+    PortalDrop() // 调用portal清理过程
+}}}}}}}}}}}}}
+```
+
+常见的数据定义语句处理函数
+
+|节点类型 |核心处理函数 |功能
+|-|-|-
+| T_CreateStmt | DefineRelation | 创建关系表
+
+### 可优化语句
+
+计划节点继承体系
+
+```cpp
+// src/include/nodes/plannodes.h
+Plan
+    /* 控制节点 control node */
+    Result
+    ProjectSet
+    ModifyTable
+    Append
+    MergeAppend
+    RecursiveUnion
+    BitmapAnd
+    BitmapOr
+
+    /* 扫描节点 scan node */
+    Scan
+        SeqScan
+        SampleScan
+        IndexScan
+        IndexOnlyScan
+        BitmapIndexScan
+        BitmapHeapScan
+        TidScan
+        TidRangeScan
+        SubqueryScan
+        FunctionScan
+        ValuesScan
+        TableFuncScan
+        CteScan
+        NamedTuplestoreScan
+        WorkTableScan
+        ForeignScan
+        CustomScan
+
+    /* 连接节点 join node */
+    Join
+        NestLoop
+        MergeJoin
+        HashJoin
+
+    /* 物化节点 meterialzation node */
+    Material
+    Memoize
+    Sort
+        IncrementalSort
+    Group
+    Agg
+    WindowAgg
+    Unique
+    Gather
+    GatherMerge
+    Hash
+    SetOp
+    LockRows
+    Limit
+```
+
+状态节点继承体系
+
+```cpp
+// src/include/nodes/execnodes.h
+PlanState
+    ResultState
+    ProjectSetState
+    ModifyTableState
+    AppendState
+    MergeAppendState
+    RecursiveUnionState
+    BitmapAndState
+    BitmapOrState
+    ScanState
+        SeqScanState
+        SampleScanState
+        IndexScanState
+        IndexOnlyScanState
+        BitmapIndexScanState
+        BitmapHeapScanState
+        TidScanState
+        TidRangeScanState
+        SubqueryScanState
+        FunctionScanState
+        ValuesScanState
+        TableFuncScanState
+        CteScanState
+        NamedTuplestoreScanState
+        WorkTableScanState
+        ForeignScanState
+        CustomScanState
+        MaterialState
+        MemoizeState
+        SortState
+        IncrementalSortState
+        GroupState
+        AggState
+        WindowAggState
+    JoinState
+        NestLoopState
+        MergeJoinState
+        HashJoinState
+    UniqueState
+    GatherState
+    GatherMergeState
+    HashState
+    SetOpState
+    LockRowsState
+    LimitState
+```
+
+执行器执行过程中涉及的主要数据结构
+
+```cpp
+/* query descriptor */
+typedef struct QueryDesc
+{
+    /* These fields are provided by CreateQueryDesc */
+    // 语句类型
+    CmdType        operation;        /* CMD_SELECT, CMD_UPDATE, etc. */
+    // 查询计划树
+    PlannedStmt *plannedstmt;    /* planner's output (could be utility, too) */
+    // 查询语句
+    const char *sourceText;        /* source text of the query */
+
+    /* These fields are set by ExecutorStart */
+
+    TupleDesc    tupDesc;        /* descriptor for result tuples */
+    // 执行器全局状态
+    EState       *estate;            /* executor's query-wide state */
+    // 计划节点执行状态
+    PlanState  *planstate;        /* tree of per-plan-node state */
+} QueryDesc;
+
+
+// PlannedStmt node
+typedef struct PlannedStmt
+{
+    NodeTag        type;
+
+    // 语句类型
+    CmdType        commandType;    /* select|insert|update|delete|merge|utility */
+
+    uint64        queryId;        /* query identifier (copied from Query) */
+
+    // 查询计划树根节点
+    struct Plan *planTree;        /* tree of Plan nodes */
+
+    // 查询涉及的范围表
+    List       *rtable;            /* list of RangeTblEntry nodes */
+
+    /* rtable indexes of target relations for INSERT/UPDATE/DELETE/MERGE */
+    // 结果关系表
+    List       *resultRelations;    /* integer list of RT indexes, or NIL */
+
+    Node       *utilityStmt;    /* non-null if this is utility stmt */
+
+} PlannedStmt;
+
+
+/* Executor state */
+typedef struct EState
+{
+    NodeTag        type;
+    // 查询涉及的范围表
+    List       *es_range_table; /* List of RangeTblEntry */
+    
+    /* Other working state: */
+    // EState内存上下文
+    MemoryContext es_query_cxt; /* per-query context in which EState lives */
+
+    // 用于节点之间传递元组的全局元组表
+    List       *es_tupleTable;    /* List of TupleTableSlots */
+
+    /*
+     * this ExprContext is for per-output-tuple operations, such as constraint
+     * checks and index-value computations.  It will be reset for each output
+     * tuple.  Note that it will be created only if needed.
+     */
+    // 每获取一个元组就会回收的内存上下文
+    ExprContext *es_per_tuple_exprcontext;
+
+} EState;
+
+
+/* PlanState node */
+typedef struct PlanState
+{
+
+    NodeTag        type;
+
+    // 计划节点指针
+    Plan       *plan;            /* associated Plan node */
+
+    // 执行器全局状态指针
+    EState       *state;            /* at execution time, states of individual
+                                 * nodes point to one EState for the whole
+                                 * top-level plan */
+
+    /*
+     * Common structural data for all Plan types.  These links to subsidiary
+     * state trees parallel links in the associated plan tree (except for the
+     * subPlan list, which does not exist in the plan tree).
+     */
+    //  选择运算相关条件
+    ExprState  *qual;            /* boolean qual condition */
+
+    // 左右子树状态节点指针
+    struct PlanState *lefttree; /* input plan tree(s) */
+    struct PlanState *righttree;
+} PlanState;
+```
+
+## 执行器运行
+
+```cpp
+exec_simple_query(const char *query_string){
+    
+    // 词法语法分析
+    List<RawStmt> *parsetree_list = pg_parse_query(const char *query_string);
+
+    foreach(ListCell *parsetree_item, parsetree_list) {
+        RawStmt *parsetree = lfirst_node(RawStmt, parsetree_item);
+
+        List<Query> *querytree_list = pg_analyze_and_rewrite_fixedparams(RawStmt *parsetree)
+        List<PlannedStmt> *plantree_list = pg_plan_queries(List *querytree_list)
+
+        // portal阶段
+        Portal portal = CreatePortal("", true, true);
+        PortalDefineQuery(Portal portal, List *plantree_list)
+
+        PortalStart(Portal portal){
+            // 执行策略选择
+            PortalStrategy portal->strategy = ChoosePortalStrategy(List *portal->stmts);
+            switch (portal->strategy)
+            {
+                case PORTAL_ONE_SELECT:
+                    // 创建QueryDesc
+                    QueryDesc *queryDesc = CreateQueryDesc(PlannedStmt *plannedstmt)
+                    ExecutorStart(QueryDesc *queryDesc){
+                        // 对执行器进行必要初始化
+                        standard_ExecutorStart(QueryDesc *queryDesc){
+                            // 构造EState
+                            EState *estate = CreateExecutorState();
+                            queryDesc->estate = estate;
+
+                            // 构造PlanState
+                            InitPlan(QueryDesc *queryDesc){
+                                // 递归处理查询计划树每个节点，转为对应的状态节点树
+                                PlanState *planstate = ExecInitNode(Plan *node, EState *estate);
+                                queryDesc->planstate = planstate;
+                            }
+                        }
+                    }
+
+                    portal->queryDesc = queryDesc;
+            }
+        }
+
+        PortalRun(Portal portal){
+            switch (portal->strategy){
+                case PORTAL_ONE_SELECT:
+                    PortalRunSelect(Portal portal){
+                        ExecutorRun(QueryDesc *queryDesc){
+                            standard_ExecutorRun(QueryDesc *queryDesc){
+                                ExecutePlan(EState *estate, PlanState *planstate){
+                                    for (;;){
+                                        ExecProcNode(PlanState *node)
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+
+        PortalDrop(Portal portal){
+            PortalCleanup(Portal portal){
+                // 清理执行器内部
+                ExecutorEnd(QueryDesc *queryDesc){
+                    standard_ExecutorEnd(QueryDesc *queryDesc){
+                        // 处理执行状态树根节点已分配的资源
+                        ExecEndPlan(PlanState *planstate, EState *estate){
+                            ExecEndNode(PlanState *node)
+                        }
+                        // 释放执行器全局状态EState
+                        FreeExecutorState(EState *estate)
+                    }
+                }
+
+                // 释放QueryDesc
+                FreeQueryDesc(QueryDesc *queryDesc);
+            }
+        }
+    }
+}
+```
+
+执行示例
+
+```sql
+-- 课程信息
+drop table if exists tb_course;
+create table tb_course(
+    no int, 
+    name varchar(20)
+);
+
+-- 教师信息
+drop table if exists tb_teacher;
+create table tb_teacher(
+    no int,
+    name varchar(20),
+    sex int
+);
+
+-- 教师任课信息
+drop table if exists tb_teacher_course;
+create table tb_teacher_course(
+    tno int,
+    cno int,
+    stu_num int
+);
+
+-- 数据
+insert into tb_course (no, name) values(1, 'math');
+insert into tb_course (no, name) values(2, 'chinese');
+insert into tb_course (no, name) values(3, 'english');
+
+insert into tb_teacher (no, name, sex) values(1, 'Tom', 1);
+insert into tb_teacher (no, name, sex) values(2, 'Jack', 1);
+insert into tb_teacher (no, name, sex) values(3, 'Steve', 0);
+
+insert into tb_teacher_course (tno, cno, stu_num) values(1, 1, 50);
+insert into tb_teacher_course (tno, cno, stu_num) values(1, 2, 55);
+insert into tb_teacher_course (tno, cno, stu_num) values(2, 3, 56);
+insert into tb_teacher_course (tno, cno, stu_num) values(2, 2, 57);
+insert into tb_teacher_course (tno, cno, stu_num) values(3, 1, 58);
+
+-- 查询
+select t.name, c.name, stu_num
+from tb_course as c, tb_teacher_course as tc, tb_teacher as t
+where c.no = tc.cno and t.no = tc.tno and c.name = 'math' and t.name = 'Tom';
+```
+
+查看计划
+
+```sql
+explain select t.name, c.name, stu_num
+from tb_course as c, tb_teacher_course as tc, tb_teacher as t
+where c.no = tc.cno and t.no = tc.tno and c.name = 'math' and t.name = 'Tom';
+
+                                     QUERY PLAN
+-------------------------------------------------------------------------------------
+ Hash Join  (cost=42.10..80.72 rows=1 width=120)
+   Hash Cond: (tc.tno = t.no)
+   ->  Hash Join  (cost=21.30..59.76 rows=41 width=66)
+         Hash Cond: (tc.cno = c.no)
+         ->  Seq Scan on tb_teacher_course tc  (cost=0.00..30.40 rows=2040 width=12)
+         ->  Hash  (cost=21.25..21.25 rows=4 width=62)
+               ->  Seq Scan on tb_course c  (cost=0.00..21.25 rows=4 width=62)
+                     Filter: ((name)::text = 'math'::text)
+   ->  Hash  (cost=20.75..20.75 rows=4 width=62)
+         ->  Seq Scan on tb_teacher t  (cost=0.00..20.75 rows=4 width=62)
+               Filter: ((name)::text = 'Tom'::text)
+(11 rows)
+```
+
+[parsetree_list](./demo/parsetree_list.md)
+
+![](https://mouday.github.io/img/2025/10/17/692ys5k.png)
+
+[querytree_list](./demo/querytree_list.md)
+
+![](https://mouday.github.io/img/2025/10/17/bwq4b4c.png)
+
+[plantree_list](./demo/plantree_list.md)
+
+![](https://mouday.github.io/img/2025/10/17/3jrseuv.png)
+
+
+
+## 计划节点
+
+| 节点类型 | 说明
+| - | -
+控制节点 | 处理特殊情况的节点
+扫描节点 | 扫描表
+物化节点 | 缓存执行结果
+连接节点 | 实现连接算法
+
+### 控制节点
+
+Result 
+
+```cpp
+// src/include/nodes/execnodes.h
+typedef struct ResultState
+{
+    PlanState    ps;                /* its first field is NodeTag */
+    // 常量表达式
+    ExprState  *resconstantqual;
+    // 节点是否处理完所有元组
+    bool        rs_done;        /* are we done? */
+    // 标记是否需要计算常量表达式
+    bool        rs_checkqual;    /* do we need to check the qual? */
+} ResultState;
+```
+
+```
+select 1 * 2
+```
+
+```sql
+db_test=# explain select 1 * 2;
+                QUERY PLAN
+------------------------------------------
+ Result  (cost=0.00..0.01 rows=1 width=4)
+(1 row)
+```
+
+### 扫描节点
+
+### 物化节点
+
+### 连接节点
+
+连接类型（t1 join t2为例）
+
+| 连接类型 | 解释 | 说明
+| - | - |-
+Inner Join | 内连接 | t1, t2
+Left Outer Join| 左连接 | t1, t2(NULL)
+Right Outer Join| 右连接 | t1(NULL), t2
+Full Outer Join| 全外连接 | t1(NULL), t2(NULL)
+Semi Join| In | t1
+Anti Join| Not In | t1
+
+连接操作
+
+连接操作 | 节点类型 | 文件 | 描述
+| - | - |- |-
+嵌套循环连接 | NestLoop | nodeNestloop.c | 嵌套循环算法
+归并连接 | MergeJoin | nodeMergejoin.c | 归并连接算法
+Hash连接 |  HashJoin | nodeHashjoin.c | Hybird Hash连接算法
+
+
+typedef struct Join
+{
+  pg_node_attr(abstract)
+
+  Plan    plan;
+  JoinType  jointype;
+  bool    inner_unique;
+  List     *joinqual;    /* JOIN quals (in addition to plan.qual) */
+} Join;
+
+NestLoop
+
+```cpp
+typedef struct NestLoop
+{
+  Join    join;
+  List     *nestParams;    /* list of NestLoopParam nodes */
+} NestLoop;
+```
+
+
+## 元组操作
+
+使用元组存储所有信息，包括各种系统信息，数据等
+
+TupleTable
+
+继承体系
+
+```cpp
+// src/include/executor/tuptable.h
+TupleTableSlot
+    VirtualTupleTableSlot      // 虚拟元组
+    HeapTupleTableSlot         // 物理元组
+    BufferHeapTupleTableSlot   // 缓冲区物理元组
+    MinimalTupleTableSlot       // 精简的物理元组
+```
+
+## 表达式节点
+
+处理SQL语句中的函数调用、计算式和条件表达式时需要用到表达式计算
+
+Expr 的继承体系
+
+```cpp
+Expr
+    Var
+    Const
+    Param
+    Aggref
+    GroupingFunc
+    WindowFunc
+    WindowFuncRunCondition
+    MergeSupportFunc
+    SubscriptingRef
+    FuncExpr
+    NamedArgExpr
+    OpExpr
+    ScalarArrayOpExpr
+    BoolExpr
+    SubLink
+    SubPlan
+    AlternativeSubPlan
+    FieldSelect
+    FieldStore
+    RelabelType
+    CoerceViaIO
+    ArrayCoerceExpr
+    ConvertRowtypeExpr
+    CollateExpr
+    CaseExpr
+    CaseWhen
+    CaseTestExpr
+    ArrayExpr
+    RowExpr
+    RowCompareExpr
+    CoalesceExpr
+    MinMaxExpr
+    SQLValueFunction
+    XmlExpr
+    JsonConstructorExpr
+    JsonExpr
+    NullTest
+    BooleanTest
+    CoerceToDomain
+    CoerceToDomainValue
+    SetToDefault
+    CurrentOfExpr
+    NextValueExpr
+    InferenceElem
+    TargetEntry
+```
+
+## 小结
+
+SQL语句处理
+
+|SQL语句分类 | 处理函数
+|-|-
+可优化语句 | Executor
+数据描述语句 | ProcessUtility
+
+Portal对外接口：
+- PortalStart
+- PortalRun
+- PortalEnd
+
+
+
+## 表操作
+
+创建表并插入数据
+
+```sql
+-- 教师信息
+drop table if exists tb_teacher;
+create table tb_teacher(
+    no int,
+    name varchar(20),
+    sex int
+);
+
+insert into tb_teacher (no, name, sex) values(1, 'Tom', 1);
+insert into tb_teacher (no, name, sex) values(2, 'Jack', 1);
+insert into tb_teacher (no, name, sex) values(3, 'Steve', 0);
+```
+
+### 打开关闭表
+
+头文件
+
+```cpp
+// src/include/access/relation.h
+
+// 根据OID打开表
+extern Relation relation_open(Oid relationId, LOCKMODE lockmode);
+
+extern Relation try_relation_open(Oid relationId, LOCKMODE lockmode);
+
+// 根据表名打开表
+extern Relation relation_openrv(const RangeVar *relation, LOCKMODE lockmode);
+
+extern Relation relation_openrv_extended(const RangeVar *relation,
+    LOCKMODE lockmode, bool missing_ok);
+
+// 关闭表
+extern void relation_close(Relation relation, LOCKMODE lockmode);
+```
+
+示例：打开表，并输出字段名
+
+```cpp
+#include "access/relation.h"
+#include "utils/rel.h"
+
+Relation rel;
+TupleDesc tupdesc;
+char *column_name;
+
+// 查询表的oid
+// select oid, relname from pg_class where relname = 'tb_teacher';
+rel = relation_open(24644, AccessShareLock);
+
+tupdesc = RelationGetDescr(rel);
+
+for (int i = 0; i < tupdesc->natts; i++)
+{
+    Form_pg_attribute attr = TupleDescAttr(tupdesc, i);
+    column_name = pstrdup(NameStr(attr->attname));
+    ereport(LOG, (errmsg("column_name: %s", column_name)));
+}
+
+relation_close(rel, AccessShareLock);
+```
+
+```cpp
+typedef struct TupleDescData
+{
+  // 元组属性个数
+  int      natts;      /* number of attributes in the tuple */
+  //   元组的复合类型ID
+  Oid      tdtypeid;    /* composite type ID for tuple type */
+//   元组模式
+  int32    tdtypmod;    /* typmod for tuple type */
+//   该元组描述符的引用计数，只有引用计数为0，该元组描述符才能被删除
+  int      tdrefcount;    /* reference count, or -1 if not counting */
+  // 数组表示元素的约束条件，从pg_constraint系统表中读取，每个元素表示一个约束条件
+  TupleConstr *constr;    /* constraints, or NULL if none */
+  /* attrs[N] is the description of Attribute Number N+1 */
+  // 数组表示元组每个属性的相关信息，从pg_attribute系统表读取，每个元素表示一个属性
+  FormData_pg_attribute attrs[FLEXIBLE_ARRAY_MEMBER];
+}      TupleDescData;
+typedef struct TupleDescData *TupleDesc;
+```
+
+### 扫描表
+
+头文件
+
+```cpp
+// src/include/access/tableam.h
+// 初始化扫描
+TableScanDesc table_beginscan_catalog(
+    Relation relation, int nkeys,
+    struct ScanKeyData *key);
+
+// 结束扫描
+void table_endscan(TableScanDesc scan)
+
+// src/include/access/heapam.h
+// 表扫描
+extern HeapTuple heap_getnext(TableScanDesc sscan, ScanDirection direction);
+```
+
+示例：遍历表数据
+
+```cpp
+#include "access/relation.h"
+#include "utils/rel.h"
+#include "access/htup_details.h"
+#include "access/heapam.h"
+#include "utils/builtins.h"
+
+
+Relation  rel;
+TableScanDesc scan;
+HeapTuple  tuple;
+TupleDesc tupDesc;
+Datum     *values;
+bool     *nulls;
+
+// 通过oid打开表
+rel = table_open(24644, RowExclusiveLock);
+tupDesc = RelationGetDescr(rel);
+
+// 初始化扫描
+scan = table_beginscan_catalog(rel, 0, NULL);
+
+values = (Datum *) palloc(tupDesc->natts * sizeof(Datum));
+nulls = (bool *) palloc(tupDesc->natts * sizeof(bool));
+
+// 进行表扫描
+while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL)
+{
+    int no = DatumGetInt32(fastgetattr(tuple, 1, tupDesc, &nulls));
+    char* name = TextDatumGetCString(fastgetattr(tuple, 2, tupDesc, &nulls));
+    int sex = DatumGetInt32(fastgetattr(tuple, 3, tupDesc, &nulls));
+    ereport(LOG, (errmsg("{no: %d, name: %s, sex: %d}", no, name, sex)));
+}
+
+table_endscan(scan);
+
+// 关闭表
+table_close(rel, RowExclusiveLock);
+
+```
+
+日志输出
+
+```shell
+{no: 1, name: Tom, sex: 1}
+{no: 2, name: Jack, sex: 1}
+{no: 3, name: Steve, sex: 0}
+```
+
+## 元组操作
+
+```cpp
+// src/include/access/heapam.h
+void heap_insert(Relation relation, HeapTuple tup, CommandId cid,
+            int options, BulkInsertState bistate);
+
+TM_Result heap_delete(Relation relation, ItemPointer tid,
+               CommandId cid, Snapshot crosscheck, bool wait,
+               struct TM_FailureData *tmfd, bool changingPart);
+
+TM_Result heap_update(Relation relation, ItemPointer otid,
+               HeapTuple newtup,
+               CommandId cid, Snapshot crosscheck, bool wait,
+               struct TM_FailureData *tmfd, LockTupleMode *lockmode,
+               TU_UpdateIndexes *update_indexes);
+
+// src/include/access/heapam.h
+// 以下是上层接口，内部调用上面几个对应的函数
+// 元组插入
+void simple_heap_insert(Relation relation, HeapTuple tup);
+
+// 元组删除
+void simple_heap_delete(Relation relation, ItemPointer tid);
+
+// 元组更新
+void simple_heap_update(Relation relation, ItemPointer otid,
+                 HeapTuple tup, TU_UpdateIndexes *update_indexes);
+
+// src/include/catalog/indexing.h
+// 以下是上层接口，内部调用上面几个对应的函数
+void CatalogTupleInsert(Relation heapRel, HeapTuple tup);
+
+void CatalogTupleUpdate(Relation heapRel, ItemPointer otid,
+    HeapTuple tup);
+
+void CatalogTupleDelete(Relation heapRel, ItemPointer tid);
+
+// src/include/access/htup_details.h
+HeapTuple heap_modify_tuple(HeapTuple tuple,
+          TupleDesc tupleDesc,
+          const Datum *replValues,
+          const bool *replIsnull,
+          const bool *doReplace)
+```
+
+### 元组插入
+
+示例
+
+```cpp
+#include "access/relation.h"
+#include "utils/rel.h"
+#include "access/htup_details.h"
+#include "access/heapam.h"
+#include "utils/builtins.h"
+
+Relation rel;
+HeapTuple tuple;
+TupleDesc tupDesc;
+Datum values[3];
+bool nulls[3] = {0};
+
+rel = relation_open(24644, AccessShareLock);
+tupDesc = RelationGetDescr(rel);
+
+values[0] = Int32GetDatum(4);
+values[1] = CStringGetTextDatum("jodi");
+values[2] = Int32GetDatum(23);
+
+tuple = heap_form_tuple(tupDesc, values, nulls);
+simple_heap_insert(rel, tuple);
+heap_freetuple(tuple);
+
+relation_close(rel, AccessShareLock);
+```
+
+### 元组删除
+
+示例
+
+```cpp
+#include "access/relation.h"
+#include "utils/rel.h"
+#include "access/htup_details.h"
+#include "access/heapam.h"
+#include "utils/builtins.h"
+#include "nodes/makefuncs.h"
+
+Relation  rel;
+TableScanDesc scan;
+HeapTuple  tuple;
+TupleDesc tupDesc;
+
+rel = table_openrv(makeRangeVar(NULL, "tb_teacher", -1),RowExclusiveLock);
+tupDesc = RelationGetDescr(rel);
+scan = table_beginscan_catalog(rel, 0, NULL);
+
+while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL)
+{
+    simple_heap_delete(rel, &tuple->t_self);
+}
+
+table_endscan(scan);
+table_close(rel, RowExclusiveLock);
+```
+
+### 元组更新
+
+示例
+
+```cpp
+#include "access/relation.h"
+#include "utils/rel.h"
+#include "access/htup_details.h"
+#include "access/heapam.h"
+#include "utils/builtins.h"
+#include "nodes/makefuncs.h"
+#include "catalog/indexing.h"
+
+Relation rel;
+TableScanDesc scan;
+HeapTuple tuple;
+TupleDesc tupDesc;
+HeapTuple newtuple;
+Datum values[3] = {0};
+bool nulls[3] = {0};
+bool replaces[3] = {0};
+
+rel = table_openrv(makeRangeVar(NULL, "tb_teacher", -1), RowExclusiveLock);
+scan = table_beginscan_catalog(rel, 0, NULL);
+
+while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL)
+{
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+    memset(replaces, false, sizeof(replaces));
+
+    replaces[2] = true;
+    values[2] = Int32GetDatum(10);
+
+    newtuple = heap_modify_tuple(
+        tuple, RelationGetDescr(rel),
+        values, nulls, replaces);
+
+    CatalogTupleUpdate(rel, &tuple->t_self, newtuple);
+}
+
+table_endscan(scan);
+table_close(rel, RowExclusiveLock);
+```

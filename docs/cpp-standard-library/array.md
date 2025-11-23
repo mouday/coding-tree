@@ -15,20 +15,20 @@
 
 |函数 | 说明
 | -  | -
-at(size_t pos) | 返回指定位置的元素，带边界检查
-operator[] | 返回指定位置的元素，不带边界检查
-front() | 返回数组的第一个元素
-back() | 返回数组的最后一个元素
-data() | 返回指向数组数据的指针
-size() | 返回数组大小（固定不变）
-fill(const T& value) | 将数组所有元素设置为指定值
-swap(array& other) | 交换两个数组的内容
-begin() | 返回数组的起始迭代器
-end() | 返回数组的结束迭代器
+`at(size_t pos)` | 返回指定位置的元素，带边界检查
+`operator[]` | 返回指定位置的元素，不带边界检查
+`front()` | 返回数组的第一个元素
+`back()` | 返回数组的最后一个元素
+`data()` | 返回指向数组数据的指针
+`size()` | 返回数组大小（固定不变）
+`fill(const T& value)` | 将数组所有元素设置为指定值
+`swap(array& other)` | 交换两个数组的内容
+`begin()` | 返回数组的起始迭代器
+`end()` | 返回数组的结束迭代器
 
 与其他数组类型对比
 
-|特性  | std::array  | C 风格数组 |   std::vector
+|特性 | `std::array` | C 风格数组 | `std::vector`
 |-|-|-|-|
 大小  | 编译时固定  | 编译时固定 |动态可变
 边界检查|  at() 提供边界检查 |无  |at() 提供边界检查
@@ -51,9 +51,7 @@ struct array {
     void swap(array& a)
 
     // iterators:
-    iterator begin()
-    iterator end()
-    reverse_iterator rbegin()
+    reverse_iterator begin()
     reverse_iterator rend()
 
     // capacity:

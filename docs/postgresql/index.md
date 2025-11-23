@@ -55,3 +55,6 @@ David_Tang： http://www.cnblogs.com/mchina/tag/postgresql/
 beigang: http://blog.csdn.net/beiigang
 
 备注：排名不分先后，找到合适的博客再补充。
+
+数据库管理系统-课程
+https://dbgroup.cs.tsinghua.edu.cn/ligl/courses_cn.html

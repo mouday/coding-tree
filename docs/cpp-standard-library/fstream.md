@@ -2,7 +2,7 @@
 
 C++ 文件输入输出库
 
-类继承关系
+## 类继承关系
 
 ```cpp
 
@@ -30,7 +30,7 @@ class basic_fstream: public basic_iostream {
 using fstream  = basic_fstream<char>;
 ```
 
-常见的mode模式有：
+## 常见mode模式
 
 | mode模式 | 说明
 | - | -
@@ -40,9 +40,7 @@ using fstream  = basic_fstream<char>;
 | `std::ios::ate`| 打开文件并定位到文件末尾
 | `std::ios::trunc`| 打开文件并截断文件，即清空文件内容
 
-示例
-
-写入文本文件:
+## 写入文本文件
 
 ```cpp
 #include <fstream>
@@ -70,7 +68,7 @@ cat test.txt
 Hello, World!
 ```
 
-读取文本文件
+## 读取文本文件
 
 ```cpp
 #include <fstream>

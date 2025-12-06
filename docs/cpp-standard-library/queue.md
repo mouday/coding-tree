@@ -2,6 +2,12 @@
 
 队列（Queue）,先进先出（FIFO, First In First Out）
 
+头文件
+
+```cpp
+#include <queue>
+```
+
 在一端添加元素（称为队尾），并在另一端移除元素（称为队首）
 
 常用操作

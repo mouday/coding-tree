@@ -32,28 +32,28 @@
 |头文件 | 说明
 |- | -
 [`<algorithm>`](./algorithm.md) |  常用算法（如排序、查找等）
-`<iterator>` |  迭代器
+[`<iterator>`](./iterator.md) |  迭代器
 
 函数对象和绑定
 
 |头文件 | 说明
 |- | -
-`<functional>` |  定义函数对象及相关工具
+[`<functional>`](./functional.md) |  定义函数对象及相关工具
 
 数学和数值运算
 
 |头文件 | 说明
 |- | -
-`<numeric>` |  数值操作（如累计、乘积等）
-`<complex>` |  复数运算
-`<valarray>` |  数组类及相关操作
-`<cmath>` |  数学函数
+[`<numeric>`](./numeric.md) |  数值操作（如累计、乘积等）
+[`<complex>`](./complex.md) |  复数运算
+[`<valarray>`](./valarray.md) |  数组类及相关操作
+[`<cmath>`](./cmath.md) |  数学函数
 
 字符串和正则表达式
 
 |头文件 | 说明
 |- | -
-`<string>` |  标准字符串类
+[`<string>`](./string.md) |  标准字符串类
 `<regex>` |  正则表达式
 
 时间和日期
@@ -105,7 +105,7 @@
 
 |头文件 | 说明
 |- | -
-`<utility>` |  通用工具（如 std |  | pair 和 std |  | move 等）
+`<utility>` |  通用工具（如 std::pair 和 std::move 等）
 `<random>` |  随机数生成
 `<locale>` |  本地化支持
 `<codecvt>` |  字符编码转换
@@ -115,7 +115,7 @@
 `<cwchar>` |  宽字符处理
 `<climits>` |  数值极限
 `<cfloat>` |  浮点极限
-`<cstdlib>` |  常用工具（如 std |  | rand 和 std |  | abs 等）
+`<cstdlib>` |  常用工具（如 std::rand 和 std::abs 等）
 
 其他资源
 
@@ -123,6 +123,7 @@ C++ 标准库 https://en.cppreference.com/w/cpp/header.html
 
 提供免费的 C++ 源代码和 C++ 库
 https://www.thefreecountry.com/sourcecode/cpp.shtml
+
 
 ## Hello World
 
@@ -142,6 +143,6 @@ int main(int argc, char const *argv[])
 输出
 
 ```shell
-g++ hello.cpp -o hello && ./hello
+g++ -std=c++11 hello.cpp -o hello && ./hello
 Hello World!
 ```

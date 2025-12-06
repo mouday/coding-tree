@@ -4,6 +4,12 @@
 
 iomanip 是 Input/Output Manipulators 的缩写
 
+头文件
+
+```cpp
+#include <iomanip>
+```
+
 常用函数
 
 | 函数/操纵符 | 功能

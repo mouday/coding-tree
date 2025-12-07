@@ -8,6 +8,8 @@
 #include <cmath>
 ```
 
+[C 标准库 math.h](../c-standard-library/math.h.md)
+
 1、基本数学函数
 
 函数 | 功能 | 示例

@@ -1612,3 +1612,61 @@ int main(int argc, char const *argv[])
 ```shell
 app_mode: (null)
 ```
+
+## realpath
+
+将相对路径转换为绝对路径
+
+```cpp
+char *realpath(const char * path, char * resolved_path);
+```
+
+参数：
+
+| 参数 | 说明
+|-|-
+path | 要转换的路径字符串（可以是相对路径或绝对路径）。
+resolved_path | 一个指向字符数组的指针，用于存储转换后的绝对路径。这个缓冲区必须至少为PATH_MAX个字节。
+
+返回值：
+
+- 成功时返回指向resolved_path的指针；
+- 失败时返回NULL，并设置errno。
+
+注意：有两种使用方式：
+
+- 传入一个预先分配好大小的缓冲区（resolved_path）来存储结果。
+
+- 将resolved_path设置为NULL，那么realpath函数会使用malloc分配缓冲区，并返回该缓冲区的地址。在这种情况下，调用者需要负责释放内存。
+
+示例
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>  // PATH_MAX
+
+int main()
+{
+    char buffer[PATH_MAX] = {0};
+
+    char *ret = realpath("./main.c", buffer);
+    if (ret == NULL)
+    {
+        perror("realpath");
+        return 1;
+    }
+    else
+    {
+        printf("buffer: %s\n", buffer);
+    }
+
+    return 0;
+}
+```
+
+执行结果
+
+```shell
+buffer: /Users/workspace/main.c
+```

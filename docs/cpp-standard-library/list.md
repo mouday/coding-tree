@@ -36,9 +36,10 @@
 | `remove(const T& val)`  |  删除所有等于指定值的元素
 | `sort()` |  对链表中的元素进行排序
 | `merge(list& other)` | 合并另一个已排序的链表
-| `reverse()`   |反转链表
-| `begin()`  |返回链表的起始迭代器
-| `begin()` |返回链表的结束迭代器
+| `reverse()`   | 反转链表
+| `begin()`  | 返回链表的起始迭代器
+| `end()` | 返回链表的结束迭代器
+| `splice()` | 常数时间内移动元素
 
 ## 初始化
 
@@ -77,4 +78,42 @@ int main(int argc, char const *argv[])
 
 ```bash
 1 2 3 4 5 
+```
+
+## splice
+
+常数时间内移动元素
+
+```cpp
+// 将 other链表中的单个元素it移动到pos位置之前
+void list::splice(const_iterator pos, list& other, const_iterator it);
+```
+
+示例
+
+```cpp
+#include <list>
+#include <iostream>
+
+int main(int argc, char const *argv[])
+{
+    std::list<int> list = {1, 2, 3, 4, 5};
+    // 移动首位元素到尾部，反之不可行
+    list.splice(list.end(), list, list.begin());
+
+    for (int val : list)
+    {
+        std::cout << val << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+
+```
+
+输出结果
+
+```shell
+2 3 4 5 1 
 ```

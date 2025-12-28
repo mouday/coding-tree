@@ -5,11 +5,34 @@
 ## 基本语法
 
 ```cpp
-// 声明字符串变量：
+// 1、声明字符串变量：
 std::string str;
 
-// 初始化字符串：
-std::string str = "Hello, World!";
+// 2、从C风格字符串初始化
+std::string str1 = "Hello, World!";
+std::string str2("Hello, World!");
+
+// 3. 从另一个std::string初始化（拷贝构造）
+std::string str3 = str1;
+std::string str4(str1);
+
+// 4. 使用部分字符串初始化
+std::string str5 = "Hello, World!";
+std::string str6(str5, 0, 5);  // "Hello"
+std::string str7(str5, 7);     // "World!"
+
+// 5. 重复字符初始化
+std::string str8(10, 'A');     // "AAAAAAAAAA"
+
+// 6. 使用迭代器初始化
+std::string str9(str1.begin(), str1.begin() + 5);  // "Hello"
+
+// 7. 使用初始化列表 (C++11)
+std::string str10{'H', 'e', 'l', 'l', 'o'};  // "Hello"
+
+// 8. 使用string_view初始化 (C++17)
+std::string_view sv = "Hello, World!";
+std::string str11(sv);
 ```
 
 ## 成员函数

@@ -245,6 +245,19 @@ $ gcc main.c -o main -g && ./main
 a=97
 ```
 
+示例：数字转字符串
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char ret[4];
+    sprintf(ret, "%d", 123);
+    printf("%s\n", ret); // 123
+}
+```
+
 ## vsprintf
 
 使用参数列表发送格式化输出到字符串。

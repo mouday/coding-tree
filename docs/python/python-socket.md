@@ -1,5 +1,47 @@
 # python socket 网络编程
 
+请求报文
+
+```shell
+请求头
+空行
+请求体
+```
+
+示例
+
+```shell
+GET /index.html HTTP/1.1
+Host: www.xxx.com
+User-Agent: Mozilla/5.0
+
+id=1&age=1
+```
+
+响应报文
+
+```shell
+状态行
+空行
+消息体
+```
+
+示例
+
+```shell
+HTTP/1.0 200 OK
+Server: nginx
+Vary: Accept-Encoding
+Content-Type: text/html
+
+```
+
+简易服务器
+
+```shell
+python -m http.server 8000
+```
+
 ## Echo示例
 
 服务端

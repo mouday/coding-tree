@@ -58,3 +58,5 @@ beigang: http://blog.csdn.net/beiigang
 
 数据库管理系统-课程
 https://dbgroup.cs.tsinghua.edu.cn/ligl/courses_cn.html
+
+LSN 日志序号 log sequential number

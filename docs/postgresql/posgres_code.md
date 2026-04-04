@@ -208,3 +208,31 @@ TOAST 和 大对象比较
 | 数据丢失| 不能丢失 | 允许丢失
 | 存储对象| 字符串 | 文件
 | 存储机制 | 线外和压缩 | 直接存储
+
+
+## 常见的宏
+
+### lengthof
+
+计算数组元素个数
+
+```cpp
+#define lengthof(array) (sizeof (array) / sizeof ((array)[0]))
+```
+
+示例
+
+```cpp
+#include "stdio.h"
+
+#define lengthof(array) (sizeof (array) / sizeof ((array)[0]))
+
+int main(int argc, char const *argv[])
+{
+    int arr[3];
+    int len = lengthof(arr);
+    printf("len: %d\n", len);
+    // len: 3
+    return 0;
+}
+```

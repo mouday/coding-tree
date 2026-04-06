@@ -13,8 +13,8 @@ hero:
       link: https://github.com/mouday/
   
     - theme: alt
-      text: CSDN
-      link: https://blog.csdn.net/mouday
+      text: 站点导航
+      link: /link/
   
     - theme: alt
       text: 编程语言

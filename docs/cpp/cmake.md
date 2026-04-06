@@ -1320,6 +1320,57 @@ $ ./build/App
 ENABLE_DEBUG is defind
 ```
 
+## 常用模板
+
+1、自定义目录
+
+```shell
+./
+    src/
+        main.cpp
+    include/
+```
+
+配置示例
+
+```shell
+# CMakeLists.txt
+# cmake -B build && cmake --build build && ./build/app
+cmake_minimum_required(VERSION 3.29)
+
+# 设置项目名
+project(app)
+
+# 指定g++版本
+set(CMAKE_CXX_STANDARD 11)
+
+# 指定头文件路径
+include_directories("include")
+
+# 指定源码目录
+aux_source_directory(./src SRC_LIST)
+
+# 编译二进制
+add_executable(${PROJECT_NAME} ${SRC_LIST})
+
+# 连接三方库
+# 链接 etcd-cpp-api 库
+target_link_libraries(${PROJECT_NAME} PUBLIC etcd-cpp-api)
+```
+
+全局配置
+
+```shell
+# ~/.bashrc
+
+# 静态库
+export LIBRARY_PATH=/usr/local/lib:$LIBRARY_PATH
+
+# include
+export C_INCLUDE_PATH=/usr/local/include:$C_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=/usr/local/include:$CPLUS_INCLUDE_PATH
+```
+
 ## 参考资料
 
 CMake 简明教程笔记

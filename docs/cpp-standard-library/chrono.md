@@ -58,3 +58,38 @@ Sun Dec  7 19:30:07 2025
 
 2025-12-07 19:30:07
 ```
+
+## chrono::seconds
+
+示例：模拟耗时
+
+```cpp
+#include <thread>
+#include <chrono>
+#include <iostream>
+
+using namespace std;
+
+int main(int argc, char const *argv[])
+{
+    // 开始
+    chrono::time_point start_time = chrono::system_clock::now();
+
+    // 模拟耗时3秒
+    this_thread::sleep_for(chrono::seconds(3));
+
+    // 结束
+    chrono::time_point end_time = chrono::system_clock::now();
+
+    // 计算耗时
+    chrono::duration duration = chrono::duration_cast<chrono::seconds>(end_time - start_time);
+    cout << duration.count() << endl;
+    return 0;
+}
+```
+
+执行结果
+
+```shell
+3
+```

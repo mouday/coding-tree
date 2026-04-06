@@ -2111,9 +2111,9 @@ int main(int argc, char const *argv[])
 }
 ```
 
-## 线程异步和通信
+## promise和future
 
-promise和future
+线程异步和通信
 
 promise用于异步传输变量
 
@@ -2317,7 +2317,287 @@ int main(int argc, char const *argv[])
 
 ```shell
 $ g++ -std=c++11 packaged_task_demo.cpp -o packaged_task_demo && ./packaged_task_demo
+
 before get
 task start
 result: timeout
+```
+
+## async
+
+`c++11`
+
+异步运行一个函数，并返回保有其结果的`std::future`
+
+- `launch::deferred` 延迟执行 在调用wait和get时，调用函数代码
+- `launch::async` 创建线程（默认）
+- 返回的线程函数的返回值类型`std::future<int>`
+- `get`获取结果，会阻塞等待
+
+示例：创建线程
+
+```cpp
+#include <iostream>
+#include <future>
+#include <thread>
+
+using namespace std;
+
+int add(int a, int b)
+{
+    cout << "add start: " << this_thread::get_id() << endl;
+    this_thread::sleep_for(chrono::seconds(3));
+    return a + b;
+}
+
+int main(int argc, char const *argv[])
+{
+    cout << "before async: " << this_thread::get_id() << endl;
+    // 创建线程，默认行为
+    future f = async(add, 100, 1);
+    this_thread::sleep_for(chrono::seconds(3));
+    cout << "after async" << endl;
+    int result = f.get();
+    cout << "result: " << result << endl;
+
+    return 0;
+}
+```
+
+执行结果：在不同的线程执行
+
+```shell
+$ g++ async_demo.cpp -std=c++20 && ./a.out
+
+before async: 0x7ff84f9a2fc0
+add start: 0x70000ef68000
+after async
+result: 101
+```
+
+示例：不创建线程
+
+```cpp
+#include <iostream>
+#include <future>
+#include <thread>
+
+using namespace std;
+
+int add(int a, int b)
+{
+    cout << "add start: " << this_thread::get_id() << endl;
+    this_thread::sleep_for(chrono::seconds(3));
+    return a + b;
+}
+
+int main(int argc, char const *argv[])
+{
+    cout << "before async: " << this_thread::get_id() << endl;
+    // 不创建线程
+    future f = async(launch::deferred, add, 100, 1);
+    this_thread::sleep_for(chrono::seconds(3));
+    cout << "after async" << endl;
+    int result = f.get();
+    cout << "result: " << result << endl;
+
+    return 0;
+}
+```
+
+执行结果：在同一个线程执行
+
+```shell
+$ g++ async_demo.cpp -std=c++20 && ./a.out
+
+before async: 0x7ff84f9a2fc0
+after async
+add start: 0x7ff84f9a2fc0
+result: 101
+```
+
+## 示例：多线程base16编码
+
+- 二进制转为字符串
+- 一个字节8个位，拆分位2个4位字节，最大值16
+- 拆分后的字节映射到0123456789ABCDEF
+
+```cpp
+#include <string>
+#include <iostream>
+#include <vector>
+#include <chrono>
+#include <thread>
+#include <execution>
+
+using namespace std;
+
+static const char base16[] = "0123456789ABCDEF";
+
+void encode_base16(const unsigned char *input, int size, unsigned char *output)
+{
+    for (int i = 0; i < size; i++)
+    {
+        unsigned char c = input[i];
+
+        // 保留高四位：1234 5678 >> 4 => 0000 1234
+        unsigned char a = c >> 4;
+        // 保留低四位：1234 5678 & 0000 1111 => 0000 5678
+        unsigned char b = c & 0x0F;
+        output[2 * i] = base16[a];
+        output[2 * i + 1] = base16[b];
+    }
+}
+
+int get_base16_index(unsigned char a)
+{
+    for (int k = 0; k < 16; k++)
+    {
+        if (base16[k] == a)
+        {
+            return k;
+        }
+    }
+    return -1;
+}
+
+void decode_base16(const unsigned char *input, int size, unsigned char *output)
+{
+    int j = 0;
+    for (int i = 0; i < size; i = i + 2)
+    {
+        // 保留高四位：1234 5678 >> 4 => 0000 1234
+        unsigned char a = get_base16_index(input[i]);
+        // // 保留低四位：1234 5678 & 0000 1111 => 0000 5678
+        unsigned char b = get_base16_index(input[i + 1]);
+
+        unsigned char c = (a << 4) | b;
+
+        output[j] = c;
+        j++;
+    }
+}
+
+// 基本功能测试
+void base_test()
+{
+    // 编码
+    string input = "hello world";
+    unsigned char output[1024] = {0};
+    encode_base16((unsigned char *)input.data(), input.size(), output);
+    cout << output << endl;
+
+    // 解码
+    unsigned char decode_outoput[1024] = {0};
+    decode_base16(output, input.size() * 2, decode_outoput);
+    cout << decode_outoput << endl;
+}
+
+// 单线程和多线程测试
+void thread_test()
+{
+    // 准备数据
+    // vector<unsigned char> in_data;
+    // // in_data.resize(1024 * 1024 * 100); // 100M
+    // in_data.resize(24);
+    // for (int i; i < in_data.size(); i++)
+    // {
+    //     in_data[i] = i % 256;
+    // }
+
+    string in_data = "hello world";
+    cout << in_data.data() << endl;
+
+    // 单线程
+    {
+        vector<unsigned char> out_data;
+        out_data.resize(in_data.size() * 2);
+
+        auto start = chrono::system_clock::now();
+        encode_base16((const unsigned char *)in_data.data(), in_data.size(), out_data.data());
+        auto end = chrono::system_clock::now();
+        auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
+        cout << duration << endl;
+        cout << out_data.data() << endl;
+    }
+
+    // 多线程 C++11
+    {
+        // 准备线程数
+        // 系统支持的线程核心数
+        int cpu = thread::hardware_concurrency();
+        cout << "cpu: " << cpu << endl;
+
+        // 如果数量很少，只分一片
+        if (in_data.size() < cpu)
+        {
+            cpu = 1;
+        }
+
+        int slice_count = in_data.size() / cpu;
+
+        thread threads[cpu];
+
+        auto start = chrono::system_clock::now();
+
+        vector<unsigned char> out_data;
+        out_data.resize(in_data.size() * 2);
+
+        // 任务分配到每一个线程
+        for (int i = 0; i < cpu; i++)
+        {
+            int offset = i * slice_count;
+            int count = slice_count;
+
+            // 最后一个线程
+            if (i == cpu - 1)
+            {
+                count = slice_count + in_data.size() % cpu;
+            }
+
+            // encode_base16((unsigned char *)input.data(), input.size(), output);
+            threads[i] = thread(
+                encode_base16,
+                (unsigned char *)in_data.data() + offset,
+                count,
+                (unsigned char *)out_data.data() + offset * 2);
+        }
+
+        // 等待所有线程结束
+        for (int i = 0; i < cpu; i++)
+        {
+            threads[i].join();
+        }
+
+        auto end = chrono::system_clock::now();
+        auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
+        cout << duration << endl;
+        cout << out_data.data() << endl;
+    }
+
+    // 多线程 C++17
+    {
+        vector<unsigned char> out_data;
+        out_data.resize(in_data.size() * 2);
+
+        // 多核并行计算？
+        for_each(in_data.begin(), in_data.end(),
+                 [&](auto &d)
+                 {
+                     char a = base16[d >> 4];
+                     char b = base16[d & 0x0F];
+                     int index = &d - in_data.data();
+                     out_data[index * 2] = a;
+                     out_data[index * 2 + 1] = b;
+                 });
+        cout << out_data.data() << endl;
+    }
+}
+
+int main(int argc, char const *argv[])
+{
+    thread_test();
+    return 0;
+}
+
 ```

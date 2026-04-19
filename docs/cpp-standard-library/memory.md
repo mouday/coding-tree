@@ -149,3 +149,38 @@ Node
 ~Node
 ~Node
 ```
+
+## std::addressof
+
+获取对象地址
+
+```cpp
+template <class _Tp>
+_Tp* addressof(_Tp& __x) _NOEXCEPT
+```
+
+示例
+
+```cpp
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+int main(int argc, char const *argv[])
+{
+    int a = 0;
+    // 方式一：取址符
+    cout << &a << endl;
+    // 方式二：addressof
+    cout << addressof(a) << endl;
+    return 0;
+}
+```
+
+输出结果
+
+```shell
+0x7ff7bc17112c
+0x7ff7bc17112c
+```

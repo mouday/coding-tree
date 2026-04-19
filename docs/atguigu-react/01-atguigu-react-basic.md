@@ -1,4 +1,4 @@
-# React 基础篇-基于CDN
+# React 基础篇-基于 CDN
 
 ## 1、React 入门
 
@@ -112,7 +112,6 @@
 
 ### 2.2、创建虚拟 DOM
 
-
 方式一：`babel + jsx`
 
 ```html
@@ -138,7 +137,6 @@
 ```
 
 方式二：`js`
-
 
 ```html
 <!-- React 容器 -->
@@ -787,7 +785,6 @@ console.log(person.age); // 18
 </script>
 ```
 
-
 ### 7.4、函数式组件
 
 ```html
@@ -845,7 +842,7 @@ console.log(person.age); // 18
 1. 通过标签属性从外向组件内传递变化的数据
 2. 组件内部不要修改 props 数据
 
-## 8、组件属性refs
+## 8、组件属性 refs
 
 ### 8.1、字符串 ref
 
@@ -981,7 +978,7 @@ console.log(person.age); // 18
 </script>
 ```
 
-获取React事件回调参数
+获取 React 事件回调参数
 
 ```html
 <!-- React 容器 -->
@@ -1011,7 +1008,7 @@ console.log(person.age); // 18
 </script>
 ```
 
-## 9、Form表单数据收集
+## 9、Form 表单数据收集
 
 ### 9.1、非受控组件
 
@@ -1041,20 +1038,12 @@ console.log(person.age); // 18
         <form onSubmit={this.handleSubmit}>
           <label>
             用户名
-            <input
-              ref={this.usernameRef}
-              type="text"
-              placeholder="用户名"
-            />
+            <input ref={this.usernameRef} type="text" placeholder="用户名" />
           </label>
 
           <label>
             密码
-            <input
-              ref={this.passwordRef}
-              type="password"
-              placeholder="密码"
-            />
+            <input ref={this.passwordRef} type="password" placeholder="密码" />
           </label>
           <button>提交</button>
         </form>
@@ -1068,9 +1057,7 @@ console.log(person.age); // 18
 </script>
 ```
 
-
 ### 9.2、受控组件
-
 
 ```html
 <!-- React 容器 -->
@@ -1143,7 +1130,7 @@ console.log(person.age); // 18
 
 ### 9.3、柯里化
 
-复习：js对象属性
+复习：js 对象属性
 
 ```js
 let a = "name";
@@ -1324,8 +1311,7 @@ console.log(currySum(1)(2)(3)); // 6
 
 ## 10、生命周期
 
-react16生命周期
-
+react16 生命周期
 
 ![](https://mouday.github.io/img/2024/06/02/ewe5wg8.png)
 
@@ -1378,7 +1364,7 @@ class LifeComponent extends React.Component {
   handleForceClick = () => {
     console.log("handleForceClick");
 
-    this.forceUpdate()
+    this.forceUpdate();
   };
 
   // 组件将要挂载
@@ -1394,7 +1380,7 @@ class LifeComponent extends React.Component {
   // 组件是否需要更新：阀门
   shouldComponentUpdate() {
     console.log("shouldComponentUpdate");
-    return true
+    return true;
   }
 
   // 组件将要更新
@@ -1424,7 +1410,7 @@ class LifeComponent extends React.Component {
       </div>
     );
   }
-  }
+}
 ```
 
 ### 10.2、父子组件
@@ -1507,8 +1493,6 @@ class ChildComponent extends React.Component {
 }
 ```
 
-
-
 ### 10.3、生命周期总结
 
 1、挂载顺序
@@ -1550,12 +1534,12 @@ componentDidUpdate
 ```
 
 5、组件卸载
+
 ```
 componentWillUnmount
 ```
 
-# 11、react18生命周期
-
+## 11、react18 生命周期
 
 ![](https://mouday.github.io/img/2024/06/02/pq8spx5.png)
 
@@ -1609,7 +1593,7 @@ class MyComponent extends React.Component {
   }
 
   // 组件将要卸载
-  componentWillUnmount(){
+  componentWillUnmount() {
     console.log("componentWillUnmount");
   }
 
@@ -1632,7 +1616,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<MyComponent age={19} />);
 ```
 
-### 11.1、getSnapshotBeforeUpdate示例
+### 11.1、getSnapshotBeforeUpdate 示例
 
 实现需求：滚动条滚动到固定位置，不随数据增多而滚动
 
@@ -1726,37 +1710,37 @@ root.render(<MyComponent age={19} />);
 
 ### 11.2、 总结
 
-
 挂载时
 
 ```js
-constructor
-getDerivedStateFromProps
-render            // 重要，初始化渲染
-componentDidMount // 重要，开启监听，发送ajax请求
+constructor;
+getDerivedStateFromProps;
+render; // 重要，初始化渲染
+componentDidMount; // 重要，开启监听，发送ajax请求
 ```
 
 更新时
 
 ```js
-getDerivedStateFromProps
-shouldComponentUpdate
-render
-getSnapshotBeforeUpdate
-componentDidUpdate
+getDerivedStateFromProps;
+shouldComponentUpdate;
+render;
+getSnapshotBeforeUpdate;
+componentDidUpdate;
 ```
 
 卸载时
+
 ```js
-componentWillUnmount  // 重要，收尾工作，如：清理定时器
+componentWillUnmount; // 重要，收尾工作，如：清理定时器
 ```
 
 即将废弃的钩子
 
 ```js
-componentWillMount
-componentWillReceiveProps
-componentWillUpdate
+componentWillMount;
+componentWillReceiveProps;
+componentWillUpdate;
 ```
 
 ## 12、diff 算法
@@ -1809,7 +1793,7 @@ class LifeComponent extends React.Component {
             return (
               <li key={index}>
                 {item.name} - {item.age}
-                <input type="text"/>
+                <input type="text" />
               </li>
             );
           })}
@@ -1823,7 +1807,7 @@ class LifeComponent extends React.Component {
             return (
               <li key={item.id}>
                 {item.name} - {item.age}
-                <input type="text"/>
+                <input type="text" />
               </li>
             );
           })}
@@ -1834,11 +1818,11 @@ class LifeComponent extends React.Component {
 }
 ```
 
+### 12.2、diff 分析
 
-### 12.2、diff分析
+index 索引值作为 key
 
-index索引值作为key
-```
+```shell
 初始数据
 { id: 1, name: "张三", age: 18}
 { id: 2, name: "李四", age: 20}
@@ -1861,9 +1845,9 @@ index索引值作为key
 
 ```
 
-id数据唯一值作为key
+id 数据唯一值作为 key
 
-```
+```shell
 初始数据
 { id: 1, name: "张三", age: 18}
 { id: 2, name: "李四", age: 20}
@@ -1885,9 +1869,9 @@ id数据唯一值作为key
 <li key=2>李四 - 20</li>
 ```
 
-index作为key可能会引发问题：对数据的逆序添加、逆序删除等破坏顺序的操作
+index 作为 key 可能会引发问题：对数据的逆序添加、逆序删除等破坏顺序的操作
 
-### 12.3、key的选择
+### 12.3、key 的选择
 
-- 最好使用数据的唯一值作为key: 数据id、学号、手机号、身份证号
-- 如果仅做简单展示，也可以使用index作为key
+- 最好使用数据的唯一值作为 key: 数据 id、学号、手机号、身份证号
+- 如果仅做简单展示，也可以使用 index 作为 key

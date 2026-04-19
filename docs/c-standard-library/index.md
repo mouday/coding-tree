@@ -1,6 +1,8 @@
 # C 标准库
 
-C 标准库（C Standard Library）
+## 标准库
+
+C Standard Library
 
 |头文件 | 功能简介
 |-|-

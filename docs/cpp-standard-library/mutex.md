@@ -1,6 +1,6 @@
 # mutex
 
-C++11 引入
+`C++11` 引入
 
 互斥锁（mutex）一种同步机制，用于防止多个线程同时访问共享资源。
 
@@ -463,4 +463,70 @@ std::unique_lock<std::mutex> lock2(mtx2, std::try_to_lock);
 if (lock1 && lock2) {
     // 成功获得两个锁
 }
+```
+
+## std::call_once
+
+只会被调用一次
+
+```cpp
+template<class Callable, class... Args>
+void call_once(once_flag& flag, Callable&& func, Args&&... args)
+```
+
+示例
+
+```cpp
+#include <iostream>
+#include <thread>
+
+using namespace std;
+
+void print(int i)
+{
+    cout << "hello: " << i << endl;
+}
+
+void call_once_print(int i)
+{
+    static std::once_flag once;
+    std::call_once(once, print, i);
+}
+
+int main(int argc, char const *argv[])
+{
+
+    int thread_num = 10;
+    thread threads[thread_num];
+    for (int i = 0; i < thread_num; i++)
+    {
+        // threads[i] = thread(print, i);
+        threads[i] = thread(call_once_print, i);
+    }
+
+    for (int i = 0; i < thread_num; i++)
+    {
+        threads[i].join();
+    }
+    return 0;
+}
+```
+
+不使用`call_once`，会执行多次
+
+```shell
+% g++ -std=c++11 call_once_demo.cpp && ./a.out
+
+hello: 5
+hello: hello: hello: 1hello: 9
+hello: hello: hello: hello: 0
+hello: 24
+```
+
+使用`call_once`，只会执行1次
+
+```shell
+% g++ -std=c++11 call_once_demo.cpp && ./a.out
+
+hello: 4
 ```

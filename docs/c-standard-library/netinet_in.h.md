@@ -1,5 +1,11 @@
 # netinet/in.h
 
+头文件
+
+```cpp
+#include <netinet/in.h>
+```
+
 地址结构体
 
 - IPv4 地址用结构体`sockaddr_in`表示，该结构体中包含 16 位的端口号和 32 位的 IP 地址；
@@ -47,6 +53,7 @@ servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
 // 方式2，使用gethostbyname
 // 支持：域名/主机名/字符串格式的IP
+#include <netdb.h>
 struct hostent *host_net = gethostbyname("127.0.0.1");
 memcpy(&socket_address.sin_addr, host_net->h_addr, host_net->h_length);
 
@@ -65,6 +72,8 @@ IPv4、IPv6 和 Unix Domain Socket 的地址类型分别定义为常数：
 也因此，socket API 可以接受各种类型的 sockaddr 结构体指针做参数，例如 bind()、accept()、connect()等函数，这些函数的参数应该设计成`void *`类型以便接收各种类型的指针，但是 sock API 的实现早于 ANSI C 标准化，那时还没有`void *`类型，因此这些函数的参数都用`struct sockaddr *`类型表示，在传递参数之前要强制类型转换一下，例如：
 
 ```cpp
+#include <netinet/in.h>
+
 struct sockaddr_in servaddr;
 bind(listen_fd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 ```
